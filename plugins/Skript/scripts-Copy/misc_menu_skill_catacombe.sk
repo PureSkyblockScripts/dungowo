@@ -1,0 +1,9 @@
+command /menuskillcatacomb:
+	trigger:
+		open virtual chest inventory with size 4 named "Dungeoneering Skill" to player
+		format gui slot (integers between 0 and 35) of player with {Menu-Panes}
+		format gui slot 31 of player with {Menu-Close} to close
+		format gui slot 30 of player with {Menu-GoBack} to close:
+			make player execute command "/menuskills"
+		format gui slot 12 and 14 of player with red stained glass pane named "&cUnavaible."
+		format gui slot 13 of player with wither skeleton skull named "&cCatacomb Lv%{Catacomb.%UUID of player%}%" with lore "&7Complete dungeons floor to gain" and "&7catacombs experiences." and "&7" and "&7Item Stat Boost: &d+%{Catacomb-ItemStatBoost.%UUID of player%}%&d%%" and "&7" and "&7Your Catacomb XP: &b%{catacombEXP.%UUID of player%}%&7/&b%{catacombEXPmax.%UUID of player%}%" and "&7" and "&eClick to view!" to close

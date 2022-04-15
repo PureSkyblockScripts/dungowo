@@ -1,0 +1,57 @@
+command /sb-terminalitems <text> [<text>]:
+	permission: op
+	usage: &c/sb-terminalitems <create/list/delete/remove/give> [<NameID>]
+	trigger:
+		if {RankPower.%UUID of player%} is not 1 or 2:
+			if arg-1 is "create" or "delete" or "remove":
+				NoRankPower(player)
+				stop
+		if arg-1 is "give":
+			if arg-2 is not set:
+				stop
+			give {Terminal-Items::%arg-2%::1} to player
+			send "&6&lITEMS! &7You gived you '&b%{Terminal-Items::%arg-2%::1}'s name%&7!"
+		if arg-1 is "list":
+			send "&6&lFLOOR ITEMS LIST"
+			loop {Terminal-Items::*}:
+				send "&8- &7%loop-value%"
+		if arg-1 is "delete":
+			loop {Terminal-Items::*}:
+				delete {Terminal-Items::%loop-value%::1}
+			delete {Terminal-Items::*}
+			send "&c&lDELETED!"
+		if arg-1 is "remove":
+			delete {Terminal-Items::%arg-2%::1}
+			remove "%arg-2%" from {Terminal-Items::*}
+			send "&6&lITEMS! &7You removed '&b%arg-2%&7' from items list!"
+		if arg-1 is "create":
+			if arg-2 is not set:
+				stop
+			send "&b%{Terminal-Items::*}%"
+			if {Terminal-Items::*} contains "%arg-2%":
+				delete {Terminal-Items::%arg-2%}
+				send "&6&lITEMS! &eYou replaced one!"
+			add arg-2 to {Terminal-Items::*}
+			set {Terminal-Items::%arg-2%::1} to player's tool
+			send "&6&lITEMS! &7You created '&b%arg-2%&7' &eWith: %player's tool's name%"
+			stop
+		stop
+		
+command /test-giveitem:
+	permission: op
+	trigger:
+		give 1 of stick of unbreaking 1 with hidden enchants flag named "&5Shiny Maxor's Handle" with lore "&eRight-click to view recipes!" and "&7" and "&5&lSHINY EPIC DUNGEON ITEM" with nbt "{ITEM_ID:""SHINY_MAXORS_HANDLE""}" to player
+		give 1 of stick named "&5Maxor's Handle" with lore "&eRight-click to view recipes!" and "&7" and "&5&lEPIC DUNGEON ITEM" with nbt "{ITEM_ID:""MAXORS_HANDLE""}" to player
+		give 1 of feather of unbreaking 1 with hidden enchants flag named "&9Kismet Feather" with lore "&7Allows you to reroll a" and "&cdungeon &7reward chest." and "&7" and "&7Keep a &9feather &7in your" and "&7inventory and open a reward" and "&7chest to use." and "&7" and "&8When life hands you a" and "&8lemon, reroll it." and "&7" and "&9&lRARE" with nbt "{ITEM_ID:""KISMET_FEATHER""}" to player
+		give 1 of wither skeleton skull named "&9Wither Catalyst" with lore "&eRight-click to view recipes!" and "&7" and "&9&lRARE DUNGEON ITEM" with nbt "{ITEM_ID:""WITHER_CATALYST""}" to player
+		give 1 of firework star named "&5Jolly Pink Rock" with lore "&8Precursor Relic" and "&7" and "&7The hottest shade of pink ever" and "&7worn by a Giant." and "&7" and "&eRight-click to view recipes!" and "&7" and "&5&lEPIC DUNGEON ITEM" with nbt "{ITEM_ID:""JOLLY_PINK_ROCK""}" to player
+		give 1 of lead named "&5Bigfoot's Lasso" with lore "&8Precursor Relic" and "&7" and "&7Hard to throw, even harder to" and "&7catch." and "&7" and "&eRight-click to view recipes!" and "&7" and "&5&lEPIC DUNGEON ITEM" with nbt "{ITEM_ID:""BIGFOOTS_LASSO""}" to player
+		give 1 of ender eye named "&5L.A.S.R's Eye" with lore "&8Precursor Relic" and "&7" and "&7The eye is mightier than the" and "&7sword." and "&7" and "&eRight-click to view recipes!" and "&7" and "&5&lEPIC DUNGEON ITEM" with nbt "{ITEM_ID:""LASRS_EYE""}" to player
+		give 1 of diamond horse armor named "&5Diamante's Handle" with lore "&8Precursor Relic" and "&7" and "&7The hilf of the largest sword" and "&7known to humankind." and "&7" and "&eRight-click to view recipes!" and "&7" and "&5&lEPIC DUNGEON ITEM" with nbt "{ITEM_ID:""DIAMANTES_HANDLE""}" to player
+		set {_o} to unbreakable leather boots with attribute flag hidden with unbreakable flag hidden named "&6Ancient Tarantula Boots &c✪✪✪✪✪" with lore "&7Gear Score: &dNone" and "&7Strength: &c+25 &9(+25) &8(+175)" and "&7Crit Chance: &c+12%% &9(+12%%) &8(+18%%)" and "&7Crit Damage: &c+50%% &9(+50%%) &8(+350%%)" and "&7Health: &a+257 &e(+60) &9(+7) &8(+1799)" and "&7Defense: &a+135 &e(+60) &9(+7) &8(+845)" and "&7Speed: &a+6 &8(+42)" and "&7Intelligence: &a+125 &9(+25) &8(+875)" and "&7" and "&d&lLegion V, &9Growth VI, &9Protection VI," and "&9Rejuvenate V, &9Sugar Rush III" and "&7" and "&6Item Ability: Double Jump" and "&7Allow you to double jump." and "&7" and "&9Ancient Bonus" and "&7Grants &a+1 &9Crit Damage" and "&7per &cCatacombs &7level." and "&7" and "&6&l&k0&r &6&lLEGENDARY DUNGEON BOOTS &6&l&k0&r" with nbt "{ITEM_ID:""TARANTULA_BOOTS""}"
+		dye {_o} (0, 0, 0)
+		give 1 of {_o} to player
+		set {_o} to unbreakable leather boots with attribute flag hidden with unbreakable flag hidden named "&d⚚ Ancient Shiny Tarantula Boots &c✪✪✪✪✪" with lore "&7Gear Score: &dNone" and "&7Strength: &c+35 &9(+35) &8(+245)" and "&7Crit Chance: &c+15%% &9(+15%%) &8(+22.5%%)" and "&7Crit Damage: &c+50%% &9(+50%%) &8(+350%%)" and "&7Health: &a+257 &e(+60) &9(+7) &8(+1799)" and "&7Defense: &a+135 &e(+60) &9(+7) &8(+845)" and "&7Speed: &a+6 &8(+42)" and "&7Intelligence: &a+125 &9(+25) &8(+875)" and "&7" and "&d&lLegion V, &9Growth VI, &9Protection VI," and "&9Rejuvenate V, &9Sugar Rush III" and "&7" and "&6Item Ability: Double Jump" and "&7Allow you to double jump." and "&8Maxorized Bonus: Permanent fly in F7 bossfight." and "&7" and "&9Ancient Bonus" and "&7Grants &a+1 &9Crit Damage" and "&7per &cCatacombs &7level." and "&7" and "&6&l&k0&r &6&lLEGENDARY DUNGEON BOOTS &6&l&k0&r" with nbt "{ITEM_ID:""SHINY_TARANTULA_BOOTS""}"
+		dye {_o} (0, 0, 0)
+		give 1 of {_o} to player
+		give 1 of unbreakable stone sword with unbreakable flag hidden with attribute flag hidden named "&cFabled Shiny Dark Claymore &c✪✪✪✪✪" with lore "&7Gear Score: &dNone" and "&7Swing Range: &c5" and "&7Damage: &c+2463 &e(+30) &8(+17241)" and "&7Strength: &c+351 &e(+30) &9(+75) &6[+5] &8(+2289)" and "&7Crit Damage: &c+75%% &9(+50%%) &8(+525%%)" and "&7" and "&d&lOne For All I, &9Telekinesis I" and "&7" and "&7&oThat was too big to be" and "&7&ocalled a sword, it was more like" and "&7&oa large chunk of stone." and "&7" and "&9Fabled Bonus" and "&7Critical hits have a chance to" and "&7deal up to &a20%% &7extra damage." and "&7" and "&d&l&k0&r &d&lMYTHIC DUNGEON LONGSWORD &d&l&k0&r" with nbt "{ITEM_ID:""SHINY_DARK_CLAYMORE""}" to player

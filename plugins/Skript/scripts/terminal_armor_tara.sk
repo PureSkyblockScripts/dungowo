@@ -1,0 +1,8 @@
+command /terminal-tara:
+	permission:op
+	trigger:
+		open virtual chest inventory with size 6 named "Armors" to player
+		set {_tb} to unbreakable leather boots with unbreakable flag hidden with unbreakable flag hidden named "&6⚚ Ancient Tarantula Boots &c✪✪✪✪✪" with lore "&7Gear Score: &dNone" and "&7Strength: &c+25 &9(+25) &8(+175)" and "&7Crit Chance: &c+12%% &9(+12%%) &8(+18%%)" and "&7Crit Damage: &c+50%% &9(+50%%) &8(+350%%)" and "&7Health: &a+257 &e(+60) &9(+7) &8(+1799)" and "&7Defense: &a+135 &e(+30) &9(+7) &8(+845)" and "&7Speed: &a+6 &8(+41)" and "&7Intelligence: &a+125 &9(+25) &8(+875)" and "&7" and "&d&lLegion V&9, Growth VI, Protection VI," and "&9Rejuvenate V, Sugar Rush III" and "&7" and "&6Full set bonus: Double Jump" and "&7Allow you to double jump." and "&8Maxorized Bonus:" and "&8permanent fly boost in F7!" and "&7" and "&9Ancient Bonus" and "&7Grants &a+1 &9Crit Damage" and "&7per &cCatacombs&7 level." and "&7" and "&6&k&l0 &6&lLEGENDARY DUNGEON BOOTS &6&k&l0"
+		dye {_tb} (0, 0, 0)  
+		
+		format gui slot 0 of player with {_tb}

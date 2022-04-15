@@ -1,0 +1,145 @@
+command /floor7-mm:
+	permission: op
+	trigger:
+		loop players in radius 20 of player:
+			add loop-player to {_p::*}
+		if {SBD-f7-Difficulty} is 1:
+			send "&6&lDUNGEON! &a%player% &bset the floor's difficulty to &c&lMASTER MODE&b!" to {_p::*}
+			set {SBD-f7-Difficulty} to 24
+		else:
+			send "&6&lDUNGEON! &a%player% &bset the floor's difficulty to &eNormal&b!" to {_p::*}
+			set {SBD-f7-Difficulty} to 1
+		
+		
+on right click on entity:
+	if name of clicked entity is "&7Start7":
+		make console execute command "/storage2-misc-menu-class %player%"
+		open virtual chest inventory with size 6 named "Catacombe - Floor 7" to player
+		format gui slot (integers between 0 and 53) of player with {Menu-Panes}
+		format gui slot 49 of player with {Menu-Close} to close
+		format gui slot 12 of player with piston named "&aCatacomb &8- &eFloor 7" with lore "&7Dungeon Size: &bLarge" and "&7Party Size: &91-5 Players" and "&7" and "&7Boss: &cMaxor" and "&7Only 500 years old, barely starting to wither." and "&7Wants to prove himself. Enjoys explosion to" and "&7a fault." and "&7" and "&eYou're already in this dungeon!"
+		format gui slot 14 of player with ender pearl of unbreaking 1 with hidden enchants flag named "&aStart the floor" with lore "&eClick to start!" to close
+		SB_MenuFormat_ItemSlot_DungeonClasses(player)
+		format gui slot 29 of player with {Menu-DungeonClass-B.%UUID of player%} to close
+		format gui slot 30 of player with {Menu-DungeonClass-A.%UUID of player%} to close
+		format gui slot 31 of player with {Menu-DungeonClass-M.%UUID of player%} to close
+		format gui slot 32 of player with {Menu-DungeonClass-T.%UUID of player%} to close
+		format gui slot 33 of player with {Menu-DungeonClass-H.%UUID of player%} to close
+		
+		loop all players in radius 30 of player:
+			if loop-player is a player:
+				if {defense.%UUID of loop-player%} is set:
+					add loop-player to {_pll::*}
+		
+		format gui slot 47 of player with damaged anvil named "&cReset Dungeon" with lore "&7&oAny problem? Reset Completely." and "&7" and "&cClick to reset!" to close:
+			if {PartyInvited.%UUID of player%} is the player:
+				teleport {_pll::*} to {spawn}
+				send "&6&lDUNGEON! &b%player% &ereseted completely the dungeon!" to {_pll::*}
+				SBD_Floor7_Reset()
+				stop
+			else:
+				send "&cYou're not the party leader!" to player
+				Nope(player)
+				stop
+		
+		format gui slot 48 of player with anvil named "&cReset Party" with lore "&7&oClick here if there's any problem" and "&7&oabout dungeon ready!" and "&7" and "&cClick to patch it!" to close:
+			if {PartyInvited.%UUID of player%} is the player:
+				send "&6&lDUNGEON! &b%player% &ereseted the party dungeon!" to {_pll::*}
+				delete {DungeonParty::*}
+				stop
+			else:
+				send "&cYou're not the party leader!" to player
+				Nope(player)
+				stop
+		
+		if {SBD-f7-Difficulty} is not set:
+			set {SBD-f7-Difficulty} to 1
+		format gui slot 51 of player with wither skeleton skull named "&cMaster Mode &8- &eFloor 7" with lore "&7Too easy? Try this one then." and "&7Set the floor's difficulty extremely harder!" and "&7" and "&cWARNING: This mode isn't recommended" and "&cfor new players!" and "&7" and "&eClick to switch!" to close:
+			if {PartyInvited.%UUID of player%} is the player:
+				if {SBD-f7-Difficulty} is 1:
+					send "&6&lDUNGEON! &a%player% &bset the floor's difficulty to &c&lMASTER MODE&b!" to {_pll::*}
+					set {SBD-f7-Difficulty} to 24
+				else:
+					send "&6&lDUNGEON! &a%player% &bset the floor's difficulty to &eNormal&b!" to {_pll::*}
+					set {SBD-f7-Difficulty} to 1
+			else:
+				send "&cOnly the party leader can switch it!" to player
+				Nope(player)
+				stop
+
+on inventory click:
+	if name of player's current inventory is "Catacombe - Floor 7":
+		loop all players in radius 30 of player:
+			if loop-player is a player:
+				if {defense.%UUID of loop-player%} is set:
+					add 1 to {_t}
+					add loop-player to {_pl::*}
+		set {_size} to size of {DungeonParty::*}
+		ClearScoreboard(player)
+		if name of item is "&aStart the floor":
+			if {Dungeon-StartedStarted} is not true:
+				if {_size} is higher than ({_t}-0.1):
+					set {Dungeon-StartedStarted} to true
+					send "&aDungeon starting in 10 seconds!" to {DungeonParty::*}
+					wait 5 seconds
+					set {_nv} to 5
+					loop 5 times:
+						if {DungeonParty::*} is set:
+							send "&aDungeon starting in &a%{_nv}% &aseconds!" to {DungeonParty::*}
+							Click({DungeonParty::*})
+							wait 1 second
+							remove 1 from {_nv}
+						else:
+							stop
+					loop {DungeonParty::*}:
+						set {_p} to loop-value
+						set {_p} to {_p} parsed as player
+						set {_pU} to {_p}'s uuid
+						SBD_Class_StatGive({_p})
+						ClearScoreboard({_p})
+					
+						add 1 to {SB-DungeonPlayed.%{_pU}%} # INFO MISC
+					
+					teleport {DungeonParty::*} to {Eberos}
+					SB_Dungeon_Floor7_Start()
+					stop
+				else:
+					send "&cEverbody must be ready to start." to player
+					Nope(player)
+		if name of item contains "&7[Lv":
+			if {DungeonParty::*} contains "%player%":
+				set {_a} to {_a} # rien
+			else:
+				add player to {DungeonParty::*}
+				set {_size} to size of {DungeonParty::*}
+				SB_Reload_ArmorStat(player)
+				set {_pet} to {Pet.%UUID of player%}
+				SB_Pet_StatRemove(player, "Stat")
+				SB_Pet_StatRemove(player, "Ability")
+				SB_Pet_StatGive(player, {_pet})
+				SB_Pet_AbilityGive(player, {_pet})
+			
+			if name of item contains "&cBerserker":
+				set {SBD-Class.%UUID of player%} to "Berserker"
+				send "&b%player% &aselected &cBerserker &aClass! &7(%{_size}%&7/%{_t}%&7)" to {_pl::*}
+				Click(player)
+			if name of item contains "&6Archer":
+				set {SBD-Class.%UUID of player%} to "Archer"
+				send "&b%player% &aselected &6Archer &aClass! &7(%{_size}%&7/%{_t}%&7)" to {_pl::*}
+				Click(player)
+			if name of item contains "&bMage":
+				set {SBD-Class.%UUID of player%} to "Mage"
+				send "&b%player% &aselected &bMage &aClass! &7(%{_size}%&7/%{_t}%&7)" to {_pl::*}
+				Click(player)
+			if name of item contains "&5Healer":
+				set {SBD-Class.%UUID of player%} to "Healer"
+				send "&b%player% &aselected &5Healer &aClass! &7(%{_size}%&7/%{_t}%&7)" to {_pl::*}
+				Click(player)
+			if name of item contains "&aTank":
+				set {SBD-Class.%UUID of player%} to "Tank"
+				send "&b%player% &aselected &aTank &aClass! &7(%{_size}%&7/%{_t}%&7)" to {_pl::*}
+				Click(player)
+			
+			
+			
+		

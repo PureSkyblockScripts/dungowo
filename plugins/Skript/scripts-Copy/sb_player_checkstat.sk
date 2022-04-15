@@ -1,0 +1,50 @@
+on right click on player with air:
+	if {defense.%UUID of clicked player%} is set:
+		SB_CheckStat(player, clicked player)
+
+command /sb-viewstats <offline player>:
+	trigger:
+		SB_CheckStat(player, arg-1)
+
+function SB_CheckStat(p: player, v: player):
+	set {_vU} to {_v}'s uuid
+	set {_pU} to {_p}'s uuid
+	set {_tool} to {_v}'s tool
+	set {_helm} to {_v}'s helmet
+	set {_chest} to {_v}'s chestplate
+	set {_legs} to {_v}'s leggings
+	set {_boots} to {_v}'s boots
+	if name of {Pet.%{_vU}%} contains "&7[Lv":
+		set {_pet} to {Pet.%{_vU}%}
+	else:
+		set {_pet} to barrier named "&cNo Pet"
+	if {_v}'s tool is air:
+		set {_tool} to barrier named "&cNo Tool"
+	if {_v}'s helmet is air:
+		set {_helm} to barrier named "&cNo Helmet"
+
+	if {_v}'s chestplate is air:
+		set {_chest} to barrier named "&cNo Chestplate"
+
+	if {_v}'s leggings is air:
+		set {_legs} to barrier named "&cNo Leggings"
+
+	if {_v}'s boots is air:
+		set {_boots} to barrier named "&cNo Boots"
+	wait 1 tick
+	open virtual chest inventory with size 5 named "%{_v}%'s Profile" to {_p}
+	format gui slot 0 of {_p} with {Menu-Panes}
+	format gui slot (integers between 0 and 44) of {_p} with gray stained glass pane named "&f"
+	format gui slot 0 and 8 and 9 and 17 and 18 and 26 and 27 and 35 and 36 and 44 of {_p} with {Menu-Panes}
+	format gui slot 12 of {_p} with {Menu-ProfileStat.%{_vU}%}
+	format gui slot 14 of {_p} with {Menu-ProfileInfo.%{_vU}%}
+	
+	format gui slot 28 of {_p} with {_tool}
+	format gui slot 29 of {_p} with {_pet}
+	format gui slot 31 of {_p} with {_helm}
+	format gui slot 32 of {_p} with {_chest}
+	format gui slot 33 of {_p} with {_legs}
+	format gui slot 34 of {_p} with {_boots}
+	format gui slot 40 of {_p} with {Menu-Close} to close
+	format gui slot 41 of {_p} with chest named "&aTradehand Request" with lore "&7Ask a tradehand request quickly!" and "&7" and "&eClick to request!" to close:
+		make player execute command "/tradehand %{_v}%"

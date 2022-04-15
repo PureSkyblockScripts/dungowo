@@ -1,0 +1,61 @@
+command /floor7-reset:
+	permission: op
+	trigger:
+		send "&c&lYOU HAVE RESETED FLOOR 7"
+		teleport {DungeonParty::*} to {spawn}
+		SBD_Floor7_Reset()
+
+function SBD_Floor7_Reset():
+	if {_lol} is not true:
+		TerminalPlatformReset()
+		TerminalBossbarVisibility(0)
+		delete {timer-7}
+		delete {SBD-f7-Difficulty}
+		delete {Dungeon-DeathTotal-Floor-7}
+		set {Dungeon-Death-Floor-7} to 0
+		set {Dungeon-Timer-Minute-Floor-7} to 0
+		set {Dungeon-Timer-Second-Floor-7} to 0
+		SBD_Blessing("remove", "0", 0)
+		loop {DungeonParty::*}:
+			set {_p} to loop-value
+			set {_p} to {_p} parsed as offline player
+			set {_pU} to {_p}'s uuid
+			SBD_Class_StatRemove({_p})
+			SBD_ReviveGhostReset({_p})
+			SB_Reload_ArmorStat({_p})
+			ClearScoreboard({_p})
+			delete {SBD-Class.%{_pU}%}
+			delete {DungeonClass-Ultimate.%{_pU}%}
+			if {_p}'s gamemode is not creative:
+				disable fly to {_p}
+		delete {DungeonParty::*}
+		delete {Dungeon-Started} # STARTED?
+		delete {Dungeon-StartedStarted}
+		send "&e&lDUNGEON! &6A party for Floor VII is avaible!" to players
+		delete {ready-Dungeon}
+		delete {Terminal-Phase}
+		delete {Terminal-Lever}
+		delete {Gears-Blue}
+		delete {Gears-Purple}
+		delete {Terminal-Terminal-Blue}
+		delete {Terminal-Terminal-Purple}
+		delete {Terminal-Gears-Blue}
+		delete {Terminal-Gears-Purple}
+		delete {Device-Arrow}
+		delete {Device-Lamp}
+		delete {Lazered}
+		delete {CrystalPickedUp}
+		loop 2 times:
+			loop all living entities:
+				if loop-entity is not a player:
+					if name of loop-entity contains "&6&lCHAINS-1" or "&6&lCHAINS-2" or "&e&lRIGHT-CLICK" or "&aEnergy Crystal" or "&c&lLAZER" or "&aTERMINAL-DONE" or "&c&lMaxor" or "&cWither":
+						DeleteEntity(loop-entity)
+			wait 2 seconds
+		make console execute command "/kill @e[type=end_crystal]"
+		make console execute command "/clone 138 159 338 140 150 340 162 118 335"
+		make console execute command "/clone 138 159 338 140 150 340 162 118 311"
+		set block at the location (115, 160, 314) of the world "world" to redstone block
+		make console execute command "/clone 119 106 310 116 103 316 117 109 321"
+		set block at the location (26, 24, 299) of the world "world" to redstone block
+		spawn an end crystal at the location (163.5, 119.25, 336.5) of the world "world" with nbt "{Invulnerable:1b}"
+		spawn an end crystal at the location (163.5, 119.25, 312.5) of the world "world" with nbt "{Invulnerable:1b}"

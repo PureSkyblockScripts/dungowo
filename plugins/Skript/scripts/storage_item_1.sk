@@ -1,0 +1,97 @@
+command /storage-item-1:
+	permission: op
+	trigger:
+		
+		set {Storage-Item-Blé} to wheat named "&fBlé" with lore "&f&lCOMMUN"
+		set {Storage-Item-PommeDeTerre} to potato named "&fPomme de Terre" with lore "&f&lCOMMUN"
+		set {Storage-Item-Carotte} to carrot named "&fCarotte" with lore "&f&lCOMMUN"
+		set {Storage-Item-Citrouille} to pumpkin named "&fCitrouille" with lore "&f&lCOMMUN"
+		set {Storage-Item-Melon} to melon slice named "&fMelon" with lore "&f&lCOMMUN"
+		set {Storage-Item-CanneàSucre} to sugar cane named "&fCanne à Sucre" with lore "&f&lCOMMUN"
+		set {Storage-Item-Cactus} to cactus named "&fCactus" with lore "&f&lCOMMUN"
+		set {Storage-Item-FèvesDeCacao} to cocoa beans named "&fFèves de Cacao" with lore "&f&lCOMMUN"
+		set {Storage-Item-ChampignonRouge} to red mushroom named "&fChampignon Rouge" with lore "&f&lCOMMUN"
+		set {Storage-Item-ChampignonMarron} to brown mushroom named "&fChampignon Marron" with lore "&f&lCOMMUN"
+		set {Storage-Item-VerruesDuNether} to nether wart named "&fVerrues du Nether" with lore "&f&lCOMMUN"
+		
+		set {Storage-Item-Pierres} to cobblestone named "&fPierres" with lore "&f&lCOMMUN"
+		set {Storage-Item-Charbon} to coal named "&fCharbon" with lore "&f&lCOMMUN"
+		set {Storage-Item-LingotDeFer} to iron ingot named "&fLingot De Fer" with lore "&f&lCOMMUN"
+		set {Storage-Item-LingotDOr} to gold ingot named "&fLingot d'Or" with lore "&f&lCOMMUN"
+		set {Storage-Item-Diamant} to diamond named "&fDiamant" with lore "&f&lCOMMUN"
+		set {Storage-Item-Émeraude} to emerald named "&fÉmeraude" with lore "&f&lCOMMUN"
+		set {Storage-Item-Obsidienne} to obsidian named "&fObsidienne" with lore "&f&lCOMMUN"
+		set {Storage-Item-Mithril} to prismarine crystals named "&fMithril" with lore "&f&lCOMMUN"
+		set {Storage-Item-Sable} to sand named "&fSable" with lore "&f&lCOMMUN"
+		set {Storage-Item-Gravier} to gravel named "&fGravier" with lore "&f&lCOMMUN"
+		set {Storage-Item-Redstone} to redstone named "&fRedstone" with lore "&f&lCOMMUN"
+		set {Storage-Item-LapisLazuli} to lapis lazuli named "&fLapis-Lazuli" with lore "&f&lCOMMUN"
+		set {Storage-Item-PoudreLumineuse} to glowstone dust named "&fPoudre Lumineuse" with lore "&f&lCOMMUN"
+		set {Storage-Item-QuartzDuNether} to nether quartz named "&fQuartz du Nether" with lore "&f&lCOMMUN"
+		set {Storage-Item-Roche} to stone named "&fRoche" with lore "&f&lCOMMUN"
+		
+		set {Storage-Item-ChairPutréfiée} to rotten flesh named "&fChair Putréfiée" with lore "&f&lCOMMUN"
+		set {Storage-Item-Os} to bone named "&fOs" with lore "&f&lCOMMUN"
+		set {Storage-Item-Ficelle} to string named "&fFicelle" with lore "&f&lCOMMUN"
+		set {Storage-Item-OeilDAraignée} to spider eye named "&fOeil d'Araignée" with lore "&f&lCOMMUN"
+		set {Storage-Item-PoudreàCanon} to gunpowder named "&fPoudre à Canon" with lore "&f&lCOMMUN"
+		set {Storage-Item-PearlDeLEnder} to ender pearl named "&fPearl de l'Ender" with lore "&f&lCOMMUN"
+		set {Storage-Item-LarmeDeGhast} to ghast tear named "&fLarme de Ghast" with lore "&f&lCOMMUN"
+		set {Storage-Item-BouleDeSlime} to slime ball named "&fBoule de Slime" with lore "&f&lCOMMUN"
+		set {Storage-Item-BâtonDeblaze} to blaze rod named "&fBâton de Blaze" with lore "&f&lCOMMUN"
+		set {Storage-Item-CrèmeDeMagma} to magma cream named "&fCrème de Magma" with lore "&f&lCOMMUN"
+		
+		set {Storage-Item-BoisDeChêne} to oak log named "&fBois de Chêne" with lore "&f&lCOMMUN"
+		set {Storage-Item-BoisDeBouleau} to birch log named "&fBois de Bouleau" with lore "&f&lCOMMUN"
+		set {Storage-Item-BoisDeSapin} to spruce log named "&fBois de Sapin" with lore "&f&lCOMMUN"
+		set {Storage-Item-BoisDAcacia} to acacia log named "&fBois d'Acacia" with lore "&f&lCOMMUN"
+		set {Storage-Item-BoisDAcajou} to jungle log named "&fBois d'Acajou" with lore "&f&lCOMMUN"
+		set {Storage-Item-BoisDeChêneNoir} to dark oak log named "&fBois de Chêne Noir" with lore "&f&lCOMMUN"
+		set {Storage-Item-PoissonCru} to cod named "&fPoisson Cru" with lore "&f&lCOMMUN"
+		set {Storage-Item-SaumonCru} to salmon named "&fSaumon Cru" with lore "&f&lCOMMUN"
+		set {Storage-Item-PoissonTropical} to tropical fish named "&fPoisson Tropical" with lore "&f&lCOMMUN"
+		set {Storage-Item-PoissonGlobe} to pufferfish named "&fPoisson-Globe" with lore "&f&lCOMMUN"
+		set {Storage-Item-PocheEncre} to ink sac named "&fPoche d'Encre" with lore "&f&lCOMMUN"
+		set {Storage-Item-ÉclatDePrismarine} to prismarine shard named "&fÉclat de Prismarine" with lore "&f&lCOMMUN"
+		set {Storage-Item-CristauxDePrismarine} to prismarine crystals named "&fCristaux de Prismarine" with lore "&f&lCOMMUN"
+		set {Storage-Item-Nénuphar} to lily pad named "&fNénuphar" with lore "&f&lCOMMUN"
+		
+		set {Storage-Item-Terre} to dirt named "&fTerre" with lore "&f&lCOMMUN"
+		set {Storage-Item-SableRouge} to red sand named "&fSable Rouge" with lore "&f&lCOMMUN"
+		set {Storage-Item-SableDesÂmes} to soul sand named "&fSable des Âmes" with lore "&f&lCOMMUN"
+		set {Storage-Item-Pissenlit} to dandelion named "&fPissenlit" with lore "&f&lCOMMUN"
+		set {Storage-Item-Coquelicot} to poppy named "&fCoquelicot" with lore "&f&lCOMMUN"
+		set {Storage-Item-Allium} to allium named "&fAllium" with lore "&f&lCOMMUN"
+		set {Storage-Item-OrchidéeBLeue} to blue orchid named "&fOrchidée Bleue" with lore "&f&lCOMMUN"
+		set {Storage-Item-HoustonieBleue} to azure bluet named "&fHoustonie Bleue" with lore "&f&lCOMMUN"
+		set {Storage-Item-Clay} to clay named "&fClay" with lore "&f&lCOMMUN"
+		set {Storage-Item-Brique} to brick named "&fBrique" with lore "&f&lCOMMUN"
+		set {Storage-Item-BouleDeNeige} to snowball named "&fBoule De Neige" with lore "&f&lCOMMUN"
+		set {Storage-Item-Bâton} to stick named "&fBâton" with lore "&f&lCOMMUN"
+		set {Storage-Item-RocheDuNether} to netherrack named "&fRoche du Nether" with lore "&f&lCOMMUN"
+		set {Storage-Item-GrainesDeBlé} to wheat seeds named "&fGraines de Blé" with lore "&f&lCOMMUN"
+		set {Storage-Item-Pomme} to apple named "&fPomme" with lore "&f&lCOMMUN"
+		set {Storage-Item-Silex} to flint named "&fSilex" with lore "&f&lCOMMUN"
+		set {Storage-Item-Verre} to glass named "&fVerre" with lore "&f&lCOMMUN"
+		set {Storage-Item-Terracotta} to terracotta named "&fArgile Durcie" with lore "&f&lCOMMUN"
+		
+		
+		
+		set {Storage-Item-PoussièreDeSable} to pumpkin seeds named "&aPoussière de Sable" with lore "&a&lUNCOMMUN"
+		set {Storage-Item-CoquilleDeSable} to nautilus shell named "&9Coquille de Sable" with lore "&9&lRARE"
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	
+		set {Storage-Item-FragmentDeNether} to player head with nbt "{display:{Name:""{\""text\"":\""Soulsand\""}""},SkullOwner:{Id:[I;1845182579,-1281736309,-1924120310,-254467019],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODcwNmY2MmU2NWFhNWUzZGMyNDFlODM2OTIyMTExODE4ZjI4YzliZTJmYzRmNzJlOGY5OGRjY2RjMzE2OTJhYSJ9fX0=""}]}}}" named "&9Fragment de Nether" with lore "&7Matière extraite du cœur du Nether. Il" and "&7peut être utilisé pour fabriquer des" and "&7objets puissants." and "&7" and "&9&lRARE"
+		set {Storage-Item-BouleDeFeu} to player head with nbt "{display:{Name:""{\""text\"":\""Fire Charge\""}""},SkullOwner:{Id:[I;420496346,704925621,-2097778403,1450691027],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjdkNTdiNWJjOWFiM2Y1M2VjOWNjMmY5NGI3MmMxMzRhY2RlODU1YTY0M2MyNWU1YTI2YzNlMGIyYTYwM2FkZCJ9fX0=""}]}}}" named "&aBoule de Feu" with lore "&6Capacité de l'Item: Boule de Feu &e&lCLIQUE DROIT" and "&7Lance &61 &7Boule de Feu en face de vous qui" and "&7infligera par vos &cdégâts de base&7." and "&8Délais: &30.25s" and "&7" and "&a&lUNCOMMUN"
+		
+		set {Storage-Item-ChairRevenante} to rotten flesh of unbreaking 1 with hidden enchants flag named "&aChair Revenante" with lore "&a&lUNCOMMUN"

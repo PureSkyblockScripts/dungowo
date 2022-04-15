@@ -1,0 +1,76 @@
+command /menucollection-combat-chairPutréfiée <player>:
+ permission: op
+ trigger:
+  if {collection-RottenFlesh.%UUID of arg-1%} is not higher than 0:
+   set {_MenuCollection-RottenFlesh-1.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-RottenFlesh-1.%UUID of arg-1%} to lime stained glass pane
+
+  if {collection-RottenFlesh.%UUID of arg-1%} is not higher than 1:
+   set {_MenuCollection-RottenFlesh-2.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-RottenFlesh-2.%UUID of arg-1%} to lime stained glass pane
+
+  if {collection-RottenFlesh.%UUID of arg-1%} is not higher than 2:
+   set {_MenuCollection-RottenFlesh-3.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-RottenFlesh-3.%UUID of arg-1%} to lime stained glass pane
+
+  if {collection-RottenFlesh.%UUID of arg-1%} is not higher than 3:
+   set {_MenuCollection-RottenFlesh-4.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-RottenFlesh-4.%UUID of arg-1%} to lime stained glass pane
+
+  if {collection-RottenFlesh.%UUID of arg-1%} is not higher than 4:
+   set {_MenuCollection-RottenFlesh-5.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-RottenFlesh-5.%UUID of arg-1%} to lime stained glass pane
+
+  if {collection-RottenFlesh.%UUID of arg-1%} is not higher than 5:
+   set {_MenuCollection-RottenFlesh-6.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-RottenFlesh-6.%UUID of arg-1%} to lime stained glass pane
+
+  if {collection-RottenFlesh.%UUID of arg-1%} is not higher than 6:
+   set {_MenuCollection-RottenFlesh-7.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-RottenFlesh-7.%UUID of arg-1%} to lime stained glass pane
+
+  if {collection-RottenFlesh.%UUID of arg-1%} is not higher than 7:
+   set {_MenuCollection-RottenFlesh-8.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-RottenFlesh-8.%UUID of arg-1%} to lime stained glass pane
+
+  if {collection-RottenFlesh.%UUID of arg-1%} is not higher than 8:
+   set {_MenuCollection-RottenFlesh-9.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-RottenFlesh-9.%UUID of arg-1%} to lime stained glass pane
+
+  open virtual chest inventory with size 6 named "Collection de Chair Putréfiée" to arg-1
+  wait 1 tick
+  format gui slot (integers between 0 and 53) of arg-1 with black stained glass pane named "&f"
+
+  format gui slot 4 of arg-1 with rotten flesh named "&eChair Putréfiée %{Collection-RottenFlesh.%UUID of arg-1%}%" with lore "&7Consultez tous les progrès et récompenses" and "&7de votre collection de Chair Putréfiée!" and "&7" and "&7Vous avez récolté &e%{Collection-RottenFlesh-Collected.%UUID of arg-1%}%&7."
+
+  format gui slot 18 of arg-1 with {_MenuCollection-RottenFlesh-1.%UUID of arg-1%} named "&eChair Putréfiée I" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&8???" and "&7" and "&7Nécessite &b50 Chairs Putréfiées"
+
+  format gui slot 19 of arg-1 with {_MenuCollection-RottenFlesh-2.%UUID of arg-1%} named "&eChair Putréfiée II" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&8???" and "&7" and "&7Nécessite &b100 Chairs Putréfiées"
+
+  format gui slot 20 of arg-1 with {_MenuCollection-RottenFlesh-3.%UUID of arg-1%} named "&eChair Putréfiée III" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&8???" and "&7" and "&7Nécessite &b250 Chairs Putréfiées"
+
+  format gui slot 21 of arg-1 with {_MenuCollection-RottenFlesh-4.%UUID of arg-1%} named "&eChair Putréfiée IV" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&fChair Putréfiée Enchanté &7Recette" and "&7" and "&7Nécessite &b1000 Chairs Putréfiées"
+
+  format gui slot 22 of arg-1 with {_MenuCollection-RottenFlesh-5.%UUID of arg-1%} named "&eChair Putréfiée V" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&8???" and "&7" and "&7Nécessite &b2500 Chairs Putréfiées"
+
+  format gui slot 23 of arg-1 with {_MenuCollection-RottenFlesh-6.%UUID of arg-1%} named "&eChair Putréfiée VI" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&9Cœur de Zombie &7Recette" and "&7" and "&7Nécessite &b5000 Chairs Putréfiées"
+
+  format gui slot 24 of arg-1 with {_MenuCollection-RottenFlesh-7.%UUID of arg-1%} named "&eChair Putréfiée VII" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&5Armure de Zombie &7Recette" and "&7" and "&7Nécessite &b10 000 Chairs Putréfiées"
+
+  format gui slot 25 of arg-1 with {_MenuCollection-RottenFlesh-8.%UUID of arg-1%} named "&eChair Putréfiée VIII" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&8???" and "&7" and "&7Nécessite &b25 000 Chairs Putréfiées"
+
+  format gui slot 26 of arg-1 with {_MenuCollection-RottenFlesh-9.%UUID of arg-1%} named "&eChair Putréfiée IX" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&8???" and "&7" and "&7Nécessite &b50 000 Chairs Putréfiées"
+
+
+  format gui slot 48 of arg-1 with arrow named "&aRetour" with lore "&7Revenir à la page précédente." and "&7" and "&eCliquez pour retourner!" to close:
+   make console execute command "/menucollection-combat %player%"
+  format gui slot 49 of arg-1 with barrier named "&cFermer" to close

@@ -1,0 +1,51 @@
+on skript stop:
+	SBD_Floor7_Reset()
+	
+on skript start:
+	if {DungeonParty::*} is set:
+		SBD_Floor7_Reset()
+
+on quit:
+	if {Dungeon-StartedStarted} is true:
+		if {SBD-Ghosted.%UUID of player%} is true:
+			stop
+		if {DungeonParty::*} contains "%player%":
+			set {_p} to player
+			set {_pU} to {_p}'s uuid
+		
+			set {_sz} to size of {DungeonParty::*}
+			loop {DungeonParty::*}:
+				set {_pl} to loop-value
+				set {_plv} to {_pl} parsed as offline player
+				if {_plv} is not online:
+					add 1 to {_v}
+			if {_v} is equal to {_sz}:
+				teleport {DungeonParty::*} to {spawn}
+				SBD_Floor7_Reset()
+				stop
+	# ===
+			if player's ping is higher than 149.9:
+				send "&c%{_p}% &7disconnected while in dungeon. &6This death won't be count because player had a high ping!" to {DungeonParty::*}
+			else:
+				SBD_PlayerDeath(player, "offline")
+			
+on join:
+	wait 2 seconds
+	if {DungeonParty::*} contains "%player%":
+		set {_p} to player
+		set {_pU} to {_p}'s uuid
+		loop all players:
+			if {DungeonParty::*} contains "%loop-player%":
+				if loop-player is not {_p}:
+					teleport player to loop-player
+					send "&e&lDUNGEON! &aYou have been teleported to a random teammate because you were disconnected!" to player
+					send "&e&lDUNGEON! &b%{_p}% &ahas teleported to you because they were disconnected!" to loop-player
+				if {SBD-Ghosted.%UUID of loop-player%} is true:
+					delete {SBD-Ghosted.%UUID of loop-player%}
+					SBD_ReviveGhostReset(loop-player)
+	else:
+		if {SBD-Ghosted.%UUID of player%} is true:
+			delete {SBD-Ghosted.%UUID of player%}
+			SBD_ReviveGhostReset(player)
+			
+		

@@ -1,0 +1,23 @@
+command /fly [<player>]:
+	permission: op
+	trigger:
+		if arg-1 is not set:
+			enable fly to player
+		else:
+			enable fly to arg-1
+		send "&aFly Activated!"
+
+command /unfly [<player>]:
+	permission: op
+	trigger:
+		if arg-1 is not set:
+			disable fly to player
+		else:
+			disable fly to arg-1
+		send "&cFly Deactivated!"
+		
+command /flyspeed <text> <number>:
+	permission: op
+	usage: &c/flyspeed <set> <valeur>
+	trigger:
+		set player's fly speed to arg-2

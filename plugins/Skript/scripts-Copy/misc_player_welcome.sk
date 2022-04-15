@@ -1,0 +1,131 @@
+on join:
+	set {_p} to player
+	set {_pU} to {_p}'s uuid
+	if {Combat.%UUID of player%} is not 50:
+		SB_Welcome(player)
+		set {trueplayer.%{_pU}%} to "&7%{_p}%"
+		set {rankPower.%{_pU}%} to 100
+		teleport {_p} to {spawn}
+
+		set {SB-DeathCount.%{_pU}%} to 0
+		set {SB-BestDamage.%{_pU}%} to 0
+		set {coins.%{_pU}%} to 0
+		set {purse.%{_pU}%} to 0
+		set {essence.%{_pU}%} to 0
+		send "&7Its seems like you have already joined the server before. We reload your data!" to player
+	if {_abc} is not true:
+		teleport player to {spawn}
+		set join message to "&a» &8%player% &ajoined &7the server."
+		send "&6---------------------------------------" to player
+		send "&7Welcome to &6&lSTORM &7(&cAlpha Version&7)!" to player
+		send "" to player
+		send "&7Official &cYoutube &7Channel: <link:https://www.youtube.com/channel/UCGcgla8X_uxVX5FOPfqApSg>&eClick here!" to player
+		send "&7Official &bDiscord &7Server: <link:https://discord.gg/vt7AreU>&ediscord.gg/vt7AreU" to player
+		send "" to player
+		send "&7To create a &6Party &7type '&a/party&7'" to player
+		send "&6---------------------------------------" to player
+command /discord:
+	aliases: /ds
+	trigger:
+		send "&6&lLINK! <link:https://discord.gg/vt7AreU>&eClick here! (Discord)<reset>"
+
+command /youtube:
+	aliases: /yt
+	trigger:
+		send "&6&lLINK! <link:https://www.youtube.com/channel/UCGcgla8X_uxVX5FOPfqApSg>&eClick here! (Youtube)<reset>"
+
+on quit:
+	if {abc} is not true:
+		set leave message to "&c» &8%player% &cleft &7the server."
+  
+on first join:
+	set {_p} to player
+	set {_pU} to {_p}'s uuid
+	clear {_p}'s inventory
+	set join message to "&6WELCOME! &b%player% &fjoined first time to the server!"
+	set {trueplayer.%{_pU}%} to "&7%{_p}%"
+	set {rankPower.%{_pU}%} to 100
+	teleport {_p} to {spawn}
+
+	set {SB-DeathCount.%{_pU}%} to 0
+	set {SB-BestDamage.%{_pU}%} to 0
+	set {coins.%{_pU}%} to 0
+	set {purse.%{_pU}%} to 0
+	set {essence.%{_pU}%} to 0
+
+	SB_Welcome(player)
+	
+function SB_Reload_AllStat(p: player):
+	set {_pU} to {_p}'s uuid
+	if {_p} is set:
+		set {_pet} to {Pet.%{_pU}%}
+		SB_Pet_StatRemove({_p}, "Stat")
+		SB_Pet_StatRemove({_p}, "Ability")
+		set {Pet.%{_pU}%} to stone named "&cNone"
+		set {_o} to {_p}'s helmet
+		set {_o2} to {_p}'s chestplate
+		set {_o3} to {_p}'s leggings
+		set {_o4} to {_p}'s boots
+		set {_p}'s helmet to air
+		set {_p}'s chestplate to air
+		set {_p}'s leggings to air
+		set {_p}'s boots to air
+		set {_p}'s selected hotbar slot to slot 8 of {_p}
+		wait 0.2 seconds
+		SB_Welcome({_p})
+		set {Stat-Tool-AlreadyChanged.%{_pU}%} to true
+		set {_p}'s helmet to {_o}
+		set {_p}'s chestplate to {_o2}
+		set {_p}'s leggings to {_o3}
+		set {_p}'s boots to {_o4}
+		set {Pet.%{_pU}%} to {_pet}
+		SB_Pet_StatGive({_p}, {_pet})
+		SB_Pet_AbilityGive({_p}, {_pet})
+	
+command /testwelcome <player>:
+	permission: op
+	trigger:
+		set {_p} to arg-1
+		set {_pU} to {_p}'s uuid
+		clear {_p}'s inventory
+		teleport {_p} to {spawn}
+		SB_Welcome(arg-1)
+
+function SB_Welcome(p: player):
+	set {_pU} to {_p}'s uuid
+	set {Mining.%{_pU}%} to 50
+	set {Farming.%{_pU}%} to 50
+	set {Combat.%{_pU}%} to 50
+	set {Catacomb.%{_pU}%} to 50
+	SB_Reload_ItemStatBoost({_p})
+	
+	set {AdditionalDamage.%{_pU}%} to 210
+
+	set {MiningSpeed.%{_pU}%} to 0
+	set {FarmingFortune.%{_pU}%} to 0
+	set {MiningFortune.%{_pU}%} to 0
+	set {ForagingFortune.%{_pU}%} to 0
+	set {PetLuck.%{_pU}%} to 0
+	set {MagicFind.%{_pU}%} to 0
+	set {Intelligence.%{_pU}%} to 350
+	set {Mana.%{_pU}%} to {Intelligence.%{_pU}%}
+	set {MaxHealth.%{_pU}%} to 1150
+	set {Health.%{_pU}%} to {MaxHealth.%{_pU}%}
+	set {Defense.%{_pU}%} to 300
+	set {Speed.%{_pU}%} to 200
+	set {Strength.%{_pU}%} to 475
+	set {CritChance.%{_pU}%} to 60
+	set {CritDamage.%{_pU}%} to 1315
+	set {AbilityDamage.%{_pU}%} to 30
+	set {AttackSpeed.%{_pU}%} to 50
+	set {Ferocity.%{_pU}%} to 0
+	
+	set {NaturalRegeneration.%{_pU}%} to 0
+	set {ManaRegeneration.%{_pU}%} to 2
+	
+	set {DungeonClass-Berserker.%{_pU}%} to 50
+	set {DungeonClass-Archer.%{_pU}%} to 50
+	set {DungeonClass-Healer.%{_pU}%} to 50
+	set {DungeonClass-Tank.%{_pU}%} to 50
+	set {DungeonClass-Mage.%{_pU}%} to 50
+	

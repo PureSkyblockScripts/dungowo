@@ -1,0 +1,14 @@
+on command "/terminal-armors":
+	if {a} is not true:
+		wait 2 ticks
+		set {_ggc} to unbreakable leather chestplate with unbreakable flag hidden with attribute flag hidden named "&dGiant Goldor's Chestplate &c✪✪✪✪✪" with lore "&7Gear Score: &dNone" and "&7Item Quality: &d100%% &8(Never has randomized stats)" and "&7Health: &a+760 &e(+60) &9(+240) &d(+60) &8(+5301)" and "&7Defense: &a+323 &e(+30) &8(+2253)" and "&7Intelligence: &a+20 &8(+140)" and "&7True Defense: &a+5 &8(+7.5)" and "&6[&c⚕&6] &6[&c⚔&6]" and "&7" and "&d&lLegion V&9, Growth VI, Protection VI," and "&9Rejuvenate V, True Protection I" and "&7" and "&7Reduce the damage you take from" and "&7withers by &c10%%&7." and "&7" and "&d&k&l0 &d&lMYTHIC DUNGEON CHESTPLATE &d&k&l0"
+		dye {_ggc} (69, 65, 60)
+		
+		set {_ggl} to unbreakable leather leggings with unbreakable flag hidden with attribute flag hidden named "&dGiant Goldor's Leggings &c✪✪✪✪✪" with lore "&7Gear Score: &dNone" and "&7Item Quality: &d100%% &8(Never has randomized stats)" and "&7Health: &a+720 &e(+60) &9(+240) &d(+60) &8(+5022)" and "&7Defense: &a+296 &e(+30) &8(+2065)" and "&7Intelligence: &a+45 &8(+314)" and "&6[&c⚕&6] &6[&c⚔&6]" and "&7" and "&d&lLegion V&9, Growth VI, Protection VI," and "&9Rejuvenate V, Smarty Pants V" and "&7" and "&7Reduce the damage you take from" and "&7withers by &c10%%&7." and "&7" and "&d&k&l0 &d&lMYTHIC DUNGEON LEGGINGS &d&k&l0"
+		dye {_ggl} (101, 96, 90)
+		
+		set {_ggb} to unbreakable leather boots with unbreakable flag hidden with attribute flag hidden named "&dGiant Goldor's Boots &c✪✪✪✪✪" with lore "&7Gear Score: &dNone" and "&7Item Quality: &d100%% &8(Never has randomized stats)" and "&7Health: &a+625 &e(+60) &9(+240) &d(+60) &8(+4360)" and "&7Defense: &a+200 &e(+30) &8(+1395)" and "&7Speed: &a+6 &8(+41)" and "&7Intelligence: &a+20 &8(+140)" and "&6[&c⚕&6] &6[&c⚔&6]" and "&7" and "&d&lLegion V&9, Growth VI, Protection VI," and "&9Rejuvenate V, Sugar Rush III" and "&7" and "&7Reduce the damage you take from" and "&7withers by &c10%%&7." and "&7" and "&d&k&l0 &d&lMYTHIC DUNGEON BOOTS &d&k&l0"
+		dye {_ggb} (136, 131, 126) 
+		format gui slot 23 of player with {_ggc}
+		format gui slot 32 of player with {_ggl}
+		format gui slot 41 of player with {_ggb}

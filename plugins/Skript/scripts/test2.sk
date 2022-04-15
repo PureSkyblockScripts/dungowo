@@ -1,0 +1,95 @@
+command /itemstatboostreload <player>:
+	permission: op
+	trigger:
+		SB_Reload_ItemStatBoost(arg-1)
+		send "&dItem Stat Boost &d+%{Catacomb-ItemStatBoost.%UUID of player%}%&d%%" to player
+
+function SB_Reload_ItemStatBoost(p: player):
+	if {_a} is not true:
+		set {_pU} to {_p}'s uuid
+		set {_c} to {Catacomb.%{_pU}%}
+		if {_c} is between 1 and 5:
+			add ({_c}*4) to {_v}
+		if {_c} is between 6 and 10:
+			set {_v} to 20
+			loop ({_c}-5) times:
+				add 5 to {_v}
+		if {_c} is between 11 and 15:
+			set {_v} to 45
+			loop ({_c}-10) times:
+				add 6 to {_v}
+		if {_c} is between 16 and 20:
+			set {_v} to 75
+			loop ({_c}-15) times:
+				add 7 to {_v}
+		if {_c} is between 21 and 25:
+			set {_v} to 110
+			loop ({_c}-20) times:
+				add 8 to {_v}
+		if {_c} is between 26 and 30:
+			set {_v} to 150
+			loop ({_c}-25) times:
+				add 9 to {_v}
+		if {_c} is between 31 and 35:
+			set {_v} to 195
+			loop ({_c}-30) times:
+				add 10 to {_v}
+		if {_c} is between 36 and 40:
+			set {_v} to 245
+			loop ({_c}-35) times:
+				add 12 to {_v}
+		if {_c} is between 41 and 45:
+			set {_v} to 305
+			loop ({_c}-40) times:
+				add 14 to {_v}
+		if {_c} is higher than 45:
+			set {_v} to 375
+			set {_t} to 16
+			loop ({_c}-45) times:
+				add {_t} to {_v}
+				add 1 to {_t}
+		set {Catacomb-ItemStatBoost.%{_pU}%} to {_v}
+
+command /test-changeprofile <text>:
+	permission: op
+	trigger:
+# 1 "Watermelon" ---> (((2))) "Apple"
+# ////////////////////////////
+# [1]
+		delete {Profile-%{CurrentProfile.%UUID of player%}%-Save-Inventory.%UUID of player%::*}
+		set {_o} to stick named "&cWTF BRO?"
+		add 5000 of {_o} to player's inventory
+		loop all items in player's inventory:
+			add loop-item to {Profile-%{CurrentProfile.%UUID of player%}%-Save-Inventory.%UUID of player%::*}
+
+		#set {Profile-%{CurrentProfile.%UUID of player%}%-Save-Strength.%UUID of player%} to {strength.%UUID of player%}
+# ============	
+		set {P.%UUID of player%} to "%player's uuid%-%arg-1%" #CURRENT
+		set {CurrentProfile.%UUID of player%} to arg-1
+		send "&eUUID of Profile Now: &b%{P.%UUID of player%}% &7(&a%{CurrentProfile.%UUID of player%}%&7)" to player
+# ============
+# GIVE PROFILE (arg-1)'s PROFILE
+		remove all items from player's inventory
+		add {Profile-%{CurrentProfile.%UUID of player%}%-Save-Inventory.%UUID of player%::*} to player's inventory
+		remove all {_o} from player's inventory
+		
+		#set {strength.%UUID of player%} to {Profile-%{CurrentProfile.%UUID of player%}%-Save-Strength.%UUID of player%}
+		
+command /test-startprofile <text>:
+	permission: op
+	trigger:
+		set {P.%UUID of player%} to "%player's uuid%-%arg-1%"
+		set {CurrentProfile.%UUID of player%} to arg-1
+		send "&eYou starting with: &b%{P.%UUID of player%}% &7(&a%{CurrentProfile.%UUID of player%}%&7)" to player
+		
+command /test-createprofile <text>:
+	permission: op
+	trigger:
+		set {Profile-%arg-1%.%UUID of player%} to arg-1
+		send "&6&lSET! &7(&b%{Profile-%arg-1%.%UUID of player%}%&7)" to player 
+		# -------- ""MAYBE"" 1/2 USELESS, juste pour créer l'arg, name detect when click then delete variable car useless car faut juste faire >l'arg-1< ~ to switch le profile voulu
+
+command /test-currentprofile:
+	permission: op
+	trigger:
+		send "&eCurrent Profile: &b%{P.%UUID of player%}% &f(&a%{CurrentProfile.%UUID of player%}%&f)" to player

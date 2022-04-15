@@ -1,0 +1,28 @@
+command /sb-collections:
+	trigger:
+		open virtual chest inventory with size 6 named "Recipes" to player
+		format gui slot (integers between 0 and 53) of player with {Menu-Panes}
+
+		format gui slot 4 of player with painting named "&7"
+
+		format gui slot 20 of player with golden hoe with attribute flag hidden named "&aFarming Collection" with lore "&7Farm wheats, carrots, potatoes, pumpkins," and "&7melons, and more to unlock collections!" and "&7" and "&eClick to view!" to close:
+			make console execute command "/sb-collection farming"
+
+		format gui slot 21 of player with stone sword with attribute flag hidden named "&aCombat Collection" with lore "&7Fight zombies, skeletons, slimes, spiders," and "&7blazes, and more to unlock collections!" and "&7" and "&eClick to view!" to close:
+			make console execute command "/sb-collection combat"
+
+		format gui slot 22 of player with diamond pickaxe with attribute flag hidden named "&aMining Collection" with lore "&7Mine coals, irons, golds, diamonds" and "&7emeralds, and more to unlock collections!" and "&7" and "&eClick to view!" to close:
+			make console execute command "/sb-collection mining"
+
+		format gui slot 23 of player with acacia sapling named "&aForaging Collection" with lore "&7Cut down trees like, oak, birch, spruce," and "&7jungle, and more to unlock collections!" and "&7" and "&eClick to view!" to close:
+			make console execute command "/sb-collection foraging"
+
+		format gui slot 24 of player with fishing rod named "&aFishing Collection" with lore "&7Catch fishs, salmons, prismarines, treasures," and "&7creatures, and more to unlock collections!" and "&7" and "&cNot avaible yet!" to close:
+			make console execute command "/sb-collection fishing"
+
+		format gui slot 31 of player with wither skeleton skull named "&aDungeon Collection" with lore "&7Defeat bosses to claim rewards and" and "&7unlock collections!" and "&7" and "&eClick to view!" to close:
+			make console execute command "/sb-collection dungeon"
+
+		format gui slot 48 of player with {Menu-GoBack} to run:
+			make player execute command "/menu"
+		format gui slot 49 of player with {Menu-Close} to close

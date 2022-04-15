@@ -1,0 +1,142 @@
+command /sb-bank:
+	aliases: /bk
+	trigger:
+		open virtual chest inventory with size 4 named "Personal Bank" to player
+		format gui slot (integers between 0 and 35) of player with {Menu-Panes}
+		format gui slot 31 of player with {Menu-Close} to close
+		
+# ==========
+
+		format gui slot 15 of player with filled map named "&aInformation & Interest" with lore "&7Keep your coins safely without dying and losing" and "&7half of your purse out of dungeons." and "&7" and "&6&lINTEREST!" and "&7Every &b4 hours &7gain coins according to" and "&7your &bInterest&7." and "&7" and "&c&lNOTE!" and "&7Only able when above &610M coins&7." and "&7" and "&7Interest in: &b%{Bank-Interest-Hour}%&bh&b%{Bank-Interest-Minute}%&bm&7/4h" and "&7You'll gain &6%{Bank-Interest-Price.%UUID of player%}% &6Coins(s)&7."
+		
+# ==========
+
+		set {_HalfCoins.%UUID of player%} to (0.5 * {coins.%UUID of player%})
+		set {_HalfPurse.%UUID of player%} to (0.5 * {purse.%UUID of player%})
+
+
+		if {purse.%UUID of player%} is not higher than 0:
+			format gui slot 13 of player with chest named "&aDeposit" with lore "&7Deposit your coins in your bank." and "&7" and "&cYou don't have money on you." to close
+		else:
+			if {purse.%UUID of player%} is higher than 999999994.9:
+				set {_PurseTextRounded.%UUId of player%} to "&7That is ~&6%({purse.%UUID of player%}/1000000000)%&6B Coins&7."
+			else:
+				if {purse.%UUID of player%} is higher than 999994.9:
+					set {_PurseTextRounded.%UUID of player%} to "&7That is ~&6%({purse.%UUID of player%}/1000000)%&6M Coins&7."
+				else:
+					if {purse.%UUID of player%} is between 999994.9 and 994.9:
+						set {_PurseTextRounded.%UUID of player%} to "&7That is ~&6%({purse.%UUID of player%}/1000)%&6K Coins&7."
+					else:
+						set {_PurseTextRounded.%UUID of player%} to "&7-"
+					
+			format gui slot 13 of player with chest named "&aDeposit" with lore "&7Deposit your coins in your bank." and "&7" and "&7You have &6%{purse.%UUID of player%}% &6Coins &7on you." and "%{_PurseTextRounded.%UUID of player%}%" and "&7" and "&eClick to view!" to close:
+				open virtual chest inventory with size 4 named "Bank - Deposit" to player
+				format gui slot (integers between 0 and 35) of player with {Menu-Panes}
+				format gui slot 31 of player with {Menu-Close} to close
+				format gui slot 30 of player with {Menu-GoBack} to close:
+					make player execute command "/sb-bank"
+					
+				format gui slot 13 of player with chest named "&aDeposit Half" with lore "&7Deposit half of your purse in your bank." and "&7" and "&7You have &6%{purse.%UUID of player%}% &6Coins &7on you." and "%{_PurseTextRounded.%UUID of player%}%" and "&7" and "&7The half is &a%{_HalfPurse.%UUID of player%}%&7." and "&7" and "&eClick to deposit!" to close:
+					set {_HalfPurse.%UUID of player%} to (0.5 * {purse.%UUID of player%})
+					if {purse.%UUID of player%} is higher than ({_HalfPurse.%UUID of player%} - 0.1):
+						remove {_HalfPurse.%UUID of player%} from {purse.%UUID of player%}
+						add {_HalfPurse.%UUID of player%} to {coins.%UUID of player%}
+						send "&6&lDEPOSIT! &fYou deposited &a%{_HalfPurse.%UUID of player%}% &fof coins in your bank." to player
+						play sound "entity.experience_orb.pickup" at player for player
+						stop
+					else:
+						send "&cError." to player
+				
+				format gui slot 11 of player with chest named "&aDeposit All" with lore "&7Deposit all your coins in your bank." and "&7" and "&7You have &6%{purse.%UUID of player%}% &6Coins &7on you&7." and "%{_PurseTextRounded.%UUID of player%}%" and "&7" and "&eClick to deposit!" to close:
+					send "&6&lDEPOSIT! &fYou deposited &a%{purse.%UUID of player%}% &fof coins in your bank." to player
+					add {purse.%UUID of player%} to {coins.%UUID of player%}
+					remove {purse.%UUID of player%} from {purse.%UUID of player%}
+					play sound "entity.experience_orb.pickup" at player for player
+					stop
+
+				format gui slot 15 of player with oak sign named "&aChoose the value" with lore "&7Type the number of coins you want to deposit." and "&7" and "&7Use the command &b/deposit <value>&7." and "&7" and "&eClick to get the command!" to close:
+					send "<ttp:&7Coins Deposit><sgt:/deposit >&6&lDEPOSIT! &fClick here to get the command quickly!" to player
+					Yes(player)
+					stop
+
+# =========
+
+		if {coins.%UUID of player%} is not higher than 0:
+			format gui slot 11 of player with dropper named "&aWithdraw" with lore "&7Take your money from your bank." and "&7" and "&cYou don't have money in your bank." to close
+		else:
+			if {coins.%UUID of player%} is higher than 999999994.9:
+				set {_CoinsTextRounded.%UUID of player%} to "&7That is ~&6%({coins.%UUID of player%}/1000000000)%&6B Coins&7."
+			else:
+				if {coins.%UUID of player%} is higher than 999994.9:
+					set {_CoinsTextRounded.%UUID of player%} to "&7That is ~&6%({coins.%UUID of player%}/1000000)%&6M Coins&7."
+				else:
+					if {coins.%UUID of player%} is between 999994.9 and 994.9:
+						set {_CoinsTextRounded.%UUID of player%} to "&7That is ~&6%({coins.%UUID of player%}/1000)%&6K Coins&7."
+					else:
+						set {_CoinsTextRounded.%UUID of player%} to "&7-"
+
+			format gui slot 11 of player with dropper named "&aWithdraw" with lore "&7Take your money from your bank." and "&7" and "&7You have &6%{coins.%UUID of player%}% &6Coins &7in bank." and "%{_CoinsTextRounded.%UUID of player%}%" and "&7" and "&eClick to view!" to close:
+				open virtual chest inventory with size 4 named "Bank - Withdraw" to player
+				format gui slot (integers between 0 and 35) of player with {Menu-Panes}
+				format gui slot 31 of player with {Menu-Close} to close
+				format gui slot 30 of player with {Menu-GoBack} to close:
+					make console execute command "/sb-bank"
+					
+				format gui slot 13 of player with dropper named "&aWithdraw Half" with lore "&7Take half of your money in your bank." and "&7" and "&7You have &6%{coins.%UUID of player%}% &6Coins &7in bank." and "%{_CoinsTextRounded.%UUID of player%}%" and "&7" and "&7The half is &a%{_HalfCoins.%UUID of player%}%&7." and "&7" and "&eClick to withdraw!" to close:
+					set {_HalfCoins.%UUID of player%} to (0.5 * {coins.%UUID of player%})
+					if {coins.%UUID of player%} is higher than ({_HalfCoins.%UUID of player%} - 0.1):
+						remove {_HalfCoins.%UUID of player%} from {coins.%UUID of player%}
+						add {_HalfCoins.%UUID of player%} to {purse.%UUID of player%}
+						send "&6&lWITHDRAW! &fYou took &a%{_HalfCoins.%UUID of player%}% &fof coins from your bank." to player
+						play sound "entity.experience_orb.pickup" at player for player
+						stop
+					else:
+						send "&cError." to player
+				
+				format gui slot 11 of player with dropper named "&aWithdraw All" with lore "&7Take all your money from your bank." and "&7" and "&7You have &6%{coins.%UUID of player%}% &6Coins &7in bank." and "%{_CoinsTextRounded.%UUID of player%}%" and "&7" and "&eClick to withdraw!" to close:
+					send "&6&lWITHDRAW! &fYou took &a%{coins.%UUID of player%}% &fof coins from your bank." to player
+					add {coins.%UUID of player%} to {purse.%UUID of player%}
+					remove {coins.%UUID of player%} from {coins.%UUID of player%}
+					play sound "entity.experience_orb.pickup" at player for player
+					stop
+
+				format gui slot 15 of player with oak sign named "&aChoose the value" with lore "&7Type the number of coins you want to withdraw." and "&7" and "&7Use the command &b/withdraw <value>&7." and "&7" and "&eClick to get the command!" to close:
+					send "<ttp:&7Withdraw of coins><sgt:/withdraw >&6&lWITHDRAW! &fClick here to get the command quickly!" to player
+					Yes(player)
+					stop		
+
+# ================
+
+command /withdraw <number>:
+	usage: &c/withdraw <value>
+	trigger:
+		set {_AccessBankCommand.%UUID of player%} to true
+		if {_AccessBankCommand.%UUID of player%} is true:
+			if {abc} is not true:
+				if arg-1 is higher than {coins.%UUID of player%}:
+					send "&cYou don't have that amount of coins in your bank." to player
+					Nope(player)
+					stop
+				else:
+					remove arg-1 from {coins.%UUID of player%}
+					add arg-1 to {purse.%UUID of player%}
+					send "&6&lWITHDRAW! &fYou took &a%arg-1% &fof coins from your bank." to player
+					play sound "entity.experience_orb.pickup" at player for player
+					stop
+
+command /deposit <number>:
+	usage: &c/deposit <value>
+	trigger:
+		set {_AccessBankCommand.%UUID of player%} to true
+		if {_AccessBankCommand.%UUID of player%} is true:
+			if {abc} is not true:
+				if arg-1 is higher than {purse.%UUID of player%}:
+					send "&cYou don't have that amount on you." to player
+					Nope(player)
+					stop
+				else:
+					remove arg-1 from {purse.%UUID of player%}
+					add arg-1 to {coins.%UUID of player%}
+					send "&6&lDEPOSIT! &fYou deposited &a%arg-1% &fof coins in your bank." to player
+					play sound "entity.experience_orb.pickup" at player for player
+					stop

@@ -1,0 +1,14 @@
+# ----- NOT HERE
+# defeat & victory -> misc_system_boss.sk
+# played -> npc_mort.sk
+# best damage -> stat_crit.sk
+
+# ----- PLAY TIME
+command /playtime:
+	trigger:
+		send "&aYou played &a%time played of player%&a." to player
+
+command /deathcount:
+	trigger:
+		send "&cDeathCount:"
+		send "&f%player%: &9%{SB-DeathCount.%UUID of player%}%"

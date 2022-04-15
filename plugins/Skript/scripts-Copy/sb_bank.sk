@@ -1,0 +1,19 @@
+on join:
+	if {bankGui.%UUID of player%} is higher than 0:
+		send "&c&lATTENTION! &fAu vu de la suppression des banques. Merci de contacter un membre du stuff à vous redonner le stuff dans votre stockage." to player
+		delete {bankGui.%UUID of player%}
+
+command /tpbank <offline player>:
+	permission: op
+	trigger:
+		if {bank.%UUID of arg-1%} is set:
+			teleport player to {bank.%UUID of arg-1%}
+		else:
+			send "&cNo." to player
+
+command /bankremove <offline player>:
+	permission: op
+	trigger:
+		if {bank.%UUID of arg-1%} is set:
+			delete {bank.%UUID of arg-1%}
+			send "&7Suppression de la banque de &c%arg-1%&7." to player

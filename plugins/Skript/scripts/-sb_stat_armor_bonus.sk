@@ -1,0 +1,18 @@
+on armor change:
+	remove {BonusStat-Armor-Helmet-Crit.%UUID of player%} from {critdamage.%UUID of player%}
+	wait 1 tick
+	delete {BonusStat-Armor-Helmet-Crit.%UUID of player%}
+
+	if name of event-item contains "&6Ancient Tarantula Helmet":
+		set {_str} to {strength.%UUID of player%}
+		if {_str} is higher than 999.9:
+			set {_str} to 1000
+		loop 100 times:
+			if {_str} is higher than 9.9:
+				remove 10 from {_str}
+				add 1 to {BonusStat-Armor-Helmet-Crit.%UUID of player%}
+		add {BonusStat-Armor-Helmet-Crit.%UUID of player%} to {critdamage.%UUID of player%}
+		send "&6ABILITY! &7Your &6Radioactive &7grants you &a+%{BonusStat-Armor-Helmet-Crit.%UUID of player%}% &9☠ Critical Damage&7." to player
+		Yes(player)
+		stop
+		

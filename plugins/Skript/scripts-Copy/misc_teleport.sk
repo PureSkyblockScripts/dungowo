@@ -1,0 +1,3 @@
+on teleport:
+ if "%teleport cause%" is "ender pearl":
+  cancel event

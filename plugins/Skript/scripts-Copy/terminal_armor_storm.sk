@@ -1,0 +1,39 @@
+on command "/terminal-armors":
+	if {a} is not true:
+		wait 2 ticks
+		set {_nsc} to unbreakable leather chestplate with unbreakable flag hidden with attribute flag hidden named "&dNecrotic Storm's Chestplate &c✪✪✪✪✪" with lore "&7Gear Score: &dNone" and "&7Strength: &c+24 &d(+24) &8(+167)" and "&7Health: &a+417 &e(+60) &8(+2908)" and "&7Defense: &a+175 &e(+30) &8(+1220)" and "&7Intelligence: &a+450 &9(+200) &8(+3139)" and "&7True Defense: &a+5 &8(+7.5)" and "&6[&d⚔&6] &6[&d⚔&6]" and "&7" and "&d&lLegion V&9, Growth VI, Protection VI," and "&9Rejuvenate V, True Protection I" and "&7" and "&7Reduce the damage you take from" and "&7withers by &c10%%&7." and "&7" and "&d&k&l0 &d&lMYTHIC DUNGEON CHESTPLATE &d&k&l0"
+		dye {_nsc} (23, 147, 196)
+		
+		set {_nsl} to unbreakable leather leggings with unbreakable flag hidden with attribute flag hidden named "&dNecrotic Storm's Leggings &c✪✪✪✪✪" with lore "&7Gear Score: &dNone" and "&7Strength: &c+24 &d(+24) &8(+167)" and "&7Health: &a+387 &e(+60) &8(+2700)" and "&7Defense: &a+160 &e(+30) &8(+1116)" and "&7Intelligence: &a+485 &9(+200) &8(+3383)" and "&6[&d⚔&6] &6[&d⚔&6]" and "&7" and "&d&lLegion V&9, Growth VI, Protection VI," and "&9Rejuvenate V, Smarty Pants V" and "&7" and "&7Reduce the damage you take from" and "&7withers by &c10%%&7." and "&7" and "&d&k&l0 &d&lMYTHIC DUNGEON LEGGINGS &d&k&l0"
+		dye {_nsl} (23, 168, 196)
+		
+		set {_nsb} to unbreakable leather boots with unbreakable flag hidden with attribute flag hidden named "&dNecrotic Storm's Boots &c✪✪✪✪✪" with lore "&7Gear Score: &dNone" and "&7Strength: &c+24 &d(+24) &8(+167)" and "&7Health: &a+302 &e(+60) &8(+2106)" and "&7Defense: &a+120 &e(+30) &8(+837)" and "&7Speed: &a+6 &8(+41)" and "&7Intelligence: &a+450 &9(+200) &8(+3139)" and "&6[&d⚔&6] &6[&d⚔&6]" and "&7" and "&d&lLegion V&9, Growth VI, Protection VI," and "&9Rejuvenate V, Sugar Rush III" and "&7" and "&7Reduce the damage you take from" and "&7withers by &c10%%&7." and "&7" and "&d&k&l0 &d&lMYTHIC DUNGEON BOOTS &d&k&l0"
+		dye {_nsb} (28, 212, 228)  
+		
+		set {_asc} to unbreakable leather chestplate with unbreakable flag hidden with attribute flag hidden named "&dAncient Storm's Chestplate &c✪✪✪✪✪" with lore "&7Gear Score: &dNone" and "&7Strength: &c+59 &9(+35) &d(+24) &8(+411)" and "&7Crit Chance: &c+15%% &9(+15%%) &8(+22.5%%)" and "&7Crit Damage: &c+50%% &9(+50%%) &8(+349%%)"  and "&7Health: &a+417 &e(+60) &9(+7) &8(+2908)" and "&7Defense: &a+175 &e(+30) &9(+7) &8(+1220)" and "&7Intelligence: &a+275 &9(+25) &8(+1918)" and "&7True Defense: &a+5 &8(+7.5)" and "&6[&d⚔&6] &6[&d⚔&6]" and "&7" and "&d&lLegion V&9, Growth VI, Protection VI," and "&9Rejuvenate V, True Protection I" and "&7" and "&7Reduce the damage you take from" and "&7withers by &c10%%&7." and "&7" and "&9Ancient Bonus" and "&7Grants &a+1 &9Crit Damage" and "&7per &cCatacombs&7 level." and "&7" and "&d&k&l0 &d&lMYTHIC DUNGEON CHESTPLATE &d&k&l0"
+		dye {_asc} (23, 147, 196)
+		
+		set {_asl} to unbreakable leather leggings with unbreakable flag hidden with attribute flag hidden named "&dAncient Storm's Leggings &c✪✪✪✪✪" with lore "&7Gear Score: &dNone" and "&7Strength: &c+59 &9(+35) &d(+24) &8(+411)" and "&7Crit Chance: &c+15%% &9(+15%%) &8(+22.5%%)" and "&7Crit Damage: &c+50%% &9(+50%%) &8(+349%%)" and "&7Health: &a+387 &e(+60) &9(+7) &8(+2700)" and "&7Defense: &a+160 &e(+30) &9(+7) &8(+1116)" and "&7Intelligence: &a+300 &9(+25) &8(+2092)" and "&6[&d⚔&6] &6[&d⚔&6]" and "&7" and "&d&lLegion V&9, Growth VI, Protection VI," and "&9Rejuvenate V, Smarty Pants V" and "&7" and "&7Reduce the damage you take from" and "&7withers by &c10%%&7." and "&7" and "&9Ancient Bonus" and "&7Grants &a+1 &9Crit Damage" and "&7per &cCatacombs&7 level." and "&7" and "&d&k&l0 &d&lMYTHIC DUNGEON LEGGINGS &d&k&l0"
+		dye {_asl} (23, 168, 196)
+		
+		set {_asb} to unbreakable leather boots with unbreakable flag hidden with attribute flag hidden named "&dAncient Storm's Boots &c✪✪✪✪✪" with lore "&7Gear Score: &dNone" and "&7Strength: &c+59 &9(+35) &d(+24) &8(+411)" and "&7Crit Chance: &c+15%% &9(+15%%) &8(+22.5%%)" and "&7Crit Damage: &c+50%% &9(+50%%) &8(+349%%)" and "&7Health: &a+302 &e(+60) &9(+7) &8(+2106)" and "&7Defense: &a+120 &e(+30) &9(+7) &8(+837)" and "&7Speed: &a+6 &8(+41)" and "&7Intelligence: &a+275 &9(+25) &8(+1918)" and "&6[&d⚔&6] &6[&d⚔&6]" and "&7" and "&d&lLegion V&9, Growth VI, Protection VI," and "&9Rejuvenate V, Sugar Rush III" and "&7" and "&7Reduce the damage you take from" and "&7withers by &c10%%&7." and "&7" and "&9Ancient Bonus" and "&7Grants &a+1 &9Crit Damage" and "&7per &cCatacombs&7 level." and "&7" and "&d&k&l0 &d&lMYTHIC DUNGEON BOOTS &d&k&l0"
+		dye {_asb} (28, 212, 228)  
+		
+		format gui slot 39 of player with {_nsb}
+		format gui slot 30 of player with {_nsl}
+		format gui slot 21 of player with {_nsc}
+		format gui slot 40 of player with {_asb}
+		format gui slot 31 of player with {_asl}
+		format gui slot 22 of player with {_asc}
+
+#set {_sc} to unbreakable leather chestplate with unbreakable flag hidden with attribute flag hidden named "&dStorm's Chestplate &c✪✪✪✪&6✪" with lore "&7Gear Score: &dNone" and "&7Item Quality: &d100%% &8(Never has randomized stats)" and "&7Strength: &c+24 &d(+24) &8(+167)" and "&7Health: &a+417 &e(+60) &8(+2908)" and "&7Defense: &a+175 &e(+30) &8(+1220)" and "&7Intelligence: &a+250 &8(+1744)" and "&7True Defense: &a+5 &8(+7.5)" and "&6[&d⚔&6] &6[&d⚔&6]" and "&7" and "&d&lLegion V&9, Growth VI, Protection VI," and "&9Rejuvenate V, True Protection I" and "&7" and "&7Reduce the damage you take from" and "&7withers by &c10%%&7." and "&7" and "&d&k&l0 &d&lMYTHIC DUNGEON CHESTPLATE &d&k&l0"
+		#dye {_sc} (23, 147, 196)
+		
+		#set {_sl} to unbreakable leather leggings with unbreakable flag hidden with attribute flag hidden named "&dStorm's Leggings &c✪✪✪✪&6✪" with lore "&7Gear Score: &dNone" and "&7Item Quality: &d100%% &8(Never has randomized stats)" and "&7Strength: &c+24 &d(+24) &8(+167)" and "&7Health: &a+387 &e(+60) &8(+2700)" and "&7Defense: &a+160 &e(+30) &8(+1116)" and "&7Intelligence: &a+285 &8(+1988)" and "&6[&d⚔&6] &6[&d⚔&6]" and "&7" and "&d&lLegion V&9, Growth VI, Protection VI," and "&9Rejuvenate V, Smarty Pants V" and "&7" and "&7Reduce the damage you take from" and "&7withers by &c10%%&7." and "&7" and "&d&k&l0 &d&lMYTHIC DUNGEON LEGGINGS &d&k&l0"
+		#dye {_sl} (23, 168, 196)
+		
+		#set {_sb} to unbreakable leather boots with unbreakable flag hidden with attribute flag hidden named "&dStorm's Boots &c✪✪✪✪&6✪" with lore "&7Gear Score: &dNone" and "&7Item Quality: &d100%% &8(Never has randomized stats)" and "&7Strength: &c+24 &d(+24) &8(+167)" and "&7Health: &a+302 &e(+60) &8(+2106)" and "&7Defense: &a+120 &e(+30) &8(+837)" and "&7Speed: &a+6 &8(+41)" and "&7Intelligence: &a+250 &8(+1744)" and "&6[&d⚔&6] &6[&d⚔&6]" and "&7" and "&d&lLegion V&9, Growth VI, Protection VI," and "&9Rejuvenate V, Sugar Rush III" and "&7" and "&7Reduce the damage you take from" and "&7withers by &c10%%&7." and "&7" and "&d&k&l0 &d&lMYTHIC DUNGEON BOOTS &d&k&l0"
+		dye {_sb} (28, 212, 228)
+		#format gui slot 23 of player with {_sc}
+		#format gui slot 24 of player with {_sl}
+	#	format gui slot 25 of player with {_sb}

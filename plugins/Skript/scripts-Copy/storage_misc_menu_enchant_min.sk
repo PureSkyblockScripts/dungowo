@@ -1,0 +1,36 @@
+command /storage-misc-menu-enchant-mining:
+	permission: op
+	trigger:
+		set {Storage-Misc-Menu-Enchanted-Mining-PierresEnchanté} to cobblestone of unbreaking 1 with hidden enchants flag named "&aPierres Enchanté" with lore "&a&lUNCOMMUN" and "&7" and "&7Coûte" and "&8x160 &fPierres" and "&7" and "&7Nécessite &bPierres IV" and "&eCliquez pour enchanter!"
+		
+		set {Storage-Misc-Menu-Enchanted-Mining-CharbonEnchanté} to coal of unbreaking 1 with hidden enchants flag named "&aCharbon Enchanté" with lore "&a&lUNCOMMUN" and "&7" and "&7Coûte" and "&8x160 &fCharbons" and "&7" and "&7Nécessite &bCharbon IV" and "&eCliquez pour enchanter!"
+		
+		set {Storage-Misc-Menu-Enchanted-Mining-LingotDeFerEnchanté} to iron ingot of unbreaking 1 with hidden enchants flag named "&aLingot de Fer Enchanté" with lore "&a&lUNCOMMUN" and "&7" and "&7Coûte" and "&8x160 &fLingots de Fer" and "&7" and "&7Nécessite &bLingot de Fer IV" and "&eCliquez pour enchanter!"
+		
+		set {Storage-Misc-Menu-Enchanted-Mining-LingotDOrEnchanté} to gold ingot of unbreaking 1 with hidden enchants flag named "&aLingot d'Or Enchanté" with lore "&a&lUNCOMMUN" and "&7" and "&7Coûte" and "&8x160 &fLingots d'Or" and "&7" and "&7Nécessite &bLingot d'Or IV" and "&eCliquez pour enchanter!"
+		
+		set {Storage-Misc-Menu-Enchanted-Mining-DiamantEnchanté} to diamond of unbreaking 1 with hidden enchants flag named "&aDiamant Enchanté" with lore "&a&lUNCOMMUN" and "&7" and "&7Coûte" and "&8x160 &fDiamants" and "&7" and "&7Nécessite &bDiamant IV" and "&eCliquez pour enchanter!"
+		
+		set {Storage-Misc-Menu-Enchanted-Mining-ÉmeraudeEnchanté} to emerald of unbreaking 1 with hidden enchants flag named "&aÉmeraude Enchanté" with lore "&a&lUNCOMMUN" and "&7" and "&7Coûte" and "&8x160 &fÉmeraudes" and "&7" and "&7Nécessite &bÉmeraude IV" and "&eCliquez pour enchanter!"
+		
+		set {Storage-Misc-Menu-Enchanted-Mining-RedstoneEnchanté} to redstone of unbreaking 1 with hidden enchants flag named "&aRedstone Enchanté" with lore "&a&lUNCOMMUN" and "&7" and "&7Coûte" and "&8x160 &fRedstones" and "&7" and "&7Nécessite &bRedstone IV" and "&eCliquez pour enchanter!"
+		
+		set {Storage-Misc-Menu-Enchanted-Mining-LapisLazuliEnchanté} to lapis lazuli of unbreaking 1 with hidden enchants flag named "&aLapis-Lazuli Enchanté" with lore "&a&lUNCOMMUN" and "&7" and "&7Coûte" and "&8x160 &fLapis-Lazulis" and "&7" and "&7Nécessite &bLapis-Lazuli IV" and "&eCliquez pour enchanter!"
+		
+		set {Storage-Misc-Menu-Enchanted-Mining-ObsidienneEnchanté} to obsidian of unbreaking 1 with hidden enchants flag named "&aObsidienne Enchanté" with lore "&a&lUNCOMMUN" and "&7" and "&7Coûte" and "&8x160 &fObsidiennes" and "&7" and "&7Nécessite &bObsidienne IV" and "&eCliquez pour enchanter!"
+		
+		set {Storage-Misc-Menu-Enchanted-Mining-MithrilEnchanté} to prismarine crystals of unbreaking 1 with hidden enchants flag named "&9Mithril Enchanté" with lore "&9&lRARE" and "&7" and "&7Coûte" and "&8x160 &fMithrils" and "&7" and "&7Nécessite &bMithril III" and "&eCliquez pour enchanter!"
+		
+		set {Storage-Misc-Menu-Enchanted-Mining-BlocDeCharbonEnchanté} to coal block of unbreaking 1 with hidden enchants flag named "&9Bloc de Charbon Enchanté" with lore "&9&lRARE" and "&7" and "&7Coûte" and "&8x160 &aCharbons Enchantés" and "&7" and "&7Nécessite &bCharbon VII" and "&eCliquez pour enchanter!"
+		
+		set {Storage-Misc-Menu-Enchanted-Mining-BlocDeFerEnchanté} to iron block of unbreaking 1 with hidden enchants flag named "&9Bloc de Fer Enchanté" with lore "&9&lRARE" and "&7" and "&7Coûte" and "&8x160 &aLingots de Fer Enchantés" and "&7" and "&7Nécessite &bFer VII" and "&eCliquez pour enchanter!"
+		
+		set {Storage-Misc-Menu-Enchanted-Mining-BlocDOrEnchanté} to gold block of unbreaking 1 with hidden enchants flag named "&9Bloc d'Or Enchanté" with lore "&9&lRARE" and "&7" and "&7Coûte" and "&8x160 &aLingots d'Or Enchantés" and "&7" and "&7Nécessite &bLingot d'Or VII" and "&eCliquez pour enchanter!"
+		
+		set {Storage-Misc-Menu-Enchanted-Mining-BlocDeDiamantEnchanté} to diamond block of unbreaking 1 with hidden enchants flag named "&9Bloc de Diamant Enchanté" with lore "&9&lRARE" and "&7" and "&7Coûte" and "&8x160 &aDiamants Enchantés" and "&7" and "&7Nécessite &bDiamant VII" and "&eCliquez pour enchanter!"
+		
+		set {Storage-Misc-Menu-Enchanted-Mining-BlocDÉmeraudeEnchanté} to emerald block of unbreaking 1 with hidden enchants flag named "&9Bloc d'Émeraude Enchanté" with lore "&9&lRARE" and "&7" and "&7Coûte" and "&8x160 &aÉmeraudes Enchantés" and "&7" and "&7Nécessite &bÉmeraude VII" and "&eCliquez pour enchanter!"
+		
+		set {Storage-Misc-Menu-Enchanted-Mining-BlocDeRedstoneEnchanté} to redstone block of unbreaking 1 with hidden enchants flag named "&9Bloc de Redstone Enchanté" with lore "&9&lRARE" and "&7" and "&7Coûte" and "&8x160 &aRedstones Enchantés" and "&7" and "&7Nécessite &bRedstone VII" and "&eCliquez pour enchanter!"
+		
+		set {Storage-Misc-Menu-Enchanted-Mining-BlocDeLapisEnchanté} to lapis block of unbreaking 1 with hidden enchants flag named "&9Bloc de Lapis Enchanté" with lore "&9&lRARE" and "&7" and "&7Coûte" and "&8x160 &aLapis-Lazulis Enchantés" and "&7" and "&7Nécessite &bLapis-Lazuli VII" and "&eCliquez pour enchanter!"

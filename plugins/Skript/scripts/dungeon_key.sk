@@ -1,0 +1,74 @@
+# ===================
+# CLEF DE DONJON
+# ===================
+
+on death:
+ if victim is a gold rabbit:
+  if name of victim contains "Clef":
+   set {_keyAnimation-Skin} to "{display:{Name:""{\""text\"":\""Golden Cube\""}""},SkullOwner:{Id:[I;-1165091602,-1332523685,-1365019590,2098687150],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTkxNDE0Nzc0NGNkMjE4YzlhMDc4MjM0ZjcwMzVjNzFlNGEzNDg1OWFmOTJmYzkxYjg4YzIxZThiMzcyMjNjNSJ9fX0=""}]}}}"
+   if {ready-floor1.%UUID of attacker%} is true:
+    send "&b%attacker% &aa trouvé une &8Clef de Donjon&a." to {dungeon-f1::*}
+   if {ready-floor2.%UUID of attacker%} is true:
+    send "&b%attacker% &aa trouvé une &8Clef de Donjon&a." to {dungeon-f2::*}
+   if {ready-floor3.%UUID of attacker%} is true:
+    send "&b%attacker% &aa trouvé une &8Clef de Donjon&a." to {dungeon-f3::*}
+
+   spawn armor stand -0.5 meters above and 0 meter horizontally in front of the victim
+   set {_KeyAnimation} to the spawned entity
+   set name of {_keyAnimation} to "Clef de Donjon"
+   set visibility of {_keyAnimation} to false
+   set gravity of {_keyAnimation} to false
+   set helmet of {_keyAnimation} to player head with nbt "%{_keyAnimation-Skin}%"
+   set {_keyAnimation-Spin} to -360
+   set {_keyAnimation-Note} to 1
+   loop 5 times:
+    wait 2 tick
+    play sound "entity.experience_orb.pickup" with volume 10 with pitch {_keyAnimation-Note} at attacker for attacker
+    add 0.1 to {_keyAnimation-Note}
+   loop 100 times:
+    wait 1 tick
+    add "{Pose:{Head:[0f,%{_keyAnimation-Spin}%f,0f]}}" to nbt of {_keyAnimation}
+    add 5 to {_keyAnimation-Spin}
+
+   if name of victim is "&e⏣&6 &6Clef de Donjon &e⏣": # ETAGE 3
+    if {doorkey-floor3} is higher than 0:
+     stop
+    else:
+     send "&aUne &8Clef de Donjon &aa été récupéré." to {dungeon-f3::*}
+     kill {_KeyAnimation}
+     set {doorkey-floor3} to 1
+	 
+   if name of victim is "&e⏣ &6Clef de Donjon &e⏣": # ETAGE 2
+    if {doorkey-floor2} is higher than 0:
+     stop
+    else:
+     send "&aUne &8Clef de Donjon &aa été récupéré." to {dungeon-f2::*}
+     kill {_KeyAnimation}
+     set {doorkey-floor2} to 1
+	 
+   if name of victim is "&e⏣&6 Clef de Donjon &e⏣": # ETAGE 1
+    if {doorkey-floor1} is higher than 0:
+     stop
+    else:
+     send "&aUne &8Clef de Donjon &aa été récupéré." to {dungeon-f1::*}
+     kill {_KeyAnimation}
+     set {doorkey-floor1} to 1
+    
+
+on right click on an armor stand:
+ if name of clicked entity is "Clef de Donjon":
+  cancel event
+  play sound "entity.item.pickup" to player
+  kill the clicked entity
+  if {ready-floor1.%UUID of player%} is true:
+   set {doorkey-floor1} to 1
+   send "&aLa &6&lCLEF DE DONJON &aa été récupéré par &b%player%&a." to {dungeon-f1::*}
+   stop
+  if {ready-floor2.%UUID of player%} is true:
+   set {doorkey-floor2} to 1
+   send "&aLa &6&lCLEF DE DONJON &aa été récupéré par &b%player%&a." to {dungeon-f2::*}
+   stop
+  if {ready-floor3.%UUID of player%} is true:
+   set {doorkey-floor3} to 1
+   send "&aLa &8Clef de Donjon &aa été récupéré par &b%player%&a." to {dungeon-f3::*}
+   stop

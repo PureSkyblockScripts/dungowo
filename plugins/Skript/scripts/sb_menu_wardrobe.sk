@@ -1,0 +1,325 @@
+function SB_MenuFormat_Wardrobe_Armor(p: player):
+	set {_pU} to {_p}'s uuid
+	set {_cc} to {Menu-Wardrobe-CC.%{_pU}%}
+	loop {Wardrobe-%{_cc}%.%{_pU}%::*}:
+		if loop-value-1 is a helmet or a player head:
+			set {_i} to loop-value-1
+			set {_ii} to "&7No Helmet"
+		if loop-value-1 is a chestplate:
+			set {_i} to loop-value-1
+			set {_ii} to "&7No Chestplate"
+		if loop-value-1 is a leggings:
+			set {_i} to loop-value-1
+			set {_ii} to "&7No Leggings"
+		if loop-value-1 is a boots:
+			set {_i} to loop-value-1
+			set {_ii} to "&7No Boots"
+		if {_i} is set:
+			loop all items in {_p}'s current inventory:
+				if tag "color" of loop-item's nbt is "%{_cc}%":
+					if name of loop-item is "%{_ii}%":
+						set loop-item to {_i}
+	if {_cc} is "Magenta":
+		set {_cc} to "Purple"
+	if {_cc} is "Blue":
+		set {_cc} to "Magenta"
+	if {_cc} is "Cyan":
+		set {_cc} to "Blue"
+	if {_cc} is "Green":
+		set {_cc} to "Cyan"
+	if {_cc} is "Lime":
+		set {_cc} to "Green"
+	if {_cc} is "Yellow":
+		set {_cc} to "Lime"
+	if {_cc} is "Orange":
+		set {_cc} to "Yellow"
+	if {_cc} is "Red":
+		set {_cc} to "Orange"
+	set {Menu-Wardrobe-CC.%{_pU}%} to {_cc}
+
+function SB_MenuFormat_Wardrobe(p: player):
+	set {_pU} to {_p}'s uuid
+	if {_a} is not set:
+		set {_s} to 0
+		set {_ss} to 8
+		set {_b} to red stained glass pane
+		set {_c} to "Red"
+		set {_bb} to "&7No Helmet"
+		set {_vv} to "st"
+		loop 9 times:
+			add 1 to {_v}
+			if {_v} is equal to ({Wardrobe-EquipedSlot.%{_pU}%::1}-35):
+				set {_vi} to lime dye
+			else:
+				set {_vi} to gray dye
+			format gui slot (35+{_v}) of {_p} with {_vi} named "&aSlot &7##%{_v}%" with lore "&7This is your %{_v}%&7%{_vv}% &7armor slot." and "&7" and "&eClick to equip this armor set!" with nbt "{color:""%{_c}%""}"
+			loop 4 times:
+				format gui slot (integers between {_s} and {_ss}) of {_p} with {_b} named "%{_bb}%" with nbt "{color:""%{_c}%""}"
+				add 9 to {_s} and {_ss}
+				if {_bb} is "&7No Leggings":
+					set {_bb} to "&7No Boots"
+				if {_bb} is "&7No Chestplate":
+					set {_bb} to "&7No Leggings"
+				if {_bb} is "&7No Helmet":
+					set {_bb} to "&7No Chestplate"
+			if {_vv} is "rd":
+				set {_vv} to "th"
+			if {_vv} is "nd":
+				set {_vv} to "rd"
+			if {_vv} is "st":
+				set {_vv} to "nd"
+			set {_s} to 0
+			set {_ss} to 8
+			if {_b} is magenta stained glass pane:
+				set {_b} to purple stained glass pane
+				add 8 to {_s}
+				set {_c} to "Purple"
+			if {_b} is blue stained glass pane:
+				set {_b} to magenta stained glass pane
+				add 7 to {_s}
+				set {_c} to "Magenta"
+			if {_b} is cyan stained glass pane:
+				set {_b} to blue stained glass pane
+				add 6 to {_s}
+				set {_c} to "Blue"
+			if {_b} is green stained glass pane:
+				set {_b} to cyan stained glass pane
+				add 5 to {_s}
+				set {_c} to "Cyan"
+			if {_b} is lime stained glass pane:
+				set {_b} to green stained glass pane
+				add 4 to {_s}
+				set {_c} to "Green"
+			if {_b} is yellow stained glass pane:
+				set {_b} to lime stained glass pane
+				add 3 to {_s}
+				set {_c} to "Lime"
+			if {_b} is orange stained glass pane:
+				set {_b} to yellow stained glass pane
+				set {_c} to "Yellow"
+				add 2 to {_s}
+			if {_b} is red stained glass pane:
+				set {_b} to orange stained glass pane
+				set {_c} to "Orange"
+				add 1 to {_s}
+			set {_bb} to "&7No Helmet"
+
+command /sb-wardrobe:
+	aliases: /wr
+	trigger:
+		open virtual chest inventory with size 6 named "Wardrobe" to player
+		format gui slot (integers between 0 and 53) of player with {Menu-Panes}
+
+		format gui slot (integers between 0 and 44) of player with air
+		
+		SB_MenuFormat_Wardrobe(player)
+		
+		format gui slot 49 of player with {Menu-Close} to close
+		format gui slot 48 of player with {Menu-GoBack} to close:
+			make player execute command "/menu"
+# /////////////////////
+		set {Menu-Wardrobe-CC.%UUID of player%} to "Red"
+		loop 9 times:
+			SB_MenuFormat_Wardrobe_Armor(player)
+		delete {Menu-Wardrobe-CC.%UUID of player%}
+
+on inventory click:
+	if name of player's current inventory is "Wardrobe":
+		if clicked inventory is not player's inventory:
+			if name of item contains "&aSlot &7":
+				set {_wec} to tag "color" of item's nbt
+				set {_en} to numbers in uncoloured name of item
+				if item is a lime dye:
+					set {_enn} to item's name
+					set {_enl::*} to item's lore
+					set item to gray dye named "%{_enn}%" with lore {_enl::*} with nbt "{color:""%{_wec}%""}"
+					delete {Wardrobe-EquipedSlot.%UUID of player%::*}
+					set player's helmet and player's chestplate and player's leggings and player's boots to air
+					Click(player)
+					stop
+				
+				#loop all items in player's current inventory:
+					#if loop-item is a lime dye:
+						#send "&cYou have already a wardrobe armor on you to equip another one." to player
+						#Nope(player)
+						#stop
+				if item is a gray dye:
+					loop all items in player's current inventory:
+						if loop-item is a lime dye:
+							set {_le} to true
+				if {_le} is not true:
+					if player's helmet and player's chestplate and player's legs and player's boots is not air:
+						send "&cYou have a no-wardrobe armor on you." to player
+						Nope(player)
+						stop
+					else:
+						set {_le} to true
+				if {_le} is true:
+					if {_le} is true:
+						set {_ens} to clicked slot
+						loop 4 times:
+							remove 9 from {_ens}
+							if slot {_ens} of player's current inventory is a player head or a helmet or a boots or a chestplate or a leggings:
+								set {_ev} to true
+						if {_ev} is true:
+							set {_enn} to item's name
+							set {_enl::*} to item's lore
+							loop all items in player's current inventory:
+								if loop-item is a lime dye:
+									set {_llc} to tag "color" of loop-item's nbt
+									set {_lln} to name of loop-item
+									set {_lll::*} to lore of loop-item
+									set loop-item to gray dye named "%{_lln}%" with lore {_lll::*} with nbt "{color:""%{_llc}%""}"
+							delete {Wardrobe-Equiped.%UUID of player%::*}
+							set player's helmet and player's chestplate and player's leggings and player's boots to air
+							set item to lime dye named "%{_enn}%" with lore {_enl::*}
+							Click(player)
+							set {_ens} to clicked slot
+							set {_enE} to "boots"
+							loop 4 times:
+								remove 9 from {_ens}
+								if {_enE} is "helmet":
+									if slot {_ens} of player's current inventory is a helmet or a player head:
+										set player's helmet to slot {_ens} of player's current inventory
+								if {_enE} is "chest":
+									if slot {_ens} of player's current inventory is a chestplate:
+										set player's chestplate to slot {_ens} of player's current inventory
+									set {_enE} to "helmet"
+								if {_enE} is "legs":
+									if slot {_ens} of player's current inventory is a leggings:
+										set player's legs to slot {_ens} of player's current inventory
+									set {_enE} to "chest"
+								if {_enE} is "boots":
+									if slot {_ens} of player's current inventory is a boots:
+										set player's boots to slot {_ens} of player's current inventory
+									set {_enE} to "legs"
+							set {Wardrobe-EquipedSlot.%UUID of player%::1} to clicked slot
+							set {Wardrobe-EquipedSlot.%UUID of player%::2} to "%{_wec}%"
+							stop
+# /////
+						else:
+							send "&cThis slot doesn't have an armor set!" to player
+							Nope(player)
+					else:
+						send "&cYou have already an no-wardrobe armor on you!" to player
+						Nope(player)
+						stop
+
+			if clicked slot is 0 or 9 or 18 or 27:
+				set {_ccc} to "Red"
+				set {_cccb} to red stained glass pane
+			if clicked slot is 1 or 10 or 19 or 28:
+				set {_ccc} to "Orange"
+				set {_cccb} to orange stained glass pane
+			if clicked slot is 2 or 11 or 20 or 29:
+				set {_ccc} to "Yellow"
+				set {_cccb} to yellow stained glass pane
+			if clicked slot is 3 or 12 or 21 or 30:
+				set {_ccc} to "Lime"
+				set {_cccb} to lime stained glass pane
+			if clicked slot is 4 or 13 or 22 or 31:
+				set {_ccc} to "Green"
+				set {_cccb} to green stained glass pane
+			if clicked slot is 5 or 14 or 23 or 32:
+				set {_ccc} to "Cyan"
+				set {_cccb} to cyan stained glass pane
+			if clicked slot is 6 or 15 or 24 or 33:
+				set {_ccc} to "Blue"
+				set {_cccb} to blue stained glass pane
+			if clicked slot is 7 or 16 or 25 or 34:
+				set {_ccc} to "Magenta"
+				set {_cccb} to magenta stained glass pane
+			if clicked slot is 8 or 17 or 26 or 35:
+				set {_ccc} to "Purple"
+				set {_cccb} to purple stained glass pane
+			if clicked slot is 0 or 1 or 2 or 3 or 4 or 5 or 6 or 7 or 8:
+				set {_ccct} to "Helmet"
+			if clicked slot is 9 or 10 or 11 or 12 or 13 or 14 or 15 or 16 or 17:
+				set {_ccct} to "Chestplate"
+			if clicked slot is 18 or 19 or 20 or 21 or 22 or 23 or 24 or 25 or 26:
+				set {_ccct} to "Leggings"
+			if clicked slot is 27 or 28 or 29 or 30 or 31 or 32 or 33 or 34 or 35:
+				set {_ccct} to "Boots"
+			if {_ccct} is set:
+				set {_cccb} to {_cccb} named "&7No %{_ccct}%" with nbt "{color:""%{_ccc}%""}"
+			
+			set {_cclickedslot} to clicked slot
+			loop 4 times:
+				add 9 to {_cclickedslot}
+				if slot {_cclickedslot} of player's current inventory is a lime dye:
+					send "&cYou can't modify an armor that you equiped on you!"
+					Nope(player)
+					stop
+			if tag "color" of item's nbt is not set:
+				loop {Wardrobe-%{_ccc}%.%UUID of player%::*}:
+					if {_ccct} is "Helmet":
+						if loop-value is a player head or a helmet:
+							set {_ccci} to loop-value
+					if {_ccct} is "Chestplate":
+						if loop-value is a chestplate:
+							set {_ccci} to loop-value
+					if {_ccct} is "Leggings":
+						if loop-value is a leggings:
+							set {_ccci} to loop-value
+					if {_ccct} is "Boots":
+						if loop-value is a boots:
+							set {_ccci} to loop-value
+				if {_ccci} is set:
+					if player's cursor slot is air:
+						remove {_ccci} from {Wardrobe-%{_ccc}%.%UUID of player%::*}
+						set item to {_cccb}
+						set player's cursor slot to {_ccci}
+						Click(player)
+						stop
+					else:
+						set {_cccic} to player's cursor slot
+						if {_ccct} is "Helmet":
+							if {_cccic} is a player head or a helmet:
+								set {_cv} to true
+						else if {_ccct} is "Chestplate":
+							if {_cccic} is a chestplate:
+								set {_cv} to true
+						else if {_ccct} is "Leggings":
+							if {_cccic} is a leggings:
+								set {_cv} to true
+						else if {_ccct} is "Boots":
+							if {_cccic} is a boots:
+								set {_cv} to true
+						else:
+							stop
+						if {_cv} is set:
+							set player's cursor slot to {_ccci}
+							set item to {_cccic}
+							remove {_ccci} from {Wardrobe-%{_ccc}%.%UUID of player%::*}
+							add {_cccic} to {Wardrobe-%{_ccc}%.%UUID of player%::*}
+							Click(player)
+						
+				else:
+					stop
+				
+		# ///////////////
+			if name of item is "&7No Helmet":
+				if player's cursor slot is an helmet or a player head:
+					set {_v} to true
+			if name of item is "&7No Chestplate":
+				if player's cursor slot is a chestplate:
+					set {_v} to true
+			if name of item is "&7No Leggings":
+				if player's cursor slot is a leggings:
+					set {_v} to true
+			if name of item is "&7No Boots":
+				if player's cursor slot is a boots:	
+					set {_v} to true
+			if name of item contains "&7No ":
+				if {_v} is true:
+					set {_cc} to tag "color" of item's nbt
+					add player's cursor slot to {Wardrobe-%{_cc}%.%UUID of player%::*}
+					set item to player's cursor slot
+					set player's cursor slot to air
+					Click(player)
+			
+command /reset-wardrobe <text>:
+	permission: op
+	trigger:
+		set {_cc} to arg-1
+		delete {Wardrobe-%{_cc}%.%UUID of player%::*}

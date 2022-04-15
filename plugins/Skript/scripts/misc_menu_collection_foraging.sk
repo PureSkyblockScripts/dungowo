@@ -1,0 +1,44 @@
+command /menucollection-bûcheron <player>:
+ permission: op
+ trigger:
+  if {Collection-OakWood.%UUID of arg-1%} is not set:
+   set {Collection-OakWood.%UUID of arg-1%} to 0
+  if {Collection-SpruceWood.%UUID of arg-1%} is not set:
+   set {Collection-SpruceWood.%UUID of arg-1%} to 0
+  if {Collection-BirchWood.%UUID of arg-1%} is not set:
+   set {Collection-BirchWood.%UUID of arg-1%} to 0
+  if {Collection-AcaciaWood.%UUID of arg-1%} is not set:
+   set {Collection-AcaciaWood.%UUID of arg-1%} to 0
+  if {Collection-DarkOakWood.%UUID of arg-1%} is not set:
+   set {Collection-DarkOakWood.%UUID of arg-1%} to 0
+  if {Collection-JungleWood.%UUID of arg-1%} is not set:
+   set {Collection-JungleWood.%UUID of arg-1%} to 0
+
+  open virtual chest inventory with size 6 named "Collection de Bûcheron" to arg-1
+  wait 1 ticks
+  format gui slot (integers between 0 and 53) of arg-1 with black stained glass pane named "&f"
+
+  format gui slot 10 of arg-1 with oak log named "&eBois de Chêne %{Collection-OakWood.%UUID of arg-1%}%" with lore "&7Consultez tous les progrès et récompenses" and "&7de votre collection de Bois de Chêne!" and "&7" and "&7Vous avez récolté &e%{Collection-OakWood-Collected.%UUID of arg-1%}%&7." and "&7" and "&eCliquez pour consulter!" to close:
+   make console execute command "/menucollection-bûcheron-chêne %player%"
+
+  format gui slot 11 of arg-1 with spruce log named "&eBois de Sapin %{Collection-SpruceWood.%UUID of arg-1%}%" with lore "&7Consultez tous les progrès et récompenses" and "&7de votre collection de Bois de Sapin!" and "&7" and "&7Vous avez récolté &e%{Collection-SpruceWood-Collected.%UUID of arg-1%}%&7." and "&7" and "&eCliquez pour consulter!" to close:
+   make console execute command "/menucollection-bûcheron-sapin %player%"
+
+  format gui slot 12 of arg-1 with birch log named "&eBois de Bouleau %{Collection-BirchWood.%UUID of arg-1%}%" with lore "&7Consultez tous les progrès et récompenses" and "&7de votre collection de Bois de Bouleau!" and "&7" and "&7Vous avez récolté &e%{Collection-BirchWood-Collected.%UUID of arg-1%}%&7." and "&7" and "&eCliquez pour consulter!" to close:
+   make console execute command "/menucollection-bûcheron-bouleau %player%"
+
+  format gui slot 13 of arg-1 with acacia log named "&eBois d'Acacia %{Collection-AcaciaWood.%UUID of arg-1%}%" with lore "&7Consultez tous les progrès et récompenses" and "&7de votre collection de Bois d'Acacia!" and "&7" and "&7Vous avez récolté &e%{Collection-AcaciaWood-Collected.%UUID of arg-1%}%&7." and "&7" and "&eCliquez pour consulter!" to close:
+   make console execute command "/menucollection-bûcheron-acacia %player%"
+
+  format gui slot 14 of arg-1 with dark oak log named "&eBois de Chêne Noir %{Collection-DarkOakWood.%UUID of arg-1%}%" with lore "&7Consultez tous les progrès et récompenses" and "&7de votre collection de Bois de Chêne Noir!" and "&7" and "&7Vous avez récolté &e%{Collection-DarkOakWood-Collected.%UUID of arg-1%}%&7." and "&7" and "&eCliquez pour consulter!" to close:
+   make console execute command "/menucollection-bûcheron-chênenoir %player%"
+
+  format gui slot 15 of arg-1 with jungle log named "&eBois d'Acajou %{Collection-JungleWood.%UUID of arg-1%}%" with lore "&7Consultez tous les progrès et récompenses" and "&7de votre collection de Bois d'Acajou!" and "&7" and "&7Vous avez récolté &e%{Collection-JungleWood-Collected.%UUID of arg-1%}%&7." and "&7" and "&eCliquez pour consulter!" to close:
+   make console execute command "/menucollection-bûcheron-acajou %player%"
+
+  format gui slot (integers between 21 and 25) of arg-1 with black stained glass pane named "&f"
+
+  format gui slot (integers between 28 and 43) of arg-1 with black stained glass pane named "&f"
+  format gui slot 48 of arg-1 with arrow named "&aRetour" with lore "&7Revenir à la page précédente." and "&7" and "&eCliquez pour retourner!" to close:
+   make console execute command "/menucollection %player%"
+  format gui slot 49 of arg-1 with barrier named "&cFermer" to close

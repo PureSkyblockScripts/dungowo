@@ -1,0 +1,98 @@
+
+
+function ClearScoreboard(p: player):
+	clear {_p}'s scoreboard
+
+every 0.5 seconds in "world":
+	loop all players:
+	# ===== TABLIST
+		set loop-player's tablist header to " &b&lYOU ARE PLAYING ON &e&lStormAlpha.MINEHUT.GG %nl%"
+		set loop-player's tablist footer to "%nl%&aRanks, Boosters, Gems on &c&lSTORM.STORE.TEST"
+		set loop-player's tablist name to "%{trueplayer.%UUID of loop-player%}%"
+	# ===== SCOREBOARD + ACTIONBAR
+		set {_hp} to round({health.%UUID of loop-player%}+{Absorption.%UUID of loop-player%})
+		if {Absorption.%UUID of loop-player%} is not set:
+			set {_HealthScore} to "&cSanté &c%{_hp}%&c❤"
+			set {HealthAction.%UUID of loop-player%} to "&c%{_hp}%&c/&c%round({MaxHealth.%UUID of loop-player%})%&c❤&r"
+		else:
+			set {_HealthScore} to "&eSanté &e%{_hp}%&e❤&r"
+			set {HealthAction.%UUID of loop-player%} to "&e%{_hp}%&e/&e%{MaxHealth.%UUID of loop-player%}%&e❤&r"
+		set {_action} to "&c%{HealthAction.%UUID of loop-player%}%     &a%round({defense.%UUID of loop-player%})%&a❈     &b%round({mana.%UUID of loop-player%})%&b/&b%round({Intelligence.%UUID of loop-player%})%&b✎"
+		if loop-player's tool's name contains "&6Florid Zombie Sword":
+			set {_c} to "&e"
+			if {SB-Charges.%UUID of loop-player%} is equal to 0:
+				set {_c} to "&6"
+			set {_action} to "&c%{HealthAction.%UUID of loop-player%}%     &a%round({defense.%UUID of loop-player%})%&a❈     &b%round({mana.%UUID of loop-player%})%&b/&b%round({Intelligence.%UUID of loop-player%})%&b✎  %{_c}%%{SB-Charges.%UUID of loop-player%}%%{_c}%⓪"
+# ===================
+		if {AbilityUsed.%UUID of loop-player%} is not true:
+			send action bar "%{_action}%" to loop-player
+		else:
+			delete {AbilityUsed.%UUID of loop-player%}
+			
+# ===================
+		set title of loop-player's scoreboard to "          &6&lSKYBLOCK        "
+		if {DungeonParty::*} doesn't contain "%loop-player%":
+			set line 13 of loop-player's scoreboard to "&aWatermelon &8m769H"
+			set line 12 of loop-player's scoreboard to ""
+			set line 11 of loop-player's scoreboard to " &f29 Winter 178"
+			set {_time} to "%time%"
+			if time in "world" is night:
+				set {_journey} to "&b☽"
+			if time in "world" is day:
+				set {_journey} to "&e☀"
+			else:
+				set {_journey} to "&b☽"
+			#replace all ":" with "h" in {_time}
+			set line 10 of loop-player's scoreboard to " &7%{_time}% &7%{_journey}%"
+			set line 9 of loop-player's scoreboard to " &7⏣ &bVillage"
+			set line 8 of loop-player's scoreboard to ""
+			set line 7 of loop-player's scoreboard to "&fPurse: &6%{purse.%UUID of loop-player%}%"
+			set line 6 of loop-player's scoreboard to ""
+			set line 5 of loop-player's scoreboard to "&fOjective"
+			set line 4 of loop-player's scoreboard to "&eTalk to villagers"
+			set line 3 of loop-player's scoreboard to "  &7(&e0&7/&a12&7)"
+			set line 2 of loop-player's scoreboard to ""
+			set line 1 of loop-player's scoreboard to "&e☠ StormAlpha"
+		else:
+			#clear loop-player's scoreboard
+			if {_lol} is not set:
+				set {_secretmax} to 48
+				set {_secretfound} to 48
+				set {_timer-minute} to "%{Dungeon-Timer-Minute-Floor-7}%"
+				set {_timer-second} to "%{Dungeon-Timer-Second-Floor-7}%"
+				set {_crypte} to 5
+				set {_death} to {Dungeon-Death-Floor-7}
+				set {_doorkey} to "0"
+
+		# ===
+			set {_sz} to size of {DungeonParty::*}
+			set {_ss} to 4-{_sz}
+			if {_sz} is equal to 1:
+				set line 3 of loop-player's scoreboard to "&8No Teammate"
+			add {DungeonParty::1} to {_loop.%UUID of loop-player%::*}
+			add {DungeonParty::2} to {_loop.%UUID of loop-player%::*}
+			add {DungeonParty::3} to {_loop.%UUID of loop-player%::*}
+			add {DungeonParty::4} to {_loop.%UUID of loop-player%::*}
+			add {DungeonParty::5} to {_loop.%UUID of loop-player%::*}
+			remove all "%loop-player%" from {_loop.%UUID of loop-player%::*}
+			add {_loop.%UUID of loop-player%::*} to {_p.%UUID of loop-player%::*}
+			set {_p1} to {_p.%UUID of loop-player%::1}'s uuid
+			
+			
+			if {_sz} is equal to 2:
+				set line (6-{_ss}) of loop-player's scoreboard to "&b%{_p.%UUID of loop-player%::1}% &a%round({health.%{_p1}%})%&c❤"
+		# ===
+			set line (15-{_ss}) of loop-player's scoreboard to "&aWatermelon &8m38C"
+			set line (14-{_ss}) of loop-player's scoreboard to ""
+			set line (13-{_ss}) of loop-player's scoreboard to " &f29 Winter 178"
+			set line (12-{_ss}) of loop-player's scoreboard to " &7⏣ &cThe Catacombs &7(F7)"
+			set line (11-{_ss}) of loop-player's scoreboard to ""
+			set line (10-{_ss}) of loop-player's scoreboard to "&7Key &8■ &5%{_doorkey}%&5x"
+			set line (9-{_ss}) of loop-player's scoreboard to "&7Timer &a%{_timer-minute}%&am&a%{_timer-second}%&as"
+			#set line (9-{_ss}) of loop-player's scoreboard to "&7Secret &9%{_secretfound}%/%{_secretmax}%"
+			set line (8-{_ss}) of loop-player's scoreboard to "&7Info &6%{_crypte}%⚱ &c%{_death}%☠"
+			set line (7-{_ss}) of loop-player's scoreboard to ""
+			set line 2 of loop-player's scoreboard to ""
+			set line 1 of loop-player's scoreboard to "&e☠ StormAlpha"
+			if {_sz} is higher than 5:
+				set line 3 of loop-player's scoreboard to " &8• &6Too Many People &8•"

@@ -1,0 +1,60 @@
+command /menucollection-agriculture <player>:
+ permission: op
+ trigger:
+  if {Collection-Wheat.%UUID of arg-1%} is not set:
+   set {Collection-Wheat.%UUID of arg-1%} to 0
+  if {Collection-Carrot.%UUID of arg-1%} is not set:
+   set {Collection-Carrot.%UUID of arg-1%} to 0
+  if {Collection-Potato.%UUID of arg-1%} is not set:
+   set {Collection-Potato.%UUID of arg-1%} to 0
+  if {Collection-Pumpkin.%UUID of arg-1%} is not set:
+   set {Collection-Pumpkin.%UUID of arg-1%} to 0
+  if {Collection-Melon.%UUID of arg-1%} is not set:
+   set {Collection-Melon.%UUID of arg-1%} to 0
+  if {Collection-Mushroom.%UUID of arg-1%} is not set:
+   set {Collection-Mushroom.%UUID of arg-1%} to 0
+  if {Collection-CocoaBeans.%UUID of arg-1%} is not set:
+   set {Collection-CocoaBeans.%UUID of arg-1%} to 0
+  if {Collection-Cactus.%UUID of arg-1%} is not set:
+   set {Collection-Cactus.%UUID of arg-1%} to 0
+  if {Collection-SugarCane.%UUID of arg-1%} is not set:
+   set {Collection-SugarCane.%UUID of arg-1%} to 0
+
+
+  open virtual chest inventory with size 6 named "Collection d'Agriculture" to arg-1
+  wait 1 ticks
+  format gui slot (integers between 0 and 53) of arg-1 with black stained glass pane named "&f"
+
+  format gui slot 10 of arg-1 with wheat named "&eBlé %{Collection-Wheat.%UUID of arg-1%}%" with lore "&7Consultez tous les progrès et récompenses" and "&7de votre collection de Blé!" and "&7" and "&7Vous avez récolté &e%{Collection-Wheat-Collected.%UUID of arg-1%}%&7." and "&7" and "&eCliquez pour consulter!" to close:
+   make console execute command "/menucollection-agriculture-blé %player%"
+
+  format gui slot 11 of arg-1 with carrot named "&eCarotte %{Collection-Carrot.%UUID of arg-1%}%" with lore "&7Consultez tous les progrès et récompenses" and "&7de votre collection de Carotte!" and "&7" and "&7Vous avez récolté &e%{Collection-Carrot-Collected.%UUID of arg-1%}%&7." and "&7" and "&eCliquez pour consulter!" to close:
+   make console execute command "/menucollection-agriculture-carotte %player%"
+
+  format gui slot 12 of arg-1 with potato named "&ePatate %{Collection-Potato.%UUID of arg-1%}%" with lore "&7Consultez tous les progrès et récompenses" and "&7de votre collection de Patate!" and "&7" and "&7Vous avez récolté &e%{Collection-Potato-Collected.%UUID of arg-1%}%&7." and "&7" and "&eCliquez pour consulter!" to close:
+   make console execute command "/menucollection-agriculture-patate %player%"
+
+  format gui slot 13 of arg-1 with pumpkin named "&eCitrouille %{Collection-Pumpkin.%UUID of arg-1%}%" with lore "&7Consultez tous les progrès et récompenses" and "&7de votre collection de Citrouille!" and "&7" and "&7Vous avez récolté &e%{Collection-Pumpkin-Collected.%UUID of arg-1%}%&7." and "&7" and "&eCliquez pour consulter!" to close:
+   make console execute command "/menucollection-agriculture-citrouille %player%"
+
+  format gui slot 14 of arg-1 with melon slice named "&ePastèque %{Collection-Melon.%UUID of arg-1%}%" with lore "&7Consultez tous les progrès et récompenses" and "&7de votre collection de Pastèque!" and "&7" and "&7Vous avez récolté &e%{Collection-Melon-Collected.%UUID of arg-1%}%&7." and "&7" and "&eCliquez pour consulter!" to close:
+   make console execute command "/menucollection-agriculture-pastèque %player%"
+
+  format gui slot 15 of arg-1 with red mushroom named "&eChampignon %{Collection-Mushroom.%UUID of arg-1%}%" with lore "&7Consultez tous les progrès et récompenses" and "&7de votre collection de Champignon!" and "&7" and "&7Vous avez récolté &e%{Collection-Mushroom-Collected.%UUID of arg-1%}%&7." and "&7" and "&eCliquez pour consulter!" to close:
+   make console execute command "/menucollection-agriculture-champignon %player%"
+
+  format gui slot 16 of arg-1 with cocoa beans named "&eFèves de Cacao %{Collection-CocoaBeans.%UUID of arg-1%}%" with lore "&7Consultez tous les progrès et récompenses" and "&7de votre collection des Fèves de Cacao!" and "&7" and "&7Vous avez récolté &e%{Collection-CocoaBeans-Collected.%UUID of arg-1%}%&7." and "&7" and "&eCliquez pour consulter!" to close:
+   make console execute command "/menucollection-agriculture-fèvesDeCacao %player%"
+
+  format gui slot 19 of arg-1 with cactus named "&eCactus %{Collection-Cactus.%UUID of arg-1%}%" with lore "&7Consultez tous les progrès et récompenses" and "&7de votre collection de Cactus!" and "&7" and "&7Vous avez récolté &e%{Collection-Cactus-Collected.%UUID of arg-1%}%&7." and "&7" and "&eCliquez pour consulter!" to close:
+   make console execute command "/menucollection-agriculture-cactus %player%"
+
+  format gui slot 20 of arg-1 with sugar cane named "&eCanne à Sucre %{Collection-SugarCane.%UUID of arg-1%}%" with lore "&7Consultez tous les progrès et récompenses" and "&7de votre collection de Canne à Sucre!" and "&7" and "&7Vous avez récolté &e%{Collection-SugarCane-Collected.%UUID of arg-1%}%&7." and "&7" and "&eCliquez pour consulter!" to close:
+   make console execute command "/menucollection-agriculture-canneàSucre %player%"
+
+  format gui slot (integers between 21 and 25) of arg-1 with black stained glass pane named "&f"
+
+  format gui slot (integers between 28 and 43) of arg-1 with black stained glass pane named "&f"
+  format gui slot 48 of arg-1 with arrow named "&aRetour" with lore "&7Revenir à la page précédente." and "&7" and "&eCliquez pour retourner!" to close:
+   make console execute command "/menucollection %player%"
+  format gui slot 49 of arg-1 with barrier named "&cFermer" to close

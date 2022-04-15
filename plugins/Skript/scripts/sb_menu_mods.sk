@@ -1,0 +1,130 @@
+function SBSend_ModNotActivated(p: player):
+	send "&cYou haven't activated the mod." to {_p}
+	Nope({_p})
+
+command /sb-mods:
+	trigger:
+		wait 1 tick
+		open virtual chest inventory with size 3 named "Mods" to player
+		format gui slot (integers between 0 and 26) of player with {Menu-Panes}
+		format gui slot 22 of player with {Menu-Close} to close
+		format gui slot 21 of player with {Menu-GoBack} to run:
+			make player execute command "/menu"
+		format gui slot 4 of player with command block of unbreaking 1 with hidden enchants flag named "&cYour Mods" with lore "&7Adjust mods to improve and adapt the point of" and "&7the view of your game."
+		format gui slot (integers between 10 and 16) of player with gray stained glass pane named "&f"
+		format gui slot 10 of player with iron sword with attribute flag hidden named "&cDamage Displayer" with lore "&7State: &9Active" and "&7" and "&7Description" and " &7&oSuccessfully reading damage is not" and " &7&oalways pleasant to read." and "&7" and "&eClick to view!"
+		format gui slot 11 of player with command block of unbreaking 1 with hidden enchants named "&cTerminal Solver" with lore "&7State: &9Active" and "&7" and "&7Description" and " &7&oSuccessfully finish quickly a terminal" and " &7&oisn't always pleasant for your teammates" and " &7&oto wait and get angry to you." and "&7" and "&eClick to view!"
+		format gui slot 23 of player with filled map named "&cYour Mods" with lore "&7%{SB-Mods.%UUID of player%::*}%"
+		
+on inventory click:
+	if name of player's current inventory is "Mods":
+		if name of item is "&cDamage Displayer":
+			set {Mods-Selected.%UUID of player%} to "Damage Displayer"
+		if name of item is "&cTerminal Solver":
+			set {Mods-Selected.%UUID of player%} to "Terminal Solver"
+
+		if {Mods-Selected.%UUID of player%} is set:
+			SBMenuFrame_MODS(player, item, "%{Mods-Selected.%UUID of player%}%")
+# ===
+	if name of player's current inventory contains "Mods >":
+	# ==
+		set {_m::*} to split {Mods-Selected.%UUID of player%} by ""
+		remove " " from {_m::*}
+		set {_mod} to join {_m::*}
+	# ==
+		if item is {Menu-Disable}:
+			add "%{Mods-Selected.%UUID of player%}%" to {SB-Mods.%UUID of player%::*}
+			send "&6&lMODS! &fYou have &aactivated &fthe mod &b'&b%{Mods-Selected.%UUID of player%}%&b'&f." to player
+			Click(player)
+		if item is {Menu-Enable}:
+			remove "%{Mods-Selected.%UUID of player%}%" from {SB-Mods.%UUID of player%::*}
+			# ==
+			delete {SB-Mods-%{_mod}%.%UUID of player%::*}
+			# ==
+			Click(player)
+			send "&6&lMODS! &fYou have &cdeleted &fthe mod &b'&b%{Mods-Selected.%UUID of player%}%&b'&f." to player
+# ===
+		if item is {Menu-GoBack}:
+			make player execute command "/sb-mods"
+# ===
+	if {Mods-Selected.%UUID of player%} is "Terminal Solver":
+		if name of item contains "&aDisplay as" or "&aWrong Answer":
+			if {SB-Mods.%UUID of player%::*} contains "Terminal Solver":
+				Click(player)
+				send "&6&lMODS! &fYou selected %item's name%&f." to player
+				if name of item is "&aDisplay as Blue":
+					set {SB-Mods-TerminalSolver.%UUID of player%::1} to light blue stained glass pane
+				if name of item is "&aDisplay as Lime":
+					set {SB-Mods-TerminalSolver.%UUID of player%::1} to lime stained glass pane
+				if name of item is "&aDisplay as Gold":
+					set {SB-Mods-TerminalSolver.%UUID of player%::1} to orange stained glass pane
+				if name of item is "&aDisplay as Purple":
+					set {SB-Mods-TerminalSolver.%UUID of player%::1} to purple stained glass pane
+				if name of item is "&aWrong Answer Displayer":
+					delete {SB-Mods-TerminalSolver.%UUID of player%::2}
+				if name of item is "&aWrong Answer Hider":
+					set {SB-Mods-TerminalSolver.%UUID of player%::2} to black stained glass pane
+			else:
+				SBSend_ModNotActivated(player)
+			
+	if {Mods-Selected.%UUID of player%} is "Damage Displayer":
+		if name of item contains "&aDisplay":
+			if {SB-Mods.%UUID of player%::*} contains "Damage Displayer":
+				Click(player)
+				send "&6&lMODS! &fYou selected %item's name%&f." to player
+				if name of item is "&aDisplay by Million":
+					set {SB-Mods-DamageDisplayer.%UUID of player%::1} to 1000000
+				if name of item is "&aDisplay by Billion":
+					set {SB-Mods-DamageDisplayer.%UUID of player%::1} to 1000000000
+				if name of item is "&aDisplay by thousand":
+					set {SB-Mods-DamageDisplayer.%UUID of player%::1} to 1000
+			else:
+				SBSend_ModNotActivated(player)
+			
+on inventory close:
+	if name of player's current inventory contains "Mods >":
+		wait 2 ticks
+		delete {Mods-Selected.%UUID of player%}
+
+function SBMenuFrame_MODS(p: player, i: item, v: text):
+	set {_pU} to {_p}'s uuid
+	open virtual chest inventory with size 5 named "Mods > '%{_v}%'" to {_p}
+	format gui slot (integers between 0 and 44) of {_p} with {Menu-Panes}
+	format gui slot 40 of {_p} with {Menu-Close} to close
+	format gui slot 39 of {_p} with {Menu-GoBack} to close
+	format gui slot 4 of {_p} with {_i}
+	
+	if {SB-Mods.%{_pU}%::*} contains "%{_v}%":
+		format gui slot 41 of {_p} with {Menu-Enable} to close
+	else:
+		format gui slot 41 of {_p} with {Menu-Disable} to close
+
+# ===
+	if {_v} is "Terminal Solver":
+		set {_uu} to 19
+		set {_un} to "Lime"
+		set {_unn} to "&a"
+		set {_o} to lime stained glass pane
+		loop 4 times:
+			format gui slot {_uu} of {_p} with {_o} named "&aDisplay as %{_un}%" with lore "&7&oCorrects answers buttons will be in" and "%{_unn}%&o%{_un}% &7&ocolor for terminals." and "&7" and "&eClick to select!"
+			if {_un} is "Blue":
+				set {_un} to "Purple"
+				set {_unn} to "&5"
+				set {_o} to purple stained glass pane
+			if {_un} is "Gold":
+				set {_un} to "Blue"
+				set {_unn} to "&b"
+				set {_o} to light blue stained glass pane
+			if {_un} is "Lime":
+				set {_un} to "Gold"
+				set {_unn} to "&6"
+				set {_o} to orange stained glass pane
+			add 1 to {_uu}
+		format gui slot 24 of {_p} with map named "&aWrong Answer Hider" with lore "&7&oAll wrong answers will be gone from" and "&7&oyour terminals. Easier to see the" and "&7&ocorrect one!" and "&7" and "&eClick to select!"
+		format gui slot 25 of {_p} with filled map named "&aWrong Answer Displayer" with lore "&7&oAll wrong answers won't be gone from" and "&7&oyour terminals. Harder to see the" and "&7&ocorrect one!" and "&7" and "&eClick to select!"
+	if {_v} is "Damage Displayer":
+		format gui slot 21 of {_p} with paper named "&aDisplay by thousand" with lore "&7&oEasier to read." and "&7" and "&7Example" and " &7✧&f250k&7✧ &8(Instead of ✧250000✧)" and "&7" and "&eClick to select!"
+		format gui slot 22 of {_p} with empty map named "&aDisplay by Million" with lore "&7&oCan be bad if you don't do more" and "&7&othan a million!" and "&7" and "&7Example" and " &7✧&f3.25M&7✧ &8(Instead of ✧3250000✧)" and "&7" and "&eClick to select!"
+		format gui slot 23 of {_p} with filled map named "&aDisplay by Billion" with lore "&7&oMust already succeed in reaching" and "&7this huge number :)" and "&7" and "&7Example" and " &7✧&f1.5B&7✧ &8(Instead of ✧1500000000✧)" and "&7" and "&eClick to select!"
+	
+	

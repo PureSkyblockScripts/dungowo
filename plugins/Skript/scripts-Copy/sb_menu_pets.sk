@@ -1,0 +1,334 @@
+command /sb-pet:
+	trigger:
+		open virtual chest inventory with size 6 named "Pet Menu" to player
+		format gui slot (integers between 0 and 53) of player with {Menu-Panes}
+		format gui slot 49 of player with {Menu-Close} to close
+		format gui slot 48 of player with {Menu-GoBack} to close:
+			make player execute command "/menu"
+		format gui slot (integers between 10 and 16) and (integers between 19 and 25) and (integers between 28 and 34) and (integers between 37 and 43) of player with air
+		format gui slot 50 of player with gray dye named "&aPickup a Pet" with lore "&7Click here to be able to" and "&7pickup any pet your pet by" and "&7clicking on them!" and "&7" and "&eClick to select!"
+		format gui slot 4 of player with bone named "&aYour Pets"
+		add {Pets.%UUID of player%::*} to player's current inventory
+		
+on inventory click:
+	if name of player's current inventory is "Pet Menu":
+		if clicked inventory is not player's inventory:
+			if name of item is "&aPickup a Pet":
+				set item to lime dye named "&aPickup a Pet" with lore "&7Click here to be able to" and "&7pickup any pet by" and "&7clicking on them!" and "&7" and "&eClick to select!"
+			if name of item contains "&7[Lv":
+				if slot 50 of player's current inventory is lime dye:
+					if name of item is not name of {Pet.%UUID of player%}:
+						if player has space for item:
+							set {_pet} to item
+							remove {_pet} from {Pets.%UUID of player%::*}
+							set item to air
+							loop all items in player's current inventory:
+								if name of loop-item contains "&7[Lv":
+									remove loop-item from player's current inventory
+							add {Pets.%UUID of player%::*} to player's current inventory
+							give {_pet} to player
+							set slot 50 of player's current inventory to gray dye named "&aPickup a Pet" with lore "&7Click here to be able to" and "&7pickup any pet by" and "&7clicking on them!" and "&7" and "&eClick to select!"
+							Click(player)
+						else:
+							NoSpace(player)
+					else:
+						send "&cYou can't pickup an equipped pet!" to player
+						Nope(player)
+						stop
+				else:
+					if item is {Pet.%UUID of player%}:
+						set {Pet.%UUID of player%} to stone named "&cNone"
+						send "&cYou unequipped your pet!"
+						Click(player)
+						SB_Pet_StatRemove(player, "Stat")
+						SB_Pet_StatRemove(player, "Ability")
+						close player's inventory
+						stop
+					set {Pet.%UUID of player%} to item
+					SB_Pet_StatRemove(player, "Stat")
+					SB_Pet_StatRemove(player, "Ability")
+					SB_Pet_StatGive(player, item)
+					SB_Pet_AbilityGive(player, item)
+					Click(player)
+					send "&aYou equipped your &7%item's name%&a!" to player
+					close player's inventory
+					stop
+				
+
+on right click with player head:
+	cancel event
+	if name of player's tool contains "&7[Lv":
+		add player's tool to {Pets.%UUID of player%::*}
+		play sound "entity.experience_orb.pickup" at player for player
+		send "&aYou added &7%player's tool's name% &ato your Pet Menu!" to player
+		remove player's tool from player's tool
+		
+command /sb-petsresetall:
+	permission: op
+	trigger:
+		loop all players:
+			if {Pet.%UUID of loop-player%} is set:
+				SB_Pet_StatRemove(loop-player, "Stat")
+				SB_Pet_StatRemove(loop-player, "Ability")
+				delete {Pet.%UUID of loop-player%}
+				send "&cYour Pet have been removed due a problem." to loop-player
+		
+function SB_Pet_AbilityGive(p: player, i: item):
+	set {_pU} to {_p}'s uuid
+	set {_lore::*} to {_i}'s lore
+	loop {_lore::*}:
+		add 1 to {_v}
+		if loop-value contains "&6Hunter":
+			add ({Speed.%{_pU}%}*0.2) to {PetAbility.%{_pU}%::4}
+			add {PetAbility.%{_pU}%::4} to {Speed.%{_pU}%}
+		if loop-value contains "&6Bulk":
+			set {_o} to {MaxHealth.%{_pU}%}
+			loop {_o} times:
+				if {_o} is higher than 19.9:
+					remove 20 from {_o}
+					add 3 to {_def}
+			add {_def} to {PetAbility.%{_pU}%::2}
+			add {PetAbility.%{_pu}%::2} to {Defense.%{_pU}%}
+		if loop-value contains "&6Archimedes":
+			add ({MaxHealth.%{_pU}%}*0.2) to {PetAbility.%{_pU}%::1}
+			add {PetAbility.%{_pU}%::1} to {MaxHealth.%{_pU}%}
+		if loop-value contains "&6Gemstone's Power":
+			add 40 to {PetAbility.%{_pU}%::3}
+			add {PetAbility.%{_pU}%::3} to {Strength.%{_pU}%}
+		if loop-value contains "&6Dragon's Greed":
+			set {_o} to {critdamage.%{_pU}%}*0.1
+			add {_o} to {PetAbility.%{_pU}%::3}
+			add {_o} to {strength.%{_pU}%}
+		if loop-value contains "&6Mana Regen":
+			set {_o} to {ManaRegeneration.%{_pU}%}*0.5
+			add {_o} to {PetAbility.%{_pU}%::101}
+			add {PetAbility.%{_pU}%::101} to {ManaRegeneration.%{_pU}%}
+		if loop-value contains "&6Overheal":
+			set {_o} to {MaxHealth.%{_pU}%}*0.1
+			add {_o} to {PetAbility.%{_pU}%::1}
+			add {PetAbility.%{_pU}%::1} to {MaxHealth.%{_pU}%}
+		if loop-value contains "&6Wizard":
+			set {_o} to {Intelligence.%{_pU}%}*0.2
+			add {_o} to {PetAbility.%{_pU}%::7}
+			add {PetAbility.%{_pU}%::7} to {Intelligence.%{_pU}%}
+			set {_o} to {AbilityDamage.%{_pU}%}*0.2
+			add {_o} to {PetAbility.%{_pU}%::15}
+			add {PetAbility.%{_pU}%::15} to {AbilityDamage.%{_pU}%}
+		if loop-value contains "&6Ice Shield":
+			set {_o} to {Strength.%{_pU}%}
+			add {_o} to {PetAbility.%{_pU}%::2}
+			add {PetAbility.%{_pU}%::2} to {Defense.%{_pU}%}
+		if loop-value contains "&6Cold Breeze":
+			set {_o} to {Defense.%{_pU}%}
+			add {_o} to {PetAbility.%{_pU}%::2}
+			add {_o} to {Defense.%{_pU}%}
+		if loop-value contains "&6Merciless Swipe":
+			set {_o} to {Ferocity.%{_pU}%}
+			add {_o} to {PetAbility.%{_pU}%::14}
+			add {PetAbility.%{_pU}%::14} to {Ferocity.%{_pU}%}
+		if loop-value contains "&6Superior":
+			send "bru" to {_p}
+			set {_st} to "MaxHealth"
+			loop 13 times:
+				add 1 to {_lv}
+				set {_o%{_lv}%} to {%{_st}%.%{_pU}%}*0.1
+				add {_o%{_lv}%} to {PetAbility.%{_pU}%::%{_lv}%}
+				add {PetAbility.%{_pU}%::%{_lv}%} to {%{_st}%.%{_pU}%}
+				if {_st} is "Ferocity":
+					set {_st} to "AbilityDamage"
+				if {_st} is "TrueDefense":
+					set {_st} to "Ferocity"
+				if {_st} is "PetLuck":
+					set {_st} to "TrueDefense"
+				if {_st} is "MagicFind":
+					set {_st} to "PetLuck"
+				if {_st} is "Attackspeed":
+					set {_st} to "MagicFind"
+					add 1 to {_lv}
+				if {_st} is "Intelligence":
+					set {_st} to "Attackspeed"
+					add 1 to {_lv}
+				if {_st} is "CritDamage":
+					set {_st} to "Intelligence"
+				if {_st} is "CritChance":
+					set {_st} to "CritDamage"
+				if {_st} is "Speed":
+					set {_st} to "CritChance"
+				if {_st} is "Strength":
+					set {_st} to "Speed"
+				if {_st} is "Defense":
+					set {_st} to "Strength"
+				if {_st} is "MaxHealth":
+					set {_st} to "Defense"
+			
+		
+function SB_Pet_StatGive(p: player, i: item):
+	set {_pU} to {_p}'s uuid
+	set {_lore::*} to {_i}'s lore
+	loop {_lore::*}:
+		add 1 to {_v}
+		if loop-value contains "&7Santé:" or "&7Health:":
+			set {_s::*} to split "%{_lore::%{_v}%}%" by "."
+			set {_l-hp} to {_s::1}
+		if loop-value contains "&7Defense:":
+			set {_s::*} to split "%{_lore::%{_v}%}%" by "."
+			set {_l-def} to {_s::1}
+		if loop-value contains "&7Speed:" or "&7Vitesse:":
+			set {_s::*} to split "%{_lore::%{_v}%}%" by "."
+			set {_l-spd} to {_s::1}
+		if loop-value contains "&7Strength:" or "&7Force:":
+			set {_s::*} to split "%{_lore::%{_v}%}%" by "."
+			set {_l-str} to {_s::1}
+		if loop-value contains "&7Crit Damage:" or "&7Dégât Critique:":
+			set {_s::*} to split "%{_lore::%{_v}%}%" by "."
+			set {_l-crit} to {_s::1}
+		if loop-value contains "&7Crit Chance:" or "&7Chance Critique:":
+			set {_s::*} to split "%{_lore::%{_v}%}%" by "."
+			set {_l-cc} to {_s::1}
+		if loop-value contains "&7Bonus Attack Speed:" or "&7Vitesse d'Attaque:":
+			set {_s::*} to split "%{_lore::%{_v}%}%" by "."
+			set {_l-ats} to {_s::1}
+		if loop-value contains "&7Ability Damage:" or "&7Dégât de Capacité:":
+			set {_s::*} to split "%{_lore::%{_v}%}%" by "."
+			set {_l-abd} to {_s::1}
+		if loop-value contains "&7Mining Speed:" or "&7Vitesse de Minage:":
+			set {_s::*} to split "%{_lore::%{_v}%}%" by "."
+			set {_l-ms} to {_s::1}
+		if loop-value contains "&7Intelligence:":
+			set {_s::*} to split "%{_lore::%{_v}%}%" by "."
+			set {_l-mana} to {_s::1}
+		if loop-value contains "&7Fortune Agricole:" or "&7Farming Fortune:":
+			set {_s::*} to split "%{_lore::%{_v}%}%" by "."
+			set {_l-fa} to {_s::1}
+		if loop-value contains "&7Fortune Minière:" or "&7Mining Fortune:":
+			set {_s::*} to split "%{_lore::%{_v}%}%" by "."
+			set {_l-fm} to {_s::1}
+		if loop-value contains "&7Fortune Forestière:" or "&7Foraging Fortune:":
+			set {_s::*} to split "%{_lore::%{_v}%}%" by "."
+			set {_l-ff} to {_s::1}
+		if loop-value contains "&7Magic Find:" or "&7Réalité:":
+			set {_s::*} to split "%{_lore::%{_v}%}%" by "."
+			set {_l-mf} to {_s::1}
+		if loop-value contains "&7Pet Luck:":
+			set {_s::*} to split "%{_lore::%{_v}%}%" by "."
+			set {_l-tr} to {_s::1}
+		if loop-value contains "&7Ferocity:":
+			set {_s::*} to split "%{_lore::%{_v}%}%" by "."
+			set {_l-fr} to {_s::1}
+	set {_w} to 1
+# /////////////////////////////////
+	if {_l-hp} is set:
+		set {_hp} to numbers in uncoloured {_l-hp}
+		set {_hp} to {_hp} parsed as number
+		set {_hp} to ({_hp}*{_w})
+		set {_hp} to round({_hp})
+	if {_l-def} is set:
+		set {_def} to numbers in uncoloured {_l-def}
+		set {_def} to {_def} parsed as number
+		set {_def} to ({_def}*{_w})
+		set {_def} to round({_def})
+	if {_l-mana} is set:
+		set {_mana} to numbers in uncoloured {_l-mana}
+		set {_mana} to {_mana} parsed as number
+		set {_mana} to ({_mana}*{_w})
+		set {_mana} to round({_mana})
+	if {_l-ms} is set: # NO
+		set {_ms} to numbers in uncoloured {_l-ms}
+		set {_ms} to {_ms} parsed as number
+		set {_ms} to round({_ms})
+	if {_l-ats} is set:
+		set {_ats} to numbers in uncoloured {_l-ats}
+		set {_ats} to {_ats} parsed as number
+		set {_ats} to ({_ats}*{_w2})
+		set {_ats} to round({_ats})
+	if {_l-str} is set:
+		set {_str} to numbers in uncoloured {_l-str}
+		set {_str} to {_str} parsed as number
+		set {_str} to ({_str}*{_w})
+		set {_str} to round({_str})
+	if {_l-crit} is set:
+		set {_crit} to numbers in uncoloured {_l-crit}
+		set {_crit} to {_crit} parsed as number
+		set {_crit} to ({_crit}*{_w})
+		set {_crit} to round({_crit})
+	if {_l-cc} is set:
+		set {_cc} to numbers in uncoloured {_l-cc}
+		set {_cc} to {_cc} parsed as number
+		set {_cc} to ({_cc}*{_w2})
+		set {_cc} to round({_cc})
+	if {_l-abd} is set:
+		set {_abd} to numbers in uncoloured {_l-abd}
+		set {_abd} to {_abd} parsed as number
+		set {_abd} to ({_abd}*{_w})
+		set {_abd} to round({_abd})
+	if {_l-spd} is set:
+		set {_spd} to numbers in uncoloured {_l-spd}
+		set {_spd} to {_spd} parsed as number
+		set {_spd} to ({_spd}*{_w})
+		set {_spd} to round({_spd})
+	if {_l-fa} is set: # NO
+		set {_fa} to numbers in uncoloured {_l-fa}
+		set {_fa} to {_fa} parsed as number
+		set {_fa} to round({_fa})
+	if {_l-fm} is set: # NO
+		set {_fm} to numbers in uncoloured {_l-fm}
+		set {_fm} to {_fm} parsed as number
+		set {_fm} to round({_fm})
+	if {_l-ff} is set: # NO
+		set {_ff} to numbers in uncoloured {_l-ff}
+		set {_ff} to {_ff} parsed as number
+		set {_ff} to round({_ff})
+	if {_l-mf} is set: # NO
+		set {_mf} to numbers in uncoloured {_l-mf}
+		set {_mf} to {_mf} parsed as number
+		set {_mf} to round({_mf})
+	if {_l-tr} is set: # NO
+		set {_tr} to numbers in uncoloured {_l-tr}
+		set {_tr} to {_tr} parsed as number
+		set {_tr} to round({_tr})
+	if {_l-fr} is set: # NO
+		set {_fr} to numbers in uncoloured {_l-fr}
+		set {_fr} to {_fr} parsed as number
+		set {_fr} to round({_fr})
+# ===
+
+	add {_hp} to {MaxHealth.%{_pU}%} and {PetStat.%{_pU}%::1}
+	add {_def} to {Defense.%{_pU}%} and {PetStat.%{_pU}%::2}
+	add {_str} to {strength.%{_pU}%} and {PetStat.%{_pU}%::3}
+	add {_spd} to {Speed.%{_pU}%} and {PetStat.%{_pU}%::4}
+	add {_crit} to {critdamage.%{_pU}%} and {PetStat.%{_pU}%::6}
+	add {_cc} to {critchance.%{_pU}%} and {PetStat.%{_pU}%::5}
+	add {_ats} to {AttackSpeed.%{_pU}%} and {PetStat.%{_pU}%::9}
+	add {_mana} to {Intelligence.%{_pU}%} and {PetStat.%{_pU}%::7}
+	add {_fr} to {Ferocity.%{_pU}%} and {PetStat.%{_pU}%::14}
+	add {_abd} to {AbilityDamage.%{_pU}%} and {PetStat.%{_pU}%::15}
+	add {_ms} to {MiningSpeed.%{_pU}%} and {PetStat.%{_pU}%::8}
+	add {_fm} to {MiningFortune.%{_pU}%} and {PetStat.%{_pU}%::18}
+	add {_ff} to {ForagingFortune.%{_pU}%} and {PetStat.%{_pU}%::17}
+	add {_fa} to {FarmingFortune.%{_pU}%} and {PetStat.%{_pU}%::16}
+	add {_tr} to {PetLuck.%{_pU}%} and {PetStat.%{_pU}%::12}
+	add {_mf} to {MagicFind.%{_pU}%} and {PetStat.%{_pU}%::11}
+# ==
+		
+function SB_Pet_StatRemove(p: player, t: text):
+	set {_pU} to {_p}'s uuid
+	remove {Pet%{_t}%.%{_pU}%::1} from {MaxHealth.%{_pU}%}
+	remove {Pet%{_t}%.%{_pU}%::2} from {Defense.%{_pU}%}
+	remove {Pet%{_t}%.%{_pU}%::3} from {Strength.%{_pU}%}
+	remove {Pet%{_t}%.%{_pU}%::4} from {Speed.%{_pU}%}
+	remove {Pet%{_t}%.%{_pU}%::6} from {critdamage.%{_pU}%}
+	remove {Pet%{_t}%.%{_pU}%::5} from {critchance.%{_pU}%}
+	remove {Pet%{_t}%.%{_pU}%::9} from {attackspeed.%{_pU}%}
+	remove {Pet%{_t}%.%{_pU}%::7} from {Intelligence.%{_pU}%}
+	remove {Pet%{_t}%.%{_pU}%::14} from {Ferocity.%{_pU}%}
+	remove {Pet%{_t}%.%{_pU}%::15} from {AbilityDamage.%{_pU}%}
+	remove {Pet%{_t}%.%{_pU}%::8} from {MiningSpeed.%{_pU}%}
+	remove {Pet%{_t}%.%{_pU}%::18} from {MiningFortune.%{_pU}%}
+	remove {Pet%{_t}%.%{_pU}%::16} from {FarmingFortune.%{_pU}%}
+	remove {Pet%{_t}%.%{_pU}%::17} from {ForagingFortune.%{_pU}%}
+	remove {Pet%{_t}%.%{_pU}%::12} from {PetLuck.%{_pU}%}
+	remove {Pet%{_t}%.%{_pU}%::11} from {MagicFind.%{_pU}%}
+	if {_t} is "Ability":
+		remove {PetAbility.%{_pU}%::101} from {ManaRegeneration.%{_pU}%}
+	
+	delete {Pet%{_t}%.%{_pU}%::*}

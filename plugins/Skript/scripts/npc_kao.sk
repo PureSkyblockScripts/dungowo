@@ -1,0 +1,31 @@
+on right click on entity:
+	if name of clicked entity is "&7Kao":
+		open virtual chest inventory with size 4 named "Nether Statistique" to player
+		format gui slot (integers between 0 and 35) of player with black stained glass pane named "&f"
+		format gui slot 31 of player with barrier named "&cFermer" to close
+		format gui slot 12 of player with empty map named "&cInvocation du Boss" with lore "&7Tuez des monstres du nether pour augmenter" and "&7le nombre et faire invoquer le boss!" and "&7" and "&c&lBOSS&7: &b%{BossSpawn-Nether-Kill}%&7/300 &bMeurtres Nether"
+		format gui slot 14 of player with player head with nbt "{display:{Name:""{\""text\"":\""Ghast\""}""},SkullOwner:{Id:[I;-2139150209,1687768723,-1467545047,-1967978209],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOGI2YTcyMTM4ZDY5ZmJiZDJmZWEzZmEyNTFjYWJkODcxNTJlNGYxYzk3ZTVmOTg2YmY2ODU1NzFkYjNjYzAifX19""}]}}}" named "&cStatistique du Ghast" with lore "&7Consultez les statistiques du Boss." and "&7" and "&7Santé: &c100 000&c❤ &8(-1000/5s)" and "&7Dégât: &910%%&8/5s - Rayon 100 Blocs" and "&7" and "&cRAGE!" and "&7Tire des boules de feu dans tous" and "&7les sens&7." and "&7" and "&eMultiplication" and "&7A partir de &950%% &7HP, le boss se" and "&7multiplie en plusieurs ghasts." and "&7" and "&6&lRÉCOMPENSE!" and "&7Obtenez jusqu'à &8x2-6 &9Fragments de Nether&7," and "&7en fonction du nombre total de dégât infligé." and "&7au boss durant la phase. Ainsi que des &6boules" and "&6de feux&7."
+		format gui slot 32 of player with writable book named "&6Parler à Kao" with lore "&7Rencontrez Kao, et recevez des" and "&7informations autour du Nether." and "&7" and "&eClique pour parler!" to close:
+			if {NPC-Talk.%UUID of player%} is not true:
+				set {NPC-Talk.%UUID of player%} to true
+				send "&eKao: &fOh bonsoir! Je vous attendais." to player
+				play sound "entity.skeleton.hurt" at player for player
+				wait 2 seconds
+				send "&eKao: &fVu que vous êtes nouveau à ce lieu. Je vais vous expliquer ce que vous pourrez faire." to player
+				play sound "entity.skeleton.hurt" at player for player
+				wait 4 seconds
+				send "&eKao: &fTout d'abord! Vous pouvez récolté de nouveau ressource comme la &eNetherrack&f, &eVerrues du Nether&f, &ePierres Lumineuses &fou encore du &eQuartz du Nether&f, ..." to player
+				play sound "entity.skeleton.hurt" at player for player
+				wait 7 seconds
+				send "&eKao: &fEn tout cas, ces ressources se génères grâce au coœr du Nether. Donc profitez-en!" to player
+				play sound "entity.skeleton.hurt" at player for player
+				wait 4 seconds
+				send "&eKao: &fD'ailleurs. Faite attention aux monstres. Vu à votre &csang&f je dirais qu'ils n'hésiterons pas à vous attaquer! Ahah." to player
+				play sound "entity.skeleton.hurt" at player for player
+				wait 5 seconds
+				send "&eKao: &fAvant de finir, dans cette île vous retrouverez un &cBoss &cGhast&f. &fIl s'invoque lorsque &b300 Monstres de Nether &font été tués." to player
+				play sound "entity.skeleton.hurt" at player for player
+				wait 7 seconds
+				send "&eKao: &fRien de plus à ajouter, revient me parler si tu souhaites que je te guide à nouveau. Quoique, j'oublierais rapidement qui vous étiez donc bon. Ahah." to player
+				play sound "entity.skeleton.hurt" at player for player
+				set {NPC-Talk.%UUID of player%} to false

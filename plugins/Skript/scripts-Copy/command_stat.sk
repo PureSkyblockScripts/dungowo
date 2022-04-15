@@ -1,0 +1,168 @@
+command /stat <offline player> <text> [<text>] [<number>]:
+	permission: op
+	usage: &c/stat <joueur> <variable> [<set/delete>] [<valeur>]
+	trigger:
+		if arg-3 is not set:
+			send "&6&lSTATISTIQUE! &b%arg-1% &7est de &a%{%arg-2%.%arg-1's UUID%}% &7pour &6%arg-2%&7."
+		if arg-3 is "set":
+			set {%arg-2%.%arg-1's UUID%} to arg-4
+			send "&6&lSTATISTIQUE! &b%arg-1% &7définit à &a%arg-4% &7pour &6%arg-2%&7."
+		if arg-3 is "delete":
+			delete {%arg-2%.%arg-1's UUID%}
+			send "&6&lSTATISTIQUE! &b%arg-1% &7supprimé pour &6%arg-2%&7."
+			
+command /statlist:
+	permission: op
+	trigger:
+		send "&cMaxHealth&7; &cHealth&7; &adefense&7; &cstrength&7; &9critchance&7; &9critdamage&7; &fspeed&7; &eattackspeed&7; &bmana&7; &bIntelligence&7; &cAbilityDamage&7; &5bonusdamage&7; &6FarmingFortune&7; &6ForagingFortune&7; &6MiningFortune&7; &6MiningSpeed&7; &cFerocity&7; &fdamage&7; &aNaturalRegeneration&7; &bManaRegeneration&7; &eAbsorption&7; &eAbsorption-Time&7; &8&mResistance&7; &8&mResistance-Time&7; &cAddionalDamage&7; &dTruth&7; &bMagicFind" to player
+		send "&cNe pas utiliser ceux qui sont barrés." to player
+		
+command /basestats <offline player>:
+	permission:op
+	trigger:
+		set {Intelligence.%arg-1's UUID%} to 350
+		set {Mana.%arg-1's UUID%} to {Intelligence.%arg-1's UUID%}
+		set {MaxHealth.%arg-1's UUID%} to 1150
+		set {Health.%arg-1's UUID%} to {MaxHealth.%arg-1's UUID%}
+		set {defense.%arg-1's UUID%} to 300
+		set {Speed.%arg-1's UUID%} to 200
+		set {strength.%arg-1's UUID%} to 475
+		set {critchance.%arg-1's UUID%} to 60
+		set {critdamage.%arg-1's UUID%} to 1315
+		set {AddionalDamage.%arg-1's UUID%} to 210
+		set {AbilityDamage.%arg-1's UUID%} to 30
+		set {attackspeed.%arg-1's UUID%} to 100
+		set {ferocity.%arg-1's UUID%} to 0
+		set {MiningFortune.%UUID of player%} to 0
+		set {ForagingFortune.%UUID of player%} to 0
+		set {FarmingFortune.%UUID of player%} to 0
+		set {MiningSpeed.%UUID of player%} to 0
+		
+command /removestats:
+	permission:op
+	trigger:
+		set {Intelligence.%UUID of player%} to 100
+		set {Mana.%UUID of player%} to {Intelligence.%UUID of player%}
+		set {MaxHealth.%UUID of player%} to 100
+		set {Health.%UUID of player%} to {MaxHealth.%UUID of player%}
+		set {defense.%UUID of player%} to 0
+		set {Speed.%UUID of player%} to 100
+		set {strength.%UUID of player%} to 0
+		set {critchance.%UUID of player%} to 0
+		set {critdamage.%UUID of player%} to 0
+		set {AddionalDamage.%UUID of player%} to 0
+		set {AbilityDamage.%UUID of player%} to 0
+		set {attackspeed.%UUID of player%} to 0
+		set {MiningFortune.%UUID of player%} to 0
+		set {ForagingFortune.%UUID of player%} to 0
+		set {FarmingFortune.%UUID of player%} to 0
+		set {MiningSpeed.%UUID of player%} to 0
+		send "&6&lSET!"
+
+command /viewstats:
+	trigger:
+		send "&7You now have &b%{Intelligence.%UUID of player%}% &b✎ &bIntelligence&7, &c%{MaxHealth.%UUID of player%}% &c❤ &cHealth&7, &a%{defense.%UUID of player%}% &a❈ &aDefense&7, &f%{Speed.%UUID of player%}% &f✦ &fSpeed&7, &c%{strength.%UUID of player%}% &c❁ &cStrength&7, &9%{critchance.%UUID of player%}% &9☣ &9Critical Chance&7, &9%{critdamage.%UUID of player%}% &9☠ &9Critical Damage&7, &5%{AddionalDamage.%UUID of player%}% &5✳ &5Addional Damage&7, &c%{AbilityDamage.%UUID of player%}% &c๑ &cAbility Damage&7, &e%{attackspeed.%UUID of player%}% &e⚔ &eAttack Speed&7."
+		
+		
+		
+		
+		
+		
+command /additionaldamage <player> <text> <number>:
+	permission: op
+	usage: &c/additionaldamage <joueur> <set> <valeur>
+	trigger:
+		if arg-2 is "set":
+			set {AddionalDamage.%UUID of arg-1%} to arg-3
+			send "&6&lSET!"
+			
+command /ferocity <player> <text> <number>:
+	permission: op
+	usage: &c/ferocity <joueur> <set> <valeur>
+	trigger:
+		if arg-2 is "set":
+			set {Ferocity.%UUID of arg-1%} to arg-3
+			send "&6&lSET!"
+		
+command /cc <player> <text> <number>:
+	permission: op
+	aliases: /critchance
+	usage: &c/cc <joueur> <set> <valeur>
+	trigger:
+		if arg-2 is "set":
+			set {critchance.%UUID of arg-1%} to arg-3
+			send "&6&lSET!"
+			
+command /crit <player> <text> <number>:
+	permission: op
+	aliases: /critdamage
+	usage: &c/crit <joueur> <set> <valeur>
+	trigger:
+		if arg-2 is "set":
+			set {critdamage.%UUID of arg-1%} to arg-3
+			send "&6&lSET!"
+
+command /attackspeed <player> <text> <number>:
+	permission: op
+	usage: &c/attackspeed <joueur> <set> <valeur>
+	trigger:
+		if arg-2 is "set":
+			set {attackspeed.%UUID of arg-1%} to arg-3
+			send "&6&lSET!"
+			
+command /strength <player> <text> <number>:
+	permission: op
+	usage: &c/strength <joueur> <set> <valeur>
+	trigger:
+		if arg-2 is "set":
+			set {strength.%UUID of arg-1%} to arg-3
+			send "&6&lSET!"
+			
+command /speed <player> <text> <number>:
+	permission: op
+	usage: &c/speed <joueur> <set> <valeur>
+	trigger:
+		if arg-2 is "set":
+			set {speed.%UUID of arg-1%} to arg-3
+			send "&6&lSET!"
+			
+command /intelligence <player> <text> <number>:
+	permission: op
+	aliases: /manamax
+	usage: &c/intelligence <joueur> <set> <valeur>
+	trigger:
+		if arg-2 is "set":
+			set {intelligence.%UUID of arg-1%} to arg-3
+			send "&6&lSET!"
+			
+command /mana <player> <text> <number>:
+	permission: op
+	usage: &c/mana <joueur> <set> <valeur>
+	trigger:
+		if arg-2 is "set":
+			set {mana.%UUID of arg-1%} to arg-3
+			send "&6&lSET!"
+			
+command /defense <player> <text> <number>:
+	permission: op
+	usage: &c/defense <joueur> <set> <valeur>
+	trigger:
+		if arg-2 is "set":
+			set {defense.%UUID of arg-1%} to arg-3
+			send "&6&lSET!"
+			
+command /maxhealth <player> <text> <number>:
+	permission: op
+	usage: &c/maxhealth <joueur> <set> <valeur>
+	trigger:
+		if arg-2 is "set":
+			set {MaxHealth.%UUID of arg-1%} to arg-3
+			send "&6&lSET!"
+			
+command /health <player> <text> <number>:
+	permission: op
+	usage: &c/health <joueur> <set> <valeur>
+	trigger:
+		if arg-2 is "set":
+			set {health.%UUID of arg-1%} to arg-3
+			send "&6&lSET!"

@@ -1,0 +1,71 @@
+function NoMoney(p: player):
+	send "&cYou don't have enough coins." to {_p}
+	Nope({_p})
+	
+function NoSpace(p: player):
+	send "&cYou don't have space in your inventory." to {_p}
+	Nope({_p})
+	
+function NoRankPower(p: player):
+	Nope({_p})
+	send "&cYou must have a higher rank to execute this command." to {_p}
+	
+function SetTarget(e: entity):
+	set {_eU} to {_e}'s uuid
+	loop all players in radius 80 of {_e}:
+		if {MaxHealth.%UUID of loop-player%} is set:
+			if loop-player's gamemode is survival:
+				set {_e}'s target to loop-player
+				
+function SetSpecificTarget(e: entity, p: player):
+	set {_e}'s target to {_p}
+	
+function WaitKill(p: player, e: entity, w: number):
+	set {_pU} to {_p}'s uuid
+	wait "%{_w}% seconds" parsed as timespan
+	KillEntity({_e})
+	
+function Buyed(p: player):
+	play sound "entity.player.levelup" at {_p} for {_p}
+	
+function SB_MovedToPickupstash(p: player, i: item):
+	set {_i} to {_i}'s name
+	if {_i} is set:
+		set {_i} to {_i}
+	else:
+		set {_i} to "&8(Unnamed Item)"
+	send "&6&lPICKUPSTASH! &fYour &7%{_i}% &fhas been moved to your stash. Type &b'/pickupstash&b' &fto claim it back!" to {_p}
+	Yes({_p})
+
+function NoMana(p: player):
+	Nope({_p})
+	send "&cNot enought mana!" to {_p}
+	
+function ItemCD(p: player):
+	Nope({_p})
+	send "&cThis item is on cooldown." to {_p}
+	
+function PushExplode(p: player):
+	if {_p} is set:
+		push {_p} upwards at speed 0.55
+		set {_y} to {_p}'s yaw
+		set {_y} to {_y} parsed as number
+		if {_y} is greater than 338.6:
+			set {_o} to south
+		if {_y} is less than 22.6:
+			set {_o} to south
+		if {_y} is between 22.5 and 67.5:
+			set {_o} to southwestward
+		if {_y} is between 292.5 and 338.5:
+			set {_o} to southeastward
+		if {_y} is between 193.5 and 238.5:
+			set {_o} to north-eastward
+		if {_y} is between 122.5 and 167.5:
+			set {_o} to north-westward
+		if {_y} is between 193.6 and 167.6:
+			set {_o} to north
+		if {_y} is between 67.5 and 122.4:
+			set {_o} to west
+		if {_y} is between 292.6 and 238.6:
+			set {_o} to east
+		push {_p} {_o} at speed 2.25

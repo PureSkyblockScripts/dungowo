@@ -1,0 +1,100 @@
+on armor change:
+	if event-item is a player head or a helmet or an air:
+		if name of event-item contains "&aRabbit Hat":
+			apply jump boost 6 without particles to player for 99999 seconds
+
+on damage of player: #misc_void.sk
+	if {CD-DamageCause.%UUID of victim%} is not true:
+		set {CD-DamageCause.%UUID of victim%} to true
+		if damage cause is void:
+			cancel event
+			MakeRealDamage(victim, 100)
+		if damage cause is lava:
+			cancel event
+			apply fire resistance 5 without particles to victim for 0.6 seconds replacing existing effect
+			MakeRealDamage(victim, 10)
+			wait 1 tick
+			if {DungeonParty::*} contains "%victim%":
+				push victim upward at speed 0.45
+				wait 1.5 tick
+				push victim upward at speed 3
+		if damage cause is burning:
+			cancel event
+		if damage cause is fire:
+			MakeRealDamage(victim, 5)
+			cancel event
+		if damage cause is suffocation:
+			MakeRealDamage(victim, 3)
+	wait 0.5 seconds
+	delete {CD-DamageCause.%UUID of victim%}
+		
+on damage:
+	if attacker is a player:
+		if victim is a wither:
+			set victim's target to attacker
+
+command /entity-name <text>:
+	permission: op
+	trigger:
+		if target of player is a living entity:
+			if target of player is not a player:
+				send "&6&lSET!"
+				set {_v} to colored arg-1
+				set name of target to "%{_v}%"
+		
+command /terminal-bossbar-visibility <number>:
+	permission: op
+	trigger:
+		TerminalBossbarVisibility(arg-1)
+		
+command /terminal-bossbar-reload:
+	permission: op
+	trigger:
+		TerminalBossbarCreate(1)
+
+function TerminalBossbarVisibility(n: number):
+	if {_n} is equal to 1:
+		set visibility of bossbar {bossbar} to true
+	if {_n} is equal to 0:
+		set visibility of bossbar {bossbar} to false
+
+function TerminalBossbarCreate(n: number):
+	set {bossbar} to skellett new bossbar
+	loop all players:
+		if {DungeonParty::*} contains "%loop-player%":
+			add loop-player to bossbar {bossbar}
+	set color of bossbar {bossbar} to PURPLE
+	loop all living entities:
+		if loop-entity is a wither:
+			if loop-entity's name contains "&c&lMaxor":
+				set {_v} to {health.%UUID of loop-entity%}
+	set title of bossbar {bossbar} to "&c&lMaxor"
+	set progress of bossbar {bossbar} to ({_v}/(1000000000*{SBD-f7-Difficulty}))
+		
+on damage:
+	if victim is a wither:
+		if name of victim contains "&c&lMaxor":
+			if {Terminal-Phase} is equal to 2:
+				if {health.%UUID of victim%} is between -10000000000 and (250000000*{SBD-f7-Difficuly}):
+					set {health.%UUID of victim%} to (250000000*{SBD-f7-Difficulty})
+	if victim is a end crystal:
+		if attacker's gamemode is creative:
+			stop
+		else:
+			cancel event
+	
+on heal:
+	if entity is a wither:
+		cancel event
+		
+every 0.25 seconds:
+	loop all living entities:
+		if loop-entity is a wither:
+			if loop-entity's y coords is not higher than 68.9:
+				if loop-entity's target is a player:
+					loop all players in radius 8 of loop-entity:
+						if loop-player is a player:
+							stop
+					push loop-entity forward at speed 1.5
+			else:
+				push loop-entity downwards at speed 1

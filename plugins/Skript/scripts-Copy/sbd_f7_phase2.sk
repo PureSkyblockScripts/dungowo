@@ -1,0 +1,123 @@
+function TerminalPlatformReset():
+	set block at the location (6, 24, 295) of the world "world" to redstone block
+	delete {Terminal-Lever}
+	set block at the location (98, 10, 320) of the world "world" to lever
+	set block at the location (122, 10, 320) of the world "world" to lever
+			
+	set block at the location (148, 10, 346) of the world "world" to eastward lever
+	set block at the location (148, 10, 370) of the world "world" to eastward lever
+			
+	set block at the location (122, 10, 396) of the world "world" to southward lever
+	set block at the location (98, 10, 396) of the world "world" to southward lever
+			
+	set block at the location (72, 10, 370) of the world "world" to westward lever
+	set block at the location (72, 10, 346) of the world "world" to westward lever
+
+# p3
+on right click on lever:
+	if {DungeonParty::*} contains "%player%":
+		if {SBD-Ghosted.%UUID of player%} is true:
+			SBD_NotWhileInGhost(player)
+			cancel event
+			stop
+		if {Terminal-Phase} is equal to 3 or 3.5:
+			loop all blocks in radius 1.1 of event-block:
+				if loop-block is sea lantern:
+					stop
+			wait 1 tick
+			if event-block is a powered redstone lever:
+				set {_t} to true
+			if {_t} is true:
+				add 1 to {Terminal-Lever}
+				send "&b%player% &apowered a lever! &a(&c%{Terminal-Lever}%&a/&a8&a)" to {DungeonParty::*}
+				play sound "block.note_block.pling" at player for player
+				loop all blocks in radius 1.1 of event-block:
+					if loop-block is coal block:
+						set loop-block to sea lantern
+
+				if {Terminal-Lever} is not true:
+					if {Terminal-Lever} is equal to 8:
+						set {Terminal-Lever} to true
+						send "&aA platform comes out of the ground!" to {DungeonParty::*}
+						set block at the location (13, 24, 284) of the world "world" to redstone block
+						loop all living entities:
+							if loop-entity-1 is a wither:
+								if name of loop-entity-1 contains "&c&lMaxor":
+									set {_e} to loop-entity-1
+						send "&4[BOSS] Maxor&c: Whats going on?!" to {DungeonParty::*}
+						wait 2 seconds
+						loop {DungeonParty::*}:
+							apply blindness 5 without particles to loop-value for 1.5 seconds replacing existing effect
+							Sound_WitherAmbient(loop-value)
+						teleport {_e} at the location (110, 9, 358) of the world "world"
+						RespawnWither(0, {_e}, 3)
+						send "&4[BOSS] Maxor&c: WHO POWERED THOSE LEVERS?"
+						set {_b} to lava
+						loop 2 times:
+							loop 45 times:
+								set block at the location (110, 46+{_v}, 348) of the world "world" to {_b}
+								set block at the location (120, 46+{_v}, 358) of the world "world" to {_b}
+								set block at the location (110, 46+{_v}, 368) of the world "world" to {_b}
+								set block at the location (100, 46+{_v}, 358) of the world "world" to {_b}
+								remove 1 from {_v}
+								wait 0.1 seconds
+							wait 3 seconds
+							set {_v} to 0
+							set {_b} to air
+						wait 1 tick
+						send "&aThe platform is broken! Power the levers again." to {DungeonParty::*}
+						TerminalPlatformReset()
+						wait 1 second
+						send "&4[BOSS] Maxor&c: COME HERE NOW! Too scared?" to {DungeonParty::*}
+# =========================
+on death of slime:
+	if name of victim contains "&6&lCHAINS-":
+		loop all living entities in radius 8 of victim:
+			if loop-entity is an end crystal:
+				delete loop-entity
+				kill loop-entity
+		loop 3 times:
+			loop all living entities in radius 5 of victim:
+				if name of loop-entity contains "&6&lCHAINS-":
+					delete loop-entity
+			wait 1 tick
+# ====================
+		play sound "entity.wither.break_block" at attacker for attacker
+		set {_nbt} to "{CustomNameVisible:1b,Invisible:1b,NoGravity:1b,DisabledSlots:63}"
+		set {_y2} to 119.25
+		set {_yC} to 118
+		set {_y3} to 122.5
+		wait 1 second
+		if name of victim is "&6&lCHAINS-1":
+			send "&4[BOSS] Maxor&c: STOP BREAKING MY CAGES!" to {DungeonParty::*}
+			set {_x} to 163.5
+			set {_y} to 105.25
+			set {_z} to 336.5
+			set {_xC} to 162
+			set {_zC} to 335
+			set {_Opp} to 312.5
+		if name of victim is "&6&lCHAINS-2":
+			send "&4[BOSS] Maxor&c: DON'T TOUCH THESE CHAINS!" to {DungeonParty::*}
+			set {_x} to 163.5
+			set {_y} to 105.25
+			set {_z} to 312.5
+			set {_xC} to 162
+			set {_zC} to 311
+			set {_Opp} to 336.5
+	
+		make console execute command "/particle explosion_emitter %{_x}% %{_y3}% %{_z}%"
+		make console execute command "/clone 132 159 338 134 150 340 %{_xC}% %{_yC}% %{_zC}%"
+	#spawn an end crystal at the location ({_x}, {_y2}, {_Opp}) of the world "world" with nbt "%{_nbt2}%"
+		loop 4 times:
+			create a fake explosion at the location ({_x}, {_y3}, {_z}) of the world "world"
+			wait 3 ticks
+		wait 0.6 second
+		spawn an end crystal at the location ({_x}, {_y}, {_z}) of the world "world" with nbt "{Invulnerable:1b}"
+		set name of the spawned entity to "&d&lCRYSTAL"
+		spawn an armor stand at the location ({_x}, {_y}, {_z}) of the world "world" with nbt "%{_nbt}%"
+		set name of the spawned entity to "&e&lRIGHT-CLICK"
+		spawn an armor stand at the location ({_x}, ({_y} -0.25), {_z}) of the world "world" with nbt "%{_nbt}%"
+		set name of the spawned entity to "&aEnergy Crystal"
+		
+		make console execute command "/clone 126 159 338 128 150 340 %{_xC}% %{_yC}% %{_zC}%"
+# ==================

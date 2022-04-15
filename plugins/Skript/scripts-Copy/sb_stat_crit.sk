@@ -1,0 +1,584 @@
+command /killdmg:
+	permission: op
+	trigger:
+		loop all living entities:
+			if loop-entity is an armor stand:
+				if name of loop-entity contains "✧":
+					DeleteEntity(loop-entity)
+
+on damage:
+	if attacker is a player:
+		if victim is a player:
+			cancel event
+			
+function SB_SpawnEntity(mob: text, name: text, l: location, nbt: text, hp: number, def: number, dmgR: number, dmgdmgR: number, mdmgR: number, dmgCap: number, dmgCapHp: number, god: text, noAi: number, dmg: number, spd: number, helm: item, chest: item, legs: item, boots: item, wpn: item, p: player):
+	set {_mob} to {_mob} parsed as entity type
+	spawn {_mob} at {_l}
+	set {_s} to the spawned entity
+	if {_nbt} is not "":
+		add {_nbt} to nbt of {_s}
+	set {_sU} to {_s}'s uuid
+	set {Health.%{_sU}%} to {_hp}
+	set {Mob-Defense.%{_sU}%} to {_def}
+	set {Mob-DamageReduction.%{_sU}%} to {_dmgR}
+	set {Mob-DamageDamageReduction.%{_sU}%} to {_dmgdmgR}
+	set {Mob-MagicDamageReduction.%{_sU}%} to {_mdmgR}
+	set {Mob-DamageCap.%{_sU}%} to {_dmgCap}
+	set {Mob-DamageCapHealth.%{_sU}%} to {_dmgCapHp}
+	if {_god} is "true":
+		set {Mob-God.%{_sU}%} to true
+	if {_noAi} is "1":
+		add "{NoAI:1b}" to {_s}'s nbt
+	set {Mob-Damage.%{_sU}%} to {_dmg}
+	set {Mob-Name.%{_sU}%} to {_name}
+	apply speed {_spd} without particles to {_s} for 9999 seconds replacing existing effect
+	set {_s}'s name to "%{Mob-Name.%{_sU}%}% &c%{health.%{_sU}%}%&c❤"
+	set {_s}'s helmet to {_helm}
+	set {_s}'s chestplate to {_chest}
+	set {_s}'s leggings to {_legs}
+	set {_s}'s boots to {_boots}
+	set {_s}'s weapon to {_wpn}
+
+command /dummy <text> [<number>] [<number>] [<number>] [<number>] [<number>] [<number>] [<number>] [<text>] [<number>] [<number>]:
+	permission: op
+	usage: &c/dummy <entité> [<HP>] [<defense>] [<DamageReduction>] [<DamageDamageReduction>] [<MagicDamageReduction>] [<DamageCap>] [<DamageCapHealth>] [<godmod(true/false)>] [<NoAI(0/1>] [<Damage>]
+	trigger:
+		set {_AI} to 1
+		if arg-10 is set:
+			set {_AI} to arg-10
+		set {_m} to arg-1
+		set {_m} to {_m} parsed as entitytype
+		spawn {_m} at player's location
+		set {_v} to the spawned entity
+		set {_vU} to {_v}'s uuid
+		add "{NoAI:%{_AI}%b}" to nbt of {_v} # AI
+		set name of {_v} to "&6&lDUMMY"
+		set {Mob-Name.%{_vU}%} to "&6&lDUMMY"
+# ====
+		if arg-2 is set: # HP
+			set {health.%{_vU}%} to arg-2
+			set name of {_v} to "%{Mob-Name.%{_vU}%}% &c%{health.%{_vU}%}%&c❤"
+		if arg-3 is set: # DEF
+			set {Mob-Defense.%{_vU}%} to arg-3
+			send "&d%{Mob-Defense.%{_vU}%}%" to player
+		if arg-4 is set: # DMG RED
+			set {Mob-DamageReduction.%{_vU}%} to arg-4
+		if arg-5 is set: # DMG RED
+			set {Mob-DamageDamageReduction.%{_vU}%} to arg-5
+		if arg-6 is set: # DMG RED
+			set {Mob-MagicDamageReduction.%{_vU}%} to arg-6
+		if arg-7 is set: # DMG CAP
+			set {Mob-DamageCap.%{_vU}%} to arg-7
+		if arg-8 is set: # DMG CAP HP
+			set {Mob-DamageCapHealth.%{_vU}%} to arg-8
+		if arg-9 is "true": # GOD
+			set {Mob-God.%{_vU}%} to true
+		if arg-11 is set:
+			set {Mob-Damage.%{_vU}%} to arg-11
+# ====
+		apply resistance 250 without particles to {_v} for 99999 seconds
+		send "&6&lMANNEQUIN INVOQUÉ! &aFaite '/deldummy' &apour supprimer."		
+		stop
+
+command /deldummy:
+	permission: op
+	trigger:
+		loop all living entities in radius 3 of player:
+			if name of loop-entity contains "&6&lDUMMY":
+				KillEntity(loop-entity)
+				delete loop-entity
+				send "&6&lUN MANNEQUIN A ÉTÉ SUPPRIMÉ!" to player
+				stop
+
+# =====================
+function MakeSpecificRealWeaponDamage(p: player, v: entity, dmg: number, n: number, c: number):
+	set {_pU} to {_p}'s uuid
+	set {_vU} to {_v}'s uuid
+	if {health.%{_vU}%} is set:
+		if {Mob-God.%{_vU}%} is not true:
+			if {SBD-Ghosted.%{_pU}%} is not true:
+				wait 1 tick
+				set {_dmg} to ({_dmg}*({_n}/100))
+				set {Damage-GetCrit.%{_pU}%} to {_c}
+				MakeDamageReduction({_p}, {_v}, {_dmg})
+			else:
+				SBD_NoDMGGhost({_p})
+
+function MakeSpecificDamage(p: player, v: entity, dmg: number, n: number, c: number):
+#n = pourcentage du damage à prendre. Défaut=100
+	set {_pU} to {_p}'s uuid
+	set {_vU} to {_v}'s uuid
+	if {health.%{_vU}%} is set:
+		if {Mob-God.%{_vU}%} is not true:
+			if {SBD-Ghosted.%{_pU}%} is not true:
+# ===== DAMAGE
+				wait 1 tick
+				set {_dmg} to ({_dmg}*({_n}/100))
+				set {Damage-GetCrit.%{_pU}%} to {_c}
+				MakeDamageReduction({_p}, {_v}, {_dmg})
+			else:
+				SBD_NoDMGGhost({_p})
+# =====================
+function MakeDamageReduction(p: player, v: entity, dmg: number):
+	set {_pU} to {_p}'s uuid
+	set {_vU} to {_v}'s uuid
+	loop all players in radius 7 of {_p}:
+		if loop-player's name is "&7Guy":
+			if {SB-TrainingArea.%{_pU}%} is not set:
+				send "&cYou can't damage here." to {_p}
+				stop
+	damage {_v} by 1
+	if {Mob-God.%{_vU}%} is not true:
+		set {Mob-DefenseDamageReduction.%{_vU}%} to (100*({Mob-Defense.%{_vU}%}/({Mob-Defense.%{_vU}%}+100)))
+	
+		if {Mob-Defense.%{_vU}%} is set:
+			set {_r} to {Mob-DefenseDamageReduction.%{_vU}%}
+			set {_dmg} to ({_dmg}*(1-({_r}/100)))
+		if {Mob-DamageReduction.%{_vU}%} is set:
+			set {_r} to {Mob-DamageReduction.%{_vU}%}
+			set {_r} to ({_r}/100)
+			set {_dmg} to ({_dmg}*(1-{_r}))
+# ===== SECURITY SCENE
+
+		if {Mob-DamageCap.%{_vU}%} is higher than 0:
+			if {_dmg} is higher than ({Mob-DamageCap.%{_vU}%}-0.1):
+				set {_dmg} to {Mob-DamageCap.%{_vU}%}
+		if {Mob-DamageCapHealth.%{_vU}%} is higher than 0:
+			if {_dmg} is higher than abs({Health.%{_vU}%}-{Mob-DamageCapHealth.%{_vU}%})-0.1:
+				set {_dmg} to abs({Health.%{_vU}%}-{Mob-DamageCapHealth.%{_vU}%})
+
+# ===== DMG
+		set {_dmg} to round({_dmg})
+		remove {_dmg} from {health.%{_vU}%}
+# ===== HOLO
+		SBDamageHolo({_p}, {_v}, {_dmg}, {Damage-GetCrit.%{_pU}%})
+# ===== DEATH
+		wait 1 tick
+		if {health.%{_vU}%} is not higher than 0:
+			set {Entity-LastAttack.%{_vU}%} to {_p}
+			KillEntity({_v})
+			wait 2 tick
+			delete {Entity-LastAttack.%{_vU}%}
+	stop
+# =====================
+function MakeDamage(p: player, v: entity, n: number):
+#n = pourcentage du damage à prendre. Défaut=100
+	set {_pU} to {_p}'s uuid
+	set {_vU} to {_v}'s uuid
+	if {health.%{_vU}%} is set:
+		if {SBD-Ghosted.%{_pU}%} is not true:
+# ===== DAMAGE
+			wait 1 tick
+			GetDamage({_p})
+			set {_dmg} to {damage-Deal.%{_pU}%}
+			set {_dmg} to ({_dmg}*({_n}/100))
+			MakeDamageReduction({_p}, {_v}, {_dmg})
+			MakeDamageFerocity({_p}, {_v}, {_n})
+		else:
+			SBD_NoDMGGhost({_p})
+# =====================
+function MakeDamageFerocity(p: player, v: entity, n: number):
+#n = pourcentage du damage à prendre. Défaut=100
+	set {_pU} to {_p}'s uuid
+	set {_vU} to {_v}'s uuid
+	if {health.%{_vU}%} is set:
+		if {SBD-Ghosted.%{_pU}%} is not true:
+# ===== DAMAGE
+			# ()() FEROCITY ()()
+			set {_morefero} to 0
+			if name of {Pet.%{_pU}%} contains "&6Tiger":
+				loop all players in radius 15 of {_p}:
+					if loop-player is not {_p}:
+						if {defense.%UUID of loop-player%} is set:
+							add {Ferocity.%{_pU}%}*0.1 to {_morefero}
+			set {_f} to {ferocity.%{_pU}%}
+			set {_f} to {_f}+{_morefero}
+			set {_f1} and {_f2} and {_f3} to 0
+			loop 10 times:
+				add 1 to {_fv}
+				if {_f} is higher than 99.9:
+					set {_f%{_fv}%} to 100
+				else if {_f} is higher than 0:
+					set {_f%{_fv}%} to {_f}
+				else:
+					set {_f%{_fv}%} to 0
+				remove 100 from {_f}
+			loop 10 times:
+				add 1 to {_fvv}
+				chance of {_f%{_fvv}%}%:
+					wait 0.2 seconds
+					playsound({_p}, "mob.zombie.woodbreak", 1.8)
+					playsound({_p}, "item.fireCharge.use", 1.8)
+					playsound({_p}, "item.firecharge.use", 1.8)
+					playsound({_p}, "entity.zombie.attack_wooden_door", 1.8)
+					GetDamage({_p})
+					set {_dmg} to {damage-Deal.%{_pU}%}
+					set {_dmg} to ({_dmg}*({_n}/100))
+					MakeDamageReduction({_p}, {_v}, {_dmg})
+		else:
+			SBD_NoDMGGhost({_p})
+# ========================
+on death:
+	if victim is not a player:
+		DeleteEntity(victim)
+function DeleteMobVariable(e: entity):
+	set {_eU} to {_e}'s uuid
+	delete {health.%{_eU}%}
+	delete {Mob-God.%{_eU}%}
+	delete {Mob-DamageReduction.%{_eU}%}
+	delete {Mob-MagicDamageReduction.%{_eU}%}
+	delete {Mob-DamageDamageReduction.%{_eU}%}
+	delete {Mob-Damage.%{_eU}%}
+	delete {Mob-NBT.%{_eU}%}
+	delete {Mob-Name.%{_eU}%}
+	delete {Mob-Defense.%{_eU}%}
+	delete {Mob-DefenseDamageReduction.%{_eU}%}
+	delete {Mob-DamageCap.%{_eU}%}
+	delete {Mob-DamageCapHealth.%{_eU}%}
+
+function DeleteEntity(e: entity):
+	remove resistance from {_e}'s potion effects
+	DeleteMobVariable({_e})
+	loop all living entities in radius 3 of {_e}:
+		if loop-entity is {_e}:
+			delete loop-entity
+
+function KillEntity(e: entity):
+	remove resistance from {_e}'s potion effects
+	DeleteMobVariable({_e})
+	kill {_e}
+# ================			
+function GetDamage(p: player):
+	set {_pU} to {_p}'s uuid
+	set {_lore::*} to {_p}'s tool's lore
+	set {Damage.%{_pU}%} to 1
+	set {_b} to 1
+	set {_w} to 1
+	loop {_lore::*}:
+		add 1 to {_v}
+		if loop-value contains "&7Damage:" or "&7Dégât:":
+			set {_s::*} to split "%{_lore::%{_v}%}%" by "("
+			set {_l-dmg} to {_s::1}
+		if loop-value contains "&6Item" or "&6Armor" or "&6Capacité" or "&e&lRIGHT" or "&e&lLEFT" or "&e&lSNEAK":
+			delete {_lore::*}
+	
+	if name of {_p}'s tool contains "&6✪":
+		set {_b} to 10
+	if name of {_p}'s tool contains "&6✪✪":
+		set {_b} to 20
+	if name of {_p}'s tool contains "&6✪✪✪":
+		set {_b} to 30
+	if name of {_p}'s tool contains "&6✪✪✪✪":
+		set {_b} to 40
+	if name of {_p}'s tool contains "&6✪✪✪✪✪":
+		set {_b} to 50
+	if name of {_p}'s tool contains "&c✪&6✪✪✪✪":
+		set {_b} to 55
+	if name of {_p}'s tool contains "&c✪✪&6✪✪✪":
+		set {_b} to 60
+	if name of {_p}'s tool contains "&c✪✪✪&6✪✪":
+		set {_b} to 65
+	if name of {_p}'s tool contains "&c✪✪✪✪&6✪":
+		set {_b} to 70
+	if name of {_p}'s tool contains "&c✪✪✪✪✪":
+		set {_b} to 75
+	# NO MASTER MODE MODE
+	if {SBD-f7-Difficult} is not equal to 24:
+		if {_b} is higher than 50:
+			set {_b} to 50
+# =
+	if {DungeonParty::*} contains "%{_p}%":
+		set {_isb} to {Catacomb-ItemStatBoost.%{_pU}%}
+		set {_w} to (({_isb}+{_b})/100)
+		
+	if {_l-dmg} is set:
+		set {_l-dmg} to numbers in uncoloured {_s::1}
+		set {_l-dmg} to {_l-dmg} parsed as number
+		set {_l-dmg} to ({_l-dmg}*{_w})
+	
+	set {damage.%{_pU}%} to {_l-dmg}
+
+	set {Damage-GetCrit.%{_pU}%} to 1 #no crit, défaut
+# ==== DAMAGE BONUS ADD
+	if {bonusdamage.%{_pU}%} is set:
+		add {bonusdamage.%{_pU}%} to {damage.%{_pU}%}
+# //////////////////////////////////////////////
+	set {_Damage-Additional} to 0
+	set {_Damage-Boost} to 0
+	set {_Damage-Multiplicator} to 0
+	# --
+	set {_enchs} to 0
+	set {_weaponbonus} to 0
+	set {_armorbonus} to 1
+	set {_forgebonus} to 0
+	
+# ==== ADDITIONAL DAMAGE ADD - SKILL COMBAT
+	#if {AddionalDamage.%{_pU}%} is set:
+	#	set {_Damage-Additional} to {AddionalDamage.%{_pU}%}
+# ==== CRIT
+	set {_dmgcrit} to 0
+	chance of {critchance.%{_pU}%}%:
+		set {_dmgcrit} to {critdamage.%{_pU}%}
+		set {Damage-GetCrit.%{_pU}%} to 2
+# ------------
+# ==== BOOST ADD - WeaponBonus
+	if {Damage-Deal-Boost.%{_pU}%} is set:
+		add {Damage-Deal-Boost.%{_pU}%} to {_weaponbonus}
+# ==== BOOST ADD SWORD / BOW - WeaponBonus
+	if "%lore of {_p}'s tool%" contains "SWORD":
+		if {Damage-Deal-Boost-Sword.%{_pU}%} is set:
+			add {Damage-Deal-Boost-Sword.%{_pU}%} to {_weaponbonus}
+# -
+	if "%lore of {_p}'s tool%" contains "BOW":
+		if {Damage-Deal-Boost-Bow.%{_pU}%} is set:
+			add {Damage-Deal-Boost-Bow.%{_pU}%} to {_weaponbonus}
+# ==== UNIQUE DAMAGE BOOST ADD - WeaponBonus
+	if {Damage-Deal-UniqueBoost.%{_pU}%} is set:
+		add {Damage-Deal-UniqueBoost.%{_pU}%} to {_weaponbonus}
+		delete {Damage-Deal-UniqueBoost.%{_pU}%}
+# ==== MULTIPLICATOR DAMAGE ADD - Multiplicator
+	if {Damage-Deal-Multiplicator.%{_pU}%} is set:
+		set {_multiplicator} to {Damage-Deal-Multiplicator.%{_pU}%}
+# ==== UNIQUE MULTIPLICATOR DAMAGE ADD - Multiplicator
+	if {Damage-Deal-UniqueBoost-Multiplicator.%{_pU}%} is set:
+		add {Damage-Deal-UniqueBoost-Multiplicator.%{_pU}%} to {_multiplicator}
+		delete {Damage-Deal-UniqueBoost-Multiplicator.%{_pU}%}
+#===== SPECIAL BOOST DMG - Weaponbonus
+	if "%lore of {_p}'s tool%" contains "&9Fabled Bonus":
+		if {Damage-GetCrit.%{_pU}%} is not 0:
+			add 20 to {_forgebonus}
+#===== WARDEN BOOST DMG - WeaponBonus
+	if "%lore of {_p}'s helmet%" contains "&6Item Ability: Brute Force":
+		add (({Speed.%{_pU}%}/80)*10) to {_basedmgbonus}
+	if name of {Pet.%{_pU}%} contains "&6Golden Dragon":
+		set {_o} to {coins.%{_pU}%}
+		loop 1000 times:
+			if {_o} is higher than 999999.9:
+				remove 1000000 from {_o}
+				add 0.1 to {_basedmgbonus}
+	if name of {Pet.%{_pU}%} contains "&6Baby Yeti":
+		set {_o} to {defense.%{_pU}%}
+		loop 1000 times:
+			if {_o} is higher than 99.9:
+				remove 100 from {_o}
+				add 0.1 to {_basedmgbonus}
+	if name of {Pet.%{_pU}%} contains "&6Tiger":
+		if "%lore of {_p}'s tool%" contains "SWORD":
+			add 20 to {_weaponbonus}
+	if name of {Pet.%{_pU}%} contains "&6Ender Dragon":
+		if name of {_p}'s tool contains "&dHasty Terminator":
+			add 20 to {_weaponbonus}
+
+#===== TUX BOOST DMG - ArmorBonus
+	if "%lore of {_p}'s chestplate%" contains "&8Very Stylish.":
+		if "%lore of {_p}'s leggings%" contains "&8Very Stylish.":
+			if "%lore of {_p}'s boots%" contains "&8Very Stylish.":
+				add 300 to {_armorbonus}
+# ============ ENCHANTS
+	GetEnchant({_p})
+	set {_enchs} to {SB-DmgEnch.%{_pU}%}
+				
+#===== FINAL DAMAGE
+	# INITIAL DMG
+	# (5+WeaponDMG)*(1+Str/100)
+	set {_initialdmg} to (5+{damage.%{_pU}%})*(1+{Strength.%{_pU}%}/100)*(1+{_basedmgbonus}/100)
+
+	# MULTIPLIER DMG
+	# 1+(combatlvl*0.04)+Enchants+WeaponBonus
+	# GetEnchant(player) function
+	# nvm-GetWeaponBonus(player) function
+	set {_dmgMultiplier} to ({Combat.%{_pU}%}*4)+{_enchs}+{_weaponbonus}+{_forgebonus}
+
+	# FINAL DMG
+	# InitialDmg*DmgMultiplier*ArmorBonus*crit
+	# nvm-GetArmorBonus(player) function
+	set {_dmgDealt} to {_initialdmg}*(1+{_dmgMultiplier}/100)*(1+{_armorbonus}/100)*(1+{_dmgCrit}/100)
+	set {_dmgDealt} to {_dmgDealt}*(1+{_multiplicator})
+	set {damage-deal.%{_pU}%} to {_dmgDealt}
+	#send "&c%{_initialdmg}% &cInitialDMG &ex%1+({_dmgMultiplier}/100)%&e%% &bx%1+({_armorbonus}/100)%&b%% &9x%1+({_dmgCrit}/100)%&9%% &9Crit &6&lx%1+{_multiplicator}% &7(=%{_dmgDealt}%&7)" to {_p}
+
+	#set {damage-Deal.%{_pU}%} to ((((1+{damage.%{_pU}%}) * (1+{Strength.%{_pU}%}/100) * (1+{_dmgCrit})) * (1+{_forgebonus}/100) * (1+{_weaponbonus}/100) * (1+{_Damage-Additional}/100))) * (1+{_mutliplicator})
+	#send "&c+%{_weaponbonus}%&c%% Weapon Boost Total" to players
+# °°°°°°°°°°°°°°°°°°°°
+	if {SB-DmgEnch.%{_pU}%::*} contains "Cleave":
+		loop all living entities in radius {SB-DmgEnch.%{_pU}%::Cleave::2} of {_p}:
+			if loop-entity is not a player:
+				if loop-entity is not {_p}'s target:
+					MakeSpecificRealWeaponDamage({_p}, loop-entity, {damage-deal.%{_pU}%}, {SB-DmgEnch.%{_pU}%::Cleave::1}, {Damage-GetCrit.%{_pU}%})
+
+# °°°°°°°°°°°°°°°°°°°°
+	loop {SB-DmgEnch.%{_pU}%::*}:
+		delete {SB-DmgEnch.%{_pU}%::%loop-value%::*}
+	delete {SB-DmgEnch.%{_pU}%::*}
+	
+
+# ///////////////////////////////////////////
+function GetEnchant(p: player):
+	set {_pU} to {_p}'s uuid
+	set {_le::*} to {_p}'s tool's lore
+	loop {_le::*}:
+		# xdmgv: x Multiplicator
+		# xdmgt: total dmg direct
+		if loop-value-1 contains "&9Power":
+			if {_es::*} doesn't contain "Power":
+				set {_ench} to "Power"
+				set {_xdmg} to 8
+				set {_xdmgv::6} to 6.25
+				set {_xdmgv::7} to 8.125
+		if loop-value-1 contains "&9aaCleave":
+			if {_es::*} doesn't contain "Cleave":
+				set {_ench} to "Cleave"
+				set {_xdmg} to 3
+				set {_xdmgt::6} to 20
+				set {_ench-radius} to 3
+				set {_ench-xradius} to 0.3
+		if {_ench} is set:
+			add {_ench} to {_es::*}
+			set {_e} to {_le::%loop-index-1%}
+		set {_e::*} to split "%{_e}%" by ", "
+	# °°°°°°°°°°°°°°°°°°°°°°°°°
+		loop {_e::*}:
+			if loop-value-2 contains {_ench}:
+				set {_e} to {_e::%loop-index-2%}
+		set {_e::*} to split "%{_e}%" by " "
+		if {_e::3} is set:
+			set {_e} to {_e::3}
+		else:
+			set {_e} to {_e::2}
+		if {_e} is "I":
+			set {_lvl} to 1
+		if {_e} is "II":
+			set {_lvl} to 2
+		if {_e} is "III":
+			set {_lvl} to 3
+		if {_e} is "IV":
+			set {_lvl} to 4
+		if {_e} is "V":
+			set {_lvl} to 5
+		if {_e} is "VI":
+			set {_lvl} to 6
+			if {_xdmgv::6} is set:
+				set {_lvl} to {_xdmgv::6}
+			if {_xdmgt::6} is set:
+				set {_tdmg} to {_xdmgt::6}
+		if {_e} is "VII":
+			set {_lvl} to 7
+			if {_xdmgv::7} is set:
+				set {_lvl} to {_xdmgv::7}
+			if {_xdmgt::7} is set:
+				set {_tdmg} to {_xdmgt::7}
+		if {_e} is "VIII":
+			set {_lvl} to 8
+			if {_xdmgv::8} is set:
+				set {_lvl} to {_xdmgv::8}
+	# °°°°°°°°°°°°°°°°°°°°°°°°°°
+		if {_ench} is set:
+			#send "&6%{_xdmg}%/&e%{_tdmg}% &b%{_lvl}%  &9%{_ench}%" to {_p}
+			if {_tdmg} is not set:
+				set {_f} to {_xdmg}*{_lvl}
+				add {_f} to {_enchs}
+			else:
+				set {_f} to {_tdmg}
+				add {_f} to {_enchs}
+			if {_ench-radius} is set:
+				set {_ff} to {_ench-radius}+{_ench-xradius}*{_lvl}
+			
+		# [][][][][]
+			add {_ench} to {SB-DmgEnch.%{_pU}%::*}
+			if {_ench} is "Cleave":
+				set {SB-DmgEnch.%{_pU}%::%{_ench}%::1} to {_f}
+				set {SB-DmgEnch.%{_pU}%::%{_ench}%::2} to {_ff}
+		# [][][][][]
+			delete {_e::*}
+			delete {_ench}
+			delete {_xdmgt::*}
+			delete {_xdmgv::*}
+			delete {_tdmg}
+			delete {_lvl}
+	set {SB-DmgEnch.%{_pU}%} to {_enchs}
+
+on shoot:
+	if shooter is a player:
+		set {Tool.%UUID of shooter%} to shooter's tool's name
+
+on tool change:
+	delete {Tool.%UUId of player%}
+		
+on damage:
+	if attacker is a player:
+		if victim is not a player:
+			if {SBD-Ghosted.%UUID of attacker%} is true:
+				SBD_NotWhileInGhost(attacker)
+				stop
+			if {Tool.%UUID of attacker%} contains "&dSpiritual Last Breath":
+				delete {Tool.%UUId of attacker%}
+				set {_d} to round({Mob-Defense.%UUID of victim%}*(0.2))
+				send "&6&lABILITY! &7You removed &a%{_d}% &a❈ Defense &7from target's defense!" to attacker
+				remove {_d} from {Mob-Defense.%UUID of victim%}
+
+			MakeDamage(attacker, victim, 100)
+			#SBDamageHolo(attacker, victim, {damage-Deal.%UUID of attacker%}, {Damage-GetCrit.%UUID of attacker%})
+			stop
+
+# =====================
+# =====================
+
+function SBDamageHolo(p: player, v: entity, dmg: number, n: number):
+# n = crit type id (0 = negativity; 1 = nocrit; 2 = crit; 3 = others/magic)
+	set {_vU} to {_v}'s uuid
+	set {_pU} to {_p}'s uuid
+	delete {Damage-GetCrit.%{_pU}%}
+
+	if {_dmg} is higher than {SB-BestDamage.%{_pU}%}:
+		set {SB-BestDamage.%{_pU}%} to {_dmg}
+	
+	set {_Damage-LocVictim} to {_v}'s location
+	set {_Damage-Holo-LocX} to random integer between -3 and 3
+	set {_Damage-Holo-LocY} to random integer between 0 and 13
+	set {_Damage-Holo-LocZ} to random integer between -3 and 3
+	set {_Damage-Holo-LocX} to ({_Damage-Holo-LocX} / 10)
+	set {_Damage-Holo-LocY} to ({_Damage-Holo-LocY} / 10)
+	set {_Damage-Holo-LocZ} to ({_Damage-Holo-LocZ} / 10)
+	add {_Damage-Holo-LocX} to x coords of {_Damage-LocVictim}
+	add {_Damage-Holo-LocY} to y coords of {_Damage-LocVictim}
+	add {_Damage-Holo-LocZ} to z coords of {_Damage-LocVictim}
+   
+	spawn armor stand at {_Damage-LocVictim}'s location
+#   spawn armor stand {_damageHoloLocationY} meters above and {_damageHoloLocationX} meter horizontally in front of the victim
+	set {_damage-Holo} to the spawned entity
+	add "{Invisible:1b,Invulnerable:1b,PersistenceRequired:1b,NoBasePlate:1b,NoGravity:1b,Marker:1b,Small:1b,CustomNameVisible:1b,DisabledSlots:63}" to nbt of {_damage-Holo}
+
+	if {SB-Mods-DamageDisplayer.%{_pU}%::1} is set:
+		set {_dmg} to ({_dmg}/{SB-Mods-DamageDisplayer.%{_pU}%::1})
+		if {SB-Mods-DamageDisplayer.%{_pU}%::1} is equal to 1000:
+			set {_dmg} to "%{_dmg}%k"
+		if {SB-Mods-DamageDisplayer.%{_pU}%::1} is equal to 1000000:
+			set {_dmg} to "%{_dmg}%M"
+		if {SB-Mods-DamageDisplayer.%{_pU}%::1} is equal to 1000000000:
+			set {_dmg} to "%{_dmg}%B"
+
+	if {_n} is equal to 3:
+		set name of {_damage-Holo} to "&b✧&f%{_dmg}%&b✧"
+	if {_n} is equal to 2:
+		set {_t} to "%{_dmg}%"
+		set {_col::*} to "&f" and "&e" and "&6" and "&c" and "&c"
+		set {_newcol::*} to {_col::*}
+		set {_text::*} to {_t} split at ""
+		loop {_text::*}:
+			if loop-value is not " ":
+				if {_newcol::*} is not set:
+					set {_newcol::*} to {_col::*}
+				set {_col} to first element of {_newcol::*}
+				set {_newword::%loop-index%} to "%{_col}%%loop-value%"
+				remove {_col} from {_newcol::*}
+			else:
+				set {_newword::%loop-index%} to loop-value
+		set {_dmg} to join {_newword::*} with ""
+		set name of {_damage-Holo} to "&f✧&f%{_dmg}%&f✧"
+	if {_n} is equal to 1:
+		set name of {_damage-Holo} to "&7✧&f%{_dmg}%&7✧"
+
+	wait 1 second
+	kill {_damage-Holo}
+
+#   send "&a%damage%&7/&c%{_damEffective.%UUID of attacker%}%&7/&9%{_damageCrit.%UUID of attacker%}%&7/&e%{_damLameRiche.%UUID of attacker%}%&7/&b%{_damageShow.%UUID of attacker%}%" to attacker

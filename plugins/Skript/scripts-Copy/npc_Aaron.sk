@@ -1,0 +1,16 @@
+on right click on entity:
+ if name of clicked entity is "&7Aaron":
+  if {abc} is not true:
+   if {Slayer-Quest.%UUID of player%} is true:
+    open virtual chest inventory with size 4 named "Tueuse" to player
+    format gui slot (integers between 0 and 35) of player with black stained glass pane named "&f"
+    format gui slot 13 of player with oak sign named "&aJ'annule ma quête!" with lore "&7Cliquez pour accepter que vous avez" and "&7annuler votre quête, et pouvoir relancer un autre." and "&7" and "&eCliquez pour accepter!" to close:
+     play sound "entity.villager.yes" with volume 10 with pitch 1.5 at player for player
+     make console execute command "/slayerunquest %player%"
+     make console execute command "/slayermenu %player%"
+    format gui slot 31 of player with barrier named "&cFermer" to close
+   else:
+    if {abc} is not true:
+
+     play sound "ui.button.click" with volume 10 with pitch 1 at player for player
+     make console execute command "/slayermenu %player%"

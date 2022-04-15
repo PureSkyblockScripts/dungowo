@@ -1,0 +1,25 @@
+command /sb-money <offline player> <text> <text> [<number>]:
+	permission: op
+	usage: &c/sb-money <player> <set/view> <purse/coins> [<value>]
+	trigger:
+		if {rankPower.%UUID of player%} is equal to 1 or 2:
+			if arg-3 is "purse" or "coins":
+				if arg-2 is "view":
+					send "&6&lPURSE! &b%arg-1% &7has &6%{%arg-3%.%UUID of arg-1%}% &6Coins&7."
+				if arg-2 is "set":
+					set {%arg-3%.%UUID of arg-1%} to arg-4
+					send "&6&lPURSE! &b%arg-1% &7has now &6%arg-4% &6Coins&7."
+		else:
+			NoRankPower(player)
+
+
+
+
+
+
+
+
+
+
+
+

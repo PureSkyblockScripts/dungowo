@@ -1,0 +1,234 @@
+options:
+	MsgCapacityUltimateUsed: &6&lULTIMATE ABILITY! &8%player% &6activates his &e&lULTIMATE&6.
+
+function SB_Dungeon_Class_Tank_Passive(a: entity, p: player, n: number):
+	set {_pU} to {_p}'s uuid
+	loop all players in radius 20 of {_p}:
+		if loop-player is a player:
+			if loop-player is not {_p}:
+				if {SBD-Class.%UUID of loop-player%} is "Tank":
+					set {_dmg} to {Damage-Taken.%{_pU}%}
+					set {Damage-Taken.%{_pU}%} to ({_dmg}*0.3)
+					set {_dmgT} to ({_dmg}*0.7)
+					MakeSpecificDamagePlayer(loop-player, {_dmgT})
+					stop
+# === BERSERKER
+on death of living entity:
+	set {_p} to {Entity-LastAttack.%UUID of victim%}
+	set {_pU} to {_p}'s uuid
+	if {a} is not true:
+		if {SBD-Class.%{_pU}%} is "Berserker":
+			if {Damage-Deal-UniqueBoost.%{_pU}%} is higher than 24.9:
+				remove 25 from {Damage-Deal-UniqueBoost.%{_pU}%}
+			add 25 to {Damage-Deal-UniqueBoost.%{_pU}%}
+			if {DungeonClass-Ability.%{_pU}%} is true: # BLOODLUST
+				set {_heal} to (0.08*{MaxHealth.%{_pU}%})
+				add {_heal} to {Health.%{_pU}%}
+				play sound "entity.witch.drink" at {_p} for {_p}
+# === ARCHER + HEALER
+on damage:
+	if {a} is not true:
+		if "%lore of attacker's tool%" contains "SWORD" or "ÉPÉE":
+			if {SBD-Class.%UUID of attacker%} is "Healer":
+				GetDamage(attacker)
+				set {_heal} to ({Damage-Deal.%UUID of attacker%}/{MaxHealth.%UUID of attacker%})
+				add {_heal} to {Health.%UUID of attacker%}			
+		if "%lore of attacker's tool%" contains "BOW" or "ARC":
+			if {SBD-Class.%UUID of attacker%} is "Archer":
+				if {DungeonClass-Ultimate.%UUID of attacker%} is true:
+					GetDamage(attacker)
+					set {_dmg} to (0.5*{damage-Deal.%UUID of attacker%})
+					loop all living entities in radius 5 of victim:
+						if loop-entity is not a player:
+							if loop-entity is not the victim:
+								if {health.%UUID of loop-entity%} is set:
+									MakeDamage(attacker, loop-entity, 50)
+				stop
+# === MAGE
+on left click:
+	if {_a} is not true:
+		if {SBD-Class.%UUID of player%} is "Mage":
+			if {CD-LeftClickMage.%UUID of player%} is not true:
+				set {CD-LeftClickMage.%UUID of player%} to true
+				if target is not a player:
+					GetDamage(player)
+					set {_dmg} to ({Damage-Deal.%UUID of player%}*0.3)*(1+0.09*{Intelligence.%UUID of player%}/100)
+					loop all living entities in radius 15 of player:
+						if loop-entity is the target:
+							set {_p} to 100
+					if {_p} is not set:
+						loop all living entities in radius 30 of player:
+							if loop-entity is the target:
+								set {_p} to 70
+					if {_p} is set:
+						loop all living entities in radius 0.8 of target:
+							if loop-entity is not a player:
+								MakeSpecificDamage(player, loop-entity, {_dmg}, {_p}, {Damage-GetCrit.%UUID of player%})
+						if {_p} is equal to 100:
+							play 50 of crit at target's location
+							play 25 of enchanted hit at target's location 
+						if {_p} is equal to 75:
+							play 50 of crit at target's location
+				wait 0.5 seconds
+				delete {CD-LeftClickMage.%UUID of player%}
+# ///////////////////////////////////////////////
+on drop:
+	if {DungeonParty::*} contains "%player%":
+		cancel event
+		if item is not a nether star:
+# ==
+			if {DungeonClass-Ability.%UUID of player%} is not set:
+				if {SBD-Class.%UUID of player%} is "Healer":
+					Sound_WitherBreakBlock(player)
+					set {DungeonClass-Ability.%UUID of player%} to true
+					send "&6&lABILITY! &7You activated &6Healing Circle &7for &a15 seconds&7." to player
+				# /////
+					spawn an armor stand at player's location
+					set {_h} to the spawned entity
+					add "{Invisible:1b,Invulnerable:1b,PersistenceRequired:1b,NoBasePlate:1b,NoGravity:1b,Marker:1b,ArmorItems:[{},{},{},{id:""emerald_block"",Count:1b}],HandItems:[{},{}],CustomName:'{""text"":""Dungeon::HealingCircle""}',DisabledSlots:63,Pose:{Body:[0f,90f,0f],Head:[180f,0f,0f],LeftLeg:[180f,0f,0f],RightLeg:[180f,0f,0f]}}" to nbt of {_h}
+					apply glowing 1 to {_h} for 15 seconds
+					loop 15 times:
+						loop all players in radius 8 of {_h}:
+							set {_p} to loop-player
+							set {_pU} to {_p}'s uuid
+							play 25 of happy villager at {_p}'s location
+							play 25 heart with speed 0 at {_p}'s location
+							play 1 of heart at block 1.5 meters above {_h}'s location
+							add (0.08*{MaxHealth.%{_pU}%})*{RegenerationMultiplicator.%{_pU}%} to {health.%{_pU}%}
+						wait 1 seconds
+					kill {_h}
+					set {DungeonClass-Ability.%UUID of player%} to "Healing Circle"
+					send "&cYour Healing Circle has expired." to player
+					set {_v} to 1
+				if {SBD-Class.%UUID of player%} is "Berserker":
+					Sound_WitherBreakBlock(player)
+					set {DungeonClass-Ability.%UUID of player%} to true
+					send "&6&lABILITY! &7You activated &6Bloodlust &7for &a5 seconds&7." to player
+					wait 5 seconds
+					set {DungeonClass-Ability.%UUID of player%} to "Bloodlust"
+					send "&cYour Bloodlust has expired." to player
+					set {_v} to 25
+				if {DungeonClass.%UUID of player%} is "Archer":
+					Sound_WitherBreakBlock(player)
+					set {DungeonClass-Ability.%UUID of player%} to true
+					send "&6&lABILITY! &7You activated &6Radioactive Load &7for &a5 seconds&7."
+					set {_cc} to (0.5*{critchance.%UUID of player%})
+					set {_crit} to (0.25*{critdamage.%UUID of player%})
+					add {_cc} to {critchance.%UUID of player%}
+					add {_crit} to {critdamage.%UUID of player%}
+					send "&7You gain &9+%{_cc}%&9%% &9☣ Critical Chance &7and &9+%{_crit}%&9%% &9☠ Critical Damage &7for &a5 seconds&7." to player
+					wait 5 seconds
+					remove {_cc} from {critchance.%UUID of player%}
+					remove {_crit} from {critdamage.%UUID of player%}
+					set {DungeonClass-Ability.%UUID of player%} to "Radioactive Load"
+					send "&cYour Radioactive Load has expired." to player
+					set {_v} to 40
+				if {SBD-Class.%UUID of player%} is "Mage":
+					Sound_WitherBreakBlock(player)
+					send "&6&lABILITY! &7You activated &6Shock&7." to player
+					# LE CODE POUR BOOM
+					set {DungeonClass-Ability.%UUID of player%} to "Shock"
+					set {_v} to 15
+				if {SBD-Class.%UUID of player%} is "Tank":
+					send "&6&lABILITY! &7You activated &6Agro Steal&7." to player
+					playsound(player, "block.anvil.land", 0.9)
+					loop all living entities in radius 15 of player:
+						if loop-entity is not a player:
+							if loop-entity's target is not the player:
+								if loop-entity's target is a player:
+									send "&6&lABILITY! &b%player% &7has taken the agro from your enemies!" to loop-entity's target
+									set loop-entity's target to the player
+					set {DungeonClass-Ability.%UUID of player%} to "Agro Steal"
+					set {_v} to 15
+# /// ULTIMATE //////////////////////////////
+		else:
+			if {DungeonClass-Ultimate.%UUID of player%} is not set:
+				if {SBD-Class.%UUID of player%} is "Healer":
+					Sound_WitherAmbient(player)
+					send "{@MsgCapacityUltimateUsed}" to {DungeonParty::*}
+					set {DungeonClass-Ultimate.%UUID of player%} to "Wish"
+					loop all players:
+						if {defense.%UUID of loop-player%} is set:
+							set {Health.%UUID of loop-player%} to {MaxHealth.%UUID of loop-player%}
+							add ({MaxHealth.%UUID of loop-player%}*0.2) to {Absorption.%UUID of loop-player%}
+							set {Absorption-Time.%UUID of loop-player%} to 120
+							send "&7Your &c❤ Health &7has been restaured and you gain &e%({MaxHealth.%UUID of loop-player%}*0.2)% &e❤ Absorptions &7for &a2 minutes &7by &6%player%&6's &lWISH&7." to loop-player
+					set {_vv} to 120
+
+				if {SBD-Class.%UUID of player%} is "Berserker":
+					Sound_WitherAmbient(player)
+					set {DungeonClass-Ultimate.%UUID of player%} to true
+					send "{@MsgCapacityUltimateUsed}" to {DungeonParty::*}
+					set {_str} to ({strength.%UUID of player%}*0.35)+({critdamage.%UUID of player%}*0.35)
+					send "&7You gain &c+%{_str}% &c❁ Strength &7for &a10 seconds&7." to player
+					add {_str} to {strength.%UUID of player%}
+					wait 10 seconds
+					send "&cYour Rage has expired." to player
+					set {DungeonClass-Ultimate.%UUID of player%} to "Rage"
+					remove {_str} from {strength.%UUID of player%}
+					set {_vv} to 110
+
+				if {SBD-Class.%UUID of player%} is "Tank":
+					Sound_WitherAmbient(player)
+					set {DungeonClass-Ultimate.%UUID of player%} to true
+					send "{@MsgCapacityUltimateUsed}" to {DungeonParty::*}
+					send "&7You take &9-75%% &7less damage &7for &a15 seconds&7." to player
+					set {Resistance.%UUID of player%} to 75
+					set {Resistance-Time.%UUID of player%} to 15
+					wait 15 seconds
+					send "&cYour Resistance has expired." to player
+					set {DungeonClass-Ultimate.%UUID of player%} to "Resistance"
+					set {_vv} to 105
+
+				if {SBD-Class.%UUID of player%} is "Archer":
+					Sound_WitherAmbient(player)
+					set {DungeonClass-Ultimate.%UUID of player%} to true
+					send "{@MsgCapacityUltimateUsed}" to {DungeonParty::*}
+					send "&7Your arrows are now &6radioactive &7for &a10 seconds&7." to player
+					wait 10 seconds
+					send "&cYour Radioactive Arrow has expired." to player
+					set {DungeonClass-Ultimate.%UUID of player%} to "Radiaoctive Arrow"
+					set {_vv} to 110
+
+				if {SBD-Class.%UUID of player%} is "Mage":
+					Sound_WitherAmbient(player)
+					set {DungeonClass-Ultimate.%UUID of player%} to true
+					send "{@MsgCapacityUltimateUsed}" to {DungeonParty::*}
+					set {_loc} to player's location
+					loop 5 times:
+						strike lightning effect at {_loc}
+						loop all living entities in radius 10 of {_loc}:
+							if loop-entity is not a player:
+								set {_dmg} to ({Intelligence.%UUID of player%}*{AbilityDamage.%UUID of player%})*(0.8+{mana.%UUID of player%}/{Intelligence.%UUID of player%})
+								MakeSpecificDamage(player, loop-entity, {_dmg}, 100, 3)
+								add {_dmg} to {_dmgTotal}
+						wait 1.5 second
+					send "&cYour Thunder has expired." to player
+					send "&7Your Thunder damaged &c%{_dmgTotal}% &cDamage &7to enemies." to player
+					set {DungeonClass-Ultimate.%UUID of player%} to "Thunder"
+					set {_vv} to 112
+
+			
+# == CD CAPACITÉ FINI
+	if {_v} is set:
+		loop {_v} times:
+			if {DungeonParty::*} contains "%player%":
+				wait 1 second
+			else:
+				delete {DungeonClass-Ability.%UUID of player%}
+				stop
+		delete {DungeonClass-Ultimate.%UUID of player%}
+		send "&7Your &b&l%{DungeonClass-Ability.%UUID of player%}% &7is now available." to player
+		delete {DungeonClass-Ability.%UUID of player%}
+# == CD ULTIME FINI
+	if {_vv} is set:
+		loop {_vv} times:
+			if {DungeonParty::*} contains "%player%":
+				wait 1 seconds
+			else:
+				delete {DungeonClass-Ultimate.%UUID of player%}
+				stop
+		delete {DungeonClass-Ultimate.%UUID of player%}
+		send "&7Your &e&lULTIMATE &7is now available." to player
+	stop
+		

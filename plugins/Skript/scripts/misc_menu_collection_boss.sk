@@ -1,0 +1,29 @@
+command /menucollection-boss <player>:
+ permission: op
+ trigger:
+  if {collection-lerock.%UUID of arg-1%} is not set:
+   set {collection-lerock.%UUID of arg-1%} to 0
+  if {collection-rhyme.%UUID of arg-1%} is not set:
+   set {collection-rhyme.%UUID of arg-1%} to 0
+  if {collection-LeLibraire.%UUID of arg-1%} is not set:
+   set {collection-LeLibraire.%UUID of arg-1%} to 0
+
+  open virtual chest inventory with size 6 named "Collection de Boss" to arg-1
+  wait 1 ticks
+  format gui slot (integers between 0 and 53) of arg-1 with black stained glass pane named "&f"
+  format gui slot (integers between 10 and 16) of arg-1 with air
+  format gui slot (integers between 19 and 25) of arg-1 with air
+  format gui slot (integers between 28 and 34) of arg-1 with air
+  format gui slot (integers between 37 and 43) of arg-1 with air
+
+  format gui slot 10 of arg-1 with player head with nbt "{display:{Name:""{\""text\"":\""Witch-king of Angmar\""}""},SkullOwner:{Id:[I;541610356,1683796896,2117397659,1583328552],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzQ5NTU4ZThiMWMzZjZmMGM4ZTI1ODQ4N2Y0Y2QzY2U2NmY1ZmQ5OTJhN2NkNjRmNmRmNjMxYmI4NTJmNjcyYSJ9fX0=""}]}}}" named "&eLerock %{Collection-Lerock.%UUID of arg-1%}%" with lore "&7Consultez tous les progrès et récompenses" and "&7de votre collection de Lerock!" and "&7" and "&7Vous avez &b%{Collection-Boss-Lerock.%UUID of arg-1%}% &bLerock Battu&7." and "&7" and "&eCliquez pour consulter!" to close:
+   make console execute command "/menucollection-boss-lerock %player%"
+
+  format gui slot 11 of arg-1 with player head with nbt "{display:{Name:""{\""text\"":\""Wayward Vegabond\""}""},SkullOwner:{Id:[I;-1304499272,465915436,-1412273431,-1333166089],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDM4NDFmNDZkMTc4YzEzZGFmNmRlMzk1MTg5MWM5Y2ZhZGFjYTVkOGY2N2YzYjI1Yjk1OTQ2YWE2NWU5YzE3In19fQ==""}]}}}" named "&eRhyme %{Collection-Rhyme.%UUID of arg-1%}%" with lore "&7Consultez tous les progrès et récompenses" and "&7de votre collection de Rhyme!" and "&7" and "&7Vous avez &b%{Collection-Boss-Rhyme.%UUID of arg-1%}% &bRhyme Battu&7." and "&7" and "&eCliquez pour consulter!" to close:
+   make console execute command "/menucollection-boss-rhyme %player%"
+
+  format gui slot 12 of arg-1 with player head with nbt "{display:{Name:""{\""text\"":\""Necromancer\""}""},SkullOwner:{Id:[I;-78200993,232803756,-1171142049,62670331],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvY2NiM2QyMmFlMDAxMjE4NjFlZTY1ZTg1MDJjMzEzNzg0YTI2OGU0MmExMzBlM2Q2N2RlZDNhNjg0OGVhZjk2OCJ9fX0=""}]}}}" named "&eLe Libraire %{Collection-LeLibraire.%UUID of arg-1%}%" with lore "&7Consultez tous les progrès et récompenses" and "&7de votre collection de Le Libraire!" and "&7" and "&7Vous avez &b%{Collection-Boss-LeLibraire.%UUID of arg-1%}% &bLe Libraire Battue&7." and "&7" and "&eCliquez pour consulter!" to close:
+   make console execute command "/menucollection-boss-lelibraire %player%"
+  format gui slot 48 of arg-1 with arrow named "&aRetour" with lore "&7Revenir à la page précédente." and "&7" and "&eCliquez pour retourner!" to close:
+   make console execute command "/menucollection %player%"
+  format gui slot 49 of arg-1 with barrier named "&cFermer" to close

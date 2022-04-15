@@ -1,0 +1,16 @@
+on damage:
+	if attacker is a player:
+		if {attackspeed.%UUID of attacker%} is between -100 and -5:
+			set maximum damage delay of victim to 1.1 seconds
+		if {attackspeed.%UUID of attacker%} is between -4 and 5:
+			set maximum damage delay of victim to 1 seconds
+		if {attackspeed.%UUID of attacker%} is between 6 and 17:
+			set maximum damage delay of victim to 0.9 seconds
+		if {attackspeed.%UUID of attacker%} is between 18 and 33:
+			set maximum damage delay of victim to 0.8 seconds
+		if {attackspeed.%UUID of attacker%} is between 34 and 53:
+			set maximum damage delay of victim to 0.7 seconds
+		if {attackspeed.%UUID of attacker%} is between 54 and 81:
+			set maximum damage delay of victim to 0.6 seconds
+		if {attackspeed.%UUID of attacker%} is higher than 81:
+			set maximum damage delay of victim to 0.5 seconds

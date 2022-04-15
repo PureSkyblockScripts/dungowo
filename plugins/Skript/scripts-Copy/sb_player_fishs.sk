@@ -1,0 +1,13 @@
+on fishing:
+ if name of player's tool is "&9Grappin Frais":
+  cancel event
+  
+on fish:
+	cancel event
+	if fish state is CAUGHT_FISH:
+		chance of {SCC.%UUID of player%}%:
+			stop
+		else:
+			chance of 40%:
+				give 1 of {Storage-Item-PoissonCru} to player
+

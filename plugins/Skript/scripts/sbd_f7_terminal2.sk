@@ -1,0 +1,43 @@
+on right click on armor stand:
+	if {SBD-Ghosted.%UUID of player%} is true:
+		SBD_NotWhileInGhost(player)
+		stop
+	if name of clicked entity contains "&aTERMINAL-":
+		set {_v} to the clicked entity
+		loop all living entities in radius 3 of {_v}:
+			if loop-entity is an armor stand:
+				if name of loop-entity is "&aTERMINAL-DONE":
+					send "&cThis terminal is already done." to player
+					Nope(player)
+					set {_a} to true
+# ====
+	if {_a} is not true:
+		set {Terminal-Loc.%UUID of player%} to {_v}'s location				
+		if name of clicked entity is "&aTERMINAL-MAZES":
+			make console execute command "/terminal-mazes %player%"
+		if name of clicked entity is "&aTERMINAL-PANES":
+			make console execute command "/terminal-panes %player%"
+		if name of clicked entity is "&aTERMINAL-COLORS":
+			make console execute command "/terminal-colors %player%"
+		if name of clicked entity is "&aTERMINAL-LETTERS":
+			make console execute command "/terminal-letters %player%"
+
+command /spawn-terminal <text>:
+	permission: op
+	trigger:
+		set {_v} to arg-1
+		spawn an armor stand at player's location
+		set {_t} to the spawned entity
+		add "{Invisible:1b,NoGravity:1b,DisabledSlots:63}" to nbt of {_t}
+		set name of {_t} to "&aTERMINAL-%{_v}%"
+		send "&6&lSET!"
+		
+command /spawn-areaterminal <text>:
+	permission: op
+	trigger:
+		set {_v} to arg-1
+		spawn an armor stand at player's location
+		set {_t} to the spawned entity
+		add "{Marler:1b,Invisible:1b,NoGravity:1b,DisabledSlots:63}" to nbt of {_t}
+		set name of {_t} to "&bAREA-TERMINAL-%{_v}%"
+		send "&6&lSET!"

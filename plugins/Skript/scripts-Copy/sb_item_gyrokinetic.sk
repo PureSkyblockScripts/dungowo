@@ -1,0 +1,107 @@
+on left click with blaze rod:
+	if name of player's tool contains "&5Gyrokinetic":
+		cancel event
+		loop all players in radius 7 of player:
+			if name of loop-player is "&7Guy":
+				if {SB-TrainingArea.%UUID of player%} is not set:
+					send "&cYou can't use this item here." to player
+					stop
+		SB_ItemManaCost(player, 1000, "L")
+		SB_ItemCooldown(player, 30, "L")
+		if {SB-ItemAble.%UUID of player%} is true:
+			SB_AbilityUsed(player, "Gravity StorM")
+			set {_t} to player's targeted block
+			set {_t} to block 1 meter above {_t}
+			set {_v} to player's targeted block's location
+			set {_v} to location of block 1 meter above {_v}
+			wait 1 tick
+			if {_t} is air:
+				SB_Item_Gyro({_v})
+				Sound_Gyro(player)
+				loop 2 times:
+					loop all living entities in radius 16 of {_v}:
+						if loop-entity is not a player:
+							if loop-entity is not an armor stand:
+								if name of loop-entity doesn't contain "&6&lDUMMY":
+									wait 1 tick
+									apply slowness 50 without particles to loop-entity for 1 seconds replacing existing effect
+									teleport loop-entity to {_v}
+			else:
+				send "&cThe ability works only on the floor." to player
+				Nope(player)
+# ===
+			
+function SB_Item_GyroAnimation(l: location):
+	set {_n} to "{Invisible:1b,DisabledSlots:63}"
+	add obsidian and black wool and purple wool to {_b::*}
+	spawn an armor stand at {_l} with nbt "%{_n}%"
+	set {_v} to the spawned entity
+	set {_br} to random integer between 1 and 3
+	set helmet of {_v} to {_b::%{_br}%}
+	add {_v} to {_gyro::*}
+	push {_v} upward at speed 0.32
+	set name of {_v} to "✧"
+	wait 1 seconds
+	kill {_v}
+	
+function SB_Item_GyroAnimationMove(l: location, ll: location, x: number):
+	set {_o} to 3
+	set {_l} to {_ll}
+	loop 6 times:
+		if {_x} is 1:
+			remove {_o} from {_l}'s x coords
+		else if {_x} is 2:
+			remove {_o} from {_l}'s z coords
+		else if {_x} is 3:
+			remove {_o} from {_l}'s z coords
+			remove {_o} from {_l}'s x coords
+		else if {_x} is 4:
+			remove {_o} from {_l}'s x coords
+			remove {_o} from {_l}'s z coords
+		else if {_x} is 5:
+			remove {_o} from {_l}'s x coords
+			add {_o} to {_l}'s z coords
+		else if {_x} is 6:
+			add {_o} to {_l}'s x coords
+			remove {_o} from {_l}'s z coords
+		SB_Item_GyroAnimation({_l})
+		set {_l} to {_ll}
+		if {_x} is 1:
+			add {_o} to {_l}'s x coords
+		else if {_x} is 2:
+			add {_o} to {_l}'s z coords
+		else if {_x} is 3:
+			add {_o} to {_l}'s x coords
+			add {_o} to {_l}'s z coords
+		else if {_x} is 4:
+			add {_o} to {_l}'s z coords
+			add {_o} to {_l}'s x coords
+		else if {_x} is 5:
+			add {_o} to {_l}'s x coords
+			remove {_o} from {_l}'s z coords
+		else if {_x} is 6:
+			remove {_o} from {_l}'s x coords
+			add {_o} to {_l}'s z coords
+		SB_Item_GyroAnimation({_l})
+		remove 0.5 from {_o}
+		set {_l} to {_ll}
+		wait 1 tick
+
+function SB_Item_Gyro(l: location):
+	remove 2.4 from {_l}'s y coords
+	set {_ll} to {_l}
+	loop 6 times:
+		add 1 to {_v}
+		SB_Item_GyroAnimationMove({_l}, {_ll}, {_v})
+		SB_Item_GyroAnimationMove({_l}, {_ll}, {_v})
+		SB_Item_GyroAnimationMove({_l}, {_ll}, {_v})
+		SB_Item_GyroAnimationMove({_l}, {_ll}, {_v})
+	wait 0.25 second
+	SB_Item_GyroAnimation({_ll})
+	
+function Sound_Gyro(p: player):
+	set {_h} to 1
+	loop 7 times:
+		play sound "entity.enderman.teleport" with pitch {_h} at {_p} for {_p}
+		add 0.2 to {_h}
+		wait 3 ticks

@@ -1,0 +1,160 @@
+on server stop:
+	SB_Reset_TrainingAreaArea()
+
+on quit:
+	if {SB-TrainingArea.%UUID of player%} is set:
+		SB_Reset_TrainingArea(player)
+
+on right click with red terracotta:
+	cancel event
+	if {SB-TrainingArea.%UUID of player%} is set:
+		send "&cYou cancel your training test!" to player
+		SB_Reset_TrainingArea(player)
+		
+command /sb-trainingarea-reset:
+	trigger:	
+		loop all players:
+			if {SB-TrainingArea.%UUID of loop-player%} is set:
+				SB_Reset_TrainingArea(loop-player)
+		SB_Reset_TrainingAreaArea()
+		
+on teleport:
+	wait 1 tick
+	if {Dead.%UUID of player%} is true:
+		if {SB-TrainingArea.%UUID of player%} is set:
+			wait 1 tick
+			SB_Reset_TrainingArea(player)
+			send "&cYou failed your training test!" to player
+		
+function SB_Reset_TrainingAreaArea():
+	delete {TrainingArea-Started}
+	loop all living entities:
+		if loop-entity's name contains "&6Moving Dummy":
+			DeleteEntity(loop-entity)
+		
+function SB_Reset_TrainingArea(p: player):
+	set {_pU} to {_p}'s uuid
+	teleport {_p} to {spawn}
+	set slot 8 of {_p} to {menu}
+	if {SB-TrainingArea.%{_pU}%} is between 15 and 21:
+		send "&dYou gain +1 Training Token (Over Round +15)" to {_p}
+		add 1 to {SB-TrainingArea-Token.%{_pU}%}
+	wait 1 tick
+	delete {SB-TrainingArea.%{_pU}%}
+	wait 2 seconds
+	SB_Reset_TrainingAreaArea()
+
+on right click on entity:
+	if name of clicked entity is "&7Guy":
+		delete {Dead.%UUID of player%}
+		if {_lol} is not true:
+			if {SB-TrainingArea.%UUID of player%} is not true:
+				MenuStyle(player, "Training Area", "Full", 5, "/")
+				format gui slot 39 of player with cauldron named "&aTraining Token" with lore "&7Win training token by successfully finish" and "&7a training test above!" and "&7" and "&7You have &d%{SB-TrainingArea-Token.%UUID of player%}% &dTraining Tokens&7!" and "&7" and "&eClick to open training shop!" to run:
+					wait 1 tick
+					MenuStyle(player, "Training Shop", "Frame", 6, "/")
+					format gui slot 48 of player with {Menu-Panes}
+					set {_v} to "KISMET_FEATHER"
+					set {_cost} to 3
+					loop 1 times:
+						set {_o} to {Terminal-Items::%{_v}%::1}
+						add "&7" and "&7Cost" and "&d%{_cost}% Training Tokens" and "&7" and "&eClick to buy!" to {_o}'s lore 
+						add "{COST:""%{_cost}%"",ITEM:""%{_v}%""}" to nbt of {_o}
+						add {_o} to player's current inventory
+					
+				format gui slot 13 of player with iron sword with attribute flag hidden named "&cTest of Surviv" with lore "&7&oFight monsters which are harder and" and "&7&oharder - Surviv the longest possible!" and "&7" and "&7Rule" and " &8- &a20 Rounds" and " &8- &7Mob &c+25%% &c❤ Health &7and &fDamage&7/round" and " &8- &7Mob has &a150 ❈ Defense" and " &8- &7Mob has &b80%% Magic Damage Reduction" and " &8- &7Max &f200 ✦ Speed" and " &8- &7All ability has &bx2 ✎ Mana Cost" and "&7" and "&7Reward" and " &d+1 Training Token &7as &6Victory" and " &d+1 Training Token &7if &aRound +15" and "&7" and "&eClick to play!"
+			else:
+				send "&cYou already playing!" to player
+				Nope(player)
+				stop
+			
+command /sb-trainingtoken <player> <text> [<number>]:
+	permission: op
+	usage: &c/sb-trainingtoken <player> <view/set> [<value>]
+	trigger:
+		if arg-2 is "view":
+			send "&6TOKEN! &b%arg-1% &fhas &d%{SB-TrainingArea-Token.%UUID of arg-1%}% &dTraining Tokens&f!" to player
+		if arg-2 is "set":
+			set {SB-TrainingArea-Token.%UUID of arg-1%} to arg-3
+			send "&6&lSET!"
+			
+on inventory click:
+	if name of player's current inventory is "Training Shop":
+		set {_cost} to tag "COST" of nbt of item
+		set {_item} to tag "ITEM" of nbt of item
+		set {_cost} to {_cost} parsed as number
+		if {_cost} is set:
+			if {SB-TrainingArea-Token.%UUID of player%} is higher than {_cost}-0.1:
+				if player has space for item:
+					remove {_cost} from {SB-TrainingArea-Token.%UUID of player%}
+					give 1 of {Terminal-Items::%{_item}%::1} to player
+					Buyed(player)
+					close player's inventory
+				else:
+					NoSpace(player)
+			else:
+				send "&cYou don't have enough token!" to player
+				Nope(player)
+	if name of player's current inventory is "Training Area":
+		if name of item contains "&cTest of":
+			if {PartyInvited.%UUID of player%} is set:
+				if player is not "WhiotexII":
+					send "&cYou can't start when you're in a party!" to player
+					Nope(player)
+					stop
+			if {TrainingArea-Started} is true:
+				send "&cSomeone is already playing!" to player
+				Nope(player)
+				close player's inventory
+				stop
+		if name of item is "&cTest of Surviv":
+			set {TrainingArea-Started} to true
+			set {SB-TrainingArea.%UUID of player%} to 1
+			teleport player at the location (186.5, 216.5, 183.5) in the world "world"
+			send title "&cTest of Surviv" with subtitle "&7Surviv the longest possible!" to player
+			wait 2 seconds
+			loop 3 times:
+				add 1 to {_v}
+				send title "&cTest of Surviv" with subtitle "&6%4-{_v}%" to player
+				wait 1 second
+			send title "&cTest of Surviv" with subtitle "&bGood Luck!" to player
+			wait 1 second
+			set {_l1} to location at 174, 216, 183 in the world "world" # red
+			set {_l2} to location at 178, 216, 175 in the world "world" # orange
+			set {_l3} to location at 186, 216, 171 in the world "world" # blue
+			set {_l4} to location at 194, 216, 175 in the world "world" # aqua
+			set {_l5} to location at 198, 216, 183 in the world "world" # green
+			set {_l6} to location at 194, 216, 191 in the world "world" # lime
+			set {_l7} to location at 186, 216, 195 in the world "world" # yellow
+			set {_l8} to location at 178, 216, 191 in the world "world" # purple
+			add hay block and melon and pumpkin and lit pumpkin to {_b::*}
+			set {_mob} to "zombie"
+			set {_dmg} to 200
+			set {_hp} to 250000
+			loop 20 times:
+				if {SB-TrainingArea.%UUID of player%} is not set:
+					stop
+				set {_t} to {SB-TrainingArea.%UUID of player%}
+				set {_lv} to 0
+				loop 8 times:
+					add 1 to {_lv}
+					set {_b} to random integer between 1 and 4
+					SB_SpawnEntity("%{_mob}%", "&7[%{_dmg}%] &6Moving Dummy", {_l%{_lv}%}, "{CustomNameVisible:1b}", {_hp}, 150, 0, 0, 80, 0, 0, "0", 0, {_dmg}, 2, {_b::%{_b}%}, air, air, air, air, player)
+					wait 0.05 seconds
+				set {_lv} to 0
+				loop 4 times:
+					add 2 to {_lv}
+					set {_b} to random integer between 1 and 4
+					SB_SpawnEntity("wither skeleton", "&7[%{_dmg}*2%] &6Moving Dummy", {_l%{_lv}%}, "{CustomNameVisible:1b}", {_hp}, 150, 0, 0, 80, 0, 0, "0", 0, {_dmg}*2, 2, {_b::%{_b}%}, air, air, air, bow, player)
+				send "&6TRAINING! &fNext spawn in &a10 seconds&f! - Current Round: &e%{_t}%&7/20" to player
+				add 1 to {SB-TrainingArea.%UUID of player%}
+				add round({_dmg}/4) to {_dmg}
+				add round({_hp}/4) to {_hp}
+				wait 9.4 seconds
+			if {SB-TrainingArea.%UUID of player%} is equal to 21:
+				send "&6&lTRAINING! &b%player% &amade &f'Test of Surviv' &asuccessfully!" to players
+				send "&dYou gain &d+2 Training Tokens! &d(Victory)" to player
+				teleport player to {spawn}
+				add 2 to {SB-TrainingArea-Token.%UUID of player%}
+				SB_Reset_TrainingArea(player)
+				

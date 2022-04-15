@@ -1,0 +1,66 @@
+command /NECROTIC_MAXOR_CHESTPLATE:
+ trigger:
+  set player's held item to unbreakable player's held item
+  set player's held item to player's held item with attribute flag hidden
+  set player's held item to player's held item with unbreakable flag hidden
+  set name of player's held item to "&dNecrotic Maxor's Chestplate &c✪✪✪✪&6✪"
+  set lore of player's held item to "&7Gear Score: &dNone" and "&7Item Quality: &d100 &8(Never has randomized stats)" and "&7Strength: &c+24 &d(+24) &8(+167)" and "&7Crit Damage: &c+45 &8(+313)" and "&7Health: &a+417 &e(+60) &8(+2908)" and "&7Defense: &a+175 &e(+30) &8(+1220)" and "&7Speed: &a+30 &8(+209)" and "&7Intelligence: &a+210 &9(+200) &8(+1435)" and "&7True Defense: &a+5 &8(+7.5)" and "&6[&d⚔️&6] &6[&d⚔️&6]" and "&7" and "&d&lLegion V&9, Growth VI, Protection VI," and "&9Rejuvenate V, True Protection I" and "&7" and "&7Reduce the damage you take from" and "&7withers by &c10*&7 and increases" and "&7your arrow damage by &c5*&7." and "&7" and "&d&k&l0 &d&lMYTHIC DUNGEON CHESTPLATE &d&k&l0"
+
+command /NECROTIC_MAXOR_LEGGINGS:
+ trigger:
+  set player's held item to unbreakable player's held item
+  set player's held item to player's held item with attribute flag hidden
+  set player's held item to player's held item with unbreakable flag hidden
+  set name of player's held item to "&dNecrotic Maxor's Leggings &c✪✪✪✪&6✪"
+  set lore of player's held item to "&7Gear Score: &dNone" and "&7Item Quality: &d100 &8(Never has randomized stats)" and "&7Strength: &c+24 &d(+24) &8(+167)" and "&7Crit Damage: &c+45 &8(+313)"  and "&7Health: &a+387 &e(+60) &8(+2700)" and "&7Defense: &a+160 &e(+30) &8(+1116)" and "&7Speed: &a+30 &8(+209)" and "&7Intelligence: &a+235 &9(+200) &8(+1639)" and "&6[&d⚔️&6] &6[&d⚔️&6]" and "&7" and "&d&lLegion V&9, Growth VI, Protection VI," and "&9Rejuvenate V, Smarty Pants V" and "&7" and "&7Reduce the damage you take from" and "&7withers by &c10*&7 and increases" and "&7your arrow damage by &c5*&7." and "&7" and "&d&k&l0 &d&lMYTHIC DUNGEON LEGGINGS &d&k&l0"
+  
+command /NECROTIC_MAXOR_BOOTS:
+ trigger:
+  set player's held item to unbreakable player's held item
+  set player's held item to player's held item with attribute flag hidden
+  set player's held item to player's held item with unbreakable flag hidden
+  set name of player's held item to "&dNecrotic Maxor's Boots &c✪✪✪✪&6✪"
+  set lore of player's held item to "&7Gear Score: &dNone" and "&7Item Quality: &d100 &8(Never has randomized stats)" and "&7Strength: &c+24 &d(+24) &8(+167)" and "&7Crit Damage: &c+45 &8(+313)"  and "&7Health: &a+302 &e(+60) &8(+2106)" and "&7Defense: &a+120 &e(+30) &8(+837)" and "&7Speed: &a+36 &8(+251)" and "&7Intelligence: &a+210 &9(+200) &8(+1435)" and "&6[&d⚔️&6] &6[&d⚔️&6]" and "&7" and "&d&lLegion V&9, Growth VI, Protection VI," and "&9Rejuvenate V, Sugar Rush III" and "&7" and "&7Reduce the damage you take from" and "&7withers by &c10*&7 and increases" and "&7your arrow damage by &c5*&7." and "&7" and "&d&k&l0 &d&lMYTHIC DUNGEON BOOTS &d&k&l0"
+  
+command /NECROTIC_WITHER_GOGGLES:
+ trigger:
+  set player's held item to unbreakable player's held item
+  set player's held item to player's held item with attribute flag hidden
+  set player's held item to player's held item with unbreakable flag hidden
+  set name of player's held item to "&6Necrotic Wither Goggles &c✪✪✪✪&6✪"
+  set lore of player's held item to "&7Gear Score: &dNone" and "&7Item Quality: &d100 &8(Never has randomized stats)" and "&7Ability Damage: &c+45 &8(+67.5)" and "&7Health: &a+150 &e(+60) &8(+1046)" and "&7Defense: &a+48 &e(+30) &8(+335)" and "&7Intelligence: &a+450 &9(+150) &8(+3313)" and "&7" and "&d&lLegion V&9, Growth VI, Protection VI," and "&9Rejuvenate V, Big Brain V" and "&7" and "&6&k&l0 &6&lLEGENDARY DUNGEON HELMET &6&k&l0"
+  
+
+command /MAXOR_CHESTPLATE:
+ trigger:
+  set player's held item to unbreakable player's held item
+  set player's held item to player's held item with attribute flag hidden
+  set player's held item to player's held item with unbreakable flag hidden
+  set name of player's held item to "&dAncient Maxor's Chestplate &c✪✪✪✪&6✪"
+  set lore of player's held item to "&7Gear Score: &dNone" and "&7Item Quality: &d100 &8(Never has randomized stats)" and "&7Strength: &c+59 &9(+35) &d(+24) &8(+411)" and "&7Crit Chance: &c+15 &9(+15) &8(+22.5)" and "&7Crit Damage: &c+95 &9(+50) &8(+662)"  and "&7Health: &a+417 &e(+60) &9(+7) &8(+2908)" and "&7Defense: &a+175 &e(+30) &9(+7) &8(+1220)" and "&7Speed: &a+30 &8(+209)" and "&7Intelligence: &a+35 &9(+25) &8(+244)" and "&7True Defense: &a+5 &8(+7.5)" and "&6[&d⚔️&6] &6[&d⚔️&6]" and "&7" and "&d&lLegion V&9, Growth VI, Protection VI," and "&9Rejuvenate V, True Protection I" and "&7" and "&7Reduce the damage you take from" and "&7withers by &c10*&7 and increases" and "&7your arrow damage by &c5*&7." and "&7" and "&9Ancient Bonus" and "&7Grants &a+1 &9Crit Damage" and "&7per &cCatacombs&7 level." and "&7" and "&d&k&l0 &d&lMYTHIC DUNGEON CHESTPLATE &d&k&l0"
+
+command /MAXOR_LEGGINGS:
+ trigger:
+  set player's held item to unbreakable player's held item
+  set player's held item to player's held item with attribute flag hidden
+  set player's held item to player's held item with unbreakable flag hidden
+  set name of player's held item to "&dAncient Maxor's Leggings &c✪✪✪✪&6✪"
+  set lore of player's held item to "&7Gear Score: &dNone" and "&7Item Quality: &d100 &8(Never has randomized stats)" and "&7Strength: &c+59 &9(+35) &d(+24) &8(+411)" and "&7Crit Chance: &c+15 &9(+15) &8(+22.5)" and "&7Crit Damage: &c+95 &9(+50) &8(+662)"  and "&7Health: &a+387 &e(+60) &9(+7) &8(+2700)" and "&7Defense: &a+160 &e(+30) &9(+7) &8(+1116)" and "&7Speed: &a+30 &8(+209)" and "&7Intelligence: &a+60 &9(+25) &8(+418)" and "&7True Defense: &a+5 &8(+7.5)" and "&6[&d⚔️&6] &6[&d⚔️&6]" and "&7" and "&d&lLegion V&9, Growth VI, Protection VI," and "&9Rejuvenate V, Smarty Pants V" and "&7" and "&7Reduce the damage you take from" and "&7withers by &c10*&7 and increases" and "&7your arrow damage by &c5*&7." and "&7" and "&9Ancient Bonus" and "&7Grants &a+1 &9Crit Damage" and "&7per &cCatacombs&7 level." and "&7" and "&d&k&l0 &d&lMYTHIC DUNGEON LEGGINGS &d&k&l0"
+  
+command /MAXOR_BOOTS:
+ trigger:
+  set player's held item to unbreakable player's held item
+  set player's held item to player's held item with attribute flag hidden
+  set player's held item to player's held item with unbreakable flag hidden
+  set name of player's held item to "&dAncient Maxor's Boots &c✪✪✪✪&6✪"
+  set lore of player's held item to "&7Gear Score: &dNone" and "&7Item Quality: &d100 &8(Never has randomized stats)" and "&7Strength: &c+59 &9(+35) &d(+24) &8(+411)" and "&7Crit Chance: &c+15 &9(+15) &8(+22.5)" and "&7Crit Damage: &c+95 &9(+50) &8(+662)"  and "&7Health: &a+302 &e(+60) &9(+7) &8(+2106)" and "&7Defense: &a+120 &e(+30) &9(+7) &8(+837)" and "&7Speed: &a+36 &8(+251)" and "&7Intelligence: &a+35 &9(+25) &8(+244)" and "&7True Defense: &a+5 &8(+7.5)" and "&6[&d⚔️&6] &6[&d⚔️&6]" and "&7" and "&d&lLegion V&9, Growth VI, Protection VI," and "&9Rejuvenate V, Sugar Rush III" and "&7" and "&7Reduce the damage you take from" and "&7withers by &c10*&7 and increases" and "&7your arrow damage by &c5*&7." and "&7" and "&9Ancient Bonus" and "&7Grants &a+1 &9Crit Damage" and "&7per &cCatacombs&7 level." and "&7" and "&d&k&l0 &d&lMYTHIC DUNGEON BOOTS &d&k&l0"
+  
+command /HYPERION:
+ trigger:
+  set player's held item to unbreakable player's held item
+  set player's held item to player's held item with attribute flag hidden
+  set player's held item to player's held item with unbreakable flag hidden
+  set name of player's held item to "&dHeroic Hyperion &c✪✪✪✪&6✪"
+  set lore of player's held item to "§7Gear Score: §d1126 §8(2674)" and "§7Damage: §c+340 §e(+30) §8(+2371)" and "§7Strength: §c+264 §e(+30) §9(Heroic +50) &d(+24) &6[+5] §8(+1841)" and "§7Crit Damage: §c+70 §8(+488)" and "§7Bonus Attack Speed: §c+7 §8(+10.5)" and "&7" and "§7Intelligence: §a+575 §9(Heroic +125) §8(+4010)" and "§7Ferocity: §a+35 §8(+52.5)" and "&6[&d⚔️&6] &6[&d⚔️&6]" and "&7" and "§d§lUltimate Wise V, §9Cleave V" and "§6Critical VI, §9Cubism V" and "§6Dragon Hunter V, §6Ender Slayer VI" and "§9Execute VI, §6Experience IV" and "§6Giant Killer VI, §9Imapling III" and "§6Lethality VI, §6Looting IV" and "§6Luck VI, §6Scavenger IV" and "§6Smite VI, §9Syphon IV" and "§9Telekinesis I, §6Thunderlord VI" and "§9Triple-Strike V, §6Vampirism VI" and "§6Venomous VI, §9Vicious V" and "&7" and "§b◆ Music Rune III" and "&7" and "§7Deals +§c50* §7damage to" and "§7Withers, Grants §c+1 ❁ Damage" and "§7and §a+2 §b ✎ Intelligence" and "§7per §cCatacombs §7levels." and "&7" and "§7Your Catacombs Level: §c50" and "&7" and "§aScroll Abilities:" and "§6Item Ability: Wither Impact §e&lRIGHT CLICK" and "§7Teleport §a10 blocks §7ahead of" and "§7you. Then implode dealing" and "§c3,445,109 §7damage to nearby" and "§7enemies. Also applies the wither" and "§7shield scroll ability reducing" and "§7damage taken and granting an" and "§7absorption shield for §e5" and "§7seconds." and "§8Mana Cost: §3150" and "&7" and "§d§l§ks§7 §d§lMYTHIC DUNGEON SWORD §d§l§ks  "
+
+      

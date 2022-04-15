@@ -1,0 +1,38 @@
+command /storage-misc-menu-enchant-farming:
+	permission: op
+	trigger:
+		set {Storage-Misc-Menu-Enchanted-Farming-BlocDePailleEnchanté} to hay block of unbreaking 1 with hidden enchants flag named "&aBloc de Paille Enchanté" with lore "&a&lUNCOMMUN" and "&7" and "&7Coûte" and "&8x144 &fBlocs de Paille" and "&7" and "&7Nécessite &bBlé VII" and "&eCliquez pour enchanter!"
+		
+		set {Storage-Misc-Menu-Enchanted-Farming-CarotteEnchanté} to carrot of unbreaking 1 with hidden enchants flag named "&aCarotte Enchanté" with lore "&a&lUNCOMMUN" and "&7" and "&7Coûte" and "&8x160 &fCarottes" and "&7" and "&7Nécessite &bCarotte IV" and "&eCliquez pour enchanter!"
+		
+		set {Storage-Misc-Menu-Enchanted-Farming-CarotteDoréeEnchanté} to golden carrot of unbreaking 1 with hidden enchants flag named "&aCarotte Dorée Enchanté" with lore "&a&lUNCOMMUN" and "&7" and "&7Coûte" and "&8x128 &aCarottes Enchantés" and "&8x32 &fCarottes Dorées" and "&7" and "&7Nécessite &bCarotte VII" and "&eCliquez pour enchanter!"
+		
+		set {Storage-Misc-Menu-Enchanted-Farming-PommeDeTerreEnchanté} to potato of unbreaking 1 with hidden enchants flag named "&aPomme de Terre Enchanté" with lore "&a&lUNCOMMUN" and "&7" and "&7Coûte" and "&8x160 &fPommes de Terre" and "&7" and "&7Nécessite &bPomme de Terre IV" and "&eCliquez pour enchanter!"
+		
+		set {Storage-Misc-Menu-Enchanted-Farming-PommeDeTerreCuiteEnchanté} to baked potato of unbreaking 1 with hidden enchants flag named "&aPomme de Terre Cuite Enchanté" with lore "&a&lUNCOMMUN" and "&7" and "&7Coûte" and "&8x160 &aPommes de Terre Enchantés" and "&7" and "&7Nécessite &bPomme de Terre VII" and "&eCliquez pour enchanter!"
+		
+		set {Storage-Misc-Menu-Enchanted-Farming-CitrouilleEnchanté} to pumpkin of unbreaking 1 with hidden enchants flag named "&aCitrouille Enchanté" with lore "&a&lUNCOMMUN" and "&7" and "&7Coûte" and "&8x160 &fCitrouilles" and "&7" and "&7Nécessite &bCitrouille III" and "&eCliquez pour enchanter!"
+		
+		set {Storage-Misc-Menu-Enchanted-Farming-MelonEnchanté} to melon slice of unbreaking 1 with hidden enchants flag named "&aMelon Enchanté" with lore "&a&lUNCOMMUN" and "&7" and "&7Coûte" and "&8x160 &fMelons" and "&7" and "&7Nécessite &bMelon IV" and "&eCliquez pour enchanter!"
+		
+		set {Storage-Misc-Menu-Enchanted-Farming-PastèqueEnchanté} to melon of unbreaking 1 with hidden enchants flag named "&9Pastèque Enchanté" with lore "&9&lRARE" and "&7" and "&7Coûte" and "&8x160 &aMelons Enchantés" and "&7" and "&7Nécessite &bMelon VII" and "&eCliquez pour enchanter!"
+		
+		set {Storage-Misc-Menu-Enchanted-Farming-FèvesDeCacaoEnchanté} to cocoa beans of unbreaking 1 with hidden enchants flag named "&aFèves de Cacao Enchanté" with lore "&a&lUNCOMMUN" and "&7" and "&7Coûte" and "&8x160 &fFèves de Cacao" and "&7" and "&7Nécessite &bFèves de Cacao IV" and "&eCliquez pour enchanter!"
+		
+		set {Storage-Misc-Menu-Enchanted-Farming-CookieEnchanté} to cookie of unbreaking 1 with hidden enchants flag named "&9Cookie Enchanté" with lore "&9&lRARE" and "&7" and "&7Coûte" and "&8x128 &aFèves de Cacao" and "&8x32 &fBlés" and "&7" and "&7Nécessite &bFèves de Cacao VI" and "&eCliquez pour enchanter!"
+		
+		set {Storage-Misc-Menu-Enchanted-Farming-SucreEnchanté} to sugar of unbreaking 1 with hidden enchants flag named "&aSucre Enchanté" with lore "&a&lUNCOMMUN" and "&7" and "&7Coûte" and "&8x160 &fCannes à Sucre" and "&7" and "&7Nécessite &bCanne à Sucre IV" and "&eCliquez pour enchanter!"
+		
+		set {Storage-Misc-Menu-Enchanted-Farming-CanneàSucreEnchanté} to sugar cane of unbreaking 1 with hidden enchants flag named "&9Canne à Sucre Enchanté" with lore "&9&lRARE" and "&7" and "&7Coûte" and "&8x160 &aCannes à Sucre Enchantés" and "&7" and "&7Nécessite &bCanne à Sucre VIII" and "&eCliquez pour enchanter!"
+		
+		set {Storage-Misc-Menu-Enchanted-Farming-CactusVertEnchanté} to green dye of unbreaking 1 with hidden enchants flag named "&aCactus Vert Enchanté" with lore "&a&lUNCOMMUN" and "&7" and "&7Coûte" and "&8x160 &fCactus Verts Enchantés" and "&7" and "&7Nécessite &bCactus IV" and "&eCliquez pour enchanter!"
+		
+		set {Storage-Misc-Menu-Enchanted-Farming-CactusEnchanté} to cactus of unbreaking 1 with hidden enchants flag named "&9Cactus Enchanté" with lore "&9&lRARE" and "&7" and "&7Coûte" and "&8x160 &aCactus Verts Enchantés" and "&7" and "&7Nécessite &bCactus VIII" and "&eCliquez pour enchanter!"
+		
+		set {Storage-Misc-Menu-Enchanted-Farming-ChampignonRougeEnchanté} to red mushroom of unbreaking 1 with hidden enchants flag named "&aChampignon Rouge Enchanté" with lore "&a&lUNCOMMUN" and "&7" and "&7Coûte" and "&8x160 &fChampignons Rouges" and "&7" and "&7Nécessite &bChampignon VI" and "&eCliquez pour enchanter!"
+		
+		set {Storage-Misc-Menu-Enchanted-Farming-ChampignonMarronEnchanté} to brown mushroom of unbreaking 1 with hidden enchants flag named "&aChampignon Marron Enchanté" with lore "&a&lUNCOMMUN" and "&7" and "&7Coûte" and "&8x160 &fChampignons Marrons" and "&7" and "&7Nécessite &bChampignon VI" and "&eCliquez pour enchanter!"
+		
+		set {Storage-Misc-Menu-Enchanted-Farming-BlocDeChampignonRougeEnchanté} to red mushroom block of unbreaking 1 with hidden enchants flag named "&9Bloc de Champignon Rouge Enchanté" with lore "&9&lRARE" and "&7" and "&7Coûte" and "&8x160 &aChampignons Rouges Enchantés" and "&7" and "&7Nécessite &bChampignon VIII" and "&eCliquez pour enchanter!"
+		
+		set {Storage-Misc-Menu-Enchanted-Farming-BlocDeChampignonMarronEnchanté} to brown mushroom block of unbreaking 1 with hidden enchants flag named "&9Bloc de Champignon Marron Enchanté" with lore "&9&lRARE" and "&7" and "&7Coûte" and "&8x160 &aChampignons Marrons Enchantés" and "&7" and "&7Nécessite &bChampignon VIII" and "&eCliquez pour enchanter!"

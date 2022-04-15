@@ -1,0 +1,13 @@
+every second in "world":
+# ==
+	if {Dungeon-Timer-Second-Floor-7} is higher than 59:
+		set {Dungeon-Timer-Second-Floor-7} to 0
+		add 1 to {Dungeon-Timer-Minute-Floor-7}
+	if {timer-7} is true:
+		add 1 to {Dungeon-Timer-Second-Floor-7}
+	if {Dungeon-Timer-Minute-Floor-7} is equal to 8:
+		send title "&c&lYOU LOST!" with subtitle "&6Time is over!" to {DungeonParty::*}
+		teleport {DungeonParty::*} to {spawn}
+		SBD_Floor7_Reset()
+
+

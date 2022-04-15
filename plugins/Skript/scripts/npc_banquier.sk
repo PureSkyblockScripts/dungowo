@@ -1,0 +1,3 @@
+on right click on entity:
+	if name of clicked entity is "&7Banquier":
+		make console execute command "/bank %player%"

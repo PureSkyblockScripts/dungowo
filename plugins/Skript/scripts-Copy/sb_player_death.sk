@@ -1,0 +1,136 @@
+function SBD_PlayerDeath(p: player, t: text):
+	set {_pU} to {_p}'s uuid
+	if {_t} is "online":
+		send "&4☠ &c%{_p}% &7died and became a ghost." to {DungeonParty::*}
+	if {_t} is "offline":
+		send "&4☠ &c%{_p}% &7disconnected and became a ghost." to {DungeonParty::*}
+	send title "&c&lYOU DIED!" with subtitle "&7You are now a ghost!" to {_p}
+	apply invisibility 1 without particles to {_p} for 99999 seconds replacing existing effect
+	apply glowing 1 without particles to {_p} for 99999 seconds replacing existing effect
+	teleport {_p} to {Loc-Respawn.%{_pU}%}
+	enable fly to {_p}
+	if {SBD-Ghosted.%{_pU}%} is not true:
+		set {SBD-Ghosted.%{_pU}%} to true
+		add 1 to {Dungeon-Death-Floor-7}
+		add 1 to {Dungeon-DeathTotal-Floor-7}
+	set {_sz} to size of {DungeonParty::*}
+	send "&e&lDEATHS: &b%{Dungeon-DeathTotal-Floor-7}%&7/&a%{_sz}%" to {DungeonParty::*}
+	if {Dungeon-DeathTotal-Floor-7} is equal to {_sz}:
+		send title "&c&lYOU LOST!" with subtitle "&7Everybody died in dungeon." to {DungeonParty::*}
+		teleport {DungeonParty::*} to {spawn}
+		SBD_Floor7_Reset()
+		stop
+	
+	send "&e&lDUNGEON! &aYou'll be revived in &630 seconds&a!" to {_p}
+	loop 25 times:
+		if {SBD-Ghosted.%{_pU}%} is not true:
+			stop
+		wait 1 seconds
+	send "&e&lDUNGEON! &aYou'll be revived in &65 seconds&a!" to {_p}
+	loop 5 times:
+		if {SBD-Ghosted.%{_pU}%} is not true:
+			stop
+		wait 1 second
+	send "&e&lDUNGEON! &aYou'll be revived now!" to {_p}
+	if {SBD-Ghosted.%{_pU}%} is true:
+		remove 1 from {Dungeon-DeathTotal-Floor-7}
+	SBD_ReviveGhost({_p})
+	send "&b%{_p}% &ais reviving!" to {DungeonParty::*}
+	stop
+
+on join:
+	delete {Dead.%UUID of player%}
+
+on death of player:
+	KillPlayer(victim)
+
+function SBD_NotWhileInGhost(p: player):
+	send "&cYou cannot interact while in ghost." to {_p}
+	Nope({_p})
+	stop
+
+function KillPlayer(p: player):
+	set {_pU} to {_p}'s uuid
+	set {Dead.%{_pU}%} to true
+	set {Loc-Respawn.%{_pU}%} to {_p}'s location
+	clear {_p}'s potion effects
+	apply night vision 1 without particles to {_p} for 99999 seconds replacing existing effect
+	apply fire resistance 1 without particles to {_p} for 15 seconds replacing existing effect
+	set {Health.%{_pU}%} to {MaxHealth.%{_pU}%}
+	set {Mana.%{_pU}%} to ({Intelligence.%{_pU}%}/2)
+	if {DungeonParty::*} contains "%{_p}%":
+		SBD_PlayerDeath({_p}, "online")
+		stop
+	else:
+		add 1 to {SB-DeathCount.%{_pU}%}
+		
+		send title "&c&lYOU DIED!" with subtitle "&7You have been teleported to the spawn!" to {_p}
+		teleport {_p} to {spawn}
+		if {SB-TrainingArea.%{_pU}%} is not set:
+			if {purse.%{_pU}%} is higher than 0.9:
+				set {_m} to ""
+				if {purse.%{_pU}%} is higher than 99999.9:
+					set {_m} to random integer between 1 and 2
+					if {_m} is equal to 1:
+						set {_m} to "&cOof."
+					if {_m} is equal to 2:
+						set {_m} to "&cOuch!"
+				set {_h} to ({purse.%{_pU}%}/2)
+				remove {_h} from {purse.%{_pU}%}
+				send "&cYou died and lost %{_h}% &ccoins. %{_m}%" to {_p}
+		send "&4☠ &c%{_p}% &7died." to players
+	delete {Loc-Respawn.%{_pU}%}
+	wait 3 tick
+	delete {Dead.%{_pU}%}
+
+# GHOST
+# ===============================
+function SBD_NoDMGGhost(p: player):
+	Nope({_p})
+	send "&cYou can't deal damage as a ghost." to {_p}
+	stop
+
+command /sbd-revive <player>:
+	permission: op
+	trigger:
+		if {SBD-Ghosted.%UUID of arg-1%} is true:
+			remove 1 from {Dungeon-DeathTotal-Floor-7}
+		SBD_ReviveGhostReset(arg-1)
+
+function SBD_ReviveGhostReset(p: player):
+	set {_pU} to {_p}'s uuid
+	delete {SBD-Ghosted.%{_pU}%}
+	remove invisibility from {_p}'s potion effects
+	remove glowing from {_p}'s potion effects
+	disable fly to {_p}
+
+function SBD_ReviveGhost(p: player):
+	set {_pU} to {_p}'s uuid
+	if {SBD-Ghosted.%{_pU}%} is true:
+		set {_v} to 3
+		loop 3 times:
+			send title "&6&lREVIVE" with subtitle "&eRevived in &b%{_v}% &bsecond(s)&e!" to {_p}
+			play sound "ui.button.click" with pitch 0.5 at {_p} for {_p}
+			remove 1 from {_v}
+			wait 1 second
+		playsound({_p}, "item.shield.block", 0.5)
+		delete {SBD-Ghosted.%{_pU}%}
+		remove invisibility from {_p}'s potion effects
+		remove glowing from {_p}'s potion effects
+		disable fly to {_p}
+
+on entity target:
+	if entity's target is a player:
+		if {SBD-Ghosted.%UUID of entity's target%} is true:
+			SetTarget(entity)
+			cancel event
+on damage of player:
+	if victim is a player:
+		if {SBD-Ghosted.%UUID of victim%} is true:
+			SetTarget(attacker)
+			cancel event
+on damage of entity:
+	if attacker is a player:
+		if {SBD-Ghosted.%UUID of attacker%} is true:
+			cancel event
+			SBD_NoDMGGhost(attacker)

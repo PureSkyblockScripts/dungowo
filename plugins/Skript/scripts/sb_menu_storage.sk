@@ -1,0 +1,90 @@
+command /debug-viewstorage:
+	permission: op
+	trigger:
+		delete {SB-EnderChest-Viewing::*}
+
+command /sb-viewstorage <offline player> <number>:
+	permission: op
+	usage: &c/sb-viewstorage <player> <page>
+	trigger:
+		if {RankPower.%UUID of player%} is not 1 or 2:
+			NoRankPower(player)
+			stop
+		if name of arg-1's current inventory contains "Ender Chest (" or "Storage":
+			send "&cYou can't view while player is checking his storage!"
+			Nope(player)
+			stop
+		else:
+			add arg-1 to {SB-EnderChest-Viewing::*}
+			set {SB-EnderChest-Viewing.%UUID of player%} to arg-1
+			SBM_EnderChest(player, arg-2)
+		
+command /sb-storage:
+	trigger:
+		if {SB-EnderChest-Viewing::*} contains "%player%":
+			send "&cPlease wait a moment! A Staff member currently checking your storage."
+			Nope(player)
+			stop
+		open virtual chest inventory with size 6 named "Storage" to player
+		format gui slot (integers between 0 and 53) of player with {Menu-Panes}
+		format gui slot 49 of player with {Menu-Close} to close
+		format gui slot 48 of player with {Menu-GoBack} to run:
+			make player execute command "/menu"
+		format gui slot 4 of player with ender chest named "&aEnder Chest" with lore "&7Storage global items you can" and "&7access anywhere in your ender" and "&7chest."
+		format gui slot 22 of player with chest named "&aBackpacks" with lore "&7Place backpack items in these" and "&7slots to use them as additional" and "&7storage that can be accessed" and "&7anywhere."
+		loop 9 times:
+			add 1 to {_v}
+			if {_v} is 1 or 2 or 3:
+				format gui slot (8+{_v}) of player with purple stained glass pane named "&aEnder Chest - Page %{_v}%" with lore "&eClick to open!"
+			else:
+				format gui slot (8+{_v}) of player with red stained glass pane named "&cPage %{_v}%" with lore "&cUnavaible."
+		format gui slot (integers between 27 and 44) of player with brown stained glass pane named "&cBackpack Slot" with lore "&cUnavaible."
+		
+on inventory click:
+	if name of player's current inventory is "Storage":
+		if name of item contains "&aEnder Chest - Page":
+			set {_l} to numbers in uncoloured item's name
+			set {_l} to {_l} parsed as number
+			if {_l} is 1 or 2 or 3:
+				SBM_EnderChest(player, {_l})
+
+function SBM_EnderChest(p: player, n: number):
+	set {_pU} to {_p}'s uuid
+	set {_l} to {_n}
+	if {_l} is set:
+		open virtual chest inventory with size 6 named "Ender Chest (%{_l}%/3)" to {_p}
+		format gui slot (integers between 0 and 8) of {_p} with {Menu-Panes}
+		format gui slot 0 of {_p} with {Menu-Close} to close
+		format gui slot 1 of {_p} with {Menu-GoBack} to run:
+			make player execute command "/sb-storage"
+		# ===
+		if {SB-EnderChest-Viewing.%{_pU}%} is set:
+			set {_uu} to {SB-EnderChest-Viewing.%{_pU}%}
+			set {_ppU} to {_uu}'s uuid
+			add {SB-EnderChest-%{_l}%.%{_ppU}%::*} to {_p}'s current inventory
+		else:
+			add {SB-EnderChest-%{_l}%.%{_pU}%::*} to {_p}'s current inventory
+		loop all items in {_p}'s current inventory:
+			if name of loop-item is "&cEnderChestSpacer":
+				remove loop-item from {_p}'s current inventory
+
+on inventory close:
+	if name of player's current inventory contains "Ender Chest (":
+		set {_uu} to player's uuid
+		if {SB-EnderChest-Viewing.%UUID of player%} is set:
+			set {_uu} to {SB-EnderChest-Viewing.%UUID of player%}'s uuid
+			remove {SB-EnderChest-Viewing.%UUID of player%} from {SB-EnderChest-Viewing::*}
+		set {_l::*} to split "%name of player's current inventory%" by "/"
+		set {_l} to numbers in uncoloured {_l::1}
+		set {_l} to {_l} parsed as number
+		delete {SB-EnderChest-%{_l}%.%{_uu}%::*}
+		delete {SB-EnderChest-Viewing.%UUID of player%}
+		add 2880 of stick named "&cEnderChestSpacer" to player's current inventory
+		loop all items in player's current inventory:
+			if name of loop-item is not "&cClose" or "&aGo Back" or "&f ":
+				add loop-item to {SB-EnderChest-%{_l}%.%{_uu}%::*}
+		loop {SB-EnderChest-%{_l}%.%{_uu}%::*}:
+			if loop-value is a stick named "&cEnderChestSpacer":
+				add 1 to {_l}
+		if {_l} is 46:
+			delete {SB-EnderChest-%{_l}%.%{_uu}%::*}

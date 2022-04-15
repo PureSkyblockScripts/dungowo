@@ -1,0 +1,64 @@
+command /menucollection-boss-lelibraire <player>:
+ permission: op
+ trigger:
+
+  if {collection-LeLibraire.%UUID of arg-1%} is not higher than 0:
+   set {_MenuCollection-LeLibraire-1.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-LeLibraire-1.%UUID of arg-1%} to lime stained glass pane
+
+  if {collection-LeLibraire.%UUID of arg-1%} is not higher than 1:
+   set {_MenuCollection-LeLibraire-2.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-LeLibraire-2.%UUID of arg-1%} to lime stained glass pane
+
+  if {collection-LeLibraire.%UUID of arg-1%} is not higher than 2:
+   set {_MenuCollection-LeLibraire-3.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-LeLibraire-3.%UUID of arg-1%} to lime stained glass pane
+
+  open virtual chest inventory with size 6 named "Collection de LeLibraire" to arg-1
+  wait 1 tick
+  format gui slot (integers between 0 and 53) of arg-1 with black stained glass pane named "&f"
+
+  format gui slot 4 of arg-1 with player head with nbt "{display:{Name:""{\""text\"":\""Necromancer\""}""},SkullOwner:{Id:[I;-78200993,232803756,-1171142049,62670331],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvY2NiM2QyMmFlMDAxMjE4NjFlZTY1ZTg1MDJjMzEzNzg0YTI2OGU0MmExMzBlM2Q2N2RlZDNhNjg0OGVhZjk2OCJ9fX0=""}]}}}" named "&eLe Libraire %{Collection-LeLibraire.%UUID of arg-1%}%" with lore "&7Consultez tous les progrès et récompenses" and "&7de votre collection de Le Libraire!" and "&7" and "&7Vous avez &b%{Collection-Boss-LeLibraire.%UUID of arg-1%}% &bLe Libraire Battue&7."
+
+  format gui slot 21 of arg-1 with {_MenuCollection-LeLibraire-1.%UUID of arg-1%} named "&eLe Libraire I" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&9Les Études du Libraire &7Récompense" and "&7" and "&7Nécessite &b25 Le Libraire" and "&eCliquez pour réclamer!" to close:
+   if {Collection-LeLibraire.%UUID of player%} is higher than 0:
+    if {Collection-Boss-LeLibraire-Reward-1.%UUID of player%} is not true:
+     set {Collection-Boss-LeLibraire-Reward-1.%UUID of player%} to true
+     play sound "entity.player.levelup" to player
+     give 1 of {Storage-DungeonReward-Item-LesEtudesDuLibraire} to player
+    else:
+     send "&cVous avez déjà réclamer cette récompense." to player
+   else:
+    send "&cVous n'avez pas cette collection débloquée." to player
+
+
+  format gui slot 22 of arg-1 with {_MenuCollection-LeLibraire-2.%UUID of arg-1%} named "&eLe Libraire II" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&5... &7Récompense" and "&7" and "&7Nécessite &b50 Le Libraire" and "&eCliquez pour réclamer!" to close:
+   if {Collection-LeLibraire.%UUID of player%} is higher than 100:
+    if {Collection-Boss-LeLibraire-Reward-2.%UUID of player%} is not true:
+     set {Collection-Boss-LeLibraire-Reward-2.%UUID of player%} to true
+     play sound "entity.player.levelup" to player
+     give 1 of iron sword to player
+    else:
+     send "&cVous avez déjà réclamer cette récompense." to player
+   else:
+    send "&cCette collection est indisponible." to player
+
+
+  format gui slot 23 of arg-1 with {_MenuCollection-LeLibraire-3.%UUID of arg-1%} named "&eLe Libraire III" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&6Upgradulator 3000 &7Récompense" and "&7" and "&7Nécessite &b100 Le Libraire" and "&eCliquez pour réclamer!" to close:
+   if {Collection-LeLibraire.%UUID of player%} is higher than 2:
+    if {Collection-Boss-LeLibraire-Reward-3.%UUID of player%} is not true:
+     set {Collection-Boss-LeLibraire-Reward-3.%UUID of player%} to true
+     play sound "entity.player.levelup" to player
+     play sound "entity.wither.death" with volume 10 with pitch 1.5 at player for player
+     give 1 of {Storage-Dungeon-Item-Upradulator3000} to player
+    else:
+     send "&cVous avez déjà réclamer cette récompense." to player
+   else:
+    send "&cVous n'avez pas cette collection débloquée." to player
+
+  format gui slot 48 of arg-1 with arrow named "&aRetour" with lore "&7Revenir à la page précédente." and "&7" and "&eCliquez pour retourner!" to close:
+   make console execute command "/menucollection-boss %player%"
+  format gui slot 49 of arg-1 with barrier named "&cFermer" to close

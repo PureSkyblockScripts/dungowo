@@ -1,0 +1,14 @@
+on right click on entity:
+ if name of clicked entity contains "Shai":
+  close player's inventory
+  set {_attenteTalkNPC-Shai} to difference between {cooldownTalkNPC-Shai.%UUID of player%} and now
+  if {_attenteTalkNPC-Shai} is less than 2 seconds:
+   stop
+  else:
+   set {cooldownTalkNPC-Shai.%UUID of player%} to now
+   set {_QuotesShai} to random integer between 1 and 3
+   if {_QuotesShai} is 1:
+    send "&cShai&f: &fCher(e) Client(e), comment puis-je vous aider?" to player
+   if {_QuotesShai} is 2:
+    send "&cShai&f: &fNous avons toutes sortes de sang, si vous souhaitez en prendre un." to player
+   play sound "entity.skeleton.step" with volume 10 with pitch 0.5 at player for player

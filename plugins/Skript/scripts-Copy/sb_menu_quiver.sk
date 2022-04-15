@@ -1,0 +1,58 @@
+command /fillquiver <player>:
+	permission: op
+	trigger:
+		set {Quiver-Arrow.%UUID of arg-1%} to 2880
+
+command /sb-quiver:
+	trigger:
+		set {Item-FlècheDeSilex} to arrow named "&fFlint Arrow" with lore "&7Damage: &c+1" and "&7" and "&f&lCOMMON ARROW"
+		wait 1 tick
+		open virtual chest inventory with size 6 named "Quiver" to player
+		set {_amount} to {Quiver-Arrow.%UUID of player%}
+		format gui slot (integers between 0 and 44) of player with air
+		format gui slot (integers between 45 and 53) of player with black stained glass pane named "&0 "
+		format gui slot 49 of player with {Menu-Close} to close
+		format gui slot 48 of player with {Menu-GoBack} to run:
+			make player execute command "/menu"
+		format gui slot 51 of player with hopper named "&aDeposit Arrows" with lore "&7Deposit arrows in your quiver." and "&7" and "&eClick to deposit!"
+		format gui slot 52 of player with lava bucket named "&aClear Quiver" with lore "&7Sell your quiver." and "&7" and "&7Gain" and "&6%1.5 * {_amount}% &6Coins" and "&7" and "&eClick to sell!"
+		add {_amount} of {Item-FlècheDeSilex} to player's current inventory
+		
+on inventory close:
+	if name of player's current inventory is "Quiver":
+		loop all items in player's current inventory:
+			set {_amount} to number of {Item-FlècheDeSilex} in the player's current inventory
+			set {Quiver-Arrow.%UUID of player%} to {_amount}
+				
+on inventory click:
+	if name of player's current inventory is "Quiver":
+		if {abc} is not true:
+			if name of item is "&aDeposit Arrows":
+				if player's inventory has {Item-FlècheDeSilex}:
+					loop all items in the player's inventory:
+						if name of loop-item is "&fFlèche de Silex":
+							add 1 to {_QuiverArrowCountAir}
+							set {_QuiverArrowCount} to number of loop-item in the player's inventory
+					wait 1 tick
+					loop all items in the player's inventory:
+						if name of loop-item is "&fFlèche de Silex":
+							remove {_QuiverArrowCount} of loop-item from player's inventory
+					Click(player)
+					send "&7You deposit &a%{_QuiverArrowCount}% &aArrow(s) &7in your &6Quiver&7." to player
+					if player's current inventory has {_QuiverArrowCountAir} of air:
+						add {_QuiverArrowCount} to {Quiver-Arrow.%UUID of player%}
+						add {_QuiverArrowCount} of {Item-FlècheDeSilex} to player's current inventory
+						format gui slot 52 of player with lava bucket named "&aClear Quiver" with lore "&7Sell your quiver." and "&7" and "&7Gain" and "&6%1.5 * {Quiver-Arrow.%UUID of player%}% &6Coins" and "&7" and "&eClick to sell!"
+
+			if name of item is "&aClear Quiver":	
+				if {Quiver-Arrow.%UUID of player%} is higher than 0:
+					loop all items in player's current inventory:
+						if loop-item is {Item-FlècheDeSilex}:
+							remove loop-item from player's current inventory
+					add ({Quiver-Arrow.%UUID of player%} * 1.5) to {purse.%UUID of player%}
+					play sound "entity.player.levelup" to player
+					send "&7You sold your quiver for &6%{Quiver-Arrow.%UUID of player%} * 1.5% &6Coin(s)&7." to player
+					set {Quiver-Arrow.%UUID of player%} to 0
+				else:
+					Nope(player)
+					send "&cYour quiver is empty."

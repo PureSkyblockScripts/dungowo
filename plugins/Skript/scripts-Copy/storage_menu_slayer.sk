@@ -1,0 +1,21 @@
+#on command "/slayerselect <player> <number>":
+	if {abz} is not true:
+		wait 2 ticks
+		if {slayertype.%arg-1's UUID%} is equal to 1:
+			set {_zombietier1} to rotten flesh named "&aRevenant Horror I" with lore "&8Beginner" and "&7" and "&7Health: &c500❤" and "&7Damage: &c15 &7per second" and "&7" and "&cLife Drain" and "&7Drains health every few seconds." and "&7" and "&7Reward: &d5 Zombie Slayer XP" and "&8  + Boss drops" and "&7" and "&7Cost to start: &62,000 coins" and "&7" and "&eClick to slay!" to close:
+				make console execute command "/slayerconfirm %{_player}% 1 1"
+			set {_zombietier2} to rotten flesh named "&eRevenant Horror II" with lore "&8Strong" and "&7" and "&7Health: &c20,000❤" and "&7Damage: &c25 &7per second" and "&7" and "&cLife Drain" and "&7Drains health every few seconds." and "&7" and "&aPestilence" and "&7Deals AOE damage every second," and "&7shredding armor by 25%%." and "&7" and "&7Reward: &d25 Zombie Slayer XP" and "&8  + Boss drops" and "&7" and "&7Cost to start: &68,000 coins" and "&7" and "&eClick to slay!" to close:
+				make console execute command "/slayerconfirm %{_player}% 1 2"
+			set {_zombietier3} to rotten flesh named "&cRevenant Horror III" with lore "&8Challenging" and "&7" and "&7Health: &c400,000❤" and "&7Damage: &c120 &7per second" and "&7" and "&cLife Drain" and "&7Drains health every few seconds." and "&7" and "&aPestilence" and "&7Deals AOE damage every second," and "&7shredding armor by 25%%." and "&7" and "&cEnrage" and "&7Gets real mad one in a while." and "&7" and "&7Reward: &d100 Zombie Slayer XP" and "&8  + Boss drops" and "&7" and "&7Cost to start: &620,000 coins" and "&7" and "&eClick to slay!" to close:
+				make console execute command "/slayerconfirm %{_player}% 1 3"
+			set {_zombietier4} to rotten flesh named "&4Revenant Horror IV" with lore "&8Deadly" and "&7" and "&7Health: &c1,500,000❤" and "&7Damage: &c400 &7per second" and "&7" and "&cLife Drain" and "&7Drains health every few seconds." and "&7" and "&aPestilence" and "&7Deals AOE damage every second," and "&7shredding armor by 25%%." and "&7" and "&7Reward: &d500 Zombie Slayer XP" and "&8  + Boss drops" and "&7" and "&7Cost to start: &650,000 coins" and "&7" and "&eClick to slay!" to close:
+				make console execute command "/slayerconfirm %{_player}% 1 4"
+			set {_zombietier5} to rotten flesh named "&5Revenant Horror V" with lore "&8Excruciating" and "&7" and "&7Health: &c10,000,000❤" and "&7Damage: &c2,400 &7per second" and "&7" and "&aRedemption" and "&7Heals rapidly." and "&7" and "&cExplosive Assault" and "&7Throws explosive TNT." and "&7" and "&5Thermonuclear" and "&7Charges up and releases a massive" and "&7explosion." and "&7" and "&7Reward: &d1,500 Zombie Slayer XP" and "&8  + Boss drops" and "&7" and "&7Cost to start: &6100,000 coins" and "&7" and "&eClick to slay!" to close:
+				make console execute command "/slayerconfirm %{_player}% 1 5"
+			
+			format gui slot 11 of arg-1 with {_zombietier1}
+			format gui slot 12 of arg-1 with {_zombietier2}
+			format gui slot 13 of arg-1 with {_zombietier3}
+			format gui slot 14 of arg-1 with {_zombietier4}
+			format gui slot 15 of arg-1 with {_zombietier5}
+		

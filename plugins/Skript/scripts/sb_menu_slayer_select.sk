@@ -1,0 +1,115 @@
+command /slayerselect <player> <number>:
+	permission: op
+	trigger:
+		set {_player} to arg-1
+		open virtual chest inventory with size 6 named "Slayer Select" to arg-1
+		format gui slot (integers between 0 and 53) of arg-1 with {Menu-Panes}
+		format gui slot 49 of arg-1 with {Menu-Close} to close
+		format gui slot 48 of arg-1 with arrow named "&aGo Back" with lore "&7Return to previous page." and "&7" and "&eClick to go back!" to close:
+			wait 1 tick
+			make console execute command "/slayermenu %{_player}%"
+
+		
+		
+		if arg-2 is equal to 1:	
+			format gui slot 28 of arg-1 with gold block named "&5Boss Leveling Rewards" with lore "&8Zombie Slayer LVL" and "&7" and "&51. &7Kill boss to get XP" and "&52. &7Gain LVL from XP" and "&53. &7Unlock rewards per LVL" and "&7" and "&7Current LVL: &e%{variable.%arg-1's UUID%}%" and "&7" and "&7Zombie Slayer XP to LVL %{variable.%arg-1's UUID%}%:" and "&d%{variable.%arg-1's UUID%}%&5/&d%{variable.%arg-1's UUID%}%" and "&7" and "&eClick to view levels!" to close
+			
+			format gui slot 30 of arg-1 with gold nugget named "&6Boss Drops" with lore "&8Revenant Horror" and "&7" and "&7Usually, the boss will drop" and "&7&aRevenant Flesh &7wich" and "&7are used for slayer crafts." and "&7" and "&7If you're lucky, you may get" and "&7one out of &d13 &7possible" and "&7drops from this boss!" and "&7" and "&eClick to view drops!" to close
+			
+			format gui slot 32 of arg-1 with book named "&aSlayer Recipes" with lore "&8Revenant Horror" and "&7" and "&7There are &e26 &7recipes related" and "&7to the Zombie boss." and "&7" and "&7Unlock recipes and collect rare" and "&7drops in order to craft powerful" and "&7items." and "&7" and "&7Unlocked: &e%{variable.%arg-1's UUID%}%" and "&7" and "&eClick to view recipes!" to close
+			
+			format gui slot 34 of arg-1 with painting named "&dRNGesus Meter" with lore "&8Revenant Horror" and "&7" and "&7Feeling &9unlucky&7? Slay" and "&7bosses to fill the meter and" and "&7guarantee an &dRNGesus drop&7." and "&7" and "&7Gaining an RNGesus drop will" and "&7reset the meter." and "&7" and "&dProgress:" and "&d%{variable.%arg-1's UUID%}%&5%%"
+		
+			format gui slot 11 of arg-1 with rotten flesh named "&aRevenant Horror I" with lore "&8Beginner" and "&7" and "&7Health: &c500❤" and "&7Damage: &c15 &7per second" and "&7" and "&cLife Drain" and "&7Drains health every few seconds." and "&7" and "&7Reward: &d5 Zombie Slayer XP" and "&8  + Boss drops" and "&7" and "&7Cost to start: &62,000 coins" and "&7" and "&eClick to slay!" to close:
+				make console execute command "/slayerconfirm %{_player}% 1 1"
+			format gui slot 12 of arg-1 with rotten flesh named "&eRevenant Horror II" with lore "&8Strong" and "&7" and "&7Health: &c20,000❤" and "&7Damage: &c25 &7per second" and "&7" and "&cLife Drain" and "&7Drains health every few seconds." and "&7" and "&aPestilence" and "&7Deals AOE damage every second," and "&7shredding armor by 25%%." and "&7" and "&7Reward: &d25 Zombie Slayer XP" and "&8  + Boss drops" and "&7" and "&7Cost to start: &68,000 coins" and "&7" and "&eClick to slay!" to close:
+				make console execute command "/slayerconfirm %{_player}% 1 2"
+			format gui slot 13 of arg-1 with rotten flesh named "&cRevenant Horror III" with lore "&8Challenging" and "&7" and "&7Health: &c400,000❤" and "&7Damage: &c120 &7per second" and "&7" and "&cLife Drain" and "&7Drains health every few seconds." and "&7" and "&aPestilence" and "&7Deals AOE damage every second," and "&7shredding armor by 25%%." and "&7" and "&cEnrage" and "&7Gets real mad one in a while." and "&7" and "&7Reward: &d100 Zombie Slayer XP" and "&8  + Boss drops" and "&7" and "&7Cost to start: &620,000 coins" and "&7" and "&eClick to slay!" to close:
+				make console execute command "/slayerconfirm %{_player}% 1 3"
+			format gui slot 14 of arg-1 with rotten flesh named "&4Revenant Horror IV" with lore "&8Deadly" and "&7" and "&7Health: &c1,500,000❤" and "&7Damage: &c400 &7per second" and "&7" and "&cLife Drain" and "&7Drains health every few seconds." and "&7" and "&aPestilence" and "&7Deals AOE damage every second," and "&7shredding armor by 25%%." and "&7" and "&7Reward: &d500 Zombie Slayer XP" and "&8  + Boss drops" and "&7" and "&7Cost to start: &650,000 coins" and "&7" and "&eClick to slay!" to close:
+				make console execute command "/slayerconfirm %{_player}% 1 4"
+			format gui slot 15 of arg-1 with rotten flesh named "&5Revenant Horror V" with lore "&8Excruciating" and "&7" and "&7Health: &c10,000,000❤" and "&7Damage: &c2,400 &7per second" and "&7" and "&aRedemption" and "&7Heals rapidly." and "&7" and "&cExplosive Assault" and "&7Throws explosive TNT." and "&7" and "&5Thermonuclear" and "&7Charges up and releases a massive" and "&7explosion." and "&7" and "&7Reward: &d1,500 Zombie Slayer XP" and "&8  + Boss drops" and "&7" and "&7Cost to start: &6100,000 coins" and "&7" and "&eClick to slay!" to close:
+				make console execute command "/slayerconfirm %{_player}% 1 5"
+		
+		if arg-2 is equal to 2:
+			format gui slot 28 of arg-1 with gold block named "&5Boss Leveling Rewards" with lore "&8Spider Slayer LVL" and "&7" and "&51. &7Kill boss to get XP" and "&52. &7Gain LVL from XP" and "&53. &7Unlock rewards per LVL" and "&7" and "&7Current LVL: &e%{variable.%arg-1's UUID%}%" and "&7" and "&7Spider Slayer XP to LVL %{variable.%arg-1's UUID%}%:" and "&d%{variable.%arg-1's UUID%}%&5/&d%{variable.%arg-1's UUID%}%" and "&7" and "&eClick to view levels!" to close
+			
+			format gui slot 30 of arg-1 with gold nugget named "&6Boss Drops" with lore "&8Tarantula Broodfather" and "&7" and "&7Usually, the boss will drop" and "&7&aTarantula Web &7wich" and "&7are used for slayer crafts." and "&7" and "&7If you're lucky, you may get" and "&7one out of &d13 &7possible" and "&7drops from this boss!" and "&7" and "&eClick to view drops!" to close
+			
+			format gui slot 32 of arg-1 with book named "&aSlayer Recipes" with lore "&8Tarantula Broodfather" and "&7" and "&7There are &e14 &7recipes related" and "&7to the Spider boss." and "&7" and "&7Unlock recipes and collect rare" and "&7drops in order to craft powerful" and "&7items." and "&7" and "&7Unlocked: &e%{variable.%arg-1's UUID%}%" and "&7" and "&eClick to view recipes!" to close
+			
+			format gui slot 34 of arg-1 with painting named "&dRNGesus Meter" with lore "&8Tarantula Broodfather" and "&7" and "&7Feeling &9unlucky&7? Slay" and "&7bosses to fill the meter and" and "&7guarantee an &dRNGesus drop&7." and "&7" and "&7Gaining an RNGesus drop will" and "&7reset the meter." and "&7" and "&dProgress:" and "&d%{variable.%arg-1's UUID%}%&5%%"
+			
+			format gui slot 11 of arg-1 with web named "&aTarantula Broodfather I" with lore "&8Beginner" and "&7" and "&7Health: &c750❤" and "&7Damage: &c35 &7per second" and "&7" and "&eCombat Jump" and "&7The spider will often attempt to" and "&7jump behind you." and "&7" and "&7Reward: &d5 Spider Slayer XP" and "&8  + Boss drops" and "&7" and "&7Cost to start: &62,000 coins" and "&7" and "&eClick to slay!" to close:
+				make console execute command "/slayerconfirm %{_player}% 2 1"
+			format gui slot 12 of arg-1 with web named "&eTarantula Broodfather II" with lore "&8Strong" and "&7" and "&7Health: &c30,000❤" and "&7Damage: &c45 &7per second" and "&7" and "&eCombat Jump" and "&7The spider will often attempt to" and "&7jump behind you." and "&7" and "&cNoxious" and "&7Deals AOE damage every second," and "&7reducing your healing by 50%%." and "&7" and "&7Reward: &d25 Spider Slayer XP" and "&8  + Boss drops" and "&7" and "&7Cost to start: &68,000 coins" and "&7" and "&eClick to slay!" to close:
+				make console execute command "/slayerconfirm %{_player}% 2 2"
+			format gui slot 13 of arg-1 with web named "&cTarantula Broodfather III" with lore "&8Challenging" and "&7" and "&7Health: &c900,000❤" and "&7Damage: &c210 &7per second" and "&7" and "&eCombat Jump" and "&7The spider will often attempt to" and "&7jump behind you." and "&7" and "&cNoxious" and "&7Deals AOE damage every second," and "&7reducing your healing by 50%%." and "&7" and "&7Reward: &d100 Spider Slayer XP" and "&8  + Boss drops" and "&7" and "&7Cost to start: &620,000 coins" and "&7" and "&eClick to slay!" to close:
+				make console execute command "/slayerconfirm %{_player}% 2 3"
+			format gui slot 14 of arg-1 with web named "&4Tarantula Broodfather IV" with lore "&8Deadly" and "&7" and "&7Health: &c2,400,000❤" and "&7Damage: &c530 &7per second" and "&7" and "&eCombat Jump" and "&7The spider will often attempt to" and "&7jump behind you." and "&7" and "&cNoxious" and "&7Deals AOE damage every second," and "&7reducing your healing by 50%%." and "&7" and "&7Reward: &d500 Spider Slayer XP" and "&8  + Boss drops" and "&7" and "&7Cost to start: &650,000 coins" and "&7" and "&eClick to slay!" to close:
+				make console execute command "/slayerconfirm %{_player}% 2 4"
+			format gui slot 15 of arg-1 with coal block named "&5Tarantula Broodfather V" with lore "&7This excruciatingly difficult" and "&7boss tier will release at a" and "&7later date."
+			
+		if arg-2 is equal to 3:
+			format gui slot 28 of arg-1 with gold block named "&5Boss Leveling Rewards" with lore "&8Wolf Slayer LVL" and "&7" and "&51. &7Kill boss to get XP" and "&52. &7Gain LVL from XP" and "&53. &7Unlock rewards per LVL" and "&7" and "&7Current LVL: &e%{variable.%arg-1's UUID%}%" and "&7" and "&7Wolf Slayer XP to LVL %{variable.%arg-1's UUID%}%:" and "&d%{variable.%arg-1's UUID%}%&5/&d%{variable.%arg-1's UUID%}%" and "&7" and "&eClick to view levels!" to close
+			
+			format gui slot 30 of arg-1 with gold nugget named "&6Boss Drops" with lore "&8Sven Packmaster" and "&7" and "&7Usually, the boss will drop" and "&7&aWolf Tooth &7wich" and "&7are used for slayer crafts." and "&7" and "&7If you're lucky, you may get" and "&7one out of &d13 &7possible" and "&7drops from this boss!" and "&7" and "&eClick to view drops!" to close
+			
+			format gui slot 32 of arg-1 with book named "&aSlayer Recipes" with lore "&8Sven Packmaster" and "&7" and "&7There are &e22 &7recipes related" and "&7to the Wolf boss." and "&7" and "&7Unlock recipes and collect rare" and "&7drops in order to craft powerful" and "&7items." and "&7" and "&7Unlocked: &e%{variable.%arg-1's UUID%}%" and "&7" and "&eClick to view recipes!" to close
+		
+			format gui slot 34 of arg-1 with painting named "&dRNGesus Meter" with lore "&8Sven Packmaster" and "&7" and "&7Feeling &9unlucky&7? Slay" and "&7bosses to fill the meter and" and "&7guarantee an &dRNGesus drop&7." and "&7" and "&7Gaining an RNGesus drop will" and "&7reset the meter." and "&7" and "&dProgress:" and "&d%{variable.%arg-1's UUID%}%&5%%"
+			
+			format gui slot 11 of arg-1 with raw mutton named "&aSven Packmaster I" with lore "&8Beginner" and "&7" and "&7Health: &c2,000❤" and "&7Damage: &c60 &7per second" and "&7" and "&aAgile" and "&7The wolf is small and fast, making" and "&7it hard to hit." and "&7" and "&7Reward: &d5 Wolf Slayer XP" and "&8  + Boss drops" and "&7" and "&7Cost to start: &62,000 coins" and "&7" and "&eClick to slay!" to close:
+				make console execute command "/slayerconfirm %{_player}% 3 1"
+			format gui slot 12 of arg-1 with raw mutton named "&eSven Packmaster II" with lore "&8Strong" and "&7" and "&7Health: &c40,000❤" and "&7Damage: &c80 &7per second" and "&7True damage: &f10 &7per second" and "&7" and "&aAgile" and "&7The wolf is small and fast, making" and "&7it hard to hit." and "&7" and "&fTrue Damage" and "&7Ignores your defense. Very painful." and "&7" and "&7Reward: &d25 Wolf Slayer XP" and "&8  + Boss drops" and "&7" and "&7Cost to start: &68,000 coins" and "&7" and "&eClick to slay!" to close:
+				make console execute command "/slayerconfirm %{_player}% 3 2"
+			format gui slot 13 of arg-1 with raw mutton named "&cSven Packmaster III" with lore "&8Challenging" and "&7" and "&7Health: &c750,000❤" and "&7Damage: &c180 &7per second" and "&7True damage: &f50 &7per second" and "&7" and "&aAgile" and "&7The wolf is small and fast, making" and "&7it hard to hit." and "&7" and "&fTrue Damage" and "&7Ignores your defense. Very painful." and "&7" and "&bCall the pups!" and "&7At 50%% health, calls its deadly pack" and "&7of pups." and "&7" and "&7Reward: &d100 Wolf Slayer XP" and "&8  + Boss drops" and "&7" and "&7Cost to start: &620,000 coins" and "&7" and "&eClick to slay!" to close:
+				make console execute command "/slayerconfirm %{_player}% 3 3"
+			format gui slot 14 of arg-1 with raw mutton named "&4Sven Packmaster IV" with lore "&8Deadly" and "&7" and "&7Health: &c2,000,000❤" and "&7Damage: &c440 &7per second" and "&7True damage: &f200 &7per second" and "&7" and "&aAgile" and "&7The wolf is small and fast, making" and "&7it hard to hit." and "&7" and "&fTrue Damage" and "&7Ignores your defense. Very painful." and "&7" and "&bCall the pups!" and "&7At 50%% health, calls its deadly pack" and "&7of pups." and "&7" and "&7Reward: &d500 Wolf Slayer XP" and "&8  + Boss drops" and "&7" and "&7Cost to start: &650,000 coins" and "&7" and "&eClick to slay!" to close:
+				make console execute command "/slayerconfirm %{_player}% 3 4"
+			format gui slot 15 of arg-1 with coal block named "&5Sven Packmaster V" with lore "&7This excruciatingly difficult" and "&7boss tier will release at a" and "&7later date."
+			
+			
+		if arg-2 is equal to 4:
+			format gui slot 28 of arg-1 with gold block named "&5Boss Leveling Rewards" with lore "&8Enderman Slayer LVL" and "&7" and "&51. &7Kill boss to get XP" and "&52. &7Gain LVL from XP" and "&53. &7Unlock rewards per LVL" and "&7" and "&7Current LVL: &e%{variable.%arg-1's UUID%}%" and "&7" and "&7Enderman Slayer XP to LVL %{variable.%arg-1's UUID%}%:" and "&d%{variable.%arg-1's UUID%}%&5/&d%{variable.%arg-1's UUID%}%" and "&7" and "&eClick to view levels!" to close
+			
+			format gui slot 30 of arg-1 with gold nugget named "&6Boss Drops" with lore "&8Voidgloom Seraph" and "&7" and "&7Usually, the boss will drop" and "&7&aNull Sphere &7wich" and "&7are used for slayer crafts." and "&7" and "&7If you're lucky, you may get" and "&7one out of &d13 &7possible" and "&7drops from this boss!" and "&7" and "&eClick to view drops!" to close
+			
+			format gui slot 32 of arg-1 with book named "&aSlayer Recipes" with lore "&8Voidgloom Seraph" and "&7" and "&7There are &e22 &7recipes related" and "&7to the Enderman boss." and "&7" and "&7Unlock recipes and collect rare" and "&7drops in order to craft powerful" and "&7items." and "&7" and "&7Unlocked: &e%{variable.%arg-1's UUID%}%" and "&7" and "&eClick to view recipes!" to close
+			
+			format gui slot 34 of arg-1 with painting named "&dRNGesus Meter" with lore "&8Voidgloom Seraph" and "&7" and "&7Feeling &9unlucky&7? Slay" and "&7bosses to fill the meter and" and "&7guarantee an &dRNGesus drop&7." and "&7" and "&7Gaining an RNGesus drop will" and "&7reset the meter." and "&7" and "&dProgress:" and "&d%{variable.%arg-1's UUID%}%&5%%"
+			
+			
+			format gui slot 11 of arg-1 with ender pearl named "&aVoidgloom Seraph I" with lore "&8Beginner" and "&7" and "&7Health: &c300,000❤" and "&7Damage: &c1,200 &7per second" and "&7" and "&aMalevolent Hitshield" and "&8At 100%%/66%%/33%% HP" and "&7Immunity shield dropped by hits" and "&7regardless of damage." and "&7Recieves &c-75%% Ferocity" and "&7while NOT active" and "&7" and "&7Reward: &d5 Enderman Slayer XP" and "&8  + Boss drops" and "&7" and "&7Cost to start: &62,000 coins" and "&7" and "&eClick to slay!" to close:
+				make console execute command "/slayerconfirm %{_player}% 4 1"
+			format gui slot 12 of arg-1 with ender pearl named "&eVoidgloom Seraph II" with lore "&8Strong" and "&7" and "&7Health: &c15,000,000❤" and "&7Damage: &c5,000 &7per second" and "&7" and "&aMalevolent Hitshield" and "&8At 100%%/66%%/33%% HP" and "&7Immunity shield dropped by hits" and "&7regardless of damage." and "&7Recieves &c-75%% Ferocity" and "&7while NOT active" and "&7" and "&cYang Glyphs" and "&8Starting at 50%% HP" and "&7Throws glyphs down." and "&7Stand next to them or die." and "&7" and "&7Reward: &d25 Enderman Slayer XP" and "&8  + Boss drops" and "&7" and "&7Cost to start: &68,000 coins" and "&7" and "&eClick to slay!" to close:
+				make console execute command "/slayerconfirm %{_player}% 4 2"
+			format gui slot 13 of arg-1 with ender pearl named "&cVoidgloom Seraph III" with lore "&8Challenging" and "&7" and "&7Health: &c66,000,000❤" and "&7Damage: &c12,000 &7per second" and "&7" and "&aMalevolent Hitshield" and "&8At 100%%/66%%/33%% HP" and "&7Immunity shield dropped by hits" and "&7regardless of damage." and "&7Recieves &c-75%% Ferocity" and "&7while NOT active" and "&7" and "&cYang Glyphs" and "&8Starting at 50%% HP" and "&7Throws glyphs down." and "&7Stand next to them or die." and "&7" and "&eNukekubi Fixations" and "&8Starting at 33%% HP" and "&7Spawns weird heads." and "&7Clear them by looking at them or" and "&7suffer damage." and "&7" and "&7Reward: &d100 Enderman Slayer XP" and "&8  + Boss drops" and "&7" and "&7Cost to start: &620,000 coins" and "&7" and "&eClick to slay!" to close:
+				make console execute command "/slayerconfirm %{_player}% 4 3"
+			format gui slot 14 of arg-1 with ender pearl named "&4Voidgloom Seraph IV" with lore "&8Deadly" and "&7" and "&7Health: &c300,000,000❤" and "&7Damage: &c21,000 &7per second" and "&7" and "&aMalevolent Hitshield" and "&8At 100%%/66%%/33%% HP" and "&7Immunity shield dropped by hits" and "&7regardless of damage." and "&7Recieves &c-75%% Ferocity" and "&7while NOT active" and "&7" and "&cYang Glyphs" and "&8Starting at 50%% HP" and "&7Throws glyphs down." and "&7Stand next to them or die." and "&7" and "&eNukekubi Fixations" and "&8Starting at 33%% HP" and "&7Spawns weird heads." and "&7Clear them by looking at them or" and "&7suffer damage." and "&7" and "&7Reward: &d500 Enderman Slayer XP" and "&8  + Boss drops" and "&7" and "&7Cost to start: &650,000 coins" and "&7" and "&eClick to slay!" to close:
+				make console execute command "/slayerconfirm %{_player}% 4 4"
+			format gui slot 15 of arg-1 with coal block named "&5Voidgloom Seraph" with lore "&7This excruciatingly difficult" and "&7boss tier will release at a" and "&7later date."
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		

@@ -1,0 +1,76 @@
+command /menucollection-agriculture-fèvesDeCacao <player>:
+ permission: op
+ trigger:
+  if {collection-CocoaBeans.%UUID of arg-1%} is not higher than 0:
+   set {_MenuCollection-CocoaBeans-1.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-CocoaBeans-1.%UUID of arg-1%} to lime stained glass pane
+
+  if {collection-CocoaBeans.%UUID of arg-1%} is not higher than 1:
+   set {_MenuCollection-CocoaBeans-2.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-CocoaBeans-2.%UUID of arg-1%} to lime stained glass pane
+
+  if {collection-CocoaBeans.%UUID of arg-1%} is not higher than 2:
+   set {_MenuCollection-CocoaBeans-3.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-CocoaBeans-3.%UUID of arg-1%} to lime stained glass pane
+
+  if {collection-CocoaBeans.%UUID of arg-1%} is not higher than 3:
+   set {_MenuCollection-CocoaBeans-4.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-CocoaBeans-4.%UUID of arg-1%} to lime stained glass pane
+
+  if {collection-CocoaBeans.%UUID of arg-1%} is not higher than 4:
+   set {_MenuCollection-CocoaBeans-5.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-CocoaBeans-5.%UUID of arg-1%} to lime stained glass pane
+
+  if {collection-CocoaBeans.%UUID of arg-1%} is not higher than 5:
+   set {_MenuCollection-CocoaBeans-6.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-CocoaBeans-6.%UUID of arg-1%} to lime stained glass pane
+
+  if {collection-CocoaBeans.%UUID of arg-1%} is not higher than 6:
+   set {_MenuCollection-CocoaBeans-7.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-CocoaBeans-7.%UUID of arg-1%} to lime stained glass pane
+
+  if {collection-CocoaBeans.%UUID of arg-1%} is not higher than 7:
+   set {_MenuCollection-CocoaBeans-8.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-CocoaBeans-8.%UUID of arg-1%} to lime stained glass pane
+
+  if {collection-CocoaBeans.%UUID of arg-1%} is not higher than 8:
+   set {_MenuCollection-CocoaBeans-9.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-CocoaBeans-9.%UUID of arg-1%} to lime stained glass pane
+
+  open virtual chest inventory with size 6 named "Collection des Fèves de Cacao" to arg-1
+  wait 1 tick
+  format gui slot (integers between 0 and 17) of arg-1 with black stained glass pane named "&f"
+  format gui slot (integers between 21 and 53) of arg-1 with black stained glass pane named "&f"
+
+  format gui slot 4 of arg-1 with cocoa beans named "&eFèves de Cacao%{Collection-CocoaBeans.%UUID of arg-1%}%" with lore "&7Consultez tous les progrès et récompenses" and "&7de votre collection des Fèves de Cacao!" and "&7" and "&7Vous avez récolté &e%{Collection-CocoaBeans-Collected.%UUID of arg-1%}%&7."
+
+  format gui slot 18 of arg-1 with {_MenuCollection-CocoaBeans-1.%UUID of arg-1%} named "&eFèves de Cacao I" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&8???" and "&7" and "&7Nécessite &b75 Fèves de Cacao"
+
+  format gui slot 19 of arg-1 with {_MenuCollection-CocoaBeans-2.%UUID of arg-1%} named "&eFèves de Cacao II" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&a+1000 &6EXP Agriculture" and "&7" and "&7Nécessite &b200 Fèves de Cacao"
+
+  format gui slot 20 of arg-1 with {_MenuCollection-CocoaBeans-3.%UUID of arg-1%} named "&eFèves de Cacao III" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&8???" and "&7" and "&7Nécessite &b500 Fèves de Cacao"
+
+  format gui slot 21 of arg-1 with {_MenuCollection-CocoaBeans-4.%UUID of arg-1%} named "&eFèves de Cacao IV" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&aFèves de Cacao Enchanté &7Recette" and "&7" and "&7Nécessite &b2000 Fèves de Cacao"
+
+  format gui slot 22 of arg-1 with {_MenuCollection-CocoaBeans-5.%UUID of arg-1%} named "&eFèves de Cacao V" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&9Parchemin de voyage à l’île Désert Paradisiaque &7Recette" and "&7" and "&7Nécessite &b5000 Fèves de Cacao"
+
+  format gui slot 23 of arg-1 with {_MenuCollection-CocoaBeans-6.%UUID of arg-1%} named "&eFèves de Cacao VI" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&9Cookie Enchanté &7Recette" and "&7" and "&7Nécessite &b10 000 Fèves de Cacao"
+
+  format gui slot 24 of arg-1 with {_MenuCollection-CocoaBeans-7.%UUID of arg-1%} named "&eFèves de Cacao VII" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&8???" and "&7" and "&7Nécessite &b20 000 Fèves de Cacao"
+
+  format gui slot 25 of arg-1 with {_MenuCollection-CocoaBeans-8.%UUID of arg-1%} named "&eFèves de Cacao VIII" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&8???" and "&7" and "&7Nécessite &b50 000 Fèves de Cacao"
+
+  format gui slot 26 of arg-1 with {_MenuCollection-CocoaBeans-9.%UUID of arg-1%} named "&eFèves de Cacao IX" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&a+10 000 &6EXP Agriculture" and "&7" and "&7Nécessite &b100 000 Fèves de Cacao"
+
+  format gui slot 48 of arg-1 with arrow named "&aRetour" with lore "&7Revenir à la page précédente." and "&7" and "&eCliquez pour retourner!" to close:
+   make console execute command "/menucollection-agriculture %player%"
+  format gui slot 49 of arg-1 with barrier named "&cFermer" to close

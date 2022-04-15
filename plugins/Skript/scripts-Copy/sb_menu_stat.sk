@@ -1,0 +1,73 @@
+command /sb-stats:
+	trigger:
+		set {_skin-fa} to "{display:{Name:""{\""text\"":\""Small Agronomy Sack\""}""},SkullOwner:{Id:[I;-40069068,400246361,-1789070113,1698011224],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMmFiODc5ZTFlNTkwMDQxMTQ2YmM3OGMwMThhZjU4NzdkMzllNTQ3NWViN2RiMzY4ZmNhZjJhY2RhMzczODMzZCJ9fX0=""}]}}}"
+   
+		set {_skin-fm} to "{display:{Name:""{\""text\"":\""Small Mining Sack\""}""},SkullOwner:{Id:[I;254763555,-497334671,-2110756760,1137823635],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjA3ZGZmNjU3ZDYxZjMwMmM3ZDJlNzI1MjY1ZDE3YjY0YWE3MzY0MjM5MTk2NGZiNDhmYzE1YmU5NTA4MzFkOCJ9fX0=""}]}}}"
+   
+		set {_skin-ff} to "{display:{Name:""{\""text\"":\""Small Foraging Sack\""}""},SkullOwner:{Id:[I;477984710,-742437656,-1651911862,-2088712764],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGY5NjBjNjM5ZDQwMDRkMTg4MjU3NWFlYmE2OWY0NTZmYjNjNzQ0MDc3OTM1NzE0OTQ3ZTE5YzEzMDZkMjczMyJ9fX0=""}]}}}"
+  
+  
+		open virtual chest inventory with size 6 named "%player%'s Profile" to player
+		format gui slot (integers between 0 and 53) of player with {Menu-Panes}
+		format gui slot (integers between 0 and 8) of player with dark gray stained glass pane named "&7"
+		format gui slot (integers between 45 and 53) of player with dark gray stained glass pane named "&7"
+		format gui slot 4 of player with {Menu-ProfileStat.%UUID of player%}
+
+		format gui slot 3 of player with {Menu-ProfileInfo.%UUID of player%}
+
+		format gui slot 25 of player with sugar named "&f✦ Speed &f%{Speed.%UUID of player%}%" with lore "&7Speed is how fast you walk." and "&7" and "&8Increase your speed by equiping weapons," and "&8armors, accessories, or by drinking" and "&8potions." and "&7" and "&7Your normal speed is &f✦ 100&7." and "&7Max &f✦ 400 Speed&7."
+
+		format gui slot 19 of player with golden apple named "&c❤ Health &f%{MaxHealth.%UUID of player%}%" with lore "&7Health is your livebar before death." and "&7" and "&8Increase your health by equiping" and "&8armors, accessories, or by drinking" and "&8potions." and "&7" and "&7Your Natural Regeneration: &a+%{Regeneration.%UUID of player%}% &aHP&8/s"
+
+		format gui slot 28 of player with enchanted book named "&b✎ Intelligence &f%{Intelligence.%UUID of player%}%" with lore "&7Intelligence is the maximum number of" and "&7mana you can have. You can" and "&7use mana thanks to the capacity which" and "&7are presents in weapons, armors" and "&7" and "&8Increase your maximum Intelligence by" and "&8equiping armors, accessories and" and "&8by drinking potions or holding weapons." and "&7" and "&7Your Mana Regen: &b+%({ManaRegeneration.%UUID of player%}/100)*{Intelligence.%UUID of player%}%&8/s"
+
+		format gui slot 20 of player with iron chestplate with attribute flag hidden named "&a❈ Defense &f%{defense.%UUID of player%}%" with lore "&7Defense is your resistance against" and "&7damages." and "&7" and "&8Increase your defence by equiping" and "&8armor, accessories or by drinking" and "&8potions." and "&7" and "&7Damage Reduction: &9%{defenseReduction.%UUID of player%}%%%" and "&7Effective Health: &c%{effectiveHealth.%UUID of player%}%&c❤"
+
+		format gui slot 21 of player with blaze powder named "&c❁ Strength &f%{strength.%UUID of player%}%" with lore "&7Strength makes you deal more damage" and "&7with your weapons." and "&7" and "&8Increase your strength by equiping" and "&8armors, accessories, by drinking potions" and "&8or by holding weapons."
+
+		format gui slot 22 of player with stone sword with attribute flag hidden named "&9☣ Critical Chance &f%{critchance.%UUID of player%}%&f%%" with lore "&7Critical Chance is your pourcentage of chance" and "&7to increase your damage dealt to ennemis." and "&7" and "&8Increase your critical chance by equiping" and "&8armor, accessories or by drinking" and "&8potions." and "&7" and "&7Your Critical Chance can exceed &9100%%&7."
+
+		format gui slot 23 of player with wither skeleton skull named "&9☠ Critical Damage &f%{critdamage.%UUID of player%}%" with lore "&7Critical damages works like strength" and "&7but are activated by your critical chance" and "&7" and "&8Increase your critical damages by equiping" and "&8armors, accessories or by drinking" and "&8potions."
+   
+		#format gui slot 24 of player with fermented spider eye named "&5✳ &5Addional Damage &f%{AddionalDamage.%UUID of player%}%" with lore "&7Additional damage 8Increase your overall damage" and "&7" and "&8Increase additional damages by wearing" and "&8armors, levelling skills, accessories or by drinking" and "&8potions."
+
+		set {_fa} to {FarmingFortune.%UUID of player%}
+		set {_ff} to {ForagingFortune.%UUID of player%}
+		set {_fm} to {MiningFortune.%UUID of player%}
+		
+		set {_fv} to "fa"
+		loop 3 times:
+			loop 3 times:
+				add 1 to {_lv}
+				if {_%{_fv}%} is higher than 99.9:
+					set {_%{_fv}%%{_lv}%} to 100
+				else if {_%{_fv}%} is higher than 0:
+					set {_%{_fv}%%{_lv}%} to {_%{_fv}%}
+				else:
+					set {_%{_fv}%%{_lv}%} to 0
+				remove 100 from {_%{_fv}%}
+			if {_fv} is "ff":
+				set {_fv} to "fm"
+			if {_fv} is "fa":
+				set {_fv} to "ff"
+			delete {_lv}
+
+		format gui slot 32 of player with player head with nbt "%{_skin-fa}%" named "&6☘ Farming Fortune &f%{FarmingFortune.%UUID of player%}%&f%%" with lore "&7Farming Fortune is a chance to multiply the drops from" and "&7harvests." and "&7" and "&8Increase farming fortune by wearing armors," and "&8accessories, by levelling skills and by drinking" and "&8potions." and "&7" and "&7Double Drop Chance: &6%{_fa1}%&6%%" and "&7Triple Drop Chance: &6%{_fa2}%&6%%" and "&7Quatruple Drop Chance: &6%{_fa3}%&6%%"
+   
+		format gui slot 33 of player with player head with nbt "%{_skin-ff}%" named "&6☘ Foraging Fortune &f%{ForagingFortune.%UUID of player%}%&f%%" with lore "&7Foraging Fortune is a chance to multiply the drops from" and "&7woods or trees." and "&7" and "&8Increase foraging fortune by wearing armors," and "&8accessories, by levelling skills and by drinking" and "&8potions." and "&7" and "&7Double Drop Chance: &6%{_ff1}%&6%%" and "&7Triple Drop Chance: &6%{_ff2}%&6%%" and "&7Quatruple Drop Chance: &6%{_ff3}%&6%%"
+   
+		format gui slot 34 of player with player head with nbt "%{_skin-fm}%" named "&6☘ Mining Fortune &f%{MiningFortune.%UUID of player%}%&f%%" with lore "&7Mining Fortune is a chance to multiply the drops from" and "&7ores and crystals." and "&7" and "&8Increase mining fortune by wearing armors," and "&8accessories, by levelling skills and by drinking" and "&8potions." and "&7" and "&7Double Drop Chance: &6%{_fm1}%&6%%" and "&7Triple Drop Chance: &6%{_fm2}%&6%%" and "&7Quatruple Drop Chance: &6%{_fm3}%&6%%"
+
+		format gui slot 37 of player with golden pickaxe with attribute flag hidden named "&6⚒ Mining Speed &f%{MiningSpeed.%UUID of player%}%&f%%" with lore "&7Mining speed makes you mine faster" and "&7a block." and "&7" and "&8Increase mining speed by wearing" and "&8armors, accessories, levelling skills" and "&8and by drinking potions."
+
+		format gui slot 30 of player with ender chest named "&d⚚ Pet Luck &f%{truth.%UUID of player%}%" with lore "&cSOON"
+
+		format gui slot 31 of player with stick of unbreaking 1 with hidden enchants flag named "&b✯ Magic Find &f%{magicfind.%UUID of player%}%" with lore "&7Reality increases the chance to get good" and "&7loot by a mob." and "&7" and "&8Increase your magic find by specials items."
+   
+		format gui slot 29 of player with beacon named "&c๑ Ability Damage &f%{AbilityDamage.%UUID of player%}%" with lore "&7Ability Damage increases the damages of your" and "&7weapon's ability." and "&7" and "&8Increase ability damage by equiping" and "&8armors, accessories, levelling skills or" and "&8by drinking potions."
+   
+		format gui slot 24 of player with pufferfish named "&e⚔ &eAttack Speed &f%{attackspeed.%UUID of player%}%%%" with lore "&7Attack speed decreases your attack delay." and "&7" and "&8Increase your attack speed by equiping" and "&8armors, accessories, by drinking potions" and "&8or by holding weapons."
+
+		format gui slot 48 of player with {Menu-GoBack} to close:
+			make player execute command "/menu"
+		format gui slot 49 of player with {Menu-Close} to close

@@ -1,0 +1,254 @@
+function SBD_F7_WitherHit(e: entity, r: number, n1: number, n2: number):
+	play 1 of explosion at {_e}
+	play sound "entity.wither.ambient" at volume 2 with pitch 0.5 at {_e} for players
+	loop all players in radius {_r} of {_e}:
+		if {DungeonParty::*} contains "%loop-player%":
+			if {SBD-Ghosted.%UUID of loop-player%} is not true:
+				set {_ddmg} to random integer between {_n1} and {_n2}
+				set {_ox} to 1
+				if {SBD-f7-Difficulty} is not equal to 1:
+					set {_ox} to 5
+				set {_ddmg} to {_ddmg}*{_ox}
+				if {SBD-Class.%UUId of loop-player%} is "Berserker":
+					set {_ddmg} to ({_ddmg}/10)
+				MakeTrueDamage(loop-player, {_ddmg}, 100)
+				send "&cMaxor's &7Nuclear Frenzy hit you for &c%{_ddmg}% &7true damage." to loop-player
+
+function RespawnWither(n: number, e: entity, nn: number):
+	add "{NoAI:1b}" to nbt of {_e}
+	apply resistance 250 without particles to {_e} for 99999 seconds replacing existing effect
+	set {_eU} to {_e}'s uuid
+	set {_hp} to {health.%{_eU}%}
+	set {Mob-DamageReduction.%{_eU}%} to 50
+	set {Mob-MagicDamageReduction.%{_eU}%} to 10
+	set {Mob-Damage.%{_eU}%} to (120000*({SBD-f7-Difficulty}/2.4))
+	if {_nn} is 3:
+		delete {Mob-God.%{_eU}%}
+		set {Terminal-Phase} to 3
+		loop 15 times:
+			SBD_F7_WitherHit({_e}, 4.75, 3000, 4000)
+			wait 1 seconds
+# ==== GO HORS CENTRE
+		set {Terminal-Phase} to 3.5 
+# ==== 
+		set {_hp} to {health.%{_eU}%}
+		if {health.%{_eU}%} is between 0 and 3300000:
+			stop
+		if {_hp} is higher than 0:
+			RespawnWither_Loc({_e}, {_nn}, {_hp})
+
+	if {_nn} is 2:
+		if {health.%{_eU}%} is between 0 and (500000000*{SBD-f7-Difficulty}):
+			set {_hp} to (250000000*{SBD-f7-Difficulty})
+		else:
+			remove {_n} from {_hp}
+		damage {_e} by 1
+		set {health.%{_eU}%} to {_hp}
+		send "&4[BOSS] Maxor&c: WHAT - NOT NOW! I'M STUCK IN MY OWN GEARS!" to {DungeonParty::*}
+		wait 2 seconds
+		set {Mob-DamageCapHealth.%{_eU}%} to (250000000*{SBD-f7-Difficulty})
+		delete {Mob-God.%{_eU}%}
+		set {_ti} to 1
+		loop 7 times:
+			if {health.%{_eU}%} is between 0 and (250000000*{SBD-f7-Difficulty}):
+				set {_ti} to 0.1
+			SBD_F7_WitherHit({_e}, 6, 1500, 2500)
+			wait "%{_ti}% seconds" parsed as timespan
+		send "&4[BOSS] Maxor&c: PATHETHIC!" to {DungeonParty::*}
+		set {Mob-DamageCapHealth.%{_eU}%} to (250000000*{SBD-f7-Difficulty})
+		set {Mob-God.%{_eU}%} to true
+		set {_hp} to {health.%{_eU}%}
+		RespawnWither_Loc({_e}, {_nn}, {_hp})
+
+	if {_nn} is 1:
+		delete {Mob-God.%{_eU}%}
+		send "&4[BOSS] Maxor&c: YOU TRAPPED ME IN MY OWN LASER!" to {DungeonParty::*}
+		set {Mob-DamageReduction.%{_eU}%} to 50
+		set {Mob-DamageCapHealth.%{_eU}%} to (750000000*{SBD-f7-Difficulty})
+		while {health.%{_eU}%} is higher than (750000000*{SBD-f7-Difficulty}):
+			damage {_e} by 1
+			SBD_F7_WitherHit({_e}, 6, 1500, 2500)
+			wait 1 second
+		send "&4[BOSS] Maxor&c: YOU ARE DESTROYING MY HARD WORK" to {DungeonParty::*}
+		set {Mob-God.%{_eU}%} to true
+		set {_hp} to (750000000*{SBD-f7-Difficulty})
+		set {health.%{_eU}%} to {_hp}
+		set block at the location (118.5, 155.5, 321.5) of the world "world" to redstone block
+		wait 1 second
+		RespawnWither_Loc({_e}, {_nn}, {_hp})
+		SB_Dungeon_Floor7_Lazered()
+
+on death of wither:
+	if name of victim contains "&c&lMaxor":
+		if {Terminal-Phase} is 1 or 2:
+			send "&e&lDUNGEON! &bDue a problem you were teleported back to spawn!" to {DungeonParty::*}
+			teleport {DungeonParty::*} to {spawn}
+			SBD_Floor7_Reset()
+			DeleteEntity(victim)
+			stop
+
+on damage of wither:
+	if name of victim contains "&c&lMaxor":
+		if {Terminal-Phase} is 3.5 or 3:
+			if {health.%UUID of victim%} is between 0 and 3300000:
+				delete {Terminal-Phase}
+				add "{NoAI:1b}" to nbt of victim
+				send "&4[BOSS] Maxor&c: Am I that bad?" to {DungeonParty::*}
+				wait 2 seconds
+				send "&4[BOSS] Maxor&c: I pray that my boss doesn't see this." to {DungeonParty::*}
+				wait 2 seconds
+				delete {timer-7}
+				make console execute command "/floor7-defeat"
+				wait 2.5 seconds
+				DeleteEntity(victim)
+				stop
+			
+
+# /////////////////////////////////////
+function RespawnWither_Loc(e: entity, nn: number, hp: number):
+	set {_tag} to nbt compound of {_e}
+	delete tag "NoAI" of {_tag}
+	set {_eU} to {_e}'s uuid
+	set {health.%{_eU}%} to {_hp}
+	set {Mob-God.%{_eU}%} to true
+	set {Mob-DamageCapHealth.%{_eU}%} to 1
+	set {Mob-DamageReduction.%{_eU}%} to 50
+	set {Mob-MagicDamageReduction.%{_eU}%} to 10
+	set {Mob-Damage.%{_eU}%} to (120000*{SBD-f7-Difficulty})
+	SetTarget({_e})
+	TerminalBossbarVisibility(0)
+	TerminalBossbarCreate(1)
+	TerminalBossbarVisibility(1)
+	wait 1 tick
+	if {_nn} is 3:
+		# P3 AGAIN - GO TO HORS CENTRE
+		set {Mob-DamageReduction.%{_eU}%} to 95
+		set {Mob-MagicDamageReduction.%{_eU}%} to 50
+		set {Mob-DamageCapHealth.%{_eU}%} to 3300000
+	if {_nn} is 1: # START P2
+		set {Mob-Defense.%{_eU}%} to 300
+		set {Mob-DamageReduction.%{_eU}%} to 50
+		set {Mob-DamageCapHealth.%{_eU}%} to (250000000*{SBD-f7-Difficulty})
+	if {_nn} is 2: # START P3 IF 250m hp
+		if {health.%{_eU}%} is between -100000000000 and (250000000*{SBD-f7-Difficulty}):
+			set {Mob-Defense.%{_eU}%} to 500
+			set {Mob-DamageReduction.%{_eU}%} to 95
+			set {Mob-MagicDamageReduction.%{_eU}%} to 50
+			set {Mob-DamageCapHealth.%{_eU}%} to 3300000
+			# START HORS CENTRE
+			set {Mob-God.%{_eU}%} to true
+			set {health.%{_eU}%} to (250000000*{SBD-f7-Difficulty})
+			set {Gears-Blue} to true
+			set {Gears-Purple} to true
+			set {Terminal-Phase} to 3.5
+			send title "&7" with subtitle "&aMaxor is enraged!" to {DungeonParty::*}
+			send "&aThe entrance gate is opening in 3 seconds!" to {DungeonParty::*}
+			play sound "block.piston.contract" at {DungeonParty::*} for players
+			wait 3 seconds
+			set block at the location (87, 155, 304) of the world "world" to redstone block
+			send "&4[BOSS] Maxor&c: This floor is utterly RIDICULOUS! This place must be EXPLODED!" to {DungeonParty::*}
+			play sound "entity.wither.ambient" with pitch 0.75 at {DungeonParty::*} for players
+			wait 3 second
+			delete {Mob-God.%{_eU}%}
+			DespawnWither()
+			wait 5 seconds
+			send "&4[BOSS] Maxor&c: Why do I wait? BOOM THIS FLOOR!" to {DungeonParty::*}
+			play sound "entity.wither.ambient" with pitch 0.75 at {DungeonParty::*} for players
+			wait 2 seconds
+			loop {DungeonParty::*}:
+				if {health.%{_eU}%} is not between 0 and 3300000:
+					set {_p} to loop-value
+					set {_p} to {_p} parsed as player
+					set {_pU} to {_p}'s uuid
+					set {_y} to y coords of {_p}
+					if {_y} is higher than 54:
+						if {SBD-Ghosted.%{_pU}%} is not true:
+							loop 3 times:
+								play 5 of explosion at {_p}'s location
+								wait 1 tick
+							send "&cMaxor's &7Nuclear Explosion hit you for &c100,000,000 &7true damage." to {_p}
+							KillPlayer({_p})
+			teleport {_e} at the location (110.5, 37, 324.5) of the world "world"
+			play 50 of large smoke at {_e}'s location
+			stop
+
+every seconds in "world":
+	loop all living entities:
+		if loop-entity-1 is a wither:
+			set {_e} to loop-entity-1
+			set {_eU} to {_e}'s uuid
+			set {_e}'s health to {_e}'s max health
+			set {_v} to {health.%{_eU}%}
+			set progress of bossbar {bossbar} to ({_v}/(1000000000*{SBD-f7-Difficulty}))
+			if {_e}'s target is not a player:
+				SetTarget({_e})
+								
+			if {_v} is set:
+				if {_v} is higher than 999999999.9:
+					set name of {_e} to "&c&lMaxor &c%{_v}/1000000000%&cB❤"
+				else:
+					set name of {_e} to "&c&lMaxor &c%{_v}/1000000%&cM❤"
+			
+			if {Terminal-Phase} is equal to 2:
+				if {health.%{_eU}%} is between -1000000 and (250000000*{SBD-f7-Difficulty}):
+					set {health.%{_eU}%} to (250000000*{SBD-f7-Difficulty})
+			
+			if {Gears-Purple} is not true: # p2
+				if {Terminal-Gears-Purple} is true:
+					loop all living entities in radius 2.5 of {_e}:
+						if loop-entity-2 is an armor stand:
+							if name of loop-entity-2 is "&7CRUSHER-Purple":
+								set {Gears-Purple} to true
+								set block at the location (105, 150, 301) of the world "world" to redstone block
+								RespawnWither((250000000*{SBD-f7-Difficulty}), loop-entity-1, 2)
+								stop
+			if {Gears-Blue} is not true: #p2
+				if {Terminal-Gears-Blue} is true:
+					loop all living entities in radius 2.5 of {_e}:
+						if loop-entity-2 is an armor stand:
+							if name of loop-entity-2 is "&7CRUSHER-Blue":
+								set {Gears-Blue} to true
+								set block at the location (105, 155, 301) of the world "world" to redstone block
+								RespawnWither((250000000*{SBD-f7-Difficulty}), loop-entity-1, 2)
+								stop
+
+			if {Lazered} is not true:
+				loop all living entities in radius 2 of {_e}:
+					if loop-entity-2 is an armor stand:
+						if name of loop-entity-2 is "&c&lLAZER":
+							loop all living entities in radius 20 of {_e}:
+								if loop-entity-3 is an armor stand:
+									if name of loop-entity-3 is "&c&lLAZER":
+										delete loop-entity-3
+							set {Lazered} to true
+				if {Lazered} is true:
+					RespawnWither((250000000*{SBD-f7-Difficulty}), loop-entity-1, 1)
+
+function SB_Dungeon_Floor7_Lazered():
+	DespawnWither()
+	send title "&7" with subtitle "&aMaxor is enraged!" to {DungeonParty::*}
+	play sound "entity.wither.ambient" with pitch 0.5 at {DungeonParty::*} for {DungeonParty::*}
+	send "&4[BOSS] Maxor&c: I'M GONNA BLOW UP THIS FLOOR!" to {DungeonParty::*}
+	set {Terminal-Phase} to 2 # PHASE 2
+	SpawnWither(2)
+	wait 10 seconds
+	send "&4[BOSS] Maxor&c: This place will BOOM! I'M COMING!" to {DungeonParty::*}
+	wait 3 seconds
+	loop {DungeonParty::*}:
+		set {_p} to loop-value
+		set {_p} to {_p} parsed as player
+		set {_pU} to {_p}'s uuid
+		set {_y} to y coords of {_p}
+		if {_y} is higher than 92:
+			if {SBD-Ghosted.%{_pU}%} is not true:
+				loop 3 times:
+					play 5 of explosion at {_p}'s location
+					wait 1 tick
+				send "&cMaxor's &7Nuclear Explosion hit you for &c100.000.000 &7true damage." to {_p}
+				KillPlayer({_p})
+	loop all living entities:
+		if loop-entity is a wither:
+			if name of loop-entity contains "&c&lMaxor":
+				teleport loop-entity-1 at the location (110.5, 90, 324.5) of the world "world"
+				play 50 of large smoke at loop-entity's location
+				SetTarget(loop-entity-1)

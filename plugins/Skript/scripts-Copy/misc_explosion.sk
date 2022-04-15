@@ -1,0 +1,7 @@
+on explode:
+	cancel event
+	play sound "entity.generic.explode" at event-entity for players
+	
+on damage of entity:
+	if damage cause is entity explosion:
+		cancel event

@@ -1,0 +1,7 @@
+on tripwire:
+	if {SBD-Ghosted.%UUID of player%} is not true:
+		if {DungeonParty::*} contains "%player%":
+			MakeRealDamage(player, 20)
+			send "&7The trap hit you for &c%{_dmg}% &7true damage." to player
+			playsound(player, "entity.generic.explode", 1.5)
+			playsound(player, "item.shield.block", 0.1)

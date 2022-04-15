@@ -1,0 +1,4 @@
+command /sb-questlog:
+	trigger:
+		MenuStyle(player, "Quest Log", "Frame", 6, "/menu")
+		format gui slot 4 of player with writable book named "&aQuest Log" with lore "&7View your quests and progress."

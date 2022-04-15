@@ -1,0 +1,224 @@
+Conditions:
+	CondUsingEmote:
+		ID: CondUsingEmote
+		Patterns:
+			[entity] %entity% (is using|has) [an] emote
+Effects:
+	EffArc:
+		ID: EffArc
+		Patterns:
+			[skDragon] drawArc particle %string%[, material %-itemstack%][, speed %-number%][, ([offset]XYZ|RGB) %-number%, %-number%, %-number%], center %object%, target %object%, id %string%[, isSingle %-boolean%, %-player%][, r[ainbow]M[ode] %-boolean%], density %number%, height %number%, p[itch]M[ultiplier] %number%, visibleRange %number%[, dis[placement]X %-number%, dis[placement]Y %-number%, dis[placement]Z %-number%][, dis[placement]X2 %-number%, dis[placement]Y2 %-number%, dis[placement]Z2 %-number%][, tps %-number%, second %-number%]
+	EffAtom:
+		ID: EffAtom
+		Patterns:
+			[skDragon] drawAtom particle1 %string%[[, material] %-itemstack%][, speed %-number%][, ([offset]XYZ|RGB) %-number%, %-number%, %-number%], particle2 %string%[[, material] %-itemstack%][, speed2 %-number%][, ([offset]XYZ2|RGB2) %-number%, %-number%, %-number%], center %object%, id %string%[, isSingle %-boolean%, %-player%][, r[ainbow]M[ode] %-boolean%], innerPCount %number%, innerRadius %number%, outerPCount %number%, orbitCount %number%, start %number%, visibleRange %number%, rot[ation] %number%[, dis[placement]X %-number%, dis[placement]Y %-number%, dis[placement]Z %-number%][, tps %-number%, second %-number%]
+	EffBand:
+		ID: EffBand
+		Patterns:
+			[skDragon] drawBand particle %string%[, material %-itemstack%][, speed %-number%][, ([offset]XYZ|RGB) %-number%, %-number%, %-number%], center %object%, id %string%[, isSingle %-boolean%, %-player%][, r[ainbow]M[ode] %-boolean%], visibleRange %number%[, dis[placement]X %-number%, dis[placement]Y %-number%, dis[placement]Z %-number%][, tps %-number%, second %-number%]
+	EffBetaTest1:
+		ID: EffBetaTest1
+		Patterns:
+			drawBetaTest1 particle %particlename%, player %player%, id %string%
+	EffBetaTest2:
+		ID: EffBetaTest2
+		Patterns:
+			drawBetaTest2 player %player%, id %string%
+	EffBetaTest3:
+		ID: EffBetaTest3
+		Patterns:
+			drawBetaTest3 player %player%, id %string%
+	EffBetaTest4:
+		ID: EffBetaTest4
+		Patterns:
+			drawBetaTest4 player %player%, id %string%
+	EffBetaTest5:
+		ID: EffBetaTest5
+		Patterns:
+			drawBetaTest5 player %player% at %location%, id %string%
+	EffBetaTest7:
+		ID: EffBetaTest7
+		Patterns:
+			drawBetaTest7 player %player%, id %string%
+	EffBetaTest8:
+		ID: EffBetaTest8
+		Patterns:
+			drawBetaTest6 at %location%, id %string%
+	EffBreath:
+		ID: EffBreath
+		Patterns:
+			[skDragon] draw[Dragon]Breath particle %string%[, material %-itemstack%][, speed %-number%][, ([offset]XYZ|RGB) %-number%, %-number%, %-number%], center %object%, id %string%[, isSingle %-boolean%, %-player%][, r[ainbow]M[ode] %-boolean%], arcPitch %number%, arcCount %number%, arcDensity %number%, arcSteps %number%, arcLength %number%, visibleRange %number%[, dis[placement]X %-number%, dis[placement]Y %-number%, dis[placement]Z %-number%][, tps %-number%, second %-number%]
+	EffCape:
+		ID: EffCape
+		Patterns:
+			[skDragon] drawCape file %string%, center %object%, id %string%[, isClientside %-boolean%, %-player%][, r[ainbow]M[ode] %-boolean%][, dyn[amic]Mode %-boolean%][, scale %-number%][, backDis[tance] %-number%][, gravity %-number%], visibleRange %number%[, pulseDelay %-number%]
+	EffColorImage:
+		ID: EffColorImage
+		Patterns:
+			[skDragon] drawImage file %string%, center %object%, id %string%[, isSingle %-boolean%, %-player%][, randomRotation %-boolean%,[ plane] %-string%], pixelStepX %number%, pixelStepY %number%, scale %number%, visibleRange %number%[, xR[otation] %-number%, yR[otation] %-number%, zR[otation] %-number%][, dis[placement]X %-number%, dis[placement]Y %-number%, dis[placement]Z %-number%][, tps %-number%, second %-number%]
+	EffColorImage2:
+		ID: EffColorImage2
+		Patterns:
+			[skDragon] drawImage2 file %string%, center %object%, id %string%[, isSingle %-boolean%, %-player%][, randomRotation %-boolean%,[ plane] %-string%], pixelStepX %number%, pixelStepY %number%, scale %number%, visibleRange %number%[, xR[otation] %-number%, yR[otation] %-number%, zR[otation] %-number%][, dis[placement]X %-number%, dis[placement]Y %-number%, dis[placement]Z %-number%][, tps %-number%, second %-number%]
+	EffComplexCircle:
+		ID: EffComplexCircle
+		Patterns:
+			[skDragon] draw[Complex]Circle particle %string%[, material %-itemstack%][, speed %-number%][, ([offset]XYZ|RGB) %-number%, %-number%, %-number%], center %object%, id %string%[, isSingle %-boolean%, %-player%][, r[ainbow]M[ode] %-boolean%], randomRotation %boolean%, radius %number%, density %number%, start %number%, visibleRange %number%[, xR[otation] %-number%, yR[otation] %-number%, zR[otation] %-number%][, dis[placement]X %-number%, dis[placement]Y %-number%, dis[placement]Z %-number%][, tps %-number%, second %-number%]
+	EffComplexSpiral:
+		ID: EffComplexSpiral
+		Patterns:
+			[skDragon] draw[Complex]Spiral particle %string%[, material %-itemstack%][, speed %-number%][, ([offset]XYZ|RGB) %-number%, %-number%, %-number%], center %object%, id %string%[, isSingle %-boolean%, %-player%][, r[ainbow]M[ode] %-boolean%], clockwise %boolean%, scan %boolean%, radius %number%, density %number%, height %number%, effectMod %number%, start %number%, visibleRange %number%[, xR[otation] %-number%, yR[otation] %-number%, zR[otation] %-number%][, dis[placement]X %-number%, dis[placement]Y %-number%, dis[placement]Z %-number%][, tps %-number%, second %-number%]
+	EffCylinder:
+		ID: EffCylinder
+		Patterns:
+			[skDragon] drawCylinder particle %string%[, material %-itemstack%][, speed %-number%][, ([offset]XYZ|RGB) %-number%, %-number%, %-number%], center %object%, id %string%[, isSingle %-boolean%, %-player%][, r[ainbow]M[ode] %-boolean%], randomRotation %boolean%, isSolid %boolean%, radius %number%, density %number%, height %number%, sideRatio %number%, visibleRange %number%[, xR[otation] %-number%, yR[otation] %-number%, zR[otation] %-number%][, dis[placement]X %-number%, dis[placement]Y %-number%, dis[placement]Z %-number%][, tps %-number%, second %-number%]
+	EffDemoMode:
+		ID: EffDemoMode
+		Patterns:
+			[skDragon] send[ fake] trial packet to %player%
+	EffDisco:
+		ID: EffDisco
+		Patterns:
+			[skDragon] drawDisco style %number%, particle %particlename%[, material %-itemstack%][, speed %-number%][, ([offset]XYZ|RGB) %-number%, %-number%, %-number%], particle2 %particlename%[, material2 %-itemstack%][, speed2 %-number%][, ([offset]XYZ2|RGB2) %-number%, %-number%, %-number%], center %object%, id %string%[, onlyFor %-players%][, r[ainbow]M[ode] %-boolean%], maxLines %number%, lineLength %number%, sphereRadius %number%, sphereDensity %number%, lineDensity %number%, visibleRange %number%[, dis[placement]XYZ %-number%, %-number%, %-number%][, pulseDelay %-number%]
+	EffDot:
+		ID: EffDot
+		Patterns:
+			[skDragon] drawDot [count %-number%,] particle %string%[, material %-itemstack%][, speed %-number%][, ([offset]XYZ|RGB) %-number%, %-number%, %-number%], center %objects%[, id %-string%][, isSingle %-boolean%, %-player%][, r[ainbow]M[ode] %-boolean%], visibleRange %number%[, dis[placement]XYZ %-number%, %-number%, %-number%][, pulseDelay %-number%][, keepFor %-timespan%]
+	EffDot2:
+		ID: EffDot2
+		Patterns:
+			[skDragon] drawDot[ count %-number%,] particle %particlename%[, material %-itemstack%][, speed %-number%][, ([offset]XYZ|RGB) %-number%, %-number%, %-number%][, colo[u]rOffset %-number%, %-number%, %-number%], center %objects%[, id %-string%][, isClientside %-players%][, r[ainbow]M[ode] %-boolean%][, randomColor %-boolean%], visibleRange %number%[, dis[placement]XYZ %-number%, %-number%, %-number%][, pulseDelay %-number%][, keepFor %-timespan%]
+	EffEmoteCustom:
+		ID: EffEmoteCustom
+		Patterns:
+			[skDragon] custom emote %string% on %entity%[with [frame] delay %-number%][ [and] repeat[ing] %-number% [time[s]]]
+	EffEmoteCustomReload:
+		ID: EffEmoteCustomReload
+		Patterns:
+			[skDragon] reload custom emotes
+	EffEmoteType:
+		ID: EffEmoteType
+		Patterns:
+			[skDragon] emote %emotetype% on %entity% [with [frame] delay %-number%] [[and] repeat[ing] %-number% [time[s]]]
+	EffHeart:
+		ID: EffHeart
+		Patterns:
+			[skDragon] drawHeart particle %particlename%[, material %-itemstack%][, speed %-number%][, ([offset]XYZ|RGB) %-number%, %-number%, %-number%], center %object%, id %string%[, isSingle %-boolean%, %-player%][, r[ainbow]M[ode] %-boolean%], ySpin %number%, width %number%, height %number%, innerSpike %number%, compress %number%, density %number%, visibleRange %number%[, rot[ation]XYZ %-number%, %-number%, %-number%][, dis[placement]XYZ %-number%, %-number%, %-number%][, pulseDelay %-number%]
+	EffItemFountain:
+		ID: EffItemFountain
+		Patterns:
+			[skDragon] drawItemFountain %itemstack%, style %number%, center %object%, id %string%, itemTime %timespan%, yVelocity %number%, radius %number%, density %number%[, start %-number%][, visibleRange %-number%][, dis[placement]XYZ %-number%, %-number%, %-number%][, pulseDelay %-number%]
+	EffLightning:
+		ID: EffLightning
+		Patterns:
+			[skDragon] start new lightning effect with id name %string% at %objects% with particle %particlename%[, material %-itemstack%][, speed %-number%][, ([offset]XYZ|RGB) %-number%, %-number%, %-number%][, axis %-number%, %-number%, %-number%], radius %number%, density %number%[, isClientside %-players%][, r[ainbow]M[ode] %-boolean%], visibleRange %number%[, dis[placement]XYZ %-number%, %-number%, %-number%][, pulseDelay %-number%]
+	EffLine:
+		ID: EffLine
+		Patterns:
+			[skDragon] drawLine particle %particlename%[, material %-itemstack%][, speed %-number%][, ([offset]XYZ|RGB) %-number%, %-number%, %-number%], center %object%[, target %-object%], id %string%[, onlyFor %-players%][, r[ainbow]M[ode] %-boolean%][, solid %-boolean%][, density %-number%][, length %-number%][, zigZag count %-number%, height %-number%], visibleRange %number%[, dis[placement]XYZ %-number%, %-number%, %-number%][, pulseDelay %-number%]
+	EffNyanCat:
+		ID: EffNyanCat
+		Patterns:
+			[skDragon] drawNyanCat center %object%, id %string%[, isSingle %-boolean%, %-player%], visibleRange %number%[, tps %-number%, second %-number%]
+	EffPlanet:
+		ID: EffPlanet
+		Patterns:
+			[skDragon] drawPlanet particle1 %string%[[, material] %-itemstack%][, speed %-number%][, ([offset]XYZ|RGB) %-number%, %-number%, %-number%], particle2 %string%[[, material] %-itemstack%][, speed2 %-number%][, ([offset]XYZ2|RGB2) %-number%, %-number%, %-number%], center %object%, id %string%[, isSingle %-boolean%, %-player%][, r[ainbow]M[ode] %-boolean%][, rotation %-boolean%,[ plane] %-string%, rot[ation]Speed %-number%][, orbit %-boolean%, orbit[al]Radius %-number%, orbit[al]Step %-number%[, xR[otation] %-number%, yR[otation] %-number%, zR[otation] %-number%]], radius %number%, density %number%, precision %number%, bumpHeight %number%, visibleRange %number%[, dis[placement]X %-number%, dis[placement]Y %-number%, dis[placement]Z %-number%][, tps %-number%, second %-number%]
+	EffRemoveTint:
+		ID: EffRemoveTint
+		Patterns:
+			[skDragon] remove[ red] tint from %players%
+	EffRings:
+		ID: EffRings
+		Patterns:
+			[skDragon] drawRings particle %string%[, material %-itemstack%][, speed %-number%][, ([offset]XYZ|RGB) %-number%, %-number%, %-number%], center %object%, id %string%[, isSingle %-boolean%, %-player%][, r[ainbow]M[ode] %-boolean%], randomRotation %boolean%, animated %boolean%, radius %number%, ringCount %number%, ringDensity %number%, visibleRange %number%[, rot[ation]XYZ %-number%, %-number%, %-number%][, dis[placement]XYZ %-number%, %-number%, %-number%][, pulseDelay %-number%]
+	EffSendPlayersTint:
+		ID: EffSendPlayersTint
+		Patterns:
+			[skDragon] send[ red] tint to %players%[ with fadeTime %-number%, intensity %-number% and damageMode %-boolean%]
+	EffSimpleHalo:
+		ID: EffSimpleHalo
+		Patterns:
+			[skDragon] draw[Simple]Halo particle %string%[[, material] %-itemstack%][, speed %-number%][, ([offset]XYZ|RGB) %-number%, %-number%, %-number%], center %object%, id %string%[, isSingle %-boolean%, %-player%][, r[ainbow]M[ode] %-boolean%][, solid %-boolean%][, density %-number%], visibleRange %number%[, tps %-number%, second %-number%]
+	EffSpawnParticleColor:
+		ID: EffSpawnParticleColor
+		Patterns:
+			[skDragon] draw %number% colo[u]red (redstone|mobspell|mobspellambient) particle[s] at %objects% with RGB %number%, %number%, %number%[, offset %-number%, %-number%, %-number%][, id %-string%][, r[ainbow]M[ode] %-boolean%][, randomColor %-boolean%][, visibleTo %-players%][, visibleRange %-number%][, pulseDelay %-number%][, keepFor %-timespan%]
+	EffSpawnParticleDirection:
+		ID: EffSpawnParticleDirection
+		Patterns:
+			[skDragon] draw %number% %particlename% particle[s] at %objects% with direction %vector% and speed %number%[, offset %-number%, %-number%, %-number%][, id %-string%][, visible[ ]to %-players%][, visible[ ]range %-number%][, [pulse][ ]delay %-number%][, keep[ ][for] %-timespan%]
+	EffSpawnParticleDirectionColor:
+		ID: EffSpawnParticleDirectionColor
+		Patterns:
+			[skDragon] draw %number% (shade|red|green|blue|rainbow|full)[ scale %-number%] colo[u]red directional (blockdust|itemcrack) particle[s] at %objects% with direction %vector% and speed %number%[, offset %-number%, %-number%, %-number%][, id %-string%][, visibleTo %-players%][, visibleRange %-number%][, pulseDelay %-number%][, keepFor %-timespan%]
+	EffSpawnParticleDirectionMadness:
+		ID: EffSpawnParticleDirectionMadness
+		Patterns:
+			[skDragon] draw %number% style %number% (redstone|mobspell|mobspellambient) particle[s] at %objects% with direction %vector%, speed %number% and RGB %number%, %number%, %number%[, offset %-number%, %-number%, %-number%][, id %-string%][, r[ainbow]M[ode] %-boolean%][, randomColor %-boolean%][, visibleTo %-players%][, visibleRange %-number%][, pulseDelay %-number%][, keepFor %-timespan%]
+	EffSpawnParticleDirectionMat:
+		ID: EffSpawnParticleDirectionMat
+		Patterns:
+			[skDragon] draw %number% directional (blockdust|itemcrack) particle[s] made of %itemstack% at %objects% with direction %vector% and speed %number%[, offset %-number%, %-number%, %-number%][, id %-string%][, visibleTo %-players%][, visibleRange %-number%][, pulseDelay %-number%][, keepFor %-timespan%]
+	EffSpawnParticleMaterial:
+		ID: EffSpawnParticleMaterial
+		Patterns:
+			[skDragon] draw %number% (blockcrack|blockdust|itemcrack|fallingdust)[ material]  particle[s] made of %itemstack% at %objects%[, speed %-number%][, offset %-number%, %-number%, %-number%][, id %-string%][, visibleTo %-players%][, visibleRange %-number%][, pulseDelay %-number%][, keepFor %-timespan%]
+	EffSphere:
+		ID: EffSphere
+		Patterns:
+			[skDragon] drawSphere[ style] %number%, particle %string%[, material %-itemstack%][, speed %-number%][, ([offset]XYZ|RGB) %-number%, %-number%, %-number%], center %object%, id %string%[, isSingle %-boolean%, %-player%][, r[ainbow]M[ode] %-boolean%], radius %number%, density %number%, visibleRange %number%[, dis[placement]XYZ %-number%, %-number%, %-number%][, pulseDelay %-number%]
+	EffSpircle:
+		ID: EffSpircle
+		Patterns:
+			[skDragon] drawSpircle %number% %particlename% particle[s] [rotating] at %objects% with id %string%, %number% point[s], density %number%, radius %number% and speed %number%[, offset %-number%, %-number%, %-number%][, rotate %-number%, %-number%, %-number%][, visibleTo %-players%][, visibleRange %-number%][, loop delay %-number%]
+	EffStopAllEffects:
+		ID: EffStopAllEffects
+		Patterns:
+			[skDragon] stop all particle effects
+	EffStopEffectID:
+		ID: EffStopEffectID
+		Patterns:
+			[skDragon] stopEffect[ id] %strings%
+	EffStopEmote:
+		ID: EffStopEmote
+		Patterns:
+			[skDragon] stop emote %entity%
+	EffText:
+		ID: EffText
+		Patterns:
+			[skDragon] drawText %string%, particle %particlename%[, material %-itemstack%][, speed %-number%][, ([offset]XYZ|RGB) %-number%, %-number%, %-number%], center %object%, id %string%[, (only[ ]for|visible[ ]to) %-players%][, r[ainbow]M[ode] %-boolean%][, autoFace %-boolean%][, invert %-boolean%][, f[ont]Name %-string%, f[ont]Style %-fontstyle%, f[ont]Size %-number%], scale %number%, visibleRange %number%[, rot[ation]XYZ %-number%, %-number%, %-number%][, dis[placement]XYZ %-number%, %-number%, %-number%][, pulseDelay %-number%]
+	EffWarpRings:
+		ID: EffWarpRings
+		Patterns:
+			[skDragon] drawWarpRings style %number%, particle %string%[, material %-itemstack%][, speed %-number%][, ([offset]XYZ|RGB) %-number%, %-number%, %-number%], center %object%, id %string%[, isSingle %-boolean%, %-player%][, r[ainbow]M[ode] %-boolean%], scan %boolean%, height %number%, radius %number%, ringCount %number%, ringDensity %number%, visibleRange %number%[, rot[ation]XYZ %-number%, %-number%, %-number%][, dis[placement]XYZ %-number%, %-number%, %-number%][, pulseDelay %-number%][, keepFor %-timespan%[, repeat %number%]]
+	EffWings:
+		ID: EffWings
+		Patterns:
+			[skDragon] drawWings[ style] %number%, particle1 %string%[[, material] %-itemstack%][, speed %-number%][, ([offset]XYZ|RGB) %-number%, %-number%, %-number%], particle2 %string%[[, material] %-itemstack%][, speed2 %-number%][, ([offset]XYZ2|RGB2) %-number%, %-number%, %-number%], particle3 %string%[[, material] %-itemstack%][, speed3 %-number%][, ([offset]XYZ3|RGB3) %-number%, %-number%, %-number%], center %object%, id %string%[, isSingle %-boolean%, %-player%][, r[ainbow]M[ode] %-boolean%][, flapSpeed %-number%, flapRange %-number%], angle %number%, height %number%, space %number%, visibleRange %number%[, tps %-number%, second %-number%]
+	EffWings69:
+		ID: EffWings69
+		Patterns:
+			[skDragon] drawWings69 particle1 %string%[[, material] %-itemstack%][, speed %-number%][, ([offset]XYZ|RGB) %-number%, %-number%, %-number%], particle2 %string%[[, material] %-itemstack%][, speed2 %-number%][, ([offset]XYZ2|RGB2) %-number%, %-number%, %-number%], particle3 %string%[[, material] %-itemstack%][, speed3 %-number%][, ([offset]XYZ3|RGB3) %-number%, %-number%, %-number%], particle4 %string%[[, material] %-itemstack%][, speed4 %-number%][, ([offset]XYZ4|RGB4) %-number%, %-number%, %-number%], center %object%, id %string%[, isSingle %-boolean%, %-player%][, r[ainbow]M[ode] %-boolean%][, flapSpeed %-number%, flapRange %-number%], angle %number%, height %number%, space %number%, visibleRange %number%[, tps %-number%, second %-number%]
+Expressions:
+	ExprAllEmoteEffects:
+		ID: ExprAllEmoteEffects
+		Return type: Object
+		Changers:
+			none
+		Patterns:
+			[skDragon] all emote effects
+	ExprFontNames:
+		ID: ExprFontNames
+		Return type: Object
+		Changers:
+			none
+		Patterns:
+			[skDragon] [all ][system ]font names
+	ExprIDNames:
+		ID: ExprIDNames
+		Return type: Object
+		Changers:
+			none
+		Patterns:
+			[skDragon] [all ][particle effect ]id names

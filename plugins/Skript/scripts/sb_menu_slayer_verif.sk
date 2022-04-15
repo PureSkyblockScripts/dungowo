@@ -1,0 +1,27 @@
+command /slayerconfirm <player> <number> <number>:
+	permission: op
+	trigger:
+		set {_level} to arg-3
+		set {_player} to arg-1
+		open virtual chest inventory with size 4 named "Confirm" to arg-1
+		format gui slot (integers between 0 and 35) of arg-1 with {Menu-Panes}
+		format gui slot 31 of arg-1 with {Menu-Close} to close
+		format gui slot 30 of arg-1 with arrow named "&aGo Back" with lore "&7Return to previous page." and "&7" and "&eClick to go back!" to close:
+			wait 1 tick
+			make console execute command "/slayermenu %{_player}%"
+		format gui slot 15 of arg-1 with red terracotta named "&cCancel" with lore "&eClick to close this menu!" to close
+			
+		if {_abz} is not true:
+			if arg-2 is equal to 1:
+				format gui slot 11 of arg-1 with lime terracotta named "&aConfirm" with lore "&7Kill Zombies to spawn the boss!" and "&7" and "&eClick to start quest!" to close:
+					make console execute command "/slayerstart %{_player}% 1 %{_level}%"
+			if arg-2 is equal to 2:
+				format gui slot 11 of arg-1 with lime terracotta named "&aConfirm" with lore "&7Kill Spiders to spawn the boss!" and "&7" and "&eClick to start quest!" to close:
+					make console execute command "/slayerstart %{_player}% 2 %{_level}%"
+			if arg-2 is equal to 3:
+				format gui slot 11 of arg-1 with lime terracotta named "&aConfirm" with lore "&7Kill Wolfs to spawn the boss!" and "&7" and "&eClick to start quest!" to close:
+					make console execute command "/slayerstart %{_player}% 3 %{_level}%"
+			if arg-2 is equal to 4:
+				format gui slot 11 of arg-1 with lime terracotta named "&aConfirm" with lore "&7Kill Endermans to spawn the boss!" and "&7" and "&eClick to start quest!" to close:
+					make console execute command "/slayerstart %{_player}% 4 %{_level}%"
+				

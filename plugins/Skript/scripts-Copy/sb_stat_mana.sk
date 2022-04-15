@@ -1,0 +1,102 @@
+function SB_ItemManaCost(p: player, t: number, u: text):
+	# t= "R" for RIGHT_CLICK or else
+	set {_pU} to {_p}'s uuid
+	set {_i} to tag "ITEM_ID" of {_p}'s tool's nbt
+	set {_r} to 1
+	if "%{_p}'s tool's lore%" contains "&d&lUltimate Wise V":
+		set {_r} to 2
+	if {ManaCost.%{_pU}%::%{_i}%::%{_u}%} is not set:
+		set {_m} to {_t}
+	else:
+		set {_m} to {ManaCost.%{_pU}%::%{_i}%::%{_u}%}
+	if {SB-TrainingArea.%{_pU}%} is set:
+		set {_m} to {_m}*2
+	if {Mana.%{_pU}%} is higher than (({_m}/{_r})-0.1):
+		set {ManaCost.%{_pU}%} to {_m}
+		set {ManaCost.%{_pU}%::%{_i}%::%{_u}%} to {_m}
+		remove ({ManaCost.%{_pU}%::%{_i}%::%{_u}%}/{_r}) from {Mana.%{_pU}%}
+		set {SB-ItemAble.%{_pU}%} to true
+		wait 1 tick
+		delete {SB-ItemAble.%{_pU}%}
+		if {ManaCostCurseTick.%{_pU}%::%{_i}%::%{_u}%} is not set:
+			delete {ManaCost.%{_pU}%::*}
+			delete {ManaCost.%{_pU}%}
+	else:
+		NoMana({_p})
+		delete {SB-ItemAble.%{_pU}%}
+		
+		
+function SB_ItemManaCostCurseAdd(p: player, n: number, u: text):
+	set {_i} to tag "ITEM_ID" of {_p}'s tool's nbt
+	set {ManaCost.%{_pU}%::%{_i}%::%{_u}%} to ({_r}+{_n})
+		#(player, 2, 160, "*", "R")
+function SB_ItemManaCostCurse(p: player, n: number, nn: number, t: text, u: text):
+	set {_pU} to {_p}'s uuid
+	set {_i} to tag "ITEM_ID" of {_p}'s tool's nbt
+	set {_nx} to {_n}
+	if {_nn} is not 0:
+		if {ManaCost.%{_pU}%::%{_i}%::%{_u}%} is higher than ({_nn}-0.1):
+			set {_n} to 0
+			set {_nx} to 1
+	if {_t} is "+":
+		set {ManaCost.%{_pU}%::%{_i}%::%{_u}%} to ({ManaCost.%{_pU}%::%{_i}%::%{_u}%}+{_n})
+	if {_t} is "*":
+		set {ManaCost.%{_pU}%::%{_i}%::%{_u}%} to ({ManaCost.%{_pU}%::%{_i}%::%{_u}%}*{_nx})
+	if {ManaCostCurseTick.%{_pU}%::%{_i}%::%{_u}%} is not set:
+		set {ManaCostCurseTick.%{_pU}%::%{_i}%::%{_u}%} to 0
+		while {ManaCostCurseTick.%{_pU}%::%{_i}%::%{_u}%} < 8:
+			set {_r} to {ManaCost.%{_pU}%::%{_i}%::1}
+			add 1 to {ManaCostCurseTick.%{_pU}%::%{_i}%::%{_u}%}
+			wait 0.25 seconds
+			if {ManaCostCurseTick.%{_pU}%::%{_i}%::%{_u}%} is higher than (8-0.1):
+				delete {ManaCostCurseTick.%{_pU}%::%{_i}%::%{_u}%}
+		delete {ManaCost.%{_pU}%::%{_i}%::%{_u}%}
+		delete {ManaCostCurseTick.%{_pU}%::%{_i}%::%{_u}%}
+	else:
+		set {ManaCostCurseTick.%{_pU}%::%{_i}%::%{_u}%} to 0
+		
+function SB_ItemCooldown(p: player, t: number, u: text):
+	set {_pU} to {_p}'s uuid
+	set {_i} to tag "ITEM_ID" of {_p}'s tool's nbt
+	if {ItemCooldown.%{_pU}%::%{_i}%::%{_u}%} is not set:
+		set {ItemCooldown.%{_pU}%::%{_i}%::%{_u}%} to {_t}
+		if {ManaCost.%{_pU}%} is not set:
+			wait 1 tick
+			set {SB-ItemAble.%{_pU}%} to true
+			wait 1 tick
+			delete {SB-ItemAble.%{_pU}%}
+		wait "%{_t}% seconds" parsed as timespan
+		delete {ItemCooldown.%{_pU}%::%{_i}%::%{_u}%}
+	else:
+		if {ItemCooldown.%{_pU}%::%{_i}%::%{_u}%} is higher than 1.9:
+			ItemCD({_p})
+		delete {SB-ItemAble.%{_pU}%}
+		
+command /debugitemable <offline player>:
+	permission: op
+	trigger:
+		set {_pU} to arg-1's uuid
+		delete {ManaCostCurseTick.%{_pU}%::*}
+		delete {ManaCost.%{_pU}%::*}
+		delete {ItemCooldown.%{_pU}%::*}
+		delete {SB-ItemAble.%{_pU}%}
+		delete {ManaCost.%{_pU}%}
+
+function SB_AbilityUsed(p: player, v: text):
+	set {_pU} to {_p}'s uuid
+	set {AbilityUsed.%{_pU}%} to true
+	set {_r} to 1
+	if "%{_p}'s tool's lore%" contains "&d&lUltimate Wise V":
+		set {_r} to 2
+	send action bar "&b-%{ManaCost.%{_pU}%}/{_r}% Mana (&6%{_v}%&b)" to {_p}
+# ==================================
+every second in "world":
+	loop all players:
+		set {_mana} to round(({ManaRegeneration.%UUID of loop-player%}/100)*{Intelligence.%UUID of loop-player%})
+# === CHECK IF NOT FULL OR YES
+		if {mana.%UUID of loop-player%} is higher than ({Intelligence.%UUID of loop-player%}-0.1):
+			set {mana.%UUID of loop-player%} to {Intelligence.%UUID of loop-player%}
+		else:
+			add {_mana} to {mana.%UUID of loop-player%}
+			if {mana.%UUID of loop-player%} is higher than ({Intelligence.%UUID of loop-player%}-0.1):
+				set {mana.%UUID of loop-player%} to {Intelligence.%UUID of loop-player%}

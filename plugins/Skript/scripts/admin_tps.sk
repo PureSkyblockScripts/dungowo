@@ -1,0 +1,9 @@
+command /tpsc <number> <number>:
+	usage: /tpsc <nombre de fois> <espacement>
+	permission:op
+	trigger:
+		set {_s} to arg-2
+		loop arg-1 times:
+			make player execute command "/tps"
+			wait {_s} second
+		

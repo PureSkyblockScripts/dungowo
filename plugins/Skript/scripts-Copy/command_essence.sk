@@ -1,0 +1,15 @@
+command /essence <text> <offline player> [<number>]:
+ permission: op
+ usage: &c/essence <set/add/remove/shop> <joueur> [<valeur>]
+ trigger:
+  if arg-1 is "show":
+   send "&8%arg-2% &7a &d%{essence.%UUID of arg-2%}% &dEssences&7." to player
+  if arg-1 is "set":
+   set {essence.%UUID of arg-2%} to arg-3
+   send "&8[&d!&8] &7Vous avez définit à &d%arg-3% &7à &8%arg-2%" to player
+  if arg-1 is "add":
+   add arg-3 to {essence.%UUID of arg-2%}
+   send "&8[&d!&8] &7Vous avez ajouter &d%arg-3% &7à &8%arg-2%" to player
+  if arg-1 is "remove":
+   remove arg-3 from {essence.%UUID of arg-2%}
+   send "&8[&d!&8] &7Vous avez enlever &d%arg-3% &7à &8%arg-2%" to player

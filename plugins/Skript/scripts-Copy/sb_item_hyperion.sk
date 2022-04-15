@@ -1,0 +1,31 @@
+command /debugblade:
+	trigger:
+		delete {CD-Hyperion.%UUID of player%}
+		delete {CD-Hyperion-WitherShield.%UUID of player%}
+
+on right click with iron sword:
+	if "%lore of player's tool%" contains "&6Wither Impact":
+		SB_ItemManaCost(player, 300, "R")
+		SB_ItemCooldown(player, 0.15, "R")
+		if {SB-ItemAble.%UUID of player%} is true:
+			SB_AbilityUsed(player, "Wither Impact")
+			SB_InstantTransmission(player, 10)
+			playsound(player, "entity.lightning_bolt.impact", 1)
+# ===
+			play 1 of explosion at player's location
+			loop all living entities in radius 8 around player:
+				MakeMagicDamage(player, loop-entity, 100)
+# ===
+			if {CD-Hyperion-WitherShield.%UUID of player%} is not true:
+				set {CD-Hyperion-WitherShield.%UUID of player%} to true
+				WitherShield(player)
+  
+function WitherShield(p: player):
+	set {_u} to {_p}'s uuid
+	set {_WitherHeal.%{_u}%} to ({crit.%{_u}%} * 1.5)
+	set {Absorption-Time.%{_u}%} to 5
+	set {Absorption.%{_u}%} to {_WitherHeal.%{_u}%}
+	wait 5 seconds
+	add {Absorption.%{_u}%} to {health.%{_u}%}
+	delete {CD-Hyperion-WitherShield.%{_u}%}
+ 

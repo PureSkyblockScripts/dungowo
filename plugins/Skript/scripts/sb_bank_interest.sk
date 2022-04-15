@@ -1,0 +1,38 @@
+every 60 seconds in "world":
+	loop all players:
+		if loop-player is a player:
+			set {Bank-Interest-Price.%UUID of loop-player%} to 0
+			if {coins.%UUID of loop-player%} is higher than 9999999.9:
+				set {Bank-Interest-Interest.%UUID of loop-player%} to {coins.%UUID of loop-player%}
+				if {Bank-Interest-Interest.%UUID of loop-player%} is higher than 14999999.9:
+					set {Bank-Interest-Interest.%UUID of loop-player%} to 15000000
+				add 200000 to {Bank-Interest-Price.%UUID of loop-player%}
+				remove 10000000 from {Bank-Interest-Interest.%UUID of loop-player%}
+
+				if {Bank-Interest-Interest.%UUID of loop-player%} is higher than 0:
+					add ({Bank-Interest-Interest.%UUID of loop-player%} * 0.01) to {Bank-Interest-Price.%UUID of loop-player%}
+
+# =============
+
+	add 1 to {Bank-Interest-Minute}
+		
+	if {Bank-Interest-Minute} is higher than 59:
+		set {Bank-Interest-Minute} to 0
+		add 1 to {Bank-Interest-Hour}
+	
+	if {Bank-Interest-Hour} is higher than 3:
+		set {Bank-Interest-Hour} to 0
+		set {Bank-Interest-Minute} to 0
+		make console execute command "/interest"
+	
+# ================
+
+command /interest:
+	permission: op
+	trigger:
+		loop all players:
+			if loop-player is a player:
+				if {coins.%UUID of loop-player%} is higher than 9999999.9:
+					add {Bank-Interest-Price.%UUID of loop-player%} to {coins.%UUID of loop-player%}
+					send "&b&lINTÊRETS! &aVotre banque a obtenu &6%{Bank-Interest-Price.%UUID of loop-player%}% &6Pièces &agrâce à l'intêret de la banque." to loop-player
+					play sound "entity.player.levelup" at loop-player for loop-player

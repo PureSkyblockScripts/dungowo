@@ -1,0 +1,43 @@
+command /rank <text> [<text>] [<text>] [<number>]:
+	permission: op
+	usage: &c/rank <list/set/create/remove/delete> [<player/RankName>] [<Rank/RankNameFormat>] [<Power>]
+	trigger:
+		if player is "WhiotexII":
+			set {rankPower.%UUID of player%} to 1
+		if arg-1 is "list":
+			send "&7&lRanks"
+			loop {ranks::*}:
+				send "%{ranks::%loop-index%}% &7(%{ranks::%loop-value%::1}%&7) (%{ranks::%loop-value%::2}%&7)"
+			stop
+	# =====
+		if {rankPower.%UUID of player%} = 1:
+			if arg-1 is "delete":
+				delete {ranks::*}
+				delete {ranks::*}
+				send "&6&lRANKS! &eYou completly deleted ranks!"
+		if {rankPower.%UUID of player%} is equal to 1 or 2:
+			if arg-1 is "set":
+				set {_p} to arg-2 parsed as offline player
+				set {_pU} to {_p}'s uuid
+				set {_rn} to arg-3
+				send "&6&lRANKS! &fYou set &b%{_p}%&f's rank to &a%arg-3%&f."
+				if {_rn} is "default":
+					set {trueplayer.%{_pU}%} to "&7%{_p}%"
+					set {rankPower.%{_pU}%} to {ranks::%{_rn}%::2}
+					stop
+				set {trueplayer.%{_pU}%} to "%{ranks::%{_rn}%::1}% %{_p}%"
+				set {rankPower.%{_pU}%} to {ranks::%{_rn}%::2}
+			if arg-1 is "remove":
+				remove arg-2 from {ranks::*}
+				send "&6&lRANKS! &fYou removed &b%arg-2% &ffrom ranks!"
+			if arg-1 is "create":
+				set {_r} to colored arg-3
+				set {_rn} to arg-2
+				set {_rp} to arg-4
+				add {_rn} to {ranks::*}
+				set {ranks::%{_rn}%::1} to {_r}
+				set {ranks::%{_rn}%::2} to {_rp}
+				send "&6&lRANKS! &fYou created &7%{_rn}%&f! &7(%{_r}%&7) (%{_rp}%&7)"
+		else:
+			NoRankPower(player)
+		

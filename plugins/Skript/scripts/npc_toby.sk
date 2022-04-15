@@ -1,0 +1,135 @@
+command /deserttreasure <player> <text> <text> [<number>]:
+	permission: op
+	usage: &c/deserttreasure <joueur> <spend/milestone/found> <set/show> [<valeur>]
+	trigger:
+		if arg-2 is "spend":
+			if arg-3 is "set":
+				set {DesertTreasure-Spend.%UUID of arg-1%} to arg-4
+				send "&6&lTRÉSOR! &fVous avez définit le Dépensé de &b%arg-1% &7à &a%arg-4%&f." to player
+			if arg-3 is "show":
+				send "&6&lTRÉSOR! &b%arg-1% &fest à &a%{DesertTreasure-Spend.%UUID of arg-1%}% &aDépensé(s)&f." to player
+		if arg-2 is "milestone":
+			if arg-3 is "set":
+				set {DesertTreasure-Milestone.%UUID of arg-1%} to arg-4
+				send "&6&lTRÉSOR! &fVous avez définit le Jalon de Trésor de &b%arg-1% &7à &a%arg-4%&f." to player
+			if arg-3 is "show":
+				send "&6&lTRÉSOR! &b%arg-1% &fest &aNv%{DesertTreasure-Milestone.%UUID of arg-1%}% &aJalon de Trésor&f." to player
+			
+		if arg-2 is "found":
+			if arg-3 is "set":
+				set {DesertTreasure-Found.%UUID of arg-1%} to arg-4
+				send "&6&lTRÉSOR! &fVous avez définit le Jalon de Trésor de &b%arg-1% &7à &a%arg-4%&f." to player
+			if arg-3 is "show":
+				send "&6&lTRÉSOR! &b%arg-1% &fa &a%{DesertTreasure-Found.%UUID of arg-1%}% &aTrésor(s) Trouvé(s)&f." to player
+
+on right click on entity:
+	if name of clicked entity is "&7Toby":
+		make console execute command "/npc-toby %player%"
+		play sound "entity.villager.yes" at player for player
+
+command /npc-toby <player>:
+	permission: op
+	trigger:
+		if {DesertTreasure-Milestone.%UUID of arg-1%} is not set:
+			set {DesertTreasure-Milestone.%UUID of arg-1%} to 1
+		if {DesertTreasure-Found.%UUID of arg-1%} is not set:
+			set {DesertTreasure-Found.%UUID of arg-1%} to 0
+		if {DesertTreasure-Spend.%UUID of player%} is not set:
+			set {DesertTreasure-Spend.%UUID of player%} to 0
+
+		if {DesertTreasure-Milestone.%UUID of arg-1%} is equal to 1:
+			set {_DesertTresure-MilestoneText.%UUID of arg-1%} to "I"
+			if {DesertTreasure-Found.%UUID of arg-1%} is higher than 24:
+				set {DesertTreasure-Milestone.%UUID of arg-1%} to 2
+				send "&6&lJALON DE TRÉSOR! &fVous êtes passé &aJalon de Trésor II&f!" to arg-1
+				play sound "entity.player.levelup" at arg-1 for arg-1
+
+		if {DesertTreasure-Milestone.%UUID of arg-1%} is equal to 2:
+			set {_DesertTresure-MilestoneText.%UUID of arg-1%} to "II"
+			if {DesertTreasure-Found.%UUID of arg-1%} is higher than 74:
+				set {DesertTreasure-Milestone.%UUID of arg-1%} to 3
+				send "&6&lJALON DE TRÉSOR! &fVous êtes passé &9Jalon de Trésor III&f!" to arg-1
+				play sound "entity.player.levelup" at arg-1 for arg-1
+		if {DesertTreasure-Milestone.%UUID of arg-1%} is equal to 3:
+			set {_DesertTresure-MilestoneText.%UUID of arg-1%} to "III"
+			if {DesertTreasure-Found.%UUID of arg-1%} is higher than 199:
+				set {DesertTreasure-Milestone.%UUID of arg-1%} to 4
+				send "&6&lJALON DE TRÉSOR! &fVous êtes passé &5Jalon de Trésor IV&f!" to arg-1
+				play sound "entity.player.levelup" at arg-1 for arg-1
+
+		if {DesertTreasure-Milestone.%UUID of arg-1%} is equal to 4:
+			set {_DesertTresure-MilestoneText.%UUID of arg-1%} to "IV"
+			if {DesertTreasure-Found.%UUID of arg-1%} is higher than 499:
+				set {DesertTreasure-Milestone.%UUID of arg-1%} to 5
+				send "&6&lJALON DE TRÉSOR! &fVous êtes passé &6Jalon de Trésor V&f!" to arg-1
+				play sound "entity.player.levelup" at arg-1 for arg-1
+
+		if {DesertTreasure-Milestone.%UUID of arg-1%} is equal to 5:
+			set {_DesertTresure-MilestoneText.%UUID of arg-1%} to "V"
+
+		open virtual chest inventory with size 6 named "Trésor de Toby" to arg-1
+		format gui slot (integers between 0 and 53) of arg-1 with black stained glass pane named "&0"
+		format gui slot (integers between 45 and 53) of arg-1 with gray stained glass pane named "&0"
+		format gui slot 48 of arg-1 with player head with nbt "{display:{Name:""{\""text\"":\""Gold Chest\""}""},SkullOwner:{Id:[I;2088445020,2026588190,-1123594741,2095845784],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODQ0NDk4YTBmZTI3ODk1NmUzZDA0MTM1ZWY0YjEzNDNkMDU0OGE3ZTIwOGM2MWIxZmI2ZjNiNGRiYzI0MGRhOCJ9fX0=""}]}}}" named "&aJalon de Trésor %{_DesertTresure-MilestoneText.%UUID of arg-1%}%" with lore "&7Trouvez des trésors pour monter en Jalon" and "&7de trésor." and "&7" and "&7Vous avez trouvé &6%{DesertTreasure-Found.%UUID of arg-1%}% &6Trésor(s)&7." and "&7Vous avez déjà dépensé &6%{DesertTreasure-Spend.%UUID of arg-1%}% &6Pièce(s)&7." and "&7" and "&c&lINFO!" and "&7Vous trouverez des objets plus rare en fonction" and "&7de vos tiers de jalon de trésor." and "&7" and "&fJalon de Trésor I &7Minimum 0 Trésor" and "&aJalon de Trésor II &7Minimum 25 Trésors" and "&9Jalon de Trésor III &7Minimum 75 Trésors" and "&5Jalon de Trésor IV &7Minimum 200 Trésors" and "&6Jalon de Trésor V &7Minimum 500 Trésors"
+		format gui slot 49 of arg-1 with barrier named "&cFermer" to close
+		format gui slot 50 of arg-1 with writable book named "&6Parler à Toby" with lore "&7Parler à Toby pour savoir plus sur" and "&7les trésors." and "&7" and "&eCliquez pour parler!" to close:
+			if {NPC-Talk.%UUID of player%} is not true:
+				set {NPC-Talk.%UUID of player%} to true
+				send "&eToby&f: Bonsoir! C'est moi Toby, l'aventurier de cette île." to player
+				play sound "entity.villager.yes" at player for player
+				wait 2 seconds
+				send "&eToby&f: Je propose aux joueurs de rechercher des trésors grâce aux cartes anciennes que j'ai trouvée dans une jungle lointaine!" to player
+				play sound "entity.villager.yes" at player for player
+				wait 4 seconds
+				send "&eToby&f: Dans ces trésors des surprises vous attends! &7&oFIN." to player
+				play sound "entity.villager.yes" at player for player
+				set {NPC-Talk.%UUID of player%} to false
+				stop
+				
+		set {_DesertTreasure-Price.%UUID of arg-1%} to (500 * {DesertTreasure-Milestone.%UUID of arg-1%})
+		if {DesertTreasure-Start.%UUID of arg-1%} is not true:
+			format gui slot 10 of arg-1 with filled map named "&aChercher un trésor" with lore "&7Aller à la recherche d'un trésor. Le prix d'une carte" and "&7dépend de votre Jalon de Trésor." and "&7" and "&7Coûte" and "&6%{_DesertTreasure-Price.%UUID of arg-1%}% &6Pièces" and "&7" and "&eCliquez pour commencer!" to close:
+				if {purse.%UUID of player%} is higher than ({_DesertTreasure-Price.%UUID of player%} - 0.1):
+					remove {_DesertTreasure-Price.%UUID of player%} from {purse.%UUID of player%}
+					add {_DesertTreasure-Price.%UUID of player%} to {DesertTreasure-Spend.%UUID of player%}
+					play sound "entity.player.levelup" at player for player
+					set {DesertTreasure-Start.%UUID of player%} to true
+					make console execute command "/deserttreasure-map %player%"
+					stop
+				else:
+					send "&cVous n'avez pas assez de pièce." to player
+					play sound "entity.villager.no" at player for player
+					stop
+		else:
+			format gui slot 10 of arg-1 with {Storage-NPC-Toby-Cancel} to close:
+				delete {DesertTreasure-Start.%UUID of player%}
+				delete {DesertTreasure-Loc.%UUID of player%}
+				delete {DesertTreasure-XYZ.%UUID of player%}
+				send "&c&lTRÉSOR! &fVous avez abandonner la recherche du trésor." to player
+				play sound "ui.button.click" at player for player
+				stop
+				
+		format gui slot 28 of arg-1 with {Storage-NPC-Toby-Info}
+		
+		format gui slot 12 of arg-1 with {Storage-NPC-Toby-Menu-TrésorVide}
+		format gui slot 13 of arg-1 with gold nugget named "&6Pièces" with lore "&7Récupérer des pièces en fonction de votre" and "&7Jalon de trésor." and "&7" and "&7Trouvez entre &6100-%250 * ({DesertTreasure-Milestone.%UUID of arg-1%} * {DesertTreasure-Milestone.%UUID of arg-1%})% &6Pièces&7." and "&7" and "&7Chance: &8Intermédiaire" and "&7Jalon Minimum: &f&lCOMMUN"
+		format gui slot 14 of arg-1 with light blue dye named "&bEXP Compétence de Combat" with lore "&7Récupérer des EXPs en fonction de votre" and "&7Jalon de trésor." and "&7" and "&7Trouvez entre &b10-%25 * ({DesertTreasure-Milestone.%UUID of arg-1%} * {DesertTreasure-Milestone.%UUID of arg-1%})% &bEXP Combat&7." and "&7" and "&7Chance: &8Intermédiaire" and "&7Jalon Minimum: &f&lCOMMUN"
+		format gui slot 15 of arg-1 with {Storage-NPC-Toby-Menu-FlècheDeSilex}
+		if {DesertTreasure-Milestone.%UUID of arg-1%} is higher than 1:
+			format gui slot 16 of arg-1 with {Storage-NPC-Toby-Menu-FèvesDeCacaoEnchanté}
+			format gui slot 21 of arg-1 with {Storage-NPC-Toby-Menu-CitrouilleEnchanté}
+			format gui slot 22 of arg-1 with {Storage-NPC-Toby-Menu-LingotDOrEnchanté}
+			format gui slot 23 of arg-1 with {Storage-NPC-Toby-Menu-TalismanDAventurier}
+			format gui slot 24 of arg-1 with {Storage-NPC-Toby-Menu-PoussièreDeSable}
+		else:
+			format gui slot 16 and (integers between 21 and 24) of arg-1 with gray dye named "&cVous n'êtes pas Jalon de Trésor II."
+		if {DesertTreasure-Milestone.%UUID of arg-1%} is higher than 2:
+			format gui slot 25 of arg-1 with {Storage-NPC-Toby-Menu-CoquilleDeSable}
+			format gui slot 30 of arg-1 with {Storage-NPC-Toby-Menu-PoussièreDeSableEnchanté}
+			format gui slot 31 of arg-1 with {Storage-NPC-Toby-Menu-BlocDeChampignonRougeEnchanté}
+		else:
+			format gui slot 25 and (integers between 30 and 31) of arg-1 with gray dye named "&cVous n'êtes pas Jalon de Trésor III."
+		format gui slot (integers between 32 and 34) of arg-1 with dead bush named "&cIndisponible Jalon de Trésor IV & V."
+		
+		format gui slot 47 of arg-1 with crafting table named "&aRecette de Désert Paradisiaque" with lore "&7Consultez les recettes disponibles sur le" and "&7thème de Désert Paradisiaque." and "&7" and "&7Vous retrouverez des recettes disponibles" and "&7avec les butins des trésors." and "&7" and "&eCliquez pour consulter!" to close:
+			make console execute command "/menurecipe-special-désertparadisiaque %player%"

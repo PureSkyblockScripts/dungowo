@@ -1,0 +1,177 @@
+command /sb-craft:
+	trigger:
+		open virtual chest inventory with size 6 named "Crafting Table" to player
+		SB_MenuFormat_CraftingTable(player)
+		
+command /sb-viewrecipe <text>:
+	usage: &c/viewrecipe <itemtype>
+	trigger:
+		SB_Menu_Viewrecipe(player, arg-1)
+	
+function SB_Menu_Viewrecipe(p: player, i: text):
+	loop {Recipes::*}:
+		loop {Recipes::%loop-value-1%::*}:
+			if loop-value-2 is "%{_i}%":
+				open virtual chest inventory with size 6 named "Viewrecipe" to {_p}
+				SB_MenuFormat_CraftingTable({_p})
+				set {_v} to 1
+				set {_vv} to 10
+				loop 3 times:
+					loop 3 times:
+						format gui slot {_vv} of {_p} with {Recipes::%loop-value-1%::%{_i}%::%{_v}%}
+						add 1 to {_v}
+						add 1 to {_vv}
+					add 6 to {_vv}
+				format gui slot 23 of {_p} with {Terminal-Items::%{_i}%::1}
+				format gui slot 32 of {_p} with crafting table named "&6Crafting Table" with lore "&7Go quickly to crafting table!" and "&7" and "&eClick to open!" to run:
+					make player execute command "/sb-craft"
+				format gui slot (integers between 45 and 47) and (integers between 51 and 53) of {_p} with orange stained glass pane named "&f "
+				stop
+	stop
+		
+on inventory close:
+	if name of player's current inventory is "Crafting Table":
+		delete {RecipeCraftedCost.%UUID of player%::*}
+		set slot 23 of player's current inventory to air
+		loop all items in player's current inventory:
+			if loop-item is not air:
+				if name of loop-item is not "&cClose" or "&aGo Back" or "&f " or "&aRecipe Book":
+					if player has space for loop-item:
+						give loop-item to player
+					else:
+						SB_MovedToPickupstash(player, loop-item)
+		
+on inventory click:
+	if name of player's current inventory is "Crafting Table":
+		set {_i} to item
+		if {_i} is barrier:
+			cancel event
+			stop
+		wait 1 tick
+		format gui slot (integers between 45 and 47) and (integers between 50 and 53) of player with red stained glass pane named "&f "
+		set slot 23 of player's current inventory to barrier named "&f "
+		set {_v} to 1
+		set {_vv} to 10
+		loop 3 times:
+			loop 3 times:
+				add slot {_vv} of player's current inventory to {_sc::*}
+				add 1 to {_vv}
+			add 6 to {_vv}
+		loop {Recipes::*}:
+			loop {Recipes::%loop-value-1%::*}:
+				loop {Recipes::%loop-value-1%::%loop-value-2%::*}:
+					set {_slot%loop-index-3%} to loop-value-3
+				loop 9 times:
+					add 1 to {_y}
+					if name of {_sc::%{_y}%} contains name of {_slot%{_y}%}:
+						if (item amount of {_sc::%{_y}%}) is higher than (item amount of {_slot%{_y}%})-0.1:
+							add 1 to {_z}
+					else:
+						if {_sc::%{_y}%} is {_slot%{_y}%}:
+							add 1 to {_z}
+						else:
+							continue
+				if {_z} is 9:
+					format gui slot 23 of player with {Terminal-Items::%loop-value-2%::1}
+					format gui slot (integers between 45 and 47) and (integers between 50 and 53) of player with lime stained glass pane named "&f "
+					loop 9 times:
+						add 1 to {_yy}
+						set {RecipeCraftedCost.%UUID of player%::%{_yy}%} to (item amount of {_slot%{_yy}%})
+				delete {_z}
+				delete {_y}
+
+# ===========
+		if clicked inventory is player's current inventory:
+			if clicked slot is 23:
+				if slot 45 of player's current inventory is lime stained glass pane named "&f ":
+					if player's cursor slot is air:
+						if {abc} is not true:
+							set slot 23 of player's current inventory to barrier named "&f "
+							set {_xv} to 1
+							set {_xvv} to 10
+							loop 3 times:
+								loop 3 times:
+									set {_si} to slot {_xvv} of player's current inventory
+									if {_si} is not air:
+										remove {RecipeCraftedCost.%UUID of player%::%{_xv}%} of {_si} from slot {_xvv} of player's current inventory
+									add 1 to {_xv}
+									add 1 to {_xvv}
+								add 6 to {_xvv}
+							if click type is left mouse button with shift:
+								if player has space for {_i}:
+									give {_i} to player
+							else:
+								set player's cursor slot to {_i}
+
+
+command /sb-recipes <text> [<text>] [<text>]:
+	permission: op
+	usage: &c/sb-recipes <create/remove/delete/list> <subject> [<name>]
+	trigger:
+		# EX: {Recipes::Farming::HEAL_STICK::*}
+		# * stands for materials
+		if {RankPower.%UUID of player%} is not 1 or 2:
+			if arg-1 is "remove" or "delete" or "create":
+				NoRankPower(player)
+				stop
+		if arg-1 is "remove":
+			delete {Recipes::%arg-2%::%arg-3%::*}
+			remove arg-3 from {Recipes::%arg-2%::*}
+			set {Recipes::%arg-2%::*} to {Recipes::%arg-2%::*}
+			send "&6&lRECIPES! &7You removed &a'%arg-3%&7' from recipes!"
+		if arg-1 is "delete":
+			delete {Recipes::*}
+			send "&cDELETED!"
+		if arg-1 is "create":
+			if arg-2 and arg-3 is set:
+				make player execute command "/sb-recipes-create %arg-2% %arg-3%"
+		if arg-1 is "list":
+			send "&6&lRECIPE LIST &7(%arg-2%&7)"
+			if arg-2 is not set:
+				loop {Recipes::*}:
+					send "&8- &7%{Recipes::%loop-index%}%"
+			else:
+				if arg-3 is not set:
+					loop {Recipes::%arg-2%::*}:
+						send "&8- &7%{Recipes::%arg-2%::%loop-index%}%"
+				else:
+					send "&8- &7%{Recipes::%arg-2%::%arg-3%::*}%"
+						
+command /sb-recipes-create <text> <text>:
+	permission: op
+	usage: &c/sb-recipes-create <subject> <name>
+	trigger:
+		open virtual chest inventory with size 6 named "Recipe Creator" to player
+		SB_MenuFormat_CraftingTable(player)
+		format gui slot 23 of player with player's tool
+		set {_sub} to arg-1
+		set {_name} to arg-2
+		format gui slot 32 of player with crafting table named "&aCreate Recipe " with lore "&7Will add this recipe to %arg-1%&7!" and "&7" and "&7Name: &b%arg-2%" and "&7" and "&eClick to create!" to run:
+			if {Recipes::*} doesn't contain "%{_sub}%":
+				send "&6&lRECIPE! &eYou created a new subject! &7(&b%{_sub}%&7)"
+				add {_sub} to {Recipes::*}
+			if {Recipes::%{_sub}%::*} contains "%{_name}%":
+				send "&6&lRECIPE! &7You replaced '&a%{_name}%&7' recipe!"
+				remove {_name} from {Recipes::%{_sub}%::*}
+			add {_name} to {Recipes::%{_sub}%::*}
+			set {_v} to 1
+			set {_vv} to 10
+			loop 3 times:
+				loop 3 times:
+					set {Recipes::%{_sub}%::%{_name}%::%{_v}%} to slot ({_vv}) of player's current inventory
+					add 1 to {_v}
+					add 1 to {_vv}
+				add 6 to {_vv}
+			send "&6&lRECIPES! &7You created '&a%{_name}%&7' &7(&b%{_sub}%&7)&7! &eWith: %{Recipes::%{_sub}%::%{_name}%::*}%" to player
+
+function SB_MenuFormat_CraftingTable(p: player):
+	set {_pU} to {_p}'s uuid
+	format gui slot (integers between 0 and 9) and (integers between 13 and 18) and (integers between 22 and 27) and (integers between 31 and 53) of {_p} with {Menu-Panes}
+	format gui slot 23 of {_p} with barrier named "&f "
+	format gui slot 16 and 25 and 34 of {_p} with gray stained glass pane named "&f "
+	format gui slot (integers between 45 and 53) of {_p} with red stained glass pane named "&f "
+	format gui slot 49 of {_p} with {Menu-Close} to close
+	format gui slot 48 of {_p} with {Menu-GoBack} to run:
+		make player execute command "/menu"
+	format gui slot 50 of {_p} with book named "&aRecipe Book" with lore "&7Go quickly to your recipe book!" and "&7" and "&eClick to open!" to run:
+		make {_p} execute command "/sb-recipebook"

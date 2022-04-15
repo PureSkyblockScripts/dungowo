@@ -1,0 +1,7 @@
+config-version: 4
+settings:
+  disable-saving: false
+  locale: en_US
+toggles:
+  silent-chest:
+    00181610-90db-4e23-88b0-8e37049bd2d7: false

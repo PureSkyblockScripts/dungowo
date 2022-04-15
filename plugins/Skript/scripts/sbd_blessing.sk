@@ -1,0 +1,72 @@
+function SBD_Blessing(t: text, b: text, l: number):
+	if {_t} is "remove":
+		loop {DungeonParty::*}:
+			set {_p} to loop-value
+			set {_p} to {_p} parsed as player
+			set {_pU} to {_p}'s uuid
+			send "&7Your Dungeon Blessings has been removed." to {_p}
+			set {_s1} to "MaxHealth"
+			set {_s2} to "Defense"
+			loop 3 times:
+				remove {SBD-Blessing-Stat-%{_s1}%.%{_pU}%} from {%{_s1}%.%{_pU}%}
+				delete {SBD-Blessing-Stat-%{_s1}%.%{_pU}%}
+				remove {SBD-Blessing-Stat-%{_s2}%.%{_pU}%} from {%{_s2}%.%{_pU}%}
+				delete {SBD-Blessing-Stat-%{_s2}%.%{_pU}%}
+				if {_s1} is "Strength":
+					set {_s1} to "Speed"
+					set {_s2} to "Intelligence"
+				if {_s1} is "MaxHealth":
+					set {_s1} to "Strength"
+					set {_s2} to "CritDamage"
+			
+			
+	if {_t} is "give":
+		if {_b} is "RANDOM":
+			set {_rdm} to random integer between 1 and 4
+		else:
+			if {_b} is "LIFE":
+				set {_rdm} to 1
+			if {_b} is "POWER":
+				set {_rdm} to 3
+			if {_b} is "WISDOM":
+				set {_rdm} to 4
+		if {_l} is 0:
+			set {_l} to random integer between 1 and 5
+		if {_rdm} is 1 or 2:
+			set {_name} to "Life"
+			set {_s1} to "MaxHealth"
+			set {_sn1} to "&c❤ &cHealth"
+			set {_sp1} to 0.03
+			set {_s2} to "Defense"
+			set {_sn2} to "&a❈ &aDefense"
+			set {_sp2} to 0.02
+		if {_rdm} is 3:
+			set {_name} to "Power"
+			set {_s1} to "CritDamage"
+			set {_sn1} to "&9☠ &9Crit Damage"
+			set {_sp1} to 0.02
+			set {_s2} to "Strength"
+			set {_sn2} to "&c❁ &cStrength"
+			set {_sp2} to 0.02
+		if {_rdm} is 4:
+			set {_name} to "Wisdom"
+			set {_s1} to "Intelligence"
+			set {_sn1} to "&b✎ &bIntelligence"
+			set {_sp1} to 0.02
+			set {_s2} to "Speed"
+			set {_sn2} to "&f✦ &fSpeed"
+			set {_sp2} to 0.02
+		loop {DungeonParty::*}:
+			set {_p} to loop-value
+			set {_p} to {_p} parsed as player
+			set {_pU} to {_p}'s uuid
+			
+			set {_ss1} to ({_sp1}*{_l})*{%{_s1}%.%{_pU}%}
+			set {_ss2} to ({_sp2}*{_l})*{%{_s2}%.%{_pU}%}
+			send "&6&lDUNGEON BUFF! &fFound a &dBlessing of %{_name}% &d%{_l}%&f!" to loop-value
+			send "&7  Granted you &a%{_ss1}% &a%{_sn1}% &7and &a%{_ss2}% &a%{_sn2}%&7." to loop-value
+			add {_ss1} to {%{_s1}%.%{_pU}%}
+			add {_ss2} to {%{_s2}%.%{_pU}%}
+			add {_ss1} to {SBD-Blessing-Stat-%{_s1}%.%{_pU}%}
+			add {_ss2} to {SBD-Blessing-Stat-%{_s2}%.%{_pU}%}
+			set {Health.%{_pU}%} to {MaxHealth.%{_pU}%}

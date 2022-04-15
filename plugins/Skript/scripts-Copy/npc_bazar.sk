@@ -1,0 +1,13 @@
+on right click on entity:
+	if name of clicked entity is "&7Bazar":
+		if {abc} is not true:
+			if {abc} is not true:
+				if {Farming.%UUID of player%} is higher than 2:
+					if {Mining.%UUID of player%} is higher than 2:
+						if {Combat.%UUID of player%} is higher than 2:
+							if {abc} is not true:
+								make console execute command "/bazar-farming %player%"
+					else:
+						send "&cVous devez être minimum Agriculture III, Minier III et Combat III pour accéder au bazar." to player
+				else:
+					send "&cVous devez être minimum Agriculture III, Minier III et Combat III pour accéder au bazar." to player

@@ -1,0 +1,123 @@
+command /testblock:
+	permission: op
+	trigger:
+		send "%player's targeted block%" to player
+
+on break:
+ if {_abc} is true:
+  if {IslandBuild.%UUID of player%} is not true:
+   if {DesertTreasure-Loc.%UUID of player%} is not set:
+
+# =====================================================
+# ======================= FARM ========================
+# =====================================================
+
+    if event-block is sugar cane:
+     set {farm-sugarCane.%UUID of player%} to random integer between 1 and 1
+     drop {farm-sugarCane.%UUID of player%} of {Storage-Item-CanneàSucre} at event-block's location
+     add {farm-sugarCane.%UUId of player%} to {Collection-SugarCane-Collected.%UUID of player%}
+     if block 2 meters above event-block = sugar cane:
+      set {_SugarCaneAboveAboveSugarCane} to true
+      set block 2 meters above event-block to air
+      drop {farm-sugarCane.%UUID of player%} of {Storage-Item-CanneàSucre} at event-block's location
+      add {farm-sugarCane.%UUId of player%} to {Collection-SugarCane-Collected.%UUID of player%}
+     if block above event-block is sugar cane:
+      set block above event-block to air
+      set {_SugarCaneAboveSugarCane} to true
+      drop {farm-sugarCane.%UUID of player%} of {Storage-Item-CanneàSucre} at event-block's location
+      add {farm-sugarCane.%UUId of player%} to {Collection-SugarCane-Collected.%UUID of player%}
+     set event-block to air
+     wait 20 seconds
+     set event-block to sugar cane
+     if {_SugarCaneAboveSugarCane} is true:
+      set block above event-block to sugar cane
+      if {_SugarCaneAboveAboveSugarCane} is true:
+       set block 2 meters above event-block to sugar cane
+
+    if event-block is cactus:
+     set {farm-cactus.%UUID of player%} to random integer between 1 and 1
+     drop {farm-cactus.%UUID of player%} of {Storage-Item-Cactus} at event-block's location
+     add {farm-cactus.%UUId of player%} to {Collection-Cactus-Collected.%UUID of player%}
+     if block 2 meters above event-block = cactus:
+      set {_CactusAboveAboveCactus} to true
+      set block 2 meters above event-block to air
+      drop {farm-cactus.%UUID of player%} of {Storage-Item-Cactus} at event-block's location
+      add {farm-cactus.%UUId of player%} to {Collection-Cactus-Collected.%UUID of player%}
+     if block above event-block is cactus:
+      set block above event-block to air
+      set {_CactusAboveCactus} to true
+      drop {farm-cactus.%UUID of player%} of {Storage-Item-Cactus} at event-block's location
+      add {farm-cactus.%UUId of player%} to {Collection-Cactus-Collected.%UUID of player%}
+     set event-block to air
+     wait 20 seconds
+     set event-block to cactus
+     if {_CactusAboveCactus} is true:
+      set block above event-block to cactus
+      if {_CactusAboveAboveCactus} is true:
+       set block 2 meters above event-block to cactus
+
+on break:
+	if player's gamemode is not creative:
+		set {_y} to y coords of player
+		set {_yy} to y coords of event-block
+		set {_b} to type of event-block
+		set {_l} to event-block's location
+		if event-block is not black terracotta:
+			cancel event
+			stop
+		loop all players in radius 2 of event-block:
+			if loop-player is a player:
+				if loop-player is not the player:
+					cancel event
+					stop
+		if event-block is stone or stone bricks or cracked stone bricks or smooth stone or smooth stone:
+			cancel event
+			stop
+		if event-block is a chest or trapped chest or dispenser or dropper or jukebox or hopper or furnace or ender chest or anvil or cauldron or brewing stand:
+			cancel event
+			stop
+		loop all blocks in radius 1 of event-block:
+			if loop-block is sign or carpet or torch or lever or button or pressure plate or tripwire hook:
+				cancel event
+				stop
+		if y coords of player is equal to ({_yy}-1.5): # WALL
+			if event-block is not stairs or black terracotta or iron bars:
+				cancel event
+				stop
+		if y coords of player is equal to ({_yy}+0.5): # FLOOR
+			cancel event
+			stop
+		wait 1.5 tick
+		set block at {_l} to {_b}
+		
+on right click on dispenser or dropper or beacon or crafting table or furnace or jukebox or enchanting table or hopper or daylight detector or end portal frame or enchanting table:
+	cancel event
+on right click on chest or door or trapdoor or ender chest or trapped chest or button:
+	if player is not op:
+		cancel event
+
+on build:
+	if player's gamemode is not creative:
+		cancel event
+
+on vehicle create:
+	if {BuildMode.%UUID of player%} is not true:
+		cancel event
+
+on fade:
+ cancel event
+
+on tame:
+ cancel event
+
+on physics:
+ if block is a farmland or vine or weeping vines:
+  cancel event
+
+on spread:
+ if event-block is vine or weeping vines:
+  cancel event
+  
+on ignition:
+	if entity is not a player:
+		cancel event

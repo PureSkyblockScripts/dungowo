@@ -1,0 +1,501 @@
+command /reset8:
+	permission: op
+	trigger:
+		execute console command "/kill @e[type=iron_golem]"
+		execute console command "/kill @e[type=giant]"
+		execute console command "/kill @e[type=husk]"
+		delete {giantcounter}
+		# BLUE
+		set block at the location (-74, 100, 251) of the world "world" to air
+		
+		# RED
+		set block at the location (-21, 100, 304) of the world "world" to air
+		
+		# PURPLE
+		set block at the location (-74, 100, 358) of the world "world" to air
+		
+		# GREEN
+		set block at the location (-127, 100, 304) of the world "world" to air
+		wait 8 seconds
+		set block at the location (-11, 107, 239) of the world "world" to redstone block
+		execute console command "/kill @e[type=ender_dragon]"
+	
+		send "&c&lRESET FLOOR 8" to player
+		
+command /start8:
+	permission: op
+	trigger:
+		delete {DungeonParty::*}
+		loop all players:
+			if loop-player is a player:
+				if {defense.%UUID of player%} is set:
+					add loop-player to {DungeonParty::*}
+		SB_Dungeon_Floor8_Start()
+		
+function SB_Dungeon_Floor8_Start():
+	if {abz} is not set:
+		loop all living entities:
+			if loop-entity is an armor stand:
+				if name of loop-entity is "&6SPAWN-TERRACOTTA":
+					spawn a husk at loop-entity's location
+					set {_e} to the spawned entity
+					set name of {_e} to "&6Terracotta"
+					apply resistance 250 without particles to {_e} for 9999 seconds
+					apply speed 2 without particles to {_e} for 9999 seconds
+					add "{NoAI:1b}" to nbt of {_e}
+		set {_v} to "1"
+		set {_t} to "&4[BOSS] &4&kUUUUUU&c:"
+		
+		loop all living entities:
+			if loop-entity is an armor stand:
+				if name of loop-entity is "&6SPAWN-GIANT1":
+					spawn a giant at loop-entity's location
+					set {_e} to the spawned entity
+					set name of {_e} to "&2Healthy Giant" 
+					apply resistance 250 without particles to {_e} for 9999 seconds
+					apply speed 2 without particles to {_e} for 9999 seconds
+					add "{NoAI:1b}" to nbt of {_e}
+		
+		loop all living entities:
+			if name of loop-entity is "&2Healthy Giant":
+				spawn a giant at loop-entity's location
+				set {_hg} to the spawned entity
+				set name of {_hg} to "&2Healthy Giant"
+				set {_hgU} to {_hg}'s uuid
+				set {Mob-God.%{_hgU}%} to true
+				set {health.%{_hgU}%} to 2000000000
+				set {Mob-Defense.%{_hgU}%} to 300
+				apply resistance 250 without particles to {_hg} for 9999 seconds
+				add "{Attributes:[{Name:""generic.follow_range"",Base:320f}]}" to nbt of {_hg}
+				add "{NoAI:1b}" to nbt of {_hg}
+				delete loop-entity
+				
+		wait 1 seconds
+		loop all living entities:
+			if loop-entity is an armor stand:
+				if name of loop-entity is "&6SPAWN-GIANT2":
+					spawn a giant at loop-entity's location
+					set {_e} to the spawned entity
+					set name of {_e} to "&9Stormy Giant" 
+					apply resistance 250 without particles to {_e} for 9999 seconds
+					apply speed 2 without particles to {_e} for 9999 seconds
+					add "{NoAI:1b}" to nbt of {_e}
+
+		loop all living entities:
+			if name of loop-entity is "&9Stormy Giant":
+				spawn a giant at loop-entity's location
+				set {_sg} to the spawned entity
+				set name of {_sg} to "&9Stormy Giant"
+				set {_sgU} to {_sg}'s uuid
+				set {Mob-God.%{_sgU}%} to true
+				set {health.%{_sgU}%} to 1000000000
+				set {Mob-Defense.%{_sgU}%} to 300
+				apply resistance 250 without particles to {_sg} for 9999 seconds
+				add "{Attributes:[{Name:""generic.follow_range"",Base:320f}]}" to nbt of {_sg}
+				add "{NoAI:1b}" to nbt of {_sg}
+				delete loop-entity
+				
+		wait 1 seconds
+		loop all living entities:
+			if loop-entity is an armor stand:
+				if name of loop-entity is "&6SPAWN-GIANT3":
+					spawn a giant at loop-entity's location
+					set {_e} to the spawned entity
+					set name of {_e} to "&cFlaming Giant" 
+					apply resistance 250 without particles to {_e} for 9999 seconds
+					apply speed 2 without particles to {_e} for 9999 seconds
+					add "{NoAI:1b}" to nbt of {_e}
+		
+		loop all living entities:
+			if name of loop-entity is "&cFlaming Giant":
+				spawn a giant at loop-entity's location
+				set {_fg} to the spawned entity
+				set name of {_fg} to "&cFlaming Giant"
+				set {_fgU} to {_fg}'s uuid
+				set {Mob-God.%{_fgU}%} to true
+				set {health.%{_fgU}%} to 1000000000
+				set {Mob-Defense.%{_fgU}%} to 300
+				apply resistance 250 without particles to {_fg} for 9999 seconds
+				add "{Attributes:[{Name:""generic.follow_range"",Base:320f}]}" to nbt of {_fg}
+				add "{NoAI:1b}" to nbt of {_fg}
+				delete loop-entity
+				
+		wait 1 seconds
+		loop all living entities:
+			if loop-entity is an armor stand:
+				if name of loop-entity is "&6SPAWN-GIANT4":
+					spawn a giant at loop-entity's location
+					set {_e} to the spawned entity
+					set name of {_e} to "&7Fortified Giant" 
+					apply resistance 250 without particles to {_e} for 9999 seconds
+					apply speed 2 without particles to {_e} for 9999 seconds
+					add "{NoAI:1b}" to nbt of {_e}
+		
+		loop all living entities:
+			if name of loop-entity is "&7Fortified Giant":
+				spawn a giant at loop-entity's location
+				set {_ffg} to the spawned entity
+				set name of {_ffg} to "&7Fortified Giant"
+				set {_ffgU} to {_ffg}'s uuid
+				set {Mob-God.%{_ffgU}%} to true
+				set {health.%{_ffgU}%} to 1000000000
+				set {Mob-Defense.%{_ffgU}%} to 450
+				apply resistance 250 without particles to {_ffg} for 9999 seconds
+				add "{Attributes:[{Name:""generic.follow_range"",Base:320f}]}" to nbt of {_ffg}
+				add "{NoAI:1b}" to nbt of {_ffg}
+				delete loop-entity
+		
+		
+		
+		send "%{_t}% &cYour life will end faster than you think." to players
+		wait 2 second
+		send "%{_t}% &cPrepair to fight with my army." to players
+		
+		
+		set {Floor8-Phase} to 1
+		loop all living entities:
+			if loop-entity is a husk:
+				spawn a husk at loop-entity's location
+				set {_a} to the spawned entity
+				set name of {_a} to "&6Terracotta"
+				set {_aU} to {_a}'s uuid
+				set {God.%{_aU}%} to false
+				set {health.%{_aU}%} to 24000000
+				set {Mob-Defense.%{_aU}%} to 100
+				apply resistance 250 without particles to {_a} for 9999 seconds
+				apply speed 2 without particles to {_a} for 9999 seconds
+				add "{Attributes:[{Name:""generic.follow_range"",Base:320f}]}" to nbt of {_a}
+				loop all players in radius 160 of {_a}:
+					if loop-player's gamemode is survival:
+						if {defense.%UUID of loop-player%} is set:
+							set {_a}'s target to loop-player
+				delete loop-entity
+		wait 5 seconds
+		execute console command "/kill @e[type=husk]"
+		set {_v} to "1"
+		set {_t} to "&4[BOSS] &4&kUUUUUU&c:"
+		send "%{_t}% &cWell, you survived the first round." to players
+		wait 2 seconds
+		send "%{_t}% &cBut what about my bravest soldier?" to players
+		set block at the location (-8, 103, 246) of the world "world" to redstone block
+		wait 2 seconds
+		
+		loop all living entities:
+			if loop-entity is an armor stand:
+				if name of loop-entity is "&6SPAWN-GOLEMBOSS":
+					spawn an iron golem at loop-entity's location
+					set {_e} to the spawned entity
+					set name of {_e} to "&c&lEnergized Golem"
+					apply resistance 250 without particles to {_e} for 9999 seconds
+					apply speed 2 without particles to {_e} for 9999 seconds
+					add "{NoAI:1b}" to nbt of {_e}
+		
+		set {Floor8-Phase} to 2
+		
+		loop all living entities:
+			if loop-entity is an iron golem:
+				spawn an iron golem at loop-entity's location
+				set {_a} to the spawned entity
+				set name of {_a} to "&c&lEnergized Golem"
+				set {_aU} to {_a}'s uuid
+				set {God.%{_aU}%} to false
+				set {health.%{_aU}%} to 500000000
+				set {Mob-Defense.%{_aU}%} to 1000
+				apply resistance 250 without particles to {_a} for 9999 seconds
+				apply speed 2 without particles to {_a} for 9999 seconds
+				add "{Attributes:[{Name:""generic.follow_range"",Base:320f}]}" to nbt of {_a}
+				loop all players in radius 160 of {_a}:
+					if loop-player's gamemode is survival:
+						if {defense.%UUID of loop-player%} is set:
+							set {_a}'s target to loop-player
+				delete loop-entity
+				
+on death of iron golem:
+	if name of victim contains "&c&lEnergized Golem":
+		set {Floor8-Phase} to 3
+		
+		set {_v} to "1"
+		set {_giantcounter} to 0
+		set {_t} to "&4[BOSS] &4&kUUUUUU&c:"
+		send "%{_t}% &cHow???!!." to players
+		wait 1 seconds
+		send "%{_t}% &cI highly underestimated you." to players
+		wait 1 seconds
+		send "%{_t}% &cNow i need to use dark magic to kill you." to players
+		
+		set block at the location (-13, 107, 239) of the world "world" to redstone block
+
+		set block at the location (-15, 107, 239) of the world "world" to redstone block
+
+		set block at the location (-17, 107, 239) of the world "world" to redstone block
+
+		set block at the location (-19, 107, 239) of the world "world" to redstone block
+
+		
+		# ## BUG (EN JEU, TOUS LES KILLS SONT CONSIDérés COMME DOOR4)
+		
+		
+	
+		#	########## A FAIRE : LEVIERS, GODMODE BUGGED + VIE  QUI S'AFFICHE PAS SUR LES GIANTS
+
+
+
+
+
+
+on right click on lever:
+	if {Floor8-Phase} is equal to 3:
+		wait 1 tick
+		loop all blocks in radius 1.1 of event-block:
+			if loop-block is emerald block:
+				set block at the location (16, 103, 276) of the world "world" to redstone block
+				wait 1 seconds
+				set {Mob-God.%{hgU}%} to false
+				send "&2Healthy Giant &ais now vulnerable!"
+			if loop-block is lapis lazuli block:
+				set block at the location (16, 103, 285) of the world "world" to redstone block
+				wait 1 seconds
+				set {Mob-God.%{_sgU}%} to false
+				send "&9Stormy Giant &ais now vulnerable!"
+			if loop-block is red terracotta:
+				set block at the location (16, 103, 295) of the world "world" to redstone block
+				wait 1 seconds
+				set {Mob-God.%{_fgU}%} to false
+				send "&cFlaming Giant &ais now vulnerable!"
+			if loop-block is obsidian:
+				set block at the location (16, 103, 304) of the world "world" to redstone block
+				wait 1 seconds
+				set {Mob-God.%{_ffgU}%} to false
+				send "&7Fortified Giant &ais now vulnerable!"
+		
+on death of giant:
+	if name of victim contains "Fortified Giant" or "Flaming Giant" or "Healthy Giant" or "Stormy Giant":
+		add 1 to {giantcounter}
+		if name of victim contains "Healthy Giant":
+			set block at the location (34, 122, 260) of the world "world" to redstone block
+			set {_t} to "&4[BOSS] &4&kUUUUUU&c:"
+			send "%{_t}% &cWhat?! Your damages are so cracked!" to players
+		if name of victim contains "Stormy Giant":
+			set block at the location (48, 122, 260) of the world "world" to redstone block
+			set {_t} to "&4[BOSS] &4&kUUUUUU&c:"
+			send "%{_t}% &cHow did you manage to survive that??" to players
+		if name of victim contains "Flaming Giant":
+			set block at the location (62, 122, 260) of the world "world" to redstone block
+			set {_t} to "&4[BOSS] &4&kUUUUUU&c:"
+			send "%{_t}% &cI guess this one was not strong enought." to players
+		if name of victim contains "Fortified Giant":
+			set block at the location (76, 122, 260) of the world "world" to redstone block
+			set {_t} to "&4[BOSS] &4&kUUUUUU&c:"
+			send "%{_t}% &cHe was supposed to be tanky..." to players
+
+on death of giant:
+	if name of victim contains "Fortified Giant" or "Flaming Giant" or "Healthy Giant" or "Stormy Giant":
+		if {giantcounter} is equal to 4:
+			wait 1 tick
+			set {_t} to "&4[BOSS] &4Old Dragon&c:"
+			set {Floor8-Phase} to 4
+			send "%{_t}% &cWAIT NO." to players
+			wait 1 seconds
+			send "&7&oThe chain is about to break." to players
+			wait 1 seconds
+			set block at the location (-11, 115, 253) of the world "world" to redstone block
+			wait 3 seconds
+			loop all living entities:
+				if loop-entity is an armor stand:
+					if name of loop-entity is "&6SPAWN-DRAGONBOSS":
+						spawn an ender dragon at loop-entity's location
+						set {_e} to the spawned entity
+						set name of {_e} to "&c&lNew Dragon"
+						apply resistance 250 without particles to {_e} for 9999 seconds
+						apply speed 2 without particles to {_e} for 9999 seconds
+						add "{NoAI:1b}" to nbt of {_e}
+		
+			wait 1 seconds
+			send "%{_t}% &cYou woke up my son, and he is hungry." to players
+			wait 1 seconds
+		
+			loop all living entities:
+				if loop-entity is an ender dragon:
+					spawn an ender dragon at loop-entity's location
+					set {_a} to the spawned entity
+					set name of {_a} to "&c&lNew Dragon"
+					set {_aU} to {_a}'s uuid
+					set {God.%{_aU}%} to false
+					set {health.%{_aU}%} to 1000000000
+					set {Mob-Defense.%{_aU}%} to 1200
+					add "{Attributes:[{Name:""generic.follow_range"",Base:320f}]}" to nbt of {_a}
+					apply resistance 250 without particles to {_a} for 9999 seconds
+					add "{NoAI:1b}" to nbt of {_a}
+					
+					loop all players in radius 160 of {_a}:
+						if loop-player's gamemode is survival:
+							if {defense.%UUID of loop-player%} is set:
+								set {_a}'s target to loop-player
+					delete loop-entity
+					
+			loop all living entities:
+				if loop-entity is an armor stand:
+					if name of loop-entity is "&6SPAWN-SWORD":
+						set {_loc} to loop-entity's location
+						add 2 to y coords of {_loc}
+						SB_SpawnEntity("giant", "✧", {_loc}, "{NoAI:1b,NoGravity:1b,Silent:1b}", {_hp}, 0, 0, 0, 0, 0, 0, "0", 0, 0, 0, air, air, air, air, iron sword, player)
+						set {_e} to the spawned giant
+						apply invisibility 1 without particles to {_e} for 9999 seconds
+						apply resistance 250 without particles to {_e} for 9999 seconds
+						set {_e}'s name to "Dinnerbone"
+						set {_eU} to {_e}'s uuid
+						set {Mob-God.%{_gU}%} to true
+						add "{NoAI:1b}" to nbt of {_e}
+			
+			loop all living entities:
+				if loop-entity is an armor stand:
+					if name of loop-entity is "&6SPAWN-REDSWORD":
+						spawn an iron golem at loop-entity's location
+						set {_rs} to the spawned entity
+						set name of {_rs} to "&c&lRED SWORD"
+						set {_rsU} to {_rs}'s uuid
+						set {God.%{_rsU}%} to false
+						set {health.%{_rsU}%} to 200000000
+						set {Mob-Defense.%{_rsU}%} to 0
+						apply resistance 250 without particles to {_rs} for 9999 seconds
+						apply invisibility 1 without particles to {_rs} for 9999 seconds
+						add "{NoAI:1b}" to nbt of {_rs}
+					
+			loop all living entities:
+				if loop-entity is an armor stand:
+					if name of loop-entity is "&6SPAWN-GREENSWORD":
+						spawn an iron golem at loop-entity's location
+						set {_gs} to the spawned entity
+						set name of {_gs} to "&a&lGREEN SWORD"
+						set {_gsU} to {_gs}'s uuid
+						set {God.%{_gsU}%} to false
+						set {health.%{_gsU}%} to 200000000
+						set {Mob-Defense.%{_gsU}%} to 0
+						apply resistance 250 without particles to {_gs} for 9999 seconds
+						apply invisibility 1 without particles to {_gs} for 9999 seconds
+						add "{NoAI:1b}" to nbt of {_gs}
+					
+			loop all living entities:
+				if loop-entity is an armor stand:
+					if name of loop-entity is "&6SPAWN-BLUESWORD":
+						spawn an iron golem at loop-entity's location
+						set {_bs} to the spawned entity
+						set name of {_bs} to "&9&lBLUE SWORD"
+						set {_bsU} to {_bs}'s uuid
+						set {God.%{_bsU}%} to false
+						set {health.%{_bsU}%} to 200000000
+						set {Mob-Defense.%{_bsU}%} to 0
+						apply resistance 250 without particles to {_bs} for 9999 seconds
+						apply invisibility 1 without particles to {_bs} for 9999 seconds
+						add "{NoAI:1b}" to nbt of {_bs}
+						
+			loop all living entities:
+				if loop-entity is an armor stand:
+					if name of loop-entity is "&6SPAWN-PURPLESWORD":
+						spawn an iron golem at loop-entity's location
+						set {_ps} to the spawned entity
+						set name of {_ps} to "&5&lPURPLE SWORD"
+						set {_psU} to {_ps}'s uuid
+						set {God.%{_psU}%} to false
+						set {health.%{_psU}%} to 200000000
+						set {Mob-Defense.%{_psU}%} to 0
+						apply resistance 250 without particles to {_ps} for 9999 seconds
+						apply invisibility 1 without particles to {_ps} for 9999 seconds
+						add "{NoAI:1b}" to nbt of {_ps}
+			
+			send "&7&oThe four Mythical Swords Has Appeared."
+			
+on death of iron golem:
+	if name of victim contains "PURPLE SWORD":
+		loop all living entities in radius 5 around victim:
+			if loop-entity is a giant:
+				delete loop-entity
+				
+				loop all living entities:
+					if loop-entity-2 is an armor stand:
+						if name of loop-entity-2 is "&6SPAWN-PURPLESWORD":
+							spawn an end crystal at loop-entity-2's location
+							set {_ps} to the spawned entity
+							set name of {_ps} to "&5&lPURPLE SWORD SOUL"
+							set {_psU} to {_ps}'s uuid
+							set {God.%{_psU}%} to true
+							set {health.%{_psU}%} to 1
+							apply resistance 250 without particles to {_ps} for 9999 seconds
+							add "{NoAI:1b}" to nbt of {_ps}
+				
+			
+on death of iron golem:
+	if name of victim contains "GREEN SWORD":
+		loop all living entities in radius 5 around victim:
+			if loop-entity is a giant:
+				delete loop-entity
+			
+				loop all living entities:
+					if loop-entity-2 is an armor stand:
+						if name of loop-entity-2 is "&6SPAWN-GREENSWORD":
+							spawn an end crystal at loop-entity-2's location
+							set {_ps} to the spawned entity
+							set name of {_ps} to "&5&lGREEN SWORD SOUL"
+							set {_psU} to {_ps}'s uuid
+							set {God.%{_psU}%} to true
+							set {health.%{_psU}%} to 1
+							apply resistance 250 without particles to {_ps} for 9999 seconds
+							add "{NoAI:1b}" to nbt of {_ps}
+
+on death of iron golem:
+	if name of victim contains "BLUE SWORD":
+		loop all living entities in radius 5 around victim:
+			if loop-entity is a giant:
+				delete loop-entity
+				
+				loop all living entities:
+					if loop-entity-2 is an armor stand:
+						if name of loop-entity-2 is "&6SPAWN-BLUESWORD":
+							spawn an end crystal at loop-entity-2's location
+							set {_ps} to the spawned entity
+							set name of {_ps} to "&5&lBLUE SWORD SOUL"
+							set {_psU} to {_ps}'s uuid
+							set {God.%{_psU}%} to true
+							set {health.%{_psU}%} to 1
+							apply resistance 250 without particles to {_ps} for 9999 seconds
+							add "{NoAI:1b}" to nbt of {_ps}
+			
+on death of iron golem:
+	if name of victim contains "RED SWORD":
+		loop all living entities in radius 5 around victim:
+			if loop-entity is a giant:
+				delete loop-entity
+			
+				loop all living entities:
+					if loop-entity-2 is an armor stand:
+						if name of loop-entity-2 is "&6SPAWN-REDSWORD":
+							spawn an end crystal at loop-entity-2's location
+							set {_ps} to the spawned entity
+							set name of {_ps} to "&5&lRED SWORD SOUL"
+							set {_psU} to {_ps}'s uuid
+							set {God.%{_psU}%} to true
+							set {health.%{_psU}%} to 1
+							apply resistance 250 without particles to {_ps} for 9999 seconds
+							add "{NoAI:1b}" to nbt of {_ps}
+							
+							
+# BEACONS
+command /beacon:
+	permission:op
+	trigger:
+		
+		# BLUE
+		set block at the location (-74, 100, 251) of the world "world" to beacon
+		
+		# RED
+		set block at the location (-21, 100, 304) of the world "world" to beacon
+		
+		# PURPLE
+		set block at the location (-74, 100, 358) of the world "world" to beacon
+		
+		# GREEN
+		set block at the location (-127, 100, 304) of the world "world" to beacon
+			
+			
+			
+			

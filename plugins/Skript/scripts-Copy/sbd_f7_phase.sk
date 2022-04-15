@@ -1,0 +1,171 @@
+command /floor7-defeat:
+	permission: op
+	trigger:
+		loop all living entities:
+			if loop-entity is an armor stand:
+				if name of loop-entity is "Dungeon-FinalReward" or "Dungeon-Reward":
+					kill loop-entity
+		make console execute command "/dungeon-reward-spawn 7 s+"
+		make console execute command "/dungeon-reward-spawn 7 s"
+		loop {DungeonParty::*}:
+			set {_p} to loop-value
+			set {_p} to {_p} parsed as player
+			set {_pU} to {_p}'s uuid
+			SBD_ScoreCalculator({_p}, 7, "VII", "Maxor")
+			add 1 to {SB-DungeonCompleted.%{_pU}%}
+		teleport {DungeonParty::*} at the location (111.5, 111.5, 370.5) of the world "world"
+		wait 1 second
+		SBD_Floor7_Reset()
+
+function SBD_ScoreCalculator(p: player, n: number, t: text, b: text):
+	set {_score} to 307
+	remove 0+({Dungeon-Death-Floor-%{_n}%}*2) from {_score}
+	if {Dungeon-Timer-Minute-Floor-%{_n}%} is higher than 4:
+		remove (5-({Dungeon-Timer-Minute-Floor-%{_n}%}-4)) from {_score}
+	set {_note} to "&5&lA"
+	SBD_RewardChest({_p}, "reset", "0", 0)
+	SBD_RewardChest({_p}, "loot", "normal", {_n})
+	if {_score} is between 270 and 299.9:
+		loop all living entities in radius 20 of {_p}:
+			if loop-entity is an armor stand:
+				if name of loop-entity is "Dungeon-FinalReward":
+					kill loop-entity
+		set {_note} to "&e&lS"
+		SBD_RewardChest({_p}, "loot", "s", {_n})
+	if {_score} is higher than 299.9:
+		set {_note} to "&e&lS+"
+		SBD_RewardChest({_p}, "loot", "s+", {_n})
+		SBD_RewardChest({_p}, "loot", "s", {_n})
+	if {_score} is between 269.9 and 0:
+		loop all living entities in radius 20 of {_p}:
+			if loop-entity is an armor stand:
+				if name of loop-entity is "Dungeon-FinalReward" or "Dungeon-Reward":
+					kill loop-entity
+	send "&a===========================================" to {_p}
+	message center "&cCatacombs &8- &eFloor %{_t}%" to {_p}
+	send "" to {_p}
+	message center "&fTeam Score: &a%{_score}% &f(%{_note}%&f)" to {_p}
+	message center "&c♦ &eDefeated &c%{_b}% &ein &a%{Dungeon-Timer-Minute-Floor-%{_n}%}%&am &a%{Dungeon-Timer-Second-Floor-%{_n}%}%&as" to {_p}
+	message center "&6> &e&l%{Dungeon-Death-Floor-%{_n}%}% &e&lDeath &6<" to {_p}
+	message center "&8+&30.0 Catacombs Experience" to {_p}
+	send "&a===========================================" to {_p}
+
+on damage of slime:
+	if name of victim contains "&6&lCHAINS-":
+		playsound(attacker, "entity.iron_golem.hurt", 0.8)
+		playsound(attacker, "block.glass.break", 1.1)
+
+function SB_Dungeon_Floor7_Start():
+	SBD_Blessing("give", "LIFE", 32)
+	SBD_Blessing("give", "POWER", 24)
+	SBD_Blessing("give", "WISDOM", 16)
+	if {_lol} is not set:
+		set {timer-7} to true
+		loop all living entities:
+			if loop-entity is an armor stand:
+				if name of loop-entity is "&5SPAWN-BOSS":
+					spawn a wither at loop-entity's location
+					set {_e} to the spawned entity
+					set name of {_e} to "&c&lMaxor"
+					apply resistance 250 without particles to {_e} for 9999 seconds
+					add "{NoAI:1b}" to nbt of {_e}
+		set {_v} to "1"
+		set {_t} to "&4[BOSS] &4Maxor&c:"
+		
+		send "%{_t}% &cYour adventure is ending now." to {DungeonParty::*}
+		wait 1 second
+		send "%{_t}% &cYou can't even hurt me with yours weaks weapons." to {DungeonParty::*}
+		
+		set {Terminal-Phase} to 1
+		SpawnWither(1)
+		loop all living entities:
+			if loop-entity is a wither:
+				spawn a wither at loop-entity's location
+				set {_a} to the spawned entity
+				set name of {_a} to "&c&lMaxor"
+				set {_aU} to {_a}'s uuid
+				set {Mob-God.%{_aU}%} to true
+				set {health.%{_aU}%} to (1000000000*{SBD-f7-Difficulty})
+				set {Mob-Defense.%{_aU}%} to 100
+				set {Mob-Damage.%{_aU}%} to (120000*({SBD-f7-Difficulty}/2.4))
+				add "{Attributes:[{Name:""generic.follow_range"",Base:320f}]}" to nbt of {_a}
+				SetTarget({_a})
+				play 1000 firework at {_a}'s location
+				play 500 large smoke at {_a}'s location
+				delete loop-entity
+		TerminalBossbarVisibility(0)
+		TerminalBossbarCreate(1)
+		TerminalBossbarVisibility(1)
+		
+		set {_nbt} to "{Size:4,CustomName:'[{""text"":""&6&lCHAINS-1""}]',NoGravity:1b,NoAI:1b,Silent:1b,ActiveEffects:[{Id:14,Duration:9999,Amplifier:5,ShowParticles:0b},{Id:11,Duration:9999,Amplifier:250,ShowParticles:0b}]}"
+		set {_x} to 163.5
+		set {_y} to 122.5
+		set {_z} to 312.5
+		set {_v} to 2
+		loop 2 times:
+			spawn a slime at the location ({_x}, {_y}, {_z}) of the world "world"
+			set {_ss} to the spawned entity
+			add "%{_nbt}%" to nbt of {_ss}
+			set name of {_ss} to "&6&lCHAINS-%{_v}%"
+			set {_ssU} to {_ss}'s uuid
+			set {health.%{_ssU}%} to 100000000
+			apply resistance 250 without particles to {_ss} for 9999 seconds
+			set {_z} to 336.5
+			set {_v} to 1
+			
+on walk on beacon:
+	if {CrystalPickedUp} is set:
+		if player is {CrystalPickedUp}:
+			set {_y} to 155
+			set {_z} to 337
+			if block at the location (117.5, 110.5, 324.5) of the world "world" = redstone block:
+				set {_v} to 0.6
+				set {_x} to 115
+				set {_ll} to "&aThe Great Battery is now charged to &650%%&a!"
+			else:
+				set {_v} to 1
+				set {_x} to 111
+				set {_ll} to "&aThe Great Battery is now charged to &6100%%&a!"
+				set {_Lazer} to true
+			if {_v} is set:
+				delete {CrystalPickedUp}
+				send "&b%player% &ais charging the battery!"
+				set {_v} to 0.6
+				make console execute command "/setblock %{_x}% %{_y}% %{_z}% redstone_block"
+				wait 19 ticks
+				send "%{_ll}%" to {DungeonParty::*}
+				loop 5 times:
+					play sound "block.piston.extend" with pitch {_v} at player for players
+					add 0.2 to {_v}
+					wait 5 ticks
+				if {_Lazer} is true:
+					send "" to {DungeonParty::*}
+					send " &aThe Great Energy Laser is charging up!" to {DungeonParty::*}
+					send "" to {DungeonParty::*}
+					wait 4 seconds
+					set {_yz} to 108.5
+					loop 8 times:
+						spawn an armor stand at the location (129.5, {_yz}, 324.5) of the world "world" with nbt "{Invisible:1b,DisabledSlots:63,NoGravity:1b}"
+						set name of the spawned entity to "&c&lLAZER"
+						add 1.75 to {_yz}
+					stop
+		else:
+			send "&cOnly the person who picked up the energy crystal can deposit here."
+			Nope(player)
+		 
+on right click on end crystal:
+	if name of entity is "&d&lCRYSTAL":
+		if {SBD-Ghosted.%UUID of player%} is true:
+			SBD_NotWhileInGhost(player)
+			stop
+		if {CrystalPickedUp} is not set:
+			set {CrystalPickedUp} to player
+			delete entity
+			loop all living entities in radius 5 of entity:
+				if loop-entity is an armor stand:
+					delete loop-entity
+			send "&b%player% &apicked up an energy crystal!" to {DungeonParty::*}
+			play sound "entity.item.pickup" at player for player
+		else:
+			send "&cYou can't pickup two crystals at the same time. You have to deposit one to the battery." to player
+			Nope(player)

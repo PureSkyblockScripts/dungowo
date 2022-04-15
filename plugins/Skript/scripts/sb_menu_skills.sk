@@ -1,0 +1,26 @@
+command /sb-skills:
+	trigger:
+		open virtual chest inventory with size 6 named "Your Skills" to player
+		format gui slot (integers between 0 and 53) of player with {Menu-Panes}
+		format gui slot 4 of player with diamond sword with attribute flag hidden named "&aYour Skills" with lore "&7Check your skill progression."
+		format gui slot 21 of player with iron sword with attribute flag hidden named "&aCombat %{combat.%UUID of player%}%" with lore "&7Kill mobs to gain combat experiences." and "&7" and "&7Your Combat XP: &b%{combatEXP.%UUID of player%}%&7/&b%{combatEXPmax.%UUID of player%}%" and "&7" and "&eClick to view!" to close:
+			make player execute command "/sb-skill combat"
+		format gui slot 20 of player with diamond pickaxe with attribute flag hidden named "&aMining %{Mining.%UUID of player%}%" with lore "&7Mine ores to gain mining experiences." and "&7" and "&7Your Mining XP: &b%{MiningEXP.%UUID of player%}%&7/&b%{MiningEXPmax.%UUID of player%}%" and "&7" and "&eClick to view!" to close:
+			make player execute command "/sb-skill-mining"
+		format gui slot 19 of player with golden hoe with attribute flag hidden named "&aFarming %{Farming.%UUID of player%}%" with lore "&7Harvest and recolt to gain farming experiences." and "&7" and "&7Your Farming XP: &b%{FarmingEXP.%UUID of player%}%&7/&b%{FarmingEXPmax.%UUID of player%}%" and "&7" and "&eClick to view!" to close:
+			make player execute command "/sb-skill-farming"
+
+		format gui slot 22 of player with acacia sapling named "&aForaging" with lore "&7Cut down trees to gain foraging experiences." and "&7" and "&cNot available yet."
+		format gui slot 23 of player with fishing rod named "&aFishing" with lore "&7Fish up fishs to gain fishing experiences." and "&7" and "&cNot available yet."
+		format gui slot 24 of player with enchanting table named "&aEnchanting" with lore "&7Enchant items to gain enchanting experiences." and "&7and enchanting experience" and "&7" and "&cNot available yet."
+		format gui slot 25 of player with brewing stand named "&aAlchemy" with lore "&7Brew potions to gain alchemy experiences." and "&7" and "&cNot available yet."
+		format gui slot 30 of player with bow named "&aSlayer" with lore "&7Slay Bosses to gain slayer experiences." and "&7" and "&eClick to view!" to close:
+			make player execute command "/sb-skill-slayer"
+		format gui slot 31 of player with ("Titan" parsed as offline player)'s skull named "&aDungeoneering" with lore "&7Complete dungeons floor to gain" and "&7catacombs experiences." and "&7" and "&eClick to view!" to close:
+			make player execute command "/sb-skill-dungeon"
+
+		format gui slot 32 of player with empty map named "&aClasses" with lore "&7Check classes list to see" and "&7their bonuses." and "&7" and "&eClick to view!" to close:
+			make player execute command "/sb-skill-classes"
+		format gui slot 48 of player with {Menu-GoBack} to run:
+			make player execute command "/menu"
+		format gui slot 49 of player with {Menu-Close} to close

@@ -1,0 +1,77 @@
+on right click on armor stand:
+	if name of clicked entity is "Dungeon-FreeReward":
+		SBD_RewardChest_Free(player, "wood")
+	if name of clicked entity is "Dungeon-Reward":
+		SBD_RewardChest_Free(player, "obsidian")
+	if name of clicked entity is "Dungeon-FinalReward":
+		SBD_RewardChest_Free(player, "bedrock")
+
+function SBD_RewardChest_Free(p: player, t: text):
+	set {_pU} to {_p}'s uuid
+	if {_p} is set:
+		loop all players in radius 20 of {_p}:
+			if loop-player is a player:
+				add loop-player to {_v::*}
+		if {dungeon-reward-claim.%{_pU}%} is not true:
+			open virtual chest inventory with size 5 named "Dungeon Reward" to {_p}
+			format gui slot (integers between 0 and 53) of {_p} with {Menu-Panes}
+			format gui slot 0 and 8 and 9 and 17 and 18 and 26 and 27 and 35 and 36 and 44 of {_p} with iron bars named "&f"
+			format gui slot 40 of {_p} with {Menu-Close} to close
+		# ====
+			if {_t} is "wood":
+				format gui slot 22 of {_p} with {dungeon-freereward-essence.%{_pU}%} of {Storage-Dungeon-Item-Essence}
+				set {_i} to {dungeon-freereward-essence.%{_pU}%}
+				format gui slot 41 of {_p} with chest named "&6Claim this chest!" with lore "&7Obtain all rewards inside of this" and "&7chest for free." and "&7" and "&eClick to claim!" to close:
+					add {_i} to {essence.%UUID of player%}
+					send "&6%{trueplayer.%UUID of player%}% &eunlocked &dEssence &8x%{_i}%&e!" to {_v::*}
+					Sound_PlayerLevelup(player)
+					set {dungeon-reward-claim.%UUID of player%} to true
+		# ====
+			if {_t} is "obsidian":
+				set {_tv} to "reward"
+				set {_tvv} to "s"
+			if {_t} is "bedrock":
+				set {_tv} to "finalreward"
+				set {_tvv} to "s+"
+			if {_tv} is set:
+				if {_t} is "obsidian" or "bedrock":
+					format gui slot 42 of {_p} with feather of unbreaking 1 with hidden enchants flag named "&9Reroll Reward Chest" with lore "&7Allows you to rereroll a" and "&cdungeon &7reward chest." and "&7" and "&eClick to reroll!" to close:
+						if {_p} has {Terminal-Items::KISMET_FEATHER::1}:
+							remove 1 of {Terminal-Items::KISMET_FEATHER::1} from {_p}'s inventory
+							send "&aYou reroll the dungeon reward chest successfully!" to {_p}
+							SBD_RewardChest({_p}, "loot", "%{_tvv}%", 7)	
+						else:
+							send "&cYou don't have kismet feather in your inventory!" to {_p}
+				format gui slot 41 of {_p} with chest named "&6Clam this chest!" with lore "&7Obtain all rewards inside of" and "&7this chest in exchange of" and "&7your money." and "&7" and "&7Cost" and "&6%{dungeon-%{_tv}%-cost.%{_pU}%}% &6Coins" and "&7" and "&7You have &6%{coins.%{_pU}%}% &6Coins&7." and "&7" and "&eClick to claim!" to close:
+					if {purse.%UUID of player%} is higher than ({Dungeon-%{_tv}%-cost.%UUID of player%}-0.1):
+						if {Dungeon-%{_tv}%-drop.%UUID of player%} is set:
+							set {_i2} to {Dungeon-%{_tv}%-drop.%{_pU}%}
+							if player has space for {_i2}:
+								give {_i2} to player
+								add {dungeon-%{_tv}%-essence.%UUID of player%} to {essence.%UUID of player%}
+								Sound_PlayerLevelup(player)
+								set {dungeon-reward-claim.%UUID of player%} to true
+								remove {Dungeon-%{_tv}%-cost.%UUID of player%} from {purse.%UUID of player%}
+								send "&6%{trueplayer.%UUID of player%}% &eunlocked &dEssence &8x%{dungeon-%{_tv}%-essence.%{_pU}%}%&e!" to {_v::*}
+								send "&6%{trueplayer.%UUID of player%}% &eunlocked &7%{_i2}'s name%&e!" to {_v::*}
+							else:
+								NoSpace(player)
+						else:
+							add {dungeon-%{_tv}%-essence.%UUID of player%} to {essence.%UUID of player%}
+							remove {Dungeon-%{_tv}%-cost.%UUID of player%} from {purse.%UUID of player%}
+							Sound_PlayerLevelup(player)
+							set {dungeon-reward-claim.%UUID of player%} to true
+							send "&6%{trueplayer.%UUID of player%}% &eunlocked &dEssence &8x%{dungeon-%{_tv}%-essence.%{_pU}%}%&e!" to {_v::*}
+					else:
+						NoMoney(player)
+			
+				if {Dungeon-%{_tv}%-drop.%{_pU}%} is set:
+					format gui slot 21 of {_p} with {dungeon-%{_tv}%-essence.%{_pU}%} of {Storage-dungeon-item-essence}
+					format gui slot 23 of {_p} with {Dungeon-%{_tv}%-drop.%{_pU}%}
+				else:
+					format gui slot 22 of {_p} with {dungeon-%{_tv}%-essence.%{_pU}%} of {Storage-dungeon-item-essence}
+
+			format gui slot 4 of {_p} with chest named "&6Reward Chest" with lore "&7Get random loot by defeating boss!" and "&7You can also drop rare loot!"
+		else:
+			send "&cYou have already claimed a chest!" to {_p}
+			play sound "block.chest.locked" at {_p} for {_p}

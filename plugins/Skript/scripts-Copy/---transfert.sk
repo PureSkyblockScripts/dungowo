@@ -1,0 +1,4 @@
+function RGBToHex(number: numbers) :: string:
+    loop {_number::*}:
+        set {_r} to join {_r}, (character at (mod((floor(min(max(loop-value, 0), 255) / 16)), 16) + 1) in "0123456789ABCDEF") and (character at ((mod(min(max(loop-value, 0), 255), 16)) + 1) in "0123456789ABCDEF")
+    return colored "<##%{_r}%>"

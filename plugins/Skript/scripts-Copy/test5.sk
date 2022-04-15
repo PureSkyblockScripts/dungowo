@@ -1,0 +1,68 @@
+command /test-dctr <player>:
+	permission: op
+	trigger:
+		give 1 of red stained glass named "&cWhio's Space Helmet" with lore "&7&oA rare space helmet forged" and "&7&ofrom shards of moon glass." and "&7" and "&7To: &7%{trueplayer.%UUID of arg-1%}%" and "&7From: &7%{trueplayer.%UUID of player%}%" and "&7" and "&8Edition ##1" and "&8No Month 2022" and "&7" and "&8This item can be reforged!" and "&c&lSPECIAL HELMET" to arg-1
+		
+on right click with red stained glass:
+	if name of player's tool is "&cWhio's Space Helmet":
+		set {_p} to player
+		set {_pU} to player's uuid
+		set {_p}'s helmet to {_p}'s tool
+		remove {_p}'s tool from {_p}'s tool
+	
+on click:
+	if player's helmet's name is "&cWhio's Space Helmet":
+		set {_p} to the player
+		if {_p}'s gamemode is creative or survival:
+			set {_n} to {_p}'s helmet's name
+			set {_l::*} to {_p}'s helmet's lore
+			if {_p}'s helmet is pink stained glass:
+				set {_b} to red stained glass
+			if {_p}'s helmet is purple stained glass:
+				set {_b} to pink stained glass
+			if {_p}'s helmet is blue stained glass:
+				set {_b} to purple stained glass
+			if {_p}'s helmet is light blue stained glass:
+				set {_b} to blue stained glass
+			if {_p}'s helmet is lime stained glass:
+				set {_b} to light blue stained glass
+			if {_p}'s helmet is yellow stained glass:
+				set {_b} to lime stained glass
+			if {_p}'s helmet is orange stained glass:
+				set {_b} to yellow stained glass
+			if {_p}'s helmet is red stained glass:
+				set {_b} to orange stained glass
+			set {_p}'s helmet to {_b} named "%{_n}%" with lore {_l::*}
+
+command /test-maxoritem:
+	permission: op
+	trigger:
+		give 1 of piston named "&9Piece of Maxor's Great Gear" with lore "&7Gear Score: &dNone" and "&7Damage: &c+200 &8(+1400)" and "&7Strength: &c+500 &8(+3500)" and "&7" and "&7&oAn ancient piece of maxor's gears." and "&7" and "&6Item Ability: Extend &e&lRIGHT CLICK" and "&7Damage all ennemis in radius &7of &a3 blocks &7by" and "&a50%% &7of your weapon's damage then push you" and "&7forward - If sneaking, push you backwards." and "&7The push strength depends on your &f✦ Speed&7." and "&7Each use, increase by &a+10%% &7damages of" and "&7your weapon but cost &9x2 &7mana up to x16." and "&8Mana Cost: &3100" and "&7" and "&8This item can be reforged!" and "&9&lRARE DUNGEON ITEM" with nbt "{ITEM_ID:""PIECE_OF_MAXORS_GREAT_GEAR""}" to player
+
+on right click with piston:
+	if name of player's tool contains "&9Piece of Maxor's Great Gear":
+		cancel event
+		SB_ItemManaCost(player, 100, "R")
+		SB_ItemCooldown(player, 0.5, "R")
+		if {SB-ItemAble.%UUID of player%} is true:
+			SB_ItemManaCostCurse(player, 2, 3200, "*", "R")
+			SB_AbilityUsed(player, "Extend")
+		# ====
+			set {_s} to {Speed.%UUID of player%}
+			if {_s} is higher than 400:
+				set {_s} to 40
+			loop all living entities in radius 3 of player:
+				if loop-entity is not a player:
+					MakeDamage(player, loop-entity, (50+{ManaCost.%UUID of player%}/10))
+			set {_r} to ({_s}/180)
+			if player's facing is above:
+				set {_r} to {_r}/3
+			if player's facing is below:
+				set {_r} to {_r}/2
+			push player upward at speed 0.3
+			if player is sneaking:
+				push player backwards at speed {_r}
+				playsound(player, "block.piston.contract", 0.8)
+			else:
+				push player forward at speed {_r}
+				playsound(player, "block.piston.extend", 0.8)

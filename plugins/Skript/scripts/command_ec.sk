@@ -1,0 +1,5 @@
+command /ec:
+	permission: op
+	aliases: /enderchest, /ender
+	trigger:
+		open ender chest of player to player

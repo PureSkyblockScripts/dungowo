@@ -1,0 +1,15 @@
+CONFIG_VERSION: 2.1.0
+DISABLE:
+  COOLDOWN: true
+  NEW_DAMAGE: true
+  NEW_REGEN: true
+  PATH_MAKE: false
+  OFF_HAND: false
+  SKELETON_TRAP: false
+  PLAYER_COLLIDE: false
+  CHORUS_FRUIT: false
+  ENDERMITE_ON_PEARL: false
+DISABLE_RECIPE:
+  SHIELD: false
+  END_CRYSTAL: false
+  SHULKER_BOX: false

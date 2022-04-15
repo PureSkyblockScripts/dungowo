@@ -1,0 +1,48 @@
+NPC-Ophelia:
+  location: world, 252.500, 216.500, 220.500
+  lines:
+  - '&cOphelia'
+  - '&e&lSHOP'
+NPC-Mort:
+  location: world, 247.500, 217.500, 226.500
+  lines:
+  - '&cMort'
+  - '&e&lDUNGEON'
+NPC-Starter7:
+  location: world, 147.526, 108.500, 389.503
+  lines:
+  - '&cMort'
+  - '&e&lCLICK'
+NPC-Alex:
+  location: world, 208.500, 216.500, 180.500
+  lines:
+  - '&bAlex'
+  - '&e&lCLICK'
+NPC-Daisy:
+  location: world, 243.010, 216.700, 220.492
+  lines:
+  - '&d&lNEW!'
+  - '&6Daisy'
+  - '&e&lCLICK'
+NPC-Guy:
+  location: world, 202.500, 218.500, 183.500
+  lines:
+  - '&6Guy'
+  - '&e&lCLICK'
+Beacon:
+  location: world, 120.500, 110.200, 324.500
+  lines:
+  - '&aPlace Energy Crystal &6&lHERE'
+News:
+  location: world, 243.500, 217.500, 187.500
+  lines:
+  - '&d&lWHAT NEWS?'
+  - '&7Type ''&6/sb-news&7'' to view!'
+  - '&d&lRECENT NEWS?'
+  - '&8- &7Added &9Kismet Feather&7! &aToken Shop'
+  - '&8- &bBerserker &7take &ax10 &7less damage from &c&lMaxor&7''s nuke!'
+  - '&8- &6Party Invitation &eis now clickable!'
+  - '&8- &6&lENDER DRAGON &7Pet Added!'
+  - '&8- &7Added Private Ranks &d(/prinfos)&7!'
+  - '&8- &7Check &aplayer''s stat&7 by &eclick &7on them'
+  - '&7-'

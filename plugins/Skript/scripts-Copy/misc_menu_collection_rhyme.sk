@@ -1,0 +1,65 @@
+command /menucollection-boss-rhyme <player>:
+ permission: op
+ trigger:
+  set {_MenuCollection-BottesDeFantôme} to leather boots
+  dye {_MenuCollection-BottesDeFantôme} (255, 255, 255)
+  if {collection-Rhyme.%UUID of arg-1%} is not higher than 0:
+   set {_MenuCollection-Rhyme-1.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-Rhyme-1.%UUID of arg-1%} to lime stained glass pane
+
+  if {collection-Rhyme.%UUID of arg-1%} is not higher than 1:
+   set {_MenuCollection-Rhyme-2.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-Rhyme-2.%UUID of arg-1%} to lime stained glass pane
+
+  if {collection-Rhyme.%UUID of arg-1%} is not higher than 2:
+   set {_MenuCollection-Rhyme-3.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-Rhyme-3.%UUID of arg-1%} to lime stained glass pane
+
+  open virtual chest inventory with size 6 named "Collection de Rhyme" to arg-1
+  wait 1 tick
+  format gui slot (integers between 0 and 53) of arg-1 with black stained glass pane named "&f"
+
+  format gui slot 4 of arg-1 with player head with nbt "{display:{Name:""{\""text\"":\""Wayward Vegabond\""}""},SkullOwner:{Id:[I;-1304499272,465915436,-1412273431,-1333166089],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDM4NDFmNDZkMTc4YzEzZGFmNmRlMzk1MTg5MWM5Y2ZhZGFjYTVkOGY2N2YzYjI1Yjk1OTQ2YWE2NWU5YzE3In19fQ==""}]}}}" named "&eRhyme %{Collection-Rhyme.%UUID of arg-1%}%" with lore "&7Consultez tous les progrès et récompenses" and "&7de votre collection de Rhyme!" and "&7" and "&7Vous avez &b%{Collection-Boss-Rhyme.%UUID of arg-1%}% &bRhyme Battu&7."
+
+  format gui slot 21 of arg-1 with {_MenuCollection-Rhyme-1.%UUID of arg-1%} named "&eRhyme I" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&5Bottes de Fantôme &7Récompense" and "&7" and "&7Nécessite &b25 Rhyme" and "&eCliquez pour réclamer!" to close:
+   if {Collection-Rhyme.%UUID of player%} is higher than 0:
+    if {Collection-Boss-Rhyme-Reward-1.%UUID of player%} is not true:
+     set {Collection-Boss-Rhyme-Reward-1.%UUID of player%} to true
+     play sound "entity.player.levelup" to player
+     give 1 of {Storage-DungeonReward-Item-BottesDeFantôme} to player
+    else:
+     send "&cVous avez déjà réclamer cette récompense." to player
+   else:
+    send "&cVous n'avez pas cette collection débloquée." to player
+
+
+  format gui slot 22 of arg-1 with {_MenuCollection-Rhyme-2.%UUID of arg-1%} named "&eRhyme II" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&6Lame de Fantôme &7Récompense" and "&7" and "&7Nécessite &b50 Rhyme" and "&eCliquez pour réclamer!" to close:
+   if {Collection-Rhyme.%UUID of player%} is higher than 1:
+    if {Collection-Boss-Rhyme-Reward-2.%UUID of player%} is not true:
+     set {Collection-Boss-Rhyme-Reward-2.%UUID of player%} to true
+     play sound "entity.player.levelup" to player
+     give 1 of {Storage-DungeonReward-Item-LameDeFantôme} to player
+    else:
+     send "&cVous avez déjà réclamer cette récompense." to player
+   else:
+    send "&cVous n'avez pas cette collection débloquée." to player
+
+
+  format gui slot 23 of arg-1 with {_MenuCollection-Rhyme-3.%UUID of arg-1%} named "&eRhyme III" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&6Upgradulator 3000 &7Récompense" and "&7" and "&7Nécessite &b100 Rhyme" and "&eCliquez pour réclamer!" to close:
+   if {Collection-Rhyme.%UUID of player%} is higher than 2:
+    if {Collection-Boss-Rhyme-Reward-3.%UUID of player%} is not true:
+     set {Collection-Boss-Rhyme-Reward-3.%UUID of player%} to true
+     play sound "entity.player.levelup" to player
+     play sound "entity.wither.death" with volume 10 with pitch 1.5 at player for player
+     give 1 of {Storage-Dungeon-Item-Upgradulator3000} to player
+    else:
+     send "&cVous avez déjà réclamer cette récompense." to player
+   else:
+    send "&cVous n'avez pas cette collection débloquée." to player
+
+  format gui slot 48 of arg-1 with arrow named "&aRetour" with lore "&7Revenir à la page précédente." and "&7" and "&eCliquez pour retourner!" to close:
+   make console execute command "/menucollection-boss %player%"
+  format gui slot 49 of arg-1 with barrier named "&cFermer" to close

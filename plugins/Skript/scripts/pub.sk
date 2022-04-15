@@ -1,0 +1,12 @@
+command /pub:
+	permission:op
+	trigger:
+		broadcast "&6---------------------------------------" 
+		broadcast "&6&lSTORM &7(&cAlpha Version&7)!"
+		broadcast "&e"
+		broadcast "&7Official &cYoutube &7Channel (JustEberos Channel): <link:https://www.youtube.com/channel/UCGcgla8X_uxVX5FOPfqApSg>" 
+		broadcast "&cVideo &7about the server: <link:https://www.youtube.com/watch?v=45V1TOyqKZE>&eClick here!"
+		broadcast "&7Official &bDiscord &7Server: <link:https://discord.gg/vt7AreU>&ediscord.gg/vt7AreU" 
+		broadcast "&e"
+		broadcast "&7To create a &6Party &7type '&a/party&7'"
+		broadcast "&6---------------------------------------"

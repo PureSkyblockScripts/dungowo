@@ -1,0 +1,86 @@
+on right click on entity:
+	if name of clicked entity is "&7Alex":
+		loop all living entities in radius 8 of clicked entity:
+			if name of loop-entity contains "&6&lDUMMY":
+				DeleteEntity(loop-entity)
+		set {_x} to 210.5
+		loop 2 times:
+			spawn husk at the location ({_x}, 214, 179.5) of the world "world"
+			set {_v} to the spawned entity
+			set {_vU} to {_v}'s uuid
+			add "{NoAI:1b}" to nbt of {_v} # AI
+			set name of {_v} to "&6&lDUMMY"
+			set {Mob-Name.%{_vU}%} to "&6&lDUMMY"
+# ====
+			set {health.%{_vU}%} to 10000000000
+			add hay block to {_b::*}
+			add pumpkin to {_b::*}
+			add melon to {_b::*}
+			add lit pumpkin to {_b::*}
+			set {_o} to random integer between 1 and 4
+			set {_v}'s helmet to {_b::%{_o}%}
+			chance of 5%:
+				set {_v}'s helmet to diamond block
+				play 100 happy villager with speed 0 at {_v}'s location
+			chance of 1%:
+				set {_v}'s helmet to ("%player%" parsed as player)'s skull
+				set {_o} to leather chestplate
+				dye {_o} (0, 0, 0)
+				set {_v}'s chestplate to {_o}
+				set {_o} to leather boots
+				dye {_o} (0, 0, 0)
+				set {_v}'s boots to {_o}
+				set {_o} to leather leggings
+				dye {_o} (0, 0, 0)
+				set {_v}'s leggings to {_o}
+				play 100 large smoke with speed 0 at {_v}'s location
+				send "&6&lDUMMY! &fYou had &b1%% &fto get a copy dummy of you!" to player
+			set name of {_v} to "%{Mob-Name.%{_vU}%}% &c%{health.%{_vU}%}%&c❤"
+# ====
+			apply resistance 250 without particles to {_v} for 99999 seconds
+			add 3 to {_x}
+			
+			
+		stop
+		open virtual chest inventory with size 3 named "Alex's Creation" to player
+		format gui slot (integers between 0 and 53) of player with {Menu-Panes}
+		format gui slot 22 of player with {Menu-Close} to close
+		format gui slot 4 of player with ("vQuasar" parsed as offline player)'s skull named "&aAlex's Creation" with lore "&7Select and config your dummy to" and "&7test your greatest damage!"
+		format gui slot 11 of player with light blue wool named "&bBlue Dummy" with lore "&7View config for this dummy!" to run:
+			SB_NPC_Alex(player, "Blue")
+		format gui slot 15 of player with lime wool named "&aLime Dummy" with lore "&7View config for this dummy!" to run:
+			SB_NPC_Alex(player, "Lime")
+
+on inventory close:
+	if name of player's current inventory is "Blue Dummy" or "Lime Dummy":
+		delete {Dummy-%{_c}%-Health.%{_pU}%}
+		delete {Dummy-%{_c}%-Defense.%{_pU}%}
+		delete {Dummy-%{_c}%-DMGRed.%{_pU}%}
+		delete {Dummy-%{_c}%-DMGDMGRed.%{_pU}%}
+		delete {Dummy-%{_c}%-MagicDMGRed.%{_pU}%}
+
+function SB_Menu_ReloadSlotTo(p: player, n: number, i: item):
+	format gui slot {_n} of {_p} with {_i}
+
+function SB_NPC_Alex(p: player, c: text):
+	set {_pU} to {_p}'s uuid
+	open virtual chest inventory with size 5 named "%{_c}% Dummy" to {_p}
+	format gui slot (integers between 0 and 45) of {_p} with {Menu-Panes}
+	
+	set {_hp} to apple named "&aHealth" with lore "&7Livebar of dummy before death." and "&7" and "&7Health: &a%{Dummy-%{_c}%-Health.%{_pU}%}% &aHP" and "&7" and "&eRight-Click to add 5M!" and "&eLeft-Click to remove 2.5M!"
+	
+	
+	set {Dummy-%{_c}%-Health.%{_pU}%} to 10000000
+	
+	format gui slot 20 of {_p} with apple to run using left mouse button:
+		Click({_p})
+		SB_Menu_ReloadSlotTo({_p}, clicked slot, {_hp})
+		remove 2500000 from {Dummy-%{_c}%-Health.%{_pU}%}
+	format gui slot 20 of {_p} with {_hp} to run using right mouse button:
+		Click({_p})
+		SB_Menu_ReloadSlotTo({_p}, clicked slot, {_hp})
+		add 5000000 to {Dummy-%{_c}%-Health.%{_pU}%}
+	# ======
+	
+	format gui slot 40 of {_p} with {Menu-Close} to close
+	format gui slot 41 of {_p} with emerald block named "&aConfirm %{_c}% &aDummy" to close

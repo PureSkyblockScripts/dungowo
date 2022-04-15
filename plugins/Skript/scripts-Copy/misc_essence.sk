@@ -1,0 +1,18 @@
+on right click with player head:
+ if name of player's tool is "&bEssence":
+  set {_attenteEssence} to difference between {cooldownEssence.%UUID of player%} and now
+  if {_attenteEssence} is less than 2 seconds:
+   send "&cPatientez." to player
+   stop
+  else:
+   set {cooldownEssence.%UUID of player%} to now
+   loop all items in the player's inventory:
+    if name of loop-item is "&bEssence":
+     if {abc} is not true:
+      set {_EssenceCheck.%UUID of player%} to number of loop-item in the player's inventory
+      add {_EssenceCheck.%UUID of player%} to {essence.%UUID of player%}
+      remove all loop-item from player's inventory
+      send "&7Vous avez déposer &b%{_EssenceCheck.%UUID of player%}% &bEssences &7à votre sac d'essence!" to player
+      play sound "block.chest.close" with volume 10 with pitch 1.1 at player for player
+      play sound "block.fire.extinguish" with volume 10 with pitch 1.1 at player for player
+      stop

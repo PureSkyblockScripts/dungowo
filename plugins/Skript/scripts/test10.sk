@@ -1,0 +1,43 @@
+			
+		loop all living entities:
+			if loop-entity is an armor stand:
+				if name of loop-entity is "&6SPAWN-SWORD":
+					set {_loc} to loop-entity's location
+					add 2 to y coords of {_loc}
+					SB_SpawnEntity("giant", "✧", {_loc}, "{NoAI:1b,NoGravity:1b,Silent:1b}", {_hp}, 0, 0, 0, 0, 0, 0, "0", 0, 0, 0, air, air, air, air, iron sword, player)
+					set {_r} to the spawned giant
+					apply invisibility 1 without particles to {_r} for 9999 seconds
+					apply resistance 250 without particles to {_r} for 9999 seconds
+					set {_r}'s name to "Dinnerbone"
+					set {_rU} to {_r}'s uuid
+					set {Mob-God.%{_rU}%} to true
+					add "{NoAI:1b}" to nbt of {_r}
+
+		loop all living entities:
+			if loop-entity is an armor stand:
+				if name of loop-entity is "&6SPAWN-BLUESWORD":
+					set {_loc} to loop-entity's location
+					add 2 to y coords of {_loc}
+					SB_SpawnEntity("giant", "✧", {_loc}, "{NoAI:1b,NoGravity:1b,Silent:1b}", {_hp}, 0, 0, 0, 0, 0, 0, "0", 0, 0, 0, air, air, air, air, iron sword, player)
+					set {_b} to the spawned giant
+					apply invisibility 1 without particles to {_b} for 9999 seconds
+					apply resistance 250 without particles to {_b} for 9999 seconds
+					set {_b}'s name to "Dinnerbone"
+					set {_bU} to {_b}'s uuid
+					set {Mob-God.%{_bU}%} to true
+					add "{NoAI:1b}" to nbt of {_b}
+					
+					
+		loop all living entities:
+			if loop-entity is an armor stand:
+				if name of loop-entity is "&6SPAWN-PURPLESWORD":
+					set {_loc} to loop-entity's location
+					add 2 to y coords of {_loc}
+					SB_SpawnEntity("giant", "✧", {_loc}, "{NoAI:1b,NoGravity:1b,Silent:1b}", {_hp}, 0, 0, 0, 0, 0, 0, "0", 0, 0, 0, air, air, air, air, iron sword, player)
+					set {_p} to the spawned giant
+					apply invisibility 1 without particles to {_p} for 9999 seconds
+					apply resistance 250 without particles to {_p} for 9999 seconds
+					set {_p}'s name to "Dinnerbone"
+					set {_pU} to {_p}'s uuid
+					set {Mob-God.%{_pU}%} to true
+					add "{NoAI:1b}" to nbt of {_p}

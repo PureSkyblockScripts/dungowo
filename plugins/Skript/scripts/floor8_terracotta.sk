@@ -1,0 +1,83 @@
+command /spawn-terra:
+	permission: op
+	trigger:
+		spawn an armor stand at player's location with nbt "{Invisible:1b,Marker:1b,DisabledSlots:63}"
+		set name of the spawned entity to "&6SPAWN-TERRACOTTA"
+		send "&6&lSET!"
+		
+command /spawn-golem:
+	permission: op
+	trigger:
+		spawn an armor stand at player's location with nbt "{Invisible:1b,Marker:1b,DisabledSlots:63}"
+		set name of the spawned entity to "&6SPAWN-GOLEMBOSS"
+		send "&6&lSET!"
+		
+command /spawn-dragon:
+	permission: op
+	trigger:
+		spawn an armor stand at player's location with nbt "{Invisible:1b,Marker:1b,DisabledSlots:63}"
+		set name of the spawned entity to "&6SPAWN-DRAGONBOSS"
+		send "&6&lSET!"
+		
+command /spawn-giant1:
+	permission: op
+	trigger:
+		spawn an armor stand at player's location with nbt "{Invisible:1b,Marker:1b,DisabledSlots:63}"
+		set name of the spawned entity to "&6SPAWN-GIANT1"
+		send "&6&lSET!"
+		
+command /spawn-giant2:
+	permission: op
+	trigger:
+		spawn an armor stand at player's location with nbt "{Invisible:1b,Marker:1b,DisabledSlots:63}"
+		set name of the spawned entity to "&6SPAWN-GIANT2"
+		send "&6&lSET!"
+		
+command /spawn-giant3:
+	permission: op
+	trigger:
+		spawn an armor stand at player's location with nbt "{Invisible:1b,Marker:1b,DisabledSlots:63}"
+		set name of the spawned entity to "&6SPAWN-GIANT3"
+		send "&6&lSET!"
+		
+command /spawn-giant4:
+	permission: op
+	trigger:
+		spawn an armor stand at player's location with nbt "{Invisible:1b,Marker:1b,DisabledSlots:63}"
+		set name of the spawned entity to "&6SPAWN-GIANT4"
+		send "&6&lSET!"
+		
+command /spawn-greensword:
+	permission: op
+	trigger:
+		spawn an armor stand at player's location with nbt "{Invisible:1b,Marker:1b,DisabledSlots:63}"
+		set name of the spawned entity to "&6SPAWN-GREENSWORD"
+		send "&6&lSET!"
+		
+command /spawn-redsword:
+	permission: op
+	trigger:
+		spawn an armor stand at player's location with nbt "{Invisible:1b,Marker:1b,DisabledSlots:63}"
+		set name of the spawned entity to "&6SPAWN-REDSWORD"
+		send "&6&lSET!"
+		
+command /spawn-bluesword:
+	permission: op
+	trigger:
+		spawn an armor stand at player's location with nbt "{Invisible:1b,Marker:1b,DisabledSlots:63}"
+		set name of the spawned entity to "&6SPAWN-BLUESWORD"
+		send "&6&lSET!"
+		
+command /spawn-purplesword:
+	permission: op
+	trigger:
+		spawn an armor stand at player's location with nbt "{Invisible:1b,Marker:1b,DisabledSlots:63}"
+		set name of the spawned entity to "&6SPAWN-PURPLESWORD"
+		send "&6&lSET!"
+		
+command /spawn-sword:
+	permission: op
+	trigger:
+		spawn an armor stand at player's location with nbt "{Invisible:1b,Marker:1b,DisabledSlots:63}"
+		set name of the spawned entity to "&6SPAWN-SWORD"
+		send "&6&lSET!"

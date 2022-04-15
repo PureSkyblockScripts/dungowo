@@ -1,0 +1,52 @@
+command /debugediblemace <offline player>:
+	trigger:
+		delete {CD-EdibleMace.%UUID of arg-1%}
+
+on right click with mutton:
+	if name of player's tool contains "&5Fabled Edible Mace":
+		cancel event
+		SB_ItemManaCost(player, 100, "R")
+		if {SB-ItemAble.%UUID of player%} is true:
+			if {Damage-Deal-UniqueBoost-Multiplicator.%UUID of player%} is not set:
+				set {Boost-EdibleMace.%UUID of player%} to true
+				play sound "random.eat" at player for player
+				set {CD-EdibleMace.%UUID of player%} to true
+				SB_AbilityUsed(player, "Giant Smash")
+				set {Damage-Deal-UniqueBoost-Multiplicator.%UUID of player%} to 1
+				loop 10 times:
+					if {Damage-Deal-UniqueBoost-Multiplicator.%UUID of player%} is set:
+						wait 0.5 seconds
+					else:
+						delete {CD-EdibleMace.%UUID of player%}
+						delete {Damage-Deal-UniqueBoost-Multiplicator.%UUID of player%}
+						stop
+				delete {CD-EdibleMace.%UUID of player%}
+				delete {Damage-Deal-UniqueBoost-Multiplicator.%UUID of player%}
+				stop
+			else:
+				stop
+
+#on armor change:
+#	if event-item is a player head or a helmet or an air:
+#		if name of event-item contains "Warden Helmet":
+#			set {Warden-Boost.%UUID of player%} to ({Speed.%UUID of player%} /400) * {AddionalDamage.%UUID of player%}
+#			set {Warden-Speed-Remove.%UUID of player%} to {Speed.%UUID of player%} /2
+#			set {Speed.%UUID of player%} to {Warden-Speed-Remove.%UUID of player%}
+#			set {AddionalDamage.%UUID of player%} to {AddionalDamage.%UUID of player%} + {Warden-Boost.%UUID of player%}
+#			set {Warden-Set.%UUID of player%} to true
+#		else:
+#			if {Warden-Set.%UUID of player%} is true:
+#				set {AddionalDamage.%UUID of player%} to {AddionalDamage.%UUID of player%} - {Warden-Boost.%UUID of player%}
+#				set {Speed.%UUID of player%} to {Warden-Speed-Remove.%UUID of player%} + {Speed.%UUID of player%}
+#				set {Warden-Set.%UUID of player%} to false
+
+#on armor change:
+#	wait 1 tick
+#	name of player's helmet contains "Warden Helmet":
+#		set {AddionalDamage.%UUID of player%} to {AddionalDamage.%UUID of player%} - {Warden-Boost.%UUID of player%}
+#		set {Speed.%UUID of player%} to {Warden-Speed-Remove.%UUID of player%} + {Speed.%UUID of player%}
+#		set {Warden-Boost.%UUID of player%} to ({Speed.%UUID of player%} /400) * {AddionalDamage.%UUID of player%}
+#		set {Warden-Speed-Remove.%UUID of player%} to {Speed.%UUID of player%} /2
+#		set {Speed.%UUID of player%} to {Warden-Speed-Remove.%UUID of player%}
+#		set {AddionalDamage.%UUID of player%} to {AddionalDamage.%UUID of player%} + {Warden-Boost.%UUID of player%}
+#		set {Warden-Set.%UUID of player%} to true

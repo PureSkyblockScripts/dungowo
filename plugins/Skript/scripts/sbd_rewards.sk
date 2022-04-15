@@ -1,0 +1,56 @@
+command /sbd-rewardchest <player> <text> <text>  <number>:
+	permission: op
+	usage: &c/sbd-rewardchest <player> <loot> <normal/s/s+> <floor>
+	trigger:
+		SBD_RewardChest(arg-1, "reset", "0", 0)
+		SBD_RewardChest(arg-1, "%arg-2%", "%arg-3%", arg-4)
+
+function SBD_RewardChest(p: player, t: text, c: text, v: number):
+	set {_pU} to {_p}'s uuid
+	if {_t} is "reset": # p reset 0 0
+		delete {dungeon-reward-claim.%{_pU}%}
+		delete {dungeon-reward-drop.%{_pU}%}
+		delete {dungeon-reward-cost.%{_pU}%}
+		delete {dungeon-reward-essence.%{_pU}%}
+		delete {dungeon-freereward-essence.%{_pU}%}
+		delete {dungeon-finalreward-essence.%{_pU}%}
+		delete {dungeon-finalreward-drop.%{_pU}%}
+		delete {dungeon-finalreward-cost.%{_pU}%}
+	if {_t} is "loot":
+		if {_c} is "normal":
+			set {dungeon-freereward-essence.%{_pU}%} to random integer between (4+{_v}) and (8+{_v})
+		if {_c} is "s":
+			set {_r} to random integer between 2 and 101
+			set {dungeon-reward-essence.%{_pU}%} to random integer between (10+{_v}) and (25+{_v})
+			set {_f} to "reward"
+		if {_c} is "s+":
+			set {_r} to random integer between 1 and 100
+			set {dungeon-finalreward-essence.%{_pU}%} to random integer between (15+{_v}) and (30+{_v})
+			set {_f} to "finalreward"
+
+		if {_r} is equal to 1:
+			set {dungeon-%{_f}%-drop.%{_pU}%} to {Terminal-Items::MAXORS_HANDLE::1} # HANDLE S+
+			set {dungeon-%{_f}%-cost.%{_pU}%} to 35000000
+
+		if {_r} is between 2 and 25:
+			set {dungeon-%{_f}%-drop.%{_pU}%} to {Terminal-Items::WITHER_CATALYST::1}
+			set {dungeon-%{_f}%-cost.%{_pU}%} to 2500000 # ALL s+/s
+		if {_r} is between 26 and 35:
+			set {dungeon-%{_f}%-cost.%{_pU}%} to 1500000
+			set {dungeon-%{_f}%-drop.%{_pU}%} to {Terminal-Items::DIAMANTES_HANDLE::1}
+		if {_r} is between 36 and 45:
+			set {dungeon-%{_f}%-cost.%{_pU}%} to 1500000
+			set {dungeon-%{_f}%-drop.%{_pU}%} to {Terminal-Items::LASRS_EYE::1}
+		if {_r} is between 46 and 55:
+			set {dungeon-%{_f}%-cost.%{_pU}%} to 1500000
+			set {dungeon-%{_f}%-drop.%{_pU}%} to {Terminal-Items::BIGFOOTS_LASSO::1}
+		if {_r} is between 56 and 65:
+			set {dungeon-%{_f}%-cost.%{_pU}%} to 1500000
+			set {dungeon-%{_f}%-drop.%{_pU}%} to {Terminal-Items::JOLLY_PINK_ROCK::1}
+		if {_r} is between 66 and 67:	
+			set {dungeon-%{_f}%-cost.%{_pU}%} to 25000000
+			set {dungeon-%{_f}%-drop.%{_pU}%} to {Terminal-Items::TARANTULA_BOOTS::1}
+			dye {dungeon-%{_f}%-drop.%{_pU}%} (0, 0, 0)  
+		if {_r} is higher than 67:
+			set {dungeon-%{_f}%-cost.%{_pU}%} to 1000000 # else
+			stop

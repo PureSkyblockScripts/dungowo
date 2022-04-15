@@ -1,0 +1,35 @@
+command /setspawn:
+	permission: op
+	trigger:
+		set {spawn} to location of block at location of player
+		send "&8Setspawn to: %{spawn}%"
+
+on teleport:
+	if location is {spawn}:
+		wait 0.5 seconds
+		SB_Reload_AllStat(player)
+		make player execute command "/debugarrow"
+		make player execute command "/debugblade"
+		make console execute command "/debugitemable %player%"
+
+command /setdev:
+ permission: op
+ trigger:
+  set {devloc} to location of player
+  send "&8Set dev spawn to: %{devloc}%" to player
+
+# =====================================
+# TELEPORTER SPAWN
+# =====================================
+
+command /dev:
+	permission: op
+	trigger:
+		teleport player to {devloc}
+
+command /spawn:
+	trigger:
+		if {DungeonParty::*} contains "%player%":
+			send "&cNo :("
+		else:
+			teleport player to {spawn}

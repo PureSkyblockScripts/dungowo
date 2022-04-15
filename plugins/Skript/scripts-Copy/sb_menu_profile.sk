@@ -1,0 +1,68 @@
+command /sb-profile:
+	trigger:
+		open virtual chest inventory with size 5 named "Select Profile" to player
+		format gui slot (integers between 9 and 17) and (integers between 18 and 26) and (integers between 27 and 35) of player with {Menu-Panes}
+		format gui slot (integers between 36 and 44) and (integers between 0 and 8) of player with lime stained glass pane named "&7 "
+		format gui slot 40 of player with {Menu-Close} to close
+		format gui slot 39 of player with {Menu-GoBack} to close:
+			make player execute command "/menu"
+		format gui slot 4 of player with nametag named "&aYour Profiles" with lore "&7Select the profile that you want" and "&7to play on it!"
+
+		set {_pcurrent} to emerald block
+		set {_slot1p::*} to "&8Selected Slot" and "&7" and "&7Average Skill: &6%{AverageSkill.%UUID of player%}%" and "&7Mining: &eLevel %{Mining.%UUID of player%}%" and "&7Combat: &eLevel %{Combat.%UUID of player%}%" and "&7Farming: &eLevel %{Farming.%UUID of player%}%" and "&7" and "&d%player's helmet's name%" and "&d%player's chestplate's name%" and "&d%player's legs's name%" and "&d%player's boots's name%" and "&7" and "&7Bank Coins: &6%{Coins.%UUID of player%}%" and "&7Purse Coins: &6%{Purse.%UUID of player%}%" and "&7Age: &5%{Age.%UUID of player%}%" and "&7" and "&aYou are playing on this profile!"
+		
+		set {_pempty} to wood button named "&aEmpty Slot" with lore "&7Create a brand new profile" and "&7by clicking on this slot!" and "&7" and "&cMust be Skyblock Lv100!"
+		
+		set {_plocked} to stone button named "&cLocked Slot" with lore "&7Unlock this profile slot" and "&7by buying [&cWIP RANK&7]!" and "&7" and "&cSOON!"
+		
+		set {_pwip} to bedrock named "&cLocked Slot" with lore "&7This profile slot is not" and "&7available by now!"
+		
+		format gui slot 20 of player with {_pcurrent} named "&eProfile: &a%{Profile.%UUID of player%}%" with lore {_slot1p::*}
+		format gui slot 21 of player with {_pempty}
+		format gui slot 22 of player with {_plocked}
+		format gui slot 23 of player with {_pwip}
+		format gui slot 24 of player with {_pwip}
+			
+on inventory click:
+	if name of player's current inventory is "Select Profile":
+		if item is emerald block:
+			make player execute command "/currentprofile"
+		
+command /currentprofile:
+	trigger:
+		open virtual chest inventory with size 5 named "Current Profile" to player
+		format gui slot (integers between 9 and 17) and (integers between 18 and 26) and (integers between 27 and 35) of player with {Menu-Panes}
+		format gui slot (integers between 36 and 44) and (integers between 0 and 8) of player with lime stained glass pane named "&7 "
+		format gui slot 40 of player with {Menu-Close} to close
+		format gui slot 39 of player with {Menu-GoBack} to close:
+			make player execute command "/profiles"
+		format gui slot 4 of player with nametag named "&aYour Stats" with lore "&eClick to refresh!"
+		
+		set {_pgivedstats} to {Menu-ProfileStat.%UUID of player%}
+		set {_lore::*} to {_pgivedstats}'s lore
+		add "&7" and "&eClick to view more!" to {_lore::*}
+		
+		format gui slot 20 of player with ("%player%" parsed as player)'s skull named "&a%player%&a's Profile" with lore {_lore::*}
+			
+		set {_pgenstats} to {Menu-ProfileInfo.%UUID of player%}
+
+		format gui slot 22 of player with {_pgenstats}
+
+		set {_pgenskills} to diamond sword with attribute flag hidden named "&aYour Skills" with lore "&7Check your current skills progression!" and "&7" and "&7Average Skill: &6%{averageskills.%UUID of player%}%" and "&7" and "&7Combat Level: &6%{combat.%UUID of player%}%" and "&7Mining Level: &6%{Mining.%UUID of player%}%" and "&7Farming Level: &6%{farming.%UUID of player%}%" and "&7" and "&7Catacomb Level: &6%{Catacomb.%UUID of player%}%" and "&7" and "&7Other stats coming soon!" and "&7" and "&eClick to view more!"
+		
+		format gui slot 24 of player with {_pgenskills}
+			
+on inventory click:
+	if name of player's current inventory is "Current Profile":
+		if name of item is "&a%player%'s Stats":
+			make player execute command "/menustat"
+		if name of item is "&aYour Skills":
+			make player execute command "/menuskills"
+		if name of item is "&aYour Stats":
+			if {refresh-statsview.%UUID of player%} is not true:
+				set {refresh-statsview.%UUID of player%} to true
+				make player execute command "/currentprofile"
+				wait 3 seconds
+				delete {refresh-statsview.%UUID of player%}
+			else:
+				send "&cYou must wait 3 seconds to refresh this menu again!"

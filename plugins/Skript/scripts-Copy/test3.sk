@@ -1,0 +1,157 @@
+on right click with stick:
+	if name of player's tool contains "&6Heroic Ice Spray Wand":
+		SB_ItemManaCost(player, 50, "R")
+		SB_ItemCooldown(player, 5, "R")
+		if {SB-ItemAble.%UUID of player%} is true:
+			SB_AbilityUsed(player, "Ice Spray")
+			SB_ItemAbility_Throwing(player, "&b&lICESPRAYWAND", -2, 0, 1.1, ice, "head", 0.45, -1, "y", 0, 0, "", 0)
+			wait 1 tick
+			play 50 of snowflake at player's location
+			loop all living entities in radius 5 of player:
+				if loop-entity's name is "&b&lICESPRAYWAND":
+					set {_v} to loop-entity
+			loop 5 times:
+				loop all living entities in radius 1.5 of {_v}:
+					if loop-entity is not an armor stand:
+						if loop-entity is not a player:
+							apply slowness 250 without particles to loop-entity for 5 seconds replacing existing effect
+							wait 0.2 second
+
+on right click with blaze rod:
+	if name of player's tool contains "&5Heroic Bonzo's Staff":
+		SB_ItemManaCost(player, 100, "R")
+		SB_ItemCooldown(player, 0.3, "R")
+		if {SB-ItemAble.%UUID of player%} is true:
+			playsound(player, "entity.ghast.ambient", 1.2)
+			SB_AbilityUsed(player, "Showtime")
+			set {_n} to random integer between 1 and 4
+			if {_n} is 1:
+				set {_nbt} to "{display:{Name:""{\""text\"":\""Balloon (red)\""}""},SkullOwner:{Id:[I;-1217896545,-1015529000,-1506369421,548850094],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTJkZDExZGEwNDI1MmY3NmI2OTM0YmMyNjYxMmY1NGYyNjRmMzBlZWQ3NGRmODk5NDEyMDllMTkxYmViYzBhMiJ9fX0=""}]}}}"
+			if {_n} is 2:
+				set {_nbt} to "{display:{Name:""{\""text\"":\""Balloon (blue)\""}""},SkullOwner:{Id:[I;-1930142248,874596417,-1749454375,-2035844315],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjg2OGU2YTVjNGE0NDVkNjBhMzA1MGI1YmVjMWQzN2FmMWIyNTk0Mzc0NWQyZDQ3OTgwMGM4NDM2NDg4MDY1YSJ9fX0=""}]}}}"
+			if {_n} is 3:
+				set {_nbt} to "{display:{Name:""{\""text\"":\""Balloon (yellow)\""}""},SkullOwner:{Id:[I;-1713223855,-89568592,-1152436635,-1935019532],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvY2IxYWU3YTQ3MTcyOTY1MWI1NjY3YjgxNjk0ZTQ5MjgwOGM1MDkwYzJiMTY4ZjBhOTE5MGZkMDAyZWU1MGEyNiJ9fX0=""}]}}}"
+			if {_n} is 4:
+				set {_nbt} to "{display:{Name:""{\""text\"":\""Balloon (lime)\""}""},SkullOwner:{Id:[I;539136265,-1842724048,-1775346296,-1044505835],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2EyZGYzMTViNDM1ODNiMTg5NjIzMWI3N2JhZTFhNTA3ZGJkN2U0M2FkODZjMWNmYmUzYjJiOGVmMzQzMGU5ZSJ9fX0=""}]}}}"
+			set {_i} to player head with nbt "%{_nbt}%"
+				
+			SB_ItemAbility_Throwing(player, "", -1, 100, 0.8, {_i}, "head", 3, -0.75, "y", 10, 1, "entity.firework_rocket.twinkle", 1.1)
+
+on right click with diamond axe:
+	if name of player's tool contains "&dFabled Axe of the Shredded":
+		SB_ItemManaCost(player, 20, "R")
+		SB_ItemCooldown(player, 0.4, "R")
+		if {SB-ItemAble.%UUID of player%} is true:
+			SB_AbilityUsed(player, "Throw")
+			SB_ItemAbility_Throwing(player, "", 0, ({ManaCost.%UUID of player%}/2), 1.1, diamond axe, "hand", 3, -1, "x", 10, 0, "", 0)
+			SB_ItemManaCostCurse(player, 2, 320, "*", "R")
+			wait 0.4 seconds
+			kill {_s}
+
+on right click with bone:
+	if player's tool is a bone:
+		if player's tool is a bone:
+			set {_i} to player's tool
+			set {_in} to {_i}'s name
+			set {_il::*} to {_i}'s lore
+			set {_inbt} to {_i}'s nbt
+			set player's tool to ghast tear with nbt "%{_inbt}%"
+			set {_id} to player's tool
+			SB_ItemAbility_Throwing(player, "", 0, 100, 1.3, bone, "hand", 1.25, -1.25, "y", 20, 0, "", 0)
+			wait 1.3 second
+			loop all items in player's inventory:
+				if loop-item is {_id}:
+					if loop-item's nbt is {_i}'s nbt:
+						set loop-item to {_i}
+	
+function SB_ItemAbility_Throwing(p: player, name: text, dmg: number, pdmg: number, r: number, i: item, h: text, w: number, t: number, ri: text, rv: number, type: number, sound: text, psound: number):
+	# dmg: -2= n/a -1= abilitydmg 0= weapondmg / r: radius / h: head/hand / w: wait while kill / t: spd / ri: rotate x y z? / rv: rotate spd / type: 0=no explode, 1= yes
+	set {_toolid} to {_p}'s tool
+	set {_lr} to 0
+	if {_h} is not "head":
+		set {_lr} to 0.5
+	set {_l} to location {_lr} left {_p}'s location
+	set {_l} to location ({_lr}+0.25) meters above {_l}
+	spawn an armor stand at {_l}
+	set {_s} to the spawned entity
+	set name of {_s} to "✧%{_name}%✧"
+	add "{Invisible:1b,NoGravity:1b,ShowArms:1b,Marker:1b,DisabledSlots:63}" to nbt of {_s}
+	if {_h} is "hand":
+		set weapon of {_s} to {_i}
+		set {_h} to "RightArm"
+	if {_h} is "head":
+		set {_s}'s helmet to {_i}
+		set {_h} to "Head"
+	WaitKill({_p}, {_s}, {_w})
+	loop 50 times:
+		if {_s} is not alive:
+			kill {_s}
+			stop
+		loop all living entities in radius {_r} of {_s}:
+			if loop-entity is not a player:
+				if loop-entity is not an armor stand:
+					if {_o::*} contains loop-entity:
+						remove loop-entity from {_o::*}
+					else:
+						add loop-entity to {_o::*}
+						if {_dmg} is equal to 0:
+							MakeDamage({_p}, loop-entity, {_pdmg})
+						else if {_dmg} is equal to -1:
+							MakeMagicDamage({_p}, loop-entity, {_pdmg})
+						else if {_dmg} is equal to -2:
+							continue
+						else:
+							MakeSpecificDamage({_p}, loop-entity, {_dmg}, {_pdmg}, 3)
+						add loop-entity to {_o::*}
+						if {_type} is equal to 1:
+							play sound "%{_sound}%" with volume 4 with pitch {_psound} at {_s} for players
+							kill {_s}
+		if block 1 meters above {_s}'s location is not air:
+			if {_type} is equal to 1:
+				play sound "%{_sound}%" with volume 4 with pitch {_psound} at {_s} for players
+				set {_pt} to {_p}'s targeted block
+				loop all players in radius 5 of {_s}:
+					if loop-player-1 is {_p}:
+						spawn an armor stand at {_pt}'s location
+						set {_ss} to the spawned entity
+						loop all players in radius 5 of {_ss}:
+							if loop-player-2 is {_p}:
+								spawn an armor stand -2 meters horizontally in front of {_p}
+								set {_sss} to the spawned entity
+								loop all living entities in radius 3.5 of {_sss}:
+									if loop-entity-3 is {_ss}:
+										PushExplode({_p})
+										kill {_sss}
+										kill {_ss}
+										kill {_s}
+										stop	
+								push {_p} backwards at speed 1
+								push {_p} upward at speed 0.1
+								kill {_sss}
+								kill {_ss}
+								kill {_s}
+								stop
+			kill {_sss}
+			kill {_ss}
+			kill {_s}
+			stop
+		if {_toolid} is a bone or ghast tear:
+			if {_tt} is higher than 13.9:
+				set {_t} to 1.5
+				set {_pdmg} to 200
+				delete {_o::*}
+			else:
+				add 1 to {_tt}
+		teleport {_s} {_t} meters behind {_s}
+		if {_ri} is "x":
+			add {_rv} to {_v}
+			add "{Pose:{%{_h}%:[%{_v}%f,0f,0f]}}" to nbt of {_s}
+		if {_ri} is "y":
+			add {_rv} to {_v}
+			add "{Pose:{%{_h}%:[0f,%{_v}%f,0f]}}" to nbt of {_s}
+		if {_ri} is "z":
+			add {_rv} to {_v}
+			add "{Pose:{%{_h}%:[0f,0f,%{_v}%f]}}" to nbt of {_s}
+		wait 1 tick
+	kill {_s}
+	stop

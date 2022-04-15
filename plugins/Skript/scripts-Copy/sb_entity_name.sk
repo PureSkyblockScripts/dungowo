@@ -1,0 +1,14 @@
+on damage:
+	if victim is not a player:
+		if {_a} is not set:
+			if {_a} is not set:
+				if {Mob-Name.%UUID of victim%} is set:
+					if {health.%UUID of victim%} is set:
+						set victim's name to "&7%{Mob-Name.%UUID of victim%}% &c%{health.%UUID of victim%}%&c❤"
+
+
+				if {DSE-Name.%UUID of victim%} is set:
+					if {DSE-PowerName.%UUID of victim%} is set:
+						set name of victim to "%{DSE-PowerPrefix.%UUID of victim%}%%{DSE-Name.%UUID of victim%}% %{DSE-PowerName.%UUID of victim%}% &c%{health.%UUID of victim%}%&c❤"
+					else:
+						set name of victim to "%{DSE-PowerPrefix.%UUID of victim%}%%{DSE-Name.%UUID of victim%}% &c%{health.%UUID of victim%}%&c❤"

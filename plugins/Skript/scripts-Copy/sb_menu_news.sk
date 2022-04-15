@@ -1,0 +1,22 @@
+command /sb-news:
+	trigger:
+		MenuStyle(player, "News", "Full", 4, "/")
+		format gui slot 30 of player with {Menu-Panes}
+		format gui slot 13 of player with filled map named "&aMiscellaneous News" with lore "&7All miscellaneous news recently:" and "&8- &7Added &b[SUB] &7rank! &cSub to Eberos's YT Channel" and " &8- &fItems &7dispawn after &a10 seconds &7now" and " &8- &9Stats &7doesn't stack anymore" and " &8- &9Armors &7doesn't get wiped anymore" and " &8- &6Party Invitation &eis now clickable!" and "&8- &7Added private ranks! &b/prinfos &7 to see them!" and "&8-&7 Added &8[&5BUGREPORTER&8] &7Rank!"
+		format gui slot 11 of player with writable book named "&aDungeon News" with lore "&7All dungeon news recently:" and " &8- &c&lMaxor &7does explosion while &6crushed &7or &6lazered &7now" and " &8- &c&lMaxor &7doesn't die anymore in &9p2 &7anymore" and " &8- &bLCM Scaling &7Added! (&3x0.3 Weapon Dmg&7)" and " &8- &cBerserker &7take &ax10 &7less damage from &c&lMaxor&7's nuke!"
+		format gui slot 15 of player with book named "&aItems News" with lore "&7All item news recently:" and " &8- &7You take &cx2.5 &7more damage in &5Tuxedo  &7now" and " &8- &7Added &dvariants of blade" and " &8- &7Added &6Florid Zombie Sword" and " &8- &7Added &b&lPETS" and " &8- &7Added &9Kismet Feather&7! &6At Token Shop"
+		
+command /prinfos:
+	trigger:
+		MenuStyle(player, "Private Ranks Infos", "Full", 4, "/")
+		format gui slot 13 of player with redstone block named "&8[&cYTB PATREON&8-&cPR&8]" with lore "&7Help JustEberos gets a consequent amount of" and "&csubs &7and &3views &7in &cJustEberos's YT Channel" and "&8" and "&eClick to get channel link!" to close:
+			execute player command "/yt"
+		
+		format gui slot 11 of player with redstone named "&b[SUB]" with lore "&7Sub to &cJustEberos's YTB Channel&7." and "&8" and "&eClick to get channel link!" to close:
+			execute player command "/yt"
+		
+		format gui slot 15 of player with music disc with attribute flag hidden named "&8[&bDISCORD PATREON&8-&cPR&8]" with lore "&7Help the server to get a consequent " and "&7amount of &bdiscord members &7 in the &bOfficial discord server&7." and "&8" and "&eClick to get discord link!" to close:
+			send "&7Official &bDiscord &7Server: <link:https://discord.gg/vt7AreU>&ediscord.gg/vt7AreU" to player
+		
+		
+		

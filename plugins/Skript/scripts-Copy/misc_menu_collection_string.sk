@@ -1,0 +1,92 @@
+command /menucollection-combat-ficelle <player>:
+ permission: op
+ trigger:
+  if {collection-String.%UUID of arg-1%} is not higher than 0:
+   set {_MenuCollection-String-1.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-String-1.%UUID of arg-1%} to lime stained glass pane
+
+  if {collection-String.%UUID of arg-1%} is not higher than 1:
+   set {_MenuCollection-String-2.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-String-2.%UUID of arg-1%} to lime stained glass pane
+
+  if {collection-String.%UUID of arg-1%} is not higher than 2:
+   set {_MenuCollection-String-3.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-String-3.%UUID of arg-1%} to lime stained glass pane
+
+  if {collection-String.%UUID of arg-1%} is not higher than 3:
+   set {_MenuCollection-String-4.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-String-4.%UUID of arg-1%} to lime stained glass pane
+
+  if {collection-String.%UUID of arg-1%} is not higher than 4:
+   set {_MenuCollection-String-5.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-String-5.%UUID of arg-1%} to lime stained glass pane
+
+  if {collection-String.%UUID of arg-1%} is not higher than 5:
+   set {_MenuCollection-String-6.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-String-6.%UUID of arg-1%} to lime stained glass pane
+
+  if {collection-String.%UUID of arg-1%} is not higher than 6:
+   set {_MenuCollection-String-7.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-String-7.%UUID of arg-1%} to lime stained glass pane
+
+  if {collection-String.%UUID of arg-1%} is not higher than 7:
+   set {_MenuCollection-String-8.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-String-8.%UUID of arg-1%} to lime stained glass pane
+
+  if {collection-String.%UUID of arg-1%} is not higher than 8:
+   set {_MenuCollection-String-9.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-String-9.%UUID of arg-1%} to lime stained glass pane
+
+  open virtual chest inventory with size 6 named "Collection de Ficelle" to arg-1
+  wait 1 tick
+  format gui slot (integers between 0 and 53) of arg-1 with black stained glass pane named "&f"
+
+  format gui slot 4 of arg-1 with string named "&eFicelle %{Collection-String.%UUID of arg-1%}%" with lore "&7Consultez tous les progrès et récompenses" and "&7de votre collection de Ficelle!" and "&7" and "&7Vous avez récolté &e%{Collection-String-Collected.%UUID of arg-1%}%&7."
+
+  format gui slot 18 of arg-1 with {_MenuCollection-String-1.%UUID of arg-1%} named "&eFicelle I" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&8???" and "&7" and "&7Nécessite &b50 Ficelles"
+
+  format gui slot 19 of arg-1 with {_MenuCollection-String-2.%UUID of arg-1%} named "&eFicelle II" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&8???" and "&7" and "&7Nécessite &b100 Ficelles"
+
+  format gui slot 20 of arg-1 with {_MenuCollection-String-3.%UUID of arg-1%} named "&eFicelle III" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&8???" and "&7" and "&b✔ &7Fournit le &6Carquois &7sur votre &aMenu&7." and "&7" and "&7Nécessite &b250 Ficelles"
+
+  format gui slot 21 of arg-1 with {_MenuCollection-String-4.%UUID of arg-1%} named "&eFicelle IV" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&aFicelle Enchanté &7Recette" and "&7" and "&7Nécessite &b1000 Ficelles"
+
+  format gui slot 22 of arg-1 with {_MenuCollection-String-5.%UUID of arg-1%} named "&eFicelle V" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&8???" and "&7" and "&7Nécessite &b2500 Ficelles"
+
+  format gui slot 23 of arg-1 with {_MenuCollection-String-6.%UUID of arg-1%} named "&eFicelle VI" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&8???" and "&7" and "&7Nécessite &b5000 Ficelles"
+
+  format gui slot 24 of arg-1 with {_MenuCollection-String-7.%UUID of arg-1%} named "&eFicelle VII" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&8???" and "&7" and "&7Nécessite &b10 000 Ficelles"
+
+  format gui slot 25 of arg-1 with {_MenuCollection-String-8.%UUID of arg-1%} named "&eFicelle VIII" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&9Bottes d'Araignée &7Recette" and "&7" and "&7Nécessite &b25 000 Ficelles"
+
+  format gui slot 26 of arg-1 with {_MenuCollection-String-9.%UUID of arg-1%} named "&eFicelle IX" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&8???" and "&7" and "&7Nécessite &b50 000 Ficelles"
+
+
+  format gui slot 19 of arg-1 with {_MenuCollection-Bone-2.%UUID of arg-1%} named "&eOs II" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&8???" and "&7" and "&7Nécessite &b100 Os"
+
+  format gui slot 20 of arg-1 with {_MenuCollection-Bone-3.%UUID of arg-1%} named "&eOs III" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&8???" and "&7" and "&7Nécessite &b250 Os"
+
+  format gui slot 21 of arg-1 with {_MenuCollection-Bone-4.%UUID of arg-1%} named "&eOs IV" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&8???" and "&7" and "&7Nécessite &b1000 Os"
+
+  format gui slot 22 of arg-1 with {_MenuCollection-Bone-5.%UUID of arg-1%} named "&eOs V" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&aOs Enchanté &7Recette" and "&7" and "&7Nécessite &b2500 Os"
+
+  format gui slot 23 of arg-1 with {_MenuCollection-Bone-6.%UUID of arg-1%} named "&eOs VI" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&8???" and "&7" and "&7Nécessite &b5000 Os"
+
+  format gui slot 24 of arg-1 with {_MenuCollection-Bone-7.%UUID of arg-1%} named "&eOs VII" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&5Arc d'Ouragan &7Recette" and "&7" and "&7Nécessite &b10 000 Os"
+
+  format gui slot 25 of arg-1 with {_MenuCollection-Bone-8.%UUID of arg-1%} named "&eOs VIII" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&9Chapeau de Squelette &7Recette" and "&7" and "&7Nécessite &b25 000 Os"
+
+  format gui slot 26 of arg-1 with {_MenuCollection-Bone-9.%UUID of arg-1%} named "&eOs IX" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&8???" and "&7" and "&7Nécessite &b50 000 Os"
+
+  format gui slot 48 of arg-1 with arrow named "&aRetour" with lore "&7Revenir à la page précédente." and "&7" and "&eCliquez pour retourner!" to close:
+   make console execute command "/menucollection-combat %player%"
+  format gui slot 49 of arg-1 with barrier named "&cFermer" to close

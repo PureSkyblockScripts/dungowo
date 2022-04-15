@@ -1,0 +1,23 @@
+function playsound(p: player, music: text, n: number):
+	play sound "%{_music}%" with pitch {_n} at {_p} for {_p}
+	
+function Sound_PlayerLevelup(p: player):
+	play sound "entity.player.levelup" at {_p} for {_p}
+	
+function Sound_WitherAmbient(p: player):
+	play sound "entity.wither.ambient" at {_p} for {_p}
+	
+function Sound_WitherBreakBlock(p: player):
+	play sound "entity.wither.break_block" at {_p} for {_p}
+	
+function Click(p: player):
+	play sound "ui.button.click" at {_p} for {_p}
+	
+function Nope(p: player):
+	play sound "entity.villager.no" at {_p} for {_p}
+	
+function Yes(p: player):
+	play sound "entity.villager.yes" at {_p} for {_p}
+
+function Sound_Pickup(p: player):
+	play sound "entity.item.pickup" at {_p} for {_p}

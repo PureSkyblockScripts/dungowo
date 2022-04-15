@@ -1,0 +1,98 @@
+on right click with player head:
+	if name of player's tool is "&6Bag of Coins":
+		cancel event
+		loop all items in the player's inventory:
+			if name of loop-item is "&6Bag of Coins":
+				if {abz} is not true:
+					set {_BagCheck.%UUID of player%} to number of loop-item in the player's inventory
+					add {_BagCheck.%UUID of player%}*1000000 to {purse.%UUID of player%}
+					remove all loop-item from player's inventory
+					Buyed(player)
+		
+on right click with iron sword:
+	cancel event
+	if name of player's tool contains "&dFabled Giant's Sword":
+		SB_ItemManaCost(player, 100, "R")
+		SB_ItemCooldown(player, 30, "R")
+		if {SB-ItemAble.%UUID of player%} is true:
+			SB_AbilityUsed(player, "Giant's Slam")
+			set {_loc} to player's targeted block
+			add 2 to y coords of {_loc}
+			SB_SpawnEntity("giant", "✧", {_loc}, "{NoAI:1b,NoGravity:1b,Silent:1b}", {_hp}, 0, 0, 0, 0, 0, 0, "0", 0, 0, 0, air, air, air, air, iron sword, player)
+			set {_s} to the spawned giant
+			apply invisibility 1 without particles to {_s} for 9999 seconds
+			play sound "block.anvil.land" with pitch 0.5 at {_loc} for players
+			play 10 explosion with speed 0 at player's location
+			loop all living entities in radius 5 of {_loc}:
+				if loop-entity is not a player:
+					MakeMagicDamage(player, loop-entity, 100)
+			set {_s}'s name to "Dinnerbone"
+			wait 6 seconds
+			DeleteEntity({_s})
+		
+on right click with ender pearl:
+	cancel event
+	if {DungeonParty::*} contains "%player%":
+		SB_ItemManaCost(player, 0, "R")
+		SB_ItemCooldown(player, 5, "R")
+		if {SB-ItemAble.%UUID of player%} is true:
+			SB_AbilityUsed(player, "Leap")
+			loop all players:
+				if loop-player is not the player:
+					if {DungeonParty::*} contains "%loop-player%":
+						set {_p} to loop-player
+			if {_p} is set:
+				send "&6&lABILITY! &7You teleported to &a%{_p}%&7!" to player
+				send "&6&lABILITY! &b%player% &7teleported to you with &aSpirit Leap&7!" to {_p}
+				teleport player to {_p}
+				
+on armor change:
+	if player's gamemode is not creative or spectator:
+		if {SBD-Ghosted.%UUID of player%} is not true:
+			disable fly to player
+	if name of event-item contains "&d⚚ Ancient Shiny Tarantula Boots":
+		if {DungeonParty::*} contains "%player%":
+			enable fly to player
+			send "&6&lABILITY! &fNow - You can fly permanently!" to player
+			Yes(player)
+			
+every 15 seconds in "world":
+	loop all players:
+		if loop-player is a player:
+			if loop-player has golden sword:
+				if {SB-Charges.%UUID of loop-player%} is not set:
+					set {SB-Charges.%UUID of loop-player%} to 5
+				add 1 to {SB-Charges.%UUID of loop-player%}
+				if {SBD-Class.%UUID of loop-player%} is not "Healer":
+					if {SB-Charges.%UUID of loop-player%} is higher than 4.9:
+						set {SB-Charges.%UUID of loop-player%} to 5
+				else:
+					if {SB-Charges.%UUID of loop-player%} is higher than 6.9:
+						set {SB-Charges.%UUID of loop-player%} to 7
+			else:
+				delete {SB-Charges.%UUID of loop-player%}
+		
+on right click with golden sword:
+	if name of player's tool contains "&6Florid Zombie Sword":
+		if {SB-Charges.%UUID of player%} is higher than 0:
+			SB_ItemManaCost(player, 70, "R")
+			SB_ItemCooldown(player, 0.1, "R")
+			if {SB-ItemAble.%UUID of player%} is true:
+				SB_AbilityUsed(player, "Instant Heal")
+				remove 1 from {SB-Charges.%UUID of player%}
+				set {_t} to 168+({MaxHealth.%UUID of player%}*0.05)
+				add {_t} to {Health.%UUID of player%}
+				play 5 heart with speed 0 at player's eyes's location
+				send "&aYou healed yourself for &a%{_t}%&a❤!" to player
+				playsound(player, "entity.experience_orb.pickup", 1)
+				loop all players in radius 8 of player:
+					if {defense.%UUID of loop-player%} is set:
+						if loop-player is not the player:
+							add 56 to {Health.%UUID of loop-player%}
+							send "&a&lYou healed &a&l%loop-player% &a&lfor 56❤&a!" to player
+							send "&aYou have been healed by 56&a❤ from &a&l%player%&a!" to loop-player
+							play 5 heart with speed 0 at loop-player's eyes's location
+		else:
+			send "&cNo charge left to use! Please wait." to player
+			Nope(player)
+			stop

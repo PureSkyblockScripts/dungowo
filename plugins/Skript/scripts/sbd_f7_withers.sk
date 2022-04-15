@@ -1,0 +1,119 @@
+command /spawn-crusher <text>:
+	permission: op
+	trigger:
+		set {_v} to arg-1
+		spawn an armor stand at player's location with nbt "{Invisible:1b,Marker:1b,DisabledSlots:63}"
+		set name of the spawned entity to "&7CRUSHER-%{_v}%"
+		send "&6&lSET!"
+	
+command /spawn-a:
+	permission: op
+	trigger:
+		spawn an armor stand at player's location with nbt "{Invisible:1b,Marker:1b,DisabledSlots:63}"
+		set name of the spawned entity to "&5SPAWN-P2-ARCHER"
+		send "&6&lSET!"
+		
+command /spawn-m:
+	permission: op
+	trigger:
+		spawn an armor stand at player's location with nbt "{Invisible:1b,Marker:1b,DisabledSlots:63}"
+		set name of the spawned entity to "&5SPAWN-P2-MINER"
+		send "&6&lSET!"
+		
+command /spawn-w:
+	permission: op
+	trigger:
+		spawn an armor stand at player's location with nbt "{Invisible:1b,Marker:1b,DisabledSlots:63}"
+		set name of the spawned entity to "&5SPAWN-BOSS"
+		send "&6&lSET!"
+		
+command /dels:
+	permission: op
+	trigger:
+		send "%{SBD-f7-Difficulty}%"
+		loop all living entities in radius 1.5 of player:
+			if loop-entity is an armor stand:
+				kill loop-entity
+		
+function DespawnWither():
+	loop all living entities:
+		if loop-entity is a wither skeleton:
+			if name of loop-entity contains "&cWither":
+				DeleteEntity(loop-entity)
+
+function SpawnWitherType(t: number, e: entity):
+	if {SBD-f7-Difficulty} is equal to 1:
+		set {_o} to 1
+		set {_ox} to 1
+	else:
+		set {_ox} to 6
+		set {_o} to 2.4
+	if {_t} is equal to 1:
+		spawn a wither skeleton at {_e}'s location
+		set {_v} to the spawned entity
+		add "{Attributes:[{Name:""generic.follow_range"",Base:160f}]}" to nbt of {_v}
+		set {_vU} to {_v}'s uuid
+		set {health.%{_vU}%} to (10000000*({SBD-f7-Difficulty}+{_ox}))
+		set {Mob-Damage.%{_vU}%} to (20000*({SBD-f7-Difficulty}/{_o}))
+		set name of {_v} to "&cWither Miner &a%{health.%{_vU}%}/1000000%&aM&c❤"
+		set weapon of {_v} to stone pickaxe
+		apply resistance 250 without particles to {_v} for 9999 seconds
+		stop
+	if {_t} is equal to 2:
+		spawn a wither skeleton at {_e}'s location
+		set {_v} to the spawned entity
+		add "{Attributes:[{Name:""generic.follow_range"",Base:160f}]}" to nbt of {_v}
+		set {_vU} to {_v}'s uuid
+		set {health.%{_vU}%} to (5000000*({SBD-f7-Difficulty}+{_ox}))
+		set {Mob-Damage.%{_vU}%} to (30000*({SBD-f7-Difficulty}/{_o}))
+		set name of {_v} to "&cWither Archer &a%{health.%{_vU}%}/1000000%&aM&c❤"
+		set weapon of {_v} to bow
+		apply resistance 250 without particles to {_v} for 9999 seconds
+		apply slowness 250 without particles to {_v} for 9999 seconds
+		stop
+	stop
+
+function SpawnWither(n: number):
+	if {_n} is equal to 1:
+		loop all living entities:
+			if loop-entity is an armor stand:
+				if name of loop-entity is "&5SPAWN-MINER":
+					loop 8 times:
+						SpawnWitherType(1, loop-entity)
+				if name of loop-entity is "&5SPAWN-ARCHER":
+					SpawnWitherType(2, loop-entity)
+		stop
+	if {_n} is equal to 2:
+		loop all living entities:
+			if loop-entity is an armor stand:
+				if name of loop-entity is "&5SPAWN-P2-MINER":
+					loop 8 times:
+						SpawnWitherType(1, loop-entity)
+				if name of loop-entity is "&5SPAWN-P2-ARCHER":
+					SpawnWitherType(2, loop-entity)
+		stop
+					
+on damage of wither skeleton:
+	if name of victim contains "&cWither Miner":
+		wait 1 tick
+		add "{CustomNameVisible:1b}" to nbt of victim
+		if {health.%UUID of victim%} is higher than 999999.9:
+			if {health.%UUID of victim%} is higher than (4999999.9*({SBD-f7-Difficulty}+{_ox})):
+				set {_c} to "&a"
+			else:
+				set {_c} to "&e"
+			set name of victim to "&cWither Miner %{_c}%%{health.%UUID of victim%} / 1000000%%{_c}%M&c❤"
+		else:
+			set name of victim to "&cWither Miner &e%{health.%UUID of victim%} / 1000%&ek&c❤"
+			
+	if name of victim contains "&cWither Archer":
+		wait 1 tick
+		add "{CustomNameVisible:1b}" to nbt of victim
+		if {health.%UUID of victim%} is higher than 999999.9:
+			if {health.%UUID of victim%} is higher than (2499999.9*({SBD-f7-Difficulty}+{_ox})):
+				set {_c} to "&a"
+			else:
+				set {_c} to "&e"
+			set name of victim to "&cWither Archer %{_c}%%{health.%UUID of victim%} / 1000000%%{_c}%M&c❤"
+		else:
+			set name of victim to "&cWither Archer &e%{health.%UUID of victim%} / 1000%&ek&c❤"

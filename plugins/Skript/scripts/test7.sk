@@ -1,0 +1,12 @@
+on damage of player:
+	if name of {Pet.%UUID of player%} contains "&6Blue Whale":
+		stop
+		
+
+on right click with diamond shovel:
+	if name of player's tool contains "&6Warped Aspect of the Void":
+		SB_InstantTransmission(player, 12)
+
+function SB_InstantTransmission(p: player, v: number):
+	if {_v} is 12:
+		send "&cDue a problem this ability is temporaly disabled! (Instant Transmission)" to {_p}

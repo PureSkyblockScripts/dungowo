@@ -1,0 +1,222 @@
+command /deserttreasure-map <player>:
+	permission: op
+	trigger:
+		set {_DesertTreasure-RandomizerMap} to random integer between 1 and 30
+		if {_DesertTreasure-RandomizerMap} is equal to 1:
+			set {DesertTreasure-XYZ.%UUID of arg-1%} to "525 216 222"
+			set {DesertTreasure-Loc.%UUID of arg-1%} to location (525.5, 216.5, 222.5) of the world "world"
+		if {_DesertTreasure-RandomizerMap} is equal to 2:
+			set {DesertTreasure-XYZ.%UUID of arg-1%} to "459 216 233"
+			set {DesertTreasure-Loc.%UUID of arg-1%} to location (459.5, 216.5, 233.5) of the world "world"
+		if {_DesertTreasure-RandomizerMap} is equal to 3:
+			set {DesertTreasure-XYZ.%UUID of arg-1%} to "451 216 217"
+			set {DesertTreasure-Loc.%UUID of arg-1%} to location (451.5, 216.5, 217.5) of the world "world"
+		if {_DesertTreasure-RandomizerMap} is equal to 4:
+			set {DesertTreasure-XYZ.%UUID of arg-1%} to "463 216 216"
+			set {DesertTreasure-Loc.%UUID of arg-1%} to location (463.5, 216.5, 216.5) of the world "world"
+		if {_DesertTreasure-RandomizerMap} is equal to 5:
+			set {DesertTreasure-XYZ.%UUID of arg-1%} to "491 216 224"
+			set {DesertTreasure-Loc.%UUID of arg-1%} to location (491.5, 216.5, 224.5) of the world "world"
+		if {_DesertTreasure-RandomizerMap} is equal to 6:
+			set {DesertTreasure-XYZ.%UUID of arg-1%} to "508 216 233"
+			set {DesertTreasure-Loc.%UUID of arg-1%} to location (508.5, 216.5, 233.5) of the world "world"
+		if {_DesertTreasure-RandomizerMap} is equal to 7:
+			set {DesertTreasure-XYZ.%UUID of arg-1%} to "518 217 218"
+			set {DesertTreasure-Loc.%UUID of arg-1%} to location (518.5, 217.5, 218.5) of the world "world"
+		if {_DesertTreasure-RandomizerMap} is equal to 8:
+			set {DesertTreasure-XYZ.%UUID of arg-1%} to "532 215 205"
+			set {DesertTreasure-Loc.%UUID of arg-1%} to location (532.5, 215.5, 205.5) of the world "world"
+		if {_DesertTreasure-RandomizerMap} is equal to 9:
+			set {DesertTreasure-XYZ.%UUID of arg-1%} to "532 225 222"
+			set {DesertTreasure-Loc.%UUID of arg-1%} to location (532.5, 225.5, 222.5) of the world "world"
+		if {_DesertTreasure-RandomizerMap} is equal to 10:
+			set {DesertTreasure-XYZ.%UUID of arg-1%} to "521 209 255"
+			set {DesertTreasure-Loc.%UUID of arg-1%} to location (521.5, 209.5, 255.5) of the world "world"
+		if {_DesertTreasure-RandomizerMap} is equal to 11:
+			set {DesertTreasure-XYZ.%UUID of arg-1%} to "502 222 252"
+			set {DesertTreasure-Loc.%UUID of arg-1%} to location (502.5, 222.5, 252.5) of the world "world"
+		if {_DesertTreasure-RandomizerMap} is equal to 12:
+			set {DesertTreasure-XYZ.%UUID of arg-1%} to "487 215 251"
+			set {DesertTreasure-Loc.%UUID of arg-1%} to location (487.5, 215.5, 251.5) of the world "world"
+		if {_DesertTreasure-RandomizerMap} is equal to 13:
+			set {DesertTreasure-XYZ.%UUID of arg-1%} to "466 215 254"
+			set {DesertTreasure-Loc.%UUID of arg-1%} to location (466.5, 215.5, 254.5) of the world "world"
+		if {_DesertTreasure-RandomizerMap} is equal to 14:
+			set {DesertTreasure-XYZ.%UUID of arg-1%} to "476 223 214"
+			set {DesertTreasure-Loc.%UUID of arg-1%} to location (476.5, 223.5, 214.5) of the world "world"
+		if {_DesertTreasure-RandomizerMap} is equal to 15:
+			set {DesertTreasure-XYZ.%UUID of arg-1%} to "495 229 195"
+			set {DesertTreasure-Loc.%UUID of arg-1%} to location (495.5, 229.5, 195.5) of the world "world"
+		if {_DesertTreasure-RandomizerMap} is equal to 16:
+			set {DesertTreasure-XYZ.%UUID of arg-1%} to "499 235 167"
+			set {DesertTreasure-Loc.%UUID of arg-1%} to location (499.5, 235.5, 167.5) of the world "world"
+		if {_DesertTreasure-RandomizerMap} is equal to 17:
+			set {DesertTreasure-XYZ.%UUID of arg-1%} to "507 241 185"
+			set {DesertTreasure-Loc.%UUID of arg-1%} to location (507.5, 241.5, 185.5) of the world "world"
+		if {_DesertTreasure-RandomizerMap} is equal to 18:
+			set {DesertTreasure-XYZ.%UUID of arg-1%} to "490 240 203"
+			set {DesertTreasure-Loc.%UUID of arg-1%} to location (490.5, 240.5, 203.5) of the world "world"
+		if {_DesertTreasure-RandomizerMap} is equal to 19:
+			set {DesertTreasure-XYZ.%UUID of arg-1%} to "469 246 201"
+			set {DesertTreasure-Loc.%UUID of arg-1%} to location (469.5, 246.5, 201.5) of the world "world"
+		if {_DesertTreasure-RandomizerMap} is equal to 20:
+			set {DesertTreasure-XYZ.%UUID of arg-1%} to "448 233 189"
+			set {DesertTreasure-Loc.%UUID of arg-1%} to location (448.5, 233.5, 189.5) of the world "world"
+		if {_DesertTreasure-RandomizerMap} is equal to 21:
+			set {DesertTreasure-XYZ.%UUID of arg-1%} to "463 230 172"
+			set {DesertTreasure-Loc.%UUID of arg-1%} to location (463.5, 230.5, 172.5) of the world "world"
+		if {_DesertTreasure-RandomizerMap} is equal to 22:
+			set {DesertTreasure-XYZ.%UUID of arg-1%} to "492 240 161"
+			set {DesertTreasure-Loc.%UUID of arg-1%} to location (492.5, 240.5, 161.5) of the world "world"
+		if {_DesertTreasure-RandomizerMap} is equal to 23:
+			set {DesertTreasure-XYZ.%UUID of arg-1%} to "475 250 188"
+			set {DesertTreasure-Loc.%UUID of arg-1%} to location (475.5, 250.5, 188.5) of the world "world"
+		if {_DesertTreasure-RandomizerMap} is equal to 24:
+			set {DesertTreasure-XYZ.%UUID of arg-1%} to "515 224 205"
+			set {DesertTreasure-Loc.%UUID of arg-1%} to location (515.5, 224.5, 205.5) of the world "world"
+		if {_DesertTreasure-RandomizerMap} is equal to 25:
+			set {DesertTreasure-XYZ.%UUID of arg-1%} to "498 232 211"
+			set {DesertTreasure-Loc.%UUID of arg-1%} to location (498.5, 232.5, 211.5) of the world "world"
+		if {_DesertTreasure-RandomizerMap} is equal to 26:
+			set {DesertTreasure-XYZ.%UUID of arg-1%} to "508 225 162"
+			set {DesertTreasure-Loc.%UUID of arg-1%} to location (508.5, 225.5, 162.5) of the world "world"
+		if {_DesertTreasure-RandomizerMap} is equal to 27:
+			set {DesertTreasure-XYZ.%UUID of arg-1%} to "490 215 147"
+			set {DesertTreasure-Loc.%UUID of arg-1%} to location (490.5, 215.5, 147.5) of the world "world"
+		if {_DesertTreasure-RandomizerMap} is equal to 28:
+			set {DesertTreasure-XYZ.%UUID of arg-1%} to "515 219 235"
+			set {DesertTreasure-Loc.%UUID of arg-1%} to location (515.5, 219.5, 235.5) of the world "world"
+		if {_DesertTreasure-RandomizerMap} is equal to 29:
+			set {DesertTreasure-XYZ.%UUID of arg-1%} to "502 217 216"
+			set {DesertTreasure-Loc.%UUID of arg-1%} to location (502.5, 217.5, 216.5) of the world "world"
+		if {_DesertTreasure-RandomizerMap} is equal to 30:
+			set {DesertTreasure-XYZ.%UUID of arg-1%} to "515 215 173"
+			set {DesertTreasure-Loc.%UUID of arg-1%} to location (515.5, 215.5, 173.5) of the world "world"
+		if {_DesertTreasure-RandomizerMap} is equal to 31:
+			set {DesertTreasure-XYZ.%UUID of arg-1%} to "482 216 227"
+			set {DesertTreasure-Loc.%UUID of arg-1%} to location (482.5, 216.5, 227.5) of the world "world"
+		if {_DesertTreasure-RandomizerMap} is equal to 32:
+			set {DesertTreasure-XYZ.%UUID of arg-1%} to "507 209 256"
+			set {DesertTreasure-Loc.%UUID of arg-1%} to location (507.5, 209.5, 256.5) of the world "world"
+		if {_DesertTreasure-RandomizerMap} is equal to 33:
+			set {DesertTreasure-XYZ.%UUID of arg-1%} to "454 218 206"
+			set {DesertTreasure-Loc.%UUID of arg-1%} to location (454.5, 218.5, 206.5) of the world "world"
+		if {_DesertTreasure-RandomizerMap} is equal to 34:
+			set {DesertTreasure-XYZ.%UUID of arg-1%} to "479 243 193"
+			set {DesertTreasure-Loc.%UUID of arg-1%} to location (479.5, 243.5, 193.5) of the world "world"
+		if {_DesertTreasure-RandomizerMap} is equal to 35:
+			set {DesertTreasure-XYZ.%UUID of arg-1%} to "493 215 245"
+			set {DesertTreasure-Loc.%UUID of arg-1%} to location (493.5, 215.5, 245.5) of the world "world"
+		
+
+		send "&6&lTRÉSOR! &fLe trésor se situe en &7%{DesertTreasure-XYZ.%UUID of arg-1%}%&f." to arg-1
+		apply blindness 1 without particles to arg-1 for 1.5 seconds
+		
+		
+# ===================
+on break:
+	if {DesertTreasure-Loc.%UUID of player%} is set:	
+		if location of event-block is location at {DesertTreasure-Loc.%UUID of player%}:
+			set {_DesertTreasure-Correct.%UUID of player%} to true
+		else:
+			cancel event
+			play sound "block.note_block.bass" to player
+			stop
+
+	wait 1 tick
+	if {_DesertTreasure-Correct.%UUID of player%} is true:
+		delete {DesertTreasure-BlockDig.%UUID of player%}
+		delete {DesertTreasure-Start.%UUID of player%}
+		delete {DesertTreasure-XYZ.%UUID of player%}
+		delete {DesertTreasure-Loc.%UUID of player%}
+		add 1 to {SpecialQuest-Halloween-4.%UUID of player%}
+		add 1 to {DesertTreasure-Found.%UUID of player%}
+		set {_DesertTreasure-Drop.%UUID of player%} to 0
+		if {DesertTreasure-Milestone.%UUID of player%} is equal to 1:
+			set {_DesertTreasure-DropMax.%UUID of player%} to 123
+		if {DesertTreasure-Milestone.%UUID of player%} is equal to 2:
+			set {_DesertTreasure-DropMax.%UUID of player%} to 200
+		if {DesertTreasure-Milestone.%UUID of player%} is equal to 3:
+			set {_DesertTreasure-DropMax.%UUID of player%} to 250
+		if {DesertTreasure-Milestone.%UUID of player%} is equal to 4:
+			set {_DesertTreasure-DropMax.%UUID of player%} to 250
+		if {DesertTreasure-Milestone.%UUID of player%} is equal to 5:
+			set {_DesertTreasure-DropMax.%UUID of player%} to 250
+		if player has {Storage-Accessory-TalismanDAventurier}:
+			set {_DesertTreasure-Drop.%UUID of player%} to 2
+		if player has {Storage-Accessory-AnneauDAventurier}:
+			set {_DesertTreasure-Drop.%UUID of player%} to 4
+		if player has {Storage-Accessory-AnneauDAventurier}:
+			set {_DesertTreasure-Drop.%UUID of player%} to 6
+			
+		
+		set {_DesertTreasure-Drop.%UUID of player%} to random integer between {_DesertTreasure-Drop.%UUID of player%} and {_DesertTreasure-DropMax.%UUID of player%}
+		# ===
+		# CHANCE
+		# VIDE 25.5%
+		# Pièces 10%
+		# XP 10%
+		# Flèches 15%
+		# Fèves de Cacao 10%
+		# Citrouille 10%
+		# Lingot d'Or 10%
+		# Talisman 2%
+		# Poussière 4%
+		# Coquille 2%
+		# Poussière E 1%
+		# Bloc Champi 0.5%
+		
+		
+		# ===
+		if {_DesertTreasure-Drop.%UUID of player%} is between 0 and 50:
+			set {_DesertTreasure-DropText.%UUID of player%} to "&7Trésor Vide"
+		if {_DesertTreasure-Drop.%UUID of player%} is between 51 and 71:
+			set {_DesertTreasure-CoinsGain.%UUID of player%} to random integer between 100 and (250 * ({DesertTreasure-Milestone.%UUID of player%} * {DesertTreasure-Milestone.%UUID of player%}))
+			set {_DesertTreasure-DropText.%UUID of player%} to "&6%{_DesertTreasure-CoinsGain.%UUID of player%}% &6Pièces"
+			add {_DesertTreasure-CoinsGain.%UUID of player%} to {purse.%UUID of player%}
+		if {_DesertTreasure-Drop.%UUID of player%} is between 72 and 92:
+			set {_DesertTreasure-EXPGain.%UUID of player%} to random integer between 10 and (25 * ({DesertTreasure-Milestone.%UUID of player%} * {DesertTreasure-Milestone.%UUID of player%}))
+			set {_DesertTreasure-DropText.%UUID of player%} to "&b%{_DesertTreasure-EXPGain.%UUID of player%}% &bCombat EXP"
+			add {_DesertTreasure-EXPGain.%UUID of player%} to {combatEXP.%UUID of player%}
+		if {_DesertTreasure-Drop.%UUID of player%} is between 93 and 123:
+			set {_DesertTreasure-DropText.%UUID of player%} to "&fFlèche de Silex &8x8"
+			set {_DesertTreasure-DropDrop.%UUID of player%} to 8 of {Storage-Walker-Item-FlècheDeSilex}
+		if {_DesertTreasure-Drop.%UUID of player%} is between 124 and 144:
+			set {_DesertTreasure-DropText.%UUID of player%} to "&aFèves de Cacao Enchanté &8x2"
+			set {_DesertTreasure-DropDrop.%UUID of player%} to 2 of {Storage-Item-FèvesDeCacaoEnchanté}
+		if {_DesertTreasure-Drop.%UUID of player%} is between 145 and 165:
+			set {_DesertTreasure-DropText.%UUID of player%} to "&aCitrouille Enchanté &8x2"
+			set {_DesertTreasure-DropDrop.%UUID of player%} to 2 of {Storage-Item-CitrouilleEnchanté}
+		if {_DesertTreasure-Drop.%UUID of player%} is between 166 and 186:
+			set {_DesertTreasure-DropText.%UUID of player%} to "&aLingot d'Or Enchanté &8x2"
+			set {_DesertTreasure-DropDrop.%UUID of player%} to 2 of {Storage-Item-LingotDOrEnchanté}
+		if {_DesertTreasure-Drop.%UUID of player%} is between 187 and 191:
+			set {_DesertTreasure-DropText.%UUID of player%} to "&aTalisman d'Aventurier &8x1"
+			set {_DesertTreasure-DropDrop.%UUID of player%} to 1 of {Storage-Accessory-TalismanDAventurier}
+		if {_DesertTreasure-Drop.%UUID of player%} is between 192 and 200:
+			set {_DesertTreasure-DropText.%UUID of player%} to "&aPoussière de Sable &8x8"
+			set {_DesertTreasure-DropDrop.%UUID of player%} to 8 of {Storage-Item-PoussièreDeSable}
+		if {_DesertTreasure-Drop.%UUID of player%} is between 201 and 205:
+			set {_DesertTreasure-DropText.%UUID of player%} to "&9Coquille de Sable &8x1"
+			set {_DesertTreasure-DropDrop.%UUID of player%} to 1 of {Storage-Item-CoquilleDeSable}
+		if {_DesertTreasure-Drop.%UUID of player%} is between 206 and 208:
+			set {_DesertTreasure-DropText.%UUID of player%} to "&9Poussière de Sable Enchanté &8x1"
+			set {_DesertTreasure-DropDrop.%UUID of player%} to 1 of {Storage-Item-PoussièreDeSableEnchanté}
+		if {_DesertTreasure-Drop.%UUID of player%} is between 209 and 210:
+			set {_DesertTreasure-DropText.%UUID of player%} to "&9Bloc de Champignon Rouge Enchanté &8x1"
+			set {_DesertTreasure-DropDrop.%UUID of player%} to 1 of {Storage-Item-BlocDeChampignonRougeEnchanté}
+		if {_DesertTreasure-Drop.%UUID of player%} is higher than 210:
+			set {_DesertTreasure-DropText.%UUID of player%} to "&7Trésor Vide"
+		
+# =======
+		send title "&6&lTRÉSOR TROUVÉ!" with subtitle "&7%{_DesertTreasure-DropText.%UUID of player%}%" to player
+		send "&6&lTRÉSOR TROUVÉ! &7%{_DesertTreasure-DropText.%UUID of player%}%" to player
+		drop {_DesertTreasure-DropDrop.%UUID of player%} at block 1 above event-block
+		push {_DesertTreasure-DropDrop.%UUID of player%} upward at speed 0.1
+		apply blindness 1 without particles to player for 1.25 seconds
+		play sound "entity.generic.explode" at player for player
+		wait 0.85 second
+		play sound "block.note_block.pling" with pitch 0.8 at player for player
+		wait 0.16 second
+		play sound "block.note_block.pling" with pitch 1 at player for player
+			

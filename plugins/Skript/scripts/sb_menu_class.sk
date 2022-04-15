@@ -1,0 +1,26 @@
+command /sb-skill-classes:
+ trigger:
+  if {abc} is not true:
+   make console execute command "/storage2-misc-menu-class %player%"
+   wait 2 ticks
+   open virtual chest inventory with size 4 named "Classes Donjon" to player
+   format gui slot (integers between 0 and 53) of player with {Menu-Panes}
+   
+   SB_MenuFormat_ItemSlot_DungeonClasses(player)
+   format gui slot 11 of player with {Menu-DungeonClass-B.%UUID of player%} to run:
+    make console execute command "/menuclass-berserker %player%"
+
+   format gui slot 12 of player with {Menu-DungeonClass-A.%UUID of player%} to run:
+    make console execute command "/menuclass-archer %player%"
+
+   format gui slot 13 of player with {Menu-DungeonClass-M.%UUID of player%} to run:
+    make console execute command "/menuclass-mage %player%"
+
+   format gui slot 14 of player with {Menu-DungeonClass-T.%UUID of player%} to run:
+    make console execute command "/menuclass-tank %player%"
+
+   format gui slot 15 of player with {Menu-DungeonClass-H.%UUID of player%} to run:
+    make console execute command "/menuclass-healer %player%"
+
+   format gui slot 31 of player with {Menu-Close} to close
+   format gui slot 33 of player with redstone torch named "&c&lINFO!" with lore "&7You can obtain &bClass XP" and "&7by completing dungeons floors!" and "&7" and "&8- &7The better the score is, the better the" and "&7experience gain is&7."

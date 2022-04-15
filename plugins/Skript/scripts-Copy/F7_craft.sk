@@ -1,0 +1,80 @@
+command /craft-shinyhandle:
+	trigger:
+		open virtual chest inventory with size 6 named "Crafting Recipe" to player
+		format gui slot (integers between 0 and 53) of player with {Menu-Panes}
+		format gui slot (integers between 10 and 12) and (integers between 19 and 21) and (integers between 28 and 30) and 24 of player with air
+		format gui slot (integers between 45 and 53) of player with red stained glass pane named "&7"
+		format gui slot 49 of player with {Menu-Close} to close
+		format gui slot 20 of player with stick named "&5Maxor's Handle" with lore "&eRight click to view recipes!" and "&7" and "&8May be used for future crafting" and "&5&lEPIC DUNGEON ITEM"
+		format gui slot 11 and 19 and 21 and 29 of player with 4 of wither skeleton skull named "&9Wither Catalyst" with lore "&eRight click to view recipes!" and "&7" and "&8May be used for future crafting" and "&9&lRARE DUNGEON ITEM"
+		format gui slot 24 of player with stick of unbreaking 1 with hidden enchant flag named "&5Shiny Maxor's Handle" with lore "&eRight click to view recipes!" and "&7" and "&8May be used for future crafting" and "&5&lSHINY EPIC DUNGEON ITEM"
+	
+command /craft-F7loot:
+	trigger:
+		open virtual chest inventory with size 6 named "Crafting Recipe" to player
+		format gui slot (integers between 0 and 53) of player with {Menu-Panes}
+		format gui slot (integers between 10 and 12) and (integers between 19 and 21) and (integers between 28 and 30) and 24 of player with air
+		format gui slot (integers between 45 and 53) of player with red stained glass pane named "&7"
+		format gui slot 49 of player with {Menu-Close} to close
+		format gui slot 20 of player with stick named "&5Maxor's Handle" with lore "&eRight click to view recipes!" and "&7" and "&8May be used for future crafting" and "&5&lEPIC DUNGEON ITEM"
+		format gui slot 11 and 19 and 21 and 29 of player with 4 of wither skeleton skull named "&9Wither Catalyst" with lore "&eRight click to view recipes!" and "&7" and "&8May be used for future crafting" and "&9&lRARE DUNGEON ITEM"
+		format gui slot 24 of player with stick of unbreaking 1 with hidden enchant flag named "&5Shiny Maxor's Handle" with lore "&eRight click to view recipes!" and "&7" and "&8May be used for future crafting" and "&5&lSHINY EPIC DUNGEON ITEM"
+		format gui slot 50 of player with arrow named "&aNext" with lore "&7Next crafts" and "&7" and "&eClick to view" to close:
+			execute player command "/craft-F7loot2"
+		
+command /craft-F7loot2:
+	trigger:
+		open virtual chest inventory with size 6 named "Crafting Recipe" to player
+		format gui slot (integers between 0 and 53) of player with {Menu-Panes}
+		format gui slot (integers between 10 and 12) and (integers between 19 and 21) and (integers between 28 and 30) and 24 of player with air
+		format gui slot (integers between 45 and 53) of player with red stained glass pane named "&7"
+		format gui slot 49 of player with {Menu-Close} to close
+		format gui slot 48 of player with {Menu-GoBack} to close:
+			make player execute command "/menu"
+		format gui slot 11 of player with 16 of wither skeleton skull named "&9Wither Catalyst" with lore "&eRight click to view recipes!" and "&7" and "&8May be used for future crafting" and "&9&lRARE DUNGEON ITEM"
+		format gui slot 19 and 21 of player with 8 of lead named "&5Bigfoot's Lasso" with lore "&eRight click to view recipes!" and "&7" and "&8May be used for future crafting" and "&5&lEPIC DUNGEON ITEM"
+		format gui slot 20 of player with stick of unbreaking 1 with hidden enchant flag named "&5Shiny Maxor's Handle" with lore "&eRight click to view recipes!" and "&7" and "&8May be used for future crafting" and "&5&lSHINY EPIC DUNGEON ITEM" to close:	
+			make player execute command "/craft-shinyhandle"
+		set {_ftb} to unbreakable leather boots with unbreakable flag hidden named "&6Ancient Tarantula Boots &c✪✪✪✪✪" with lore "&7Gear Score: &dNone" and "&7Strength: &c+25 &9(+25) &8(+175)" and "&7Crit Chance: &c+12%% &9(+12%%) &8(+18%%)" and "&7Crit Damage: &c+50%% &9(+50%%) &8(+350%%)" and "&7Health: &a+257 &e(+60) &9(+7) &8(+1799)" and "&7Defense: &a+135 &e(+30) &9(+7) &8(+845)" and "&7Speed: &a+6 &8(+42)" and "&7Intelligence: &a+125 &9(+25) &8(+875)" and "&7" and "&d&lLegion V&9, Growth VI, Protection VI," and "&9Rejuvenate V, Sugar Rush III" and "&7" and "&6Item Ability: Double Jump" and "&7Allow you to double jump." and "&7" and "&9Ancient Bonus" and "&7Grants &a+1 &9Crit Damage" and "&7per &cCatacombs&7 level." and "&7" and "&6&k&l0 &6&lLEGENDARY DUNGEON BOOTS &6&k&l0"
+		dye {_ftb} (0, 0, 0)  
+		format gui slot 29 of player with {_ftb}
+		set {_mftb} to unbreakable leather boots with unbreakable flag hidden named "&d⚚ Ancient Shiny Tarantula Boots &c✪✪✪✪✪" with lore "&7Gear Score: &dNone" and "&7Strength: &c+35 &9(+35) &8(+245)" and "&7Crit Chance: &c+15%% &9(+15%%) &8(+22.5%%)" and "&7Crit Damage: &c+50%% &9(+50%%) &8(+350%%)" and "&7Health: &a+257 &e(+60) &9(+7) &8(+1799)" and "&7Defense: &a+135 &e(+30) &9(+7) &8(+845)" and "&7Speed: &a+6 &8(+42)" and "&7Intelligence: &a+125 &9(+25) &8(+875)" and "&7" and "&d&lLegion V&9, Growth VI, Protection VI," and "&9Rejuvenate V, Sugar Rush III" and "&7" and "&6Item Ability: Double Jump" and "&7Allow you to double jump." and "&8Maxorized Bonus: Permanent fly in F7 bossfight." and "&7" and "&9Ancient Bonus" and "&7Grants &a+1 &9Crit Damage" and "&7per &cCatacombs&7 level." and "&7" and "&d&k&l0 &d&lLEGENDARY DUNGEON BOOTS &d&k&l0"
+		dye {_mftb} (50, 50, 50) 
+		format gui slot 24 of player with {_mftb}
+		format gui slot 48 of player with arrow named "&aGo Back" with lore "&7Precedent crafts" and "&7" and "&eClick to view" to close:
+			execute player command "/craft-F7loot"
+		format gui slot 50 of player with arrow named "&aNext" with lore "&7Next crafts" and "&7" and "&eClick to view" to close:
+			execute player command "/craft-F7loot3"
+			
+command /craft-F7loot3:
+	trigger:
+		open virtual chest inventory with size 6 named "Crafting Recipe" to player
+		format gui slot (integers between 0 and 53) of player with {Menu-Panes}
+		format gui slot (integers between 10 and 12) and (integers between 19 and 21) and (integers between 28 and 30) and 24 of player with air
+		format gui slot (integers between 45 and 53) of player with red stained glass pane named "&7"
+		format gui slot 49 of player with {Menu-Close} to close
+		format gui slot 29 of player with unbreakable stone sword with attribute flag hidden with unbreakable flag hidden named "&dFabled Dark Claymore &c✪✪✪✪✪" with lore "§7Gear Score: §dNone" and "&7Swing Range: &c5" and "§7Damage: §c+1642 §e(+30) §8(+11494)" and "§7Strength: §c+234 §e(+30) §9(+75) &d(+24) &6[+5] §8(+1539)" and "§7Crit Damage: §c+50%% §9(+50%%) §8(+350%%)" and "&7" and "&d&lOne For All I&9, Telekinesis I" and "&7" and "§7&oThat was too big to be" and "§7&ocalled a sword, it was more like" and "§7&oa large chunk of stone." and "&7" and "&9Fabled Bonus" and "&7Grants a permanent" and "&c20%% &7damage increase." and "&7" and "§d§l§ks§7 §d§lMYTHIC DUNGEON LONGSWORD §d§l§ks"
+		format gui slot 24 of player with unbreakable stone sword with attribute flag hidden with unbreakable flag hidden named "&cFabled Shiny Dark Claymore &c✪✪✪✪✪" with lore "§7Gear Score: §dNone" and "&7Item Quality: &d150%% &8(Shiny +50%%)" and "&7Swing Range: &c5" and "§7Damage: §c+2463 §e(+30) §8(+17241)" and "§7Strength: §c+351 §e(+30) §9(+75) &d(+24) &6[+5] §8(+2457)" and "§7Crit Damage: §c+75%% §9(+50%%) §8(+525%%)" and "&7" and "&d&lOne For All I&9, Telekinesis I" and "&7" and "§7&oThat was too big to be" and "§7&ocalled a sword, it was more like" and "§7&oa large chunk of stone." and "&7" and "&9Fabled Bonus" and "&7Grants a permanent" and "&c20%% &7damage increase." and "&7" and "§c§l§ks§7 §c§lSHINY SPECIAL DUNGEON LONGSWORD §c§l§ks"
+		format gui slot 11 of player with 12 of wither skeleton skull named "&9Wither Catalyst" with lore "&eRight click to view recipes!" and "&7" and "&8May be used for future crafting" and "&9&lRARE DUNGEON ITEM"
+		format gui slot 20 of player with stick of unbreaking 1 with hidden enchant flag named "&5Shiny Maxor's Handle" with lore "&eRight click to view recipes!" and "&7" and "&8May be used for future crafting" and "&5&lSHINY EPIC DUNGEON ITEM" to close:	
+			make player execute command "/craft-shinyhandle"
+		
+		
+		format gui slot 48 of player with arrow named "&aGo Back" with lore "&7Precedent crafts" and "&7" and "&eClick to view" to close:
+			execute player command "/craft-F7loot2"
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+on right click with stick or diamond horse armor or wither skeleton skull or firework star or ender eye:
+	if name of player's tool contains "&9Wither Catalyst" or "&5Maxor's Handle" or "&5Bigfoot's Lasso" or "&5Diamante's Handle" or "&5L.A.S.R.'s Eye" or "&5Jolly Pink Rock":
+		execute player command "/craft-F7loot"
+		

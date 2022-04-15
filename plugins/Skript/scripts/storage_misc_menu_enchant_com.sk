@@ -1,0 +1,8 @@
+command /storage-misc-menu-enchant-combat:
+	permission: op
+	trigger:
+		set {Storage-Misc-Menu-Enchanted-Combat-ChairPutréfiéeEnchanté} to rotten flesh of unbreaking 1 with hidden enchants flag named "&fChair Putréfiée Enchanté" with lore "&f&lCOMMUN" and "&7" and "&7Coûte" and "&8x160 &fChairs Putréfiées" and "&7" and "&7Nécessite &bChair Putréfiée IV" and "&eCliquez pour enchanter!"
+		
+		set {Storage-Misc-Menu-Enchanted-Combat-OsEnchanté} to bone of unbreaking 1 with hidden enchants flag named "&fOs Enchanté" with lore "&f&lCOMMUN" and "&7" and "&7Coûte" and "&8x160 &fOs" and "&7" and "&7Nécessite &bOs V" and "&eCliquez pour enchanter!"
+		
+		set {Storage-Misc-Menu-Enchanted-Combat-FicelleEnchanté} to string of unbreaking 1 with hidden enchants flag named "&aFicelle Enchanté" with lore "&a&lUNCOMMUN" and "&7" and "&7Coûte" and "&8x160 &fFicelles" and "&7" and "&7Nécessite &bFicelle IV" and "&eCliquez pour enchanter!"

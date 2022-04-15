@@ -1,0 +1,3 @@
+on hunger meter change:
+ set hunger meter of player to 20
+ cancel event

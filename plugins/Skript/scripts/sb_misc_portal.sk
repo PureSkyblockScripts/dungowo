@@ -1,0 +1,21 @@
+on walk on honey block:
+ loop all blocks in radius 2 of the player:
+  if loop-block is a cut sandstone block:
+   if {abc} is not true:
+    if {abc} is not true:
+     make player execute command "/desertparadisiaque"
+     stop
+	 
+on walk on obsidian block:
+ if block below event-block = honey block:
+  if {abc} is not true:
+   if {OnIsland.%UUID of player%} is not true:
+    if {ready-dungeon.%UUID of player%} is not true:
+     make console execute command "/nether %player%"
+     stop
+
+
+    else:
+     send "&cErreur" to player
+   else:
+    send "&cErreur faite /island puis revenez." to player

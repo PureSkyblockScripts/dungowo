@@ -1,0 +1,39 @@
+on pickup of trapped chest:
+ kill the event-entity
+ cancel event
+
+on right click on trapped chest:
+ if {ghost.%UUID of player%} is not true:
+  if block under event-block is black stained hardened clay:
+   stop
+  else:
+   if {abc} is not true:
+    close player's inventory
+    loop all items in event-block's inventory:
+     drop loop-item at event-block's location
+    break event-block
+    if {ready-floor1.%UUID of player%} is true:
+     add 1 to {secret1-found}
+     add 3.57142857 to {Dungeon-Floor1-Exploration}
+     add 1 to {secret-found.%UUID of player%}
+    if {ready-floor2.%UUID of player%} is true:
+     add 1 to {secret2-found}
+     add 3.33333333 to {Dungeon-Floor2-Exploration}
+     add 1 to {secret-found.%UUID of player%}
+    if {ready-floor3.%UUID of player%} is true:
+     add 1 to {secret3-found}
+     add 3.125 to {Dungeon-Floor3-Exploration}
+     add 1 to {secret-found.%UUID of player%}
+
+    play sound "entity.painting.break" with volume 100 with pitch 0.9 at player for player
+    play sound "entity.player.levelup" with volume 10 with pitch 1.5 at player for player
+    play 20 large smoke with speed 0.1 at event-block's location
+    stop
+ else:
+  close player's inventory
+  play sound "entity.villager.no" with volume 10 with pitch 1 at player for player
+  wait 1 tick
+  close player's inventory
+  send "&cVous êtes en fantôme. Impossible d'intéragir." to player
+  wait 1 tick
+  close player's inventory

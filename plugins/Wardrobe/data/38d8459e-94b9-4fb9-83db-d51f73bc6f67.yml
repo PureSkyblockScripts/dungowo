@@ -1,0 +1,254 @@
+sets:
+  '6':
+    '0':
+      ==: org.bukkit.inventory.ItemStack
+      v: 2730
+      type: AIR
+      amount: 0
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"red","text":"Ancient
+          Diamond Maxor Head "},{"italic":false,"color":"red","text":"✪✪✪✪"},{"italic":false,"color":"gold","text":"✪"}],"text":""}'
+        lore:
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":"Gear
+          Score: "},{"italic":false,"color":"light_purple","text":"None"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":"Item
+          Quality: "},{"italic":false,"color":"light_purple","text":"100% "},{"italic":false,"color":"dark_gray","text":"(Never
+          has randomized stats)"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":"Strength:
+          "},{"italic":false,"color":"red","text":"+75 "},{"italic":false,"color":"blue","text":"(+35)
+          "},{"italic":false,"color":"dark_gray","text":"(+525)"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":"Crit
+          Chance: "},{"italic":false,"color":"red","text":"+15% "},{"italic":false,"color":"blue","text":"(+15%)
+          "},{"italic":false,"color":"dark_gray","text":"(+22.5%)"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":"Crit
+          Damage: "},{"italic":false,"color":"red","text":"+50% "},{"italic":false,"color":"blue","text":"(+50%)
+          "},{"italic":false,"color":"dark_gray","text":"(+350%)"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":"Health:
+          "},{"italic":false,"color":"green","text":"+387 "},{"italic":false,"color":"yellow","text":"(+60)
+          "},{"italic":false,"color":"blue","text":"(+7) "},{"italic":false,"color":"dark_gray","text":"(+2709)"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":"Defense:
+          "},{"italic":false,"color":"green","text":"+135 "},{"italic":false,"color":"yellow","text":"(+30)
+          "},{"italic":false,"color":"blue","text":"(+7) "},{"italic":false,"color":"dark_gray","text":"(+945)"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":"Intelligence:
+          "},{"italic":false,"color":"green","text":"+50 "},{"italic":false,"color":"blue","text":"(+25)
+          "},{"italic":false,"color":"dark_gray","text":"(+350)"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":""}],"text":""}'
+        - '{"extra":[{"bold":true,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"light_purple","text":"Legion
+          V"},{"bold":false,"italic":false,"color":"blue","text":", Growth VI, Protection
+          VI,"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"blue","text":"Rejuvenate
+          V, Big Brain V"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":""}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":"Obtained
+          from killing "},{"italic":false,"color":"red","text":"Maxor"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":"in
+          "},{"italic":false,"color":"red","text":"The Catacombs "},{"italic":false,"color":"gray","text":"lots
+          of"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":"times.
+          Grants "},{"italic":false,"color":"green","text":"2x "},{"italic":false,"color":"gray","text":"stats
+          on"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"red","text":"The
+          Catacombs Floor VII"},{"italic":false,"color":"gray","text":"."}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":""}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"dark_gray","text":"Little
+          brother of Necron. Expulsed"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"dark_gray","text":"from
+          the family thousands years"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"dark_gray","text":"ago
+          for stealing rare artefacts from"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"dark_gray","text":"his
+          parents treasure chest."}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":""}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"blue","text":"Ancient
+          Bonus"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":"Grants
+          "},{"italic":false,"color":"green","text":"+1 "},{"italic":false,"color":"blue","text":"Crit
+          Damage"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":"per
+          "},{"italic":false,"color":"red","text":"Catacombs"},{"italic":false,"color":"gray","text":"
+          level."}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":""}],"text":""}'
+        - '{"extra":[{"bold":true,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":true,"color":"red","text":"0
+          "},{"bold":true,"italic":false,"obfuscated":false,"color":"red","text":"SPECIAL
+          DUNGEON HELMET "},{"bold":true,"italic":false,"obfuscated":true,"color":"red","text":"0"}],"text":""}'
+    '1':
+      ==: org.bukkit.inventory.ItemStack
+      v: 2730
+      type: AIR
+      amount: 0
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"light_purple","text":"Ancient
+          Necron''s Chestplate "},{"italic":false,"color":"red","text":"✪✪✪✪"},{"italic":false,"color":"gold","text":"✪"}],"text":""}'
+        lore:
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":"Gear
+          Score: "},{"italic":false,"color":"light_purple","text":"None"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":"Item
+          Quality: "},{"italic":false,"color":"light_purple","text":"100% "},{"italic":false,"color":"dark_gray","text":"(Never
+          has randomized stats)"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":"Strength:
+          "},{"italic":false,"color":"red","text":"+99 "},{"italic":false,"color":"blue","text":"(+35)
+          "},{"italic":false,"color":"light_purple","text":"(+24) "},{"italic":false,"color":"dark_gray","text":"(+690)"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":"Crit
+          Chance: "},{"italic":false,"color":"red","text":"+15% "},{"italic":false,"color":"blue","text":"(+15%)
+          "},{"italic":false,"color":"dark_gray","text":"(+22.5%)"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":"Crit
+          Damage: "},{"italic":false,"color":"red","text":"+80% "},{"italic":false,"color":"blue","text":"(+50%)
+          "},{"italic":false,"color":"dark_gray","text":"(+558%)"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":"Health:
+          "},{"italic":false,"color":"green","text":"+417 "},{"italic":false,"color":"yellow","text":"(+60)
+          "},{"italic":false,"color":"blue","text":"(+7) "},{"italic":false,"color":"dark_gray","text":"(+2908)"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":"Defense:
+          "},{"italic":false,"color":"green","text":"+175 "},{"italic":false,"color":"yellow","text":"(+30)
+          "},{"italic":false,"color":"blue","text":"(+7) "},{"italic":false,"color":"dark_gray","text":"(+1220)"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":"Intelligence:
+          "},{"italic":false,"color":"green","text":"+35 "},{"italic":false,"color":"blue","text":"(+25)
+          "},{"italic":false,"color":"dark_gray","text":"(+244)"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":"True
+          Defense: "},{"italic":false,"color":"green","text":"+5 "},{"italic":false,"color":"dark_gray","text":"(+7.5)"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gold","text":"["},{"italic":false,"color":"light_purple","text":"⚔"},{"italic":false,"color":"gold","text":"]
+          "},{"italic":false,"color":"gold","text":"["},{"italic":false,"color":"light_purple","text":"⚔"},{"italic":false,"color":"gold","text":"]"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":""}],"text":""}'
+        - '{"extra":[{"bold":true,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"light_purple","text":"Legion
+          V"},{"bold":false,"italic":false,"color":"blue","text":", Growth VI, Protection
+          VI,"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"blue","text":"Rejuvenate
+          V, True Protection I"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":""}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":"Reduce
+          the damage you take from"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":"withers
+          by "},{"italic":false,"color":"red","text":"10%"},{"italic":false,"color":"gray","text":"."}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":""}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"blue","text":"Ancient
+          Bonus"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":"Grants
+          "},{"italic":false,"color":"green","text":"+1 "},{"italic":false,"color":"blue","text":"Crit
+          Damage"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":"per
+          "},{"italic":false,"color":"red","text":"Catacombs"},{"italic":false,"color":"gray","text":"
+          level."}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":""}],"text":""}'
+        - '{"extra":[{"bold":true,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":true,"color":"light_purple","text":"0
+          "},{"bold":true,"italic":false,"obfuscated":false,"color":"light_purple","text":"MYTHIC
+          DUNGEON CHESTPLATE "},{"bold":true,"italic":false,"obfuscated":true,"color":"light_purple","text":"0"}],"text":""}'
+        ItemFlags:
+        - HIDE_ATTRIBUTES
+        - HIDE_UNBREAKABLE
+        Unbreakable: true
+    '2':
+      ==: org.bukkit.inventory.ItemStack
+      v: 2730
+      type: AIR
+      amount: 0
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"light_purple","text":"Ancient
+          Necron''s Leggings "},{"italic":false,"color":"red","text":"✪✪✪✪"},{"italic":false,"color":"gold","text":"✪"}],"text":""}'
+        lore:
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":"Gear
+          Score: "},{"italic":false,"color":"light_purple","text":"None"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":"Item
+          Quality: "},{"italic":false,"color":"light_purple","text":"100% "},{"italic":false,"color":"dark_gray","text":"(Never
+          has randomized stats)"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":"Strength:
+          "},{"italic":false,"color":"red","text":"+99 "},{"italic":false,"color":"blue","text":"(+35)
+          "},{"italic":false,"color":"light_purple","text":"(+24) "},{"italic":false,"color":"dark_gray","text":"(+690)"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":"Crit
+          Chance: "},{"italic":false,"color":"red","text":"+15% "},{"italic":false,"color":"blue","text":"(+15%)
+          "},{"italic":false,"color":"dark_gray","text":"(+22.5%)"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":"Crit
+          Damage: "},{"italic":false,"color":"red","text":"+80% "},{"italic":false,"color":"blue","text":"(+50%)
+          "},{"italic":false,"color":"dark_gray","text":"(+558%)"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":"Health:
+          "},{"italic":false,"color":"green","text":"+387 "},{"italic":false,"color":"yellow","text":"(+60)
+          "},{"italic":false,"color":"blue","text":"(+7) "},{"italic":false,"color":"dark_gray","text":"(+2700)"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":"Defense:
+          "},{"italic":false,"color":"green","text":"+160 "},{"italic":false,"color":"yellow","text":"(+30)
+          "},{"italic":false,"color":"blue","text":"(+7) "},{"italic":false,"color":"dark_gray","text":"(+1116)"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":"Intelligence:
+          "},{"italic":false,"color":"green","text":"+60 "},{"italic":false,"color":"blue","text":"(+25)
+          "},{"italic":false,"color":"dark_gray","text":"(+418)"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gold","text":"["},{"italic":false,"color":"light_purple","text":"⚔"},{"italic":false,"color":"gold","text":"]
+          "},{"italic":false,"color":"gold","text":"["},{"italic":false,"color":"light_purple","text":"⚔"},{"italic":false,"color":"gold","text":"]"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":""}],"text":""}'
+        - '{"extra":[{"bold":true,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"light_purple","text":"Legion
+          V"},{"bold":false,"italic":false,"color":"blue","text":", Growth VI, Protection
+          VI,"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"blue","text":"Rejuvenate
+          V, Smarty Pants V"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":""}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":"Reduce
+          the damage you take from"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":"withers
+          by "},{"italic":false,"color":"red","text":"10%"},{"italic":false,"color":"gray","text":"."}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":""}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"blue","text":"Ancient
+          Bonus"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":"Grants
+          "},{"italic":false,"color":"green","text":"+1 "},{"italic":false,"color":"blue","text":"Crit
+          Damage"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":"per
+          "},{"italic":false,"color":"red","text":"Catacombs"},{"italic":false,"color":"gray","text":"
+          level."}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":""}],"text":""}'
+        - '{"extra":[{"bold":true,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":true,"color":"light_purple","text":"0
+          "},{"bold":true,"italic":false,"obfuscated":false,"color":"light_purple","text":"MYTHIC
+          DUNGEON LEGGINGS "},{"bold":true,"italic":false,"obfuscated":true,"color":"light_purple","text":"0"}],"text":""}'
+        ItemFlags:
+        - HIDE_ATTRIBUTES
+        - HIDE_UNBREAKABLE
+        Unbreakable: true
+    '3':
+      ==: org.bukkit.inventory.ItemStack
+      v: 2730
+      type: AIR
+      amount: 0
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"light_purple","text":"Giant
+          Goldor''s Boots "},{"italic":false,"color":"red","text":"✪✪✪✪"},{"italic":false,"color":"gold","text":"✪"}],"text":""}'
+        lore:
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":"Gear
+          Score: "},{"italic":false,"color":"light_purple","text":"None"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":"Item
+          Quality: "},{"italic":false,"color":"light_purple","text":"100% "},{"italic":false,"color":"dark_gray","text":"(Never
+          has randomized stats)"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":"Health:
+          "},{"italic":false,"color":"green","text":"+625 "},{"italic":false,"color":"yellow","text":"(+60)
+          "},{"italic":false,"color":"blue","text":"(+240) "},{"italic":false,"color":"light_purple","text":"(+60)
+          "},{"italic":false,"color":"dark_gray","text":"(+4360)"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":"Defense:
+          "},{"italic":false,"color":"green","text":"+200 "},{"italic":false,"color":"yellow","text":"(+30)
+          "},{"italic":false,"color":"dark_gray","text":"(+1395)"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":"Speed:
+          "},{"italic":false,"color":"green","text":"+6 "},{"italic":false,"color":"dark_gray","text":"(+41)"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":"Intelligence:
+          "},{"italic":false,"color":"green","text":"+20 "},{"italic":false,"color":"dark_gray","text":"(+140)"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gold","text":"["},{"italic":false,"color":"red","text":"⚕"},{"italic":false,"color":"gold","text":"]
+          "},{"italic":false,"color":"gold","text":"["},{"italic":false,"color":"red","text":"⚔"},{"italic":false,"color":"gold","text":"]"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":""}],"text":""}'
+        - '{"extra":[{"bold":true,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"light_purple","text":"Legion
+          V"},{"bold":false,"italic":false,"color":"blue","text":", Growth VI, Protection
+          VI,"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"blue","text":"Rejuvenate
+          V, Sugar Rush III"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":""}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":"Reduce
+          the damage you take from"}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":"withers
+          by "},{"italic":false,"color":"red","text":"10%"},{"italic":false,"color":"gray","text":"."}],"text":""}'
+        - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":""}],"text":""}'
+        - '{"extra":[{"bold":true,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":true,"color":"light_purple","text":"0
+          "},{"bold":true,"italic":false,"obfuscated":false,"color":"light_purple","text":"MYTHIC
+          DUNGEON BOOTS "},{"bold":true,"italic":false,"obfuscated":true,"color":"light_purple","text":"0"}],"text":""}'
+        ItemFlags:
+        - HIDE_ATTRIBUTES
+        - HIDE_UNBREAKABLE
+        Unbreakable: true
+active-set: 6

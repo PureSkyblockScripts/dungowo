@@ -1,0 +1,14 @@
+on command "/terminal-armors":
+	if {a} is not true:
+		wait 2 ticks
+		set {_anc} to unbreakable leather chestplate with unbreakable flag hidden with attribute flag hidden named "&dAncient Necron's Chestplate &c✪✪✪✪✪" with lore "&7Gear Score: &dNone" and "&7Strength: &c+99 &9(+35) &d(+24) &8(+690)" and "&7Crit Chance: &c+15%% &9(+15%%) &8(+22.5%%)" and "&7Crit Damage: &c+80%% &9(+50%%) &8(+558%%)"  and "&7Health: &a+417 &e(+60) &9(+7) &8(+2908)" and "&7Defense: &a+175 &e(+30) &9(+7) &8(+1220)" and "&7Intelligence: &a+35 &9(+25) &8(+244)" and "&7True Defense: &a+5 &8(+7.5)" and "&6[&d⚔&6] &6[&d⚔&6]" and "&7" and "&d&lLegion V&9, Growth VI, Protection VI," and "&9Rejuvenate V, True Protection I" and "&7" and "&7Reduce the damage you take from" and "&7withers by &c10%%&7." and "&7" and "&9Ancient Bonus" and "&7Grants &a+1 &9Crit Damage" and "&7per &cCatacombs&7 level." and "&7" and "&d&k&l0 &d&lMYTHIC DUNGEON CHESTPLATE &d&k&l0"
+		dye {_anc} (231, 65, 60)
+		
+		set {_anl} to unbreakable leather leggings with unbreakable flag hidden with attribute flag hidden named "&dAncient Necron's Leggings &c✪✪✪✪✪" with lore "&7Gear Score: &dNone" and "&7Strength: &c+99 &9(+35) &d(+24) &8(+690)" and "&7Crit Chance: &c+15%% &9(+15%%) &8(+22.5%%)" and "&7Crit Damage: &c+80%% &9(+50%%) &8(+558%%)"  and "&7Health: &a+387 &e(+60) &9(+7) &8(+2700)" and "&7Defense: &a+160 &e(+30) &9(+7) &8(+1116)" and "&7Intelligence: &a+60 &9(+25) &8(+418)" and "&6[&d⚔&6] &6[&d⚔&6]" and "&7" and "&d&lLegion V&9, Growth VI, Protection VI," and "&9Rejuvenate V, Smarty Pants V" and "&7" and "&7Reduce the damage you take from" and "&7withers by &c10%%&7." and "&7" and "&9Ancient Bonus" and "&7Grants &a+1 &9Crit Damage" and "&7per &cCatacombs&7 level." and "&7" and "&d&k&l0 &d&lMYTHIC DUNGEON LEGGINGS &d&k&l0"
+		dye {_anl} (231, 92, 60)
+		
+		set {_anb} to unbreakable leather boots with unbreakable flag hidden with attribute flag hidden named "&dAncient Necron's Boots &c✪✪✪✪✪" with lore "&7Gear Score: &dNone" and "&7Strength: &c+99 &9(+35) &d(+24) &8(+690)" and "&7Crit Chance: &c+15%% &9(+15%%) &8(+22.5%%)" and "&7Crit Damage: &c+80%% &9(+50%%) &8(+558%%)" and "&7Health: &a+302 &e(+60) &9(+7) &8(+2106)" and "&7Defense: &a+120 &e(+30) &9(+7) &8(+837)" and "&7Speed: &a+6 &8(+42)" and "&7Intelligence: &a+35 &9(+25) &8(+244)" and "&6[&d⚔&6] &6[&d⚔&6]" and "&7" and "&d&lLegion V&9, Growth VI, Protection VI," and "&9Rejuvenate V, Sugar Rush III" and "&7" and "&7Reduce the damage you take from" and "&7withers by &c10%%&7." and "&7" and "&9Ancient Bonus" and "&7Grants &a+1 &9Crit Damage" and "&7per &cCatacombs&7 level." and "&7" and "&d&k&l0 &d&lMYTHIC DUNGEON BOOTS &d&k&l0"
+		dye {_anb} (231, 110, 60) 
+		format gui slot 24 of player with {_anc}
+		format gui slot 33 of player with {_anl}
+		format gui slot 42 of player with {_anb}

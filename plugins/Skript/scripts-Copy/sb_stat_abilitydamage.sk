@@ -1,0 +1,88 @@
+command /abilitydamage <player> <text> <number>:
+	permission: op
+	usage: &c/abilitydamage <joueur> <set> <valeur>
+	trigger:
+		if arg-2 is "set":
+			set {AbilityDamage.%UUID of arg-1%} to arg-3
+			send "&6&lSET!"
+# =======================
+function MakeMagicDamage(p: player, v: entity, rr: number):
+	if {_v} is not a player:
+		if {_v} is not an armor stand:
+			set {_pU} to {_p}'s uuid
+			set {_vU} to {_v}'s uuid
+			loop all players in radius 7 of {_p}:
+				if loop-player's name is "&7Guy":
+					if {SB-TrainingArea.%{_pU}%} is not set:
+						send "&cYou can't damage here." to {_p}
+						stop
+			if {health.%{_vU}%} is set:
+				if {SBD-Ghosted.%{_pU}%} is not true:
+					damage {_v} by 1
+					if {Mob-God.%{_vU}%} is not true:
+# ===== REDUCTION DAMAGE
+						wait 1 tick
+						set {_dmg} to {AbilityFinalDamage.%{_pU}%}
+						set {_dmg} to {_dmg} parsed as number
+						set {_dmg} to ({_dmg}*({_rr})/100)
+					# ===
+						set {Mob-DefenseDamageReduction.%{_vU}%} to (100*({Mob-Defense.%{_vU}%}/({Mob-Defense.%{_vU}%}+100)))
+	
+						if {Mob-Defense.%{_vU}%} is set:
+							set {_r} to {Mob-DefenseDamageReduction.%{_v}%}
+							set {_dmg} to ({_dmg}*(1-({_r}/100)))
+						
+						if {Mob-MagicDamageReduction.%{_vU}%} is set:
+							set {_r} to {Mob-MagicDamageReduction.%{_vU}%}
+							set {_dmg} to ({_dmg} * (1-({_r}/100)))
+						if {Mob-DamageReduction.%{_vU}%} is set:
+							set {_r} to {Mob-DamageReduction.%{_vU}%}
+							set {_dmg} to ({_dmg} * (1-({_r}/100)))
+# =====
+						if {Mob-DamageCap.%{_vU}%} is higher than 0:
+							if {_dmg} is higher than ({Mob-DamageCap.%{_vU}%}-0.1):
+								set {_dmg} to {Mob-DamageCap.%{_vU}%}
+						if {Mob-DamageCapHealth.%{_vU}%} is higher than 0:
+							if {_dmg} is higher than abs({Health.%{_vU}%}-{Mob-DamageCapHealth.%{_vU}%})-0.1:
+								set {_dmg} to abs({Health.%{_vU}%}-{Mob-DamageCapHealth.%{_vU}%})
+							
+# ===== DAMAGE
+						set {_dmg} to round({_dmg})
+						remove {_dmg} from {health.%{_vU}%}
+						SBDamageHolo({_p}, {_v}, {_dmg}, 3)
+# ===== DEATH
+						wait 1 tick
+						if {health.%{_vU}%} is not higher than 0:
+							set {Entity-LastAttack.%{_vU}%} to {_p}
+							KillEntity({_v})
+						stop
+
+# ========================
+# ========================
+
+on tool change:
+	if name of player's tool contains "&5Heroic Bonzo's Staff":
+		set {_scale} to 0.2
+		set {_bdmg} to 1000
+	if "%lore of player's tool%" contains "&aScroll Abilities":
+		set {_scale} to 3
+		set {_bdmg} to 10000
+	if name of player's tool contains "&dFabled Giant's Sword":
+		set {_scale} to 0.05
+		set {_bdmg} to 100000
+# ==
+	set {_f-intel} to (1+{Intelligence.%UUID of player%}/100*{_scale})
+	set {_bdmg} to ({_bdmg}*(1+{AbilityDamage.%UUID of player%}/100))
+# ==
+	set {AbilityFinalDamage.%UUID of player%} to {_bdmg}*{_f-intel}
+# ==
+	if name of player's tool contains "&dHeroic Hyperion":
+		set the 33th line of the tool's lore to "&7&c%{AbilityFinalDamage.%UUID of player%}% &7damage to nearby"
+	if name of player's tool contains "&dSuspicious Astraea":
+		set the 34th line of the tool's lore to "&7&c%{AbilityFinalDamage.%UUID of player%}% &7damage to nearby"
+	if name of player's tool contains "&dFabled Valkyrie":
+		set the 22th line of the tool's lore to "&7&c%{AbilityFinalDamage.%UUID of player%}% &7damage to nearby"
+	if name of player's tool contains "&5Heroic Bonzo's Staff":
+		set the 13th line of the tool's lore to "&7dealing up to &c%{AbilityFinalDamage.%UUID of player%}% &7damage!"
+	if name of player's tool contains "&dFabled Giant's Sword":
+		set the 10th line of the tool's lore to "&7dealing &c%{AbilityFinalDamage.%UUID of player%}% &7damage to"

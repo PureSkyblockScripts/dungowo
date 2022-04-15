@@ -1,0 +1,18 @@
+on break:
+	if event-block is not a bedrock:
+		if player's inventory can't hold event-block:
+
+			set {_attenteNotifInventoryFull.%UUID of player%} to difference between {cooldownNotifInventoryFull.%UUID of player%} and now
+			if {_attenteNotifInventoryFull.%UUID of player%} is less than 8 seconds:
+				stop
+			else:
+				set {cooldownNotifInventoryFull.%UUID of player%} to now
+				if {Setting-NotifInventoryFull.%UUID of player%} is true:
+					send title "&cInventaire Complet" with subtitle "&7Votre inventaire est complet!" to player for 3 seconds
+					make console execute command "/music-note %player% %{Setting-Music-FullInventory.%UUID of player%}%"
+					send "&cVotre inventaire est complet." to player
+					stop
+				else:
+					send "&cVotre inventaire est complet." to player
+					play sound "entity.villager.yes" at player for player
+					stop

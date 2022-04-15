@@ -1,0 +1,75 @@
+command /menucollection-minier-obsidienne <player>:
+ permission: op
+ trigger:
+  if {collection-Obsidian.%UUID of arg-1%} is not higher than 0:
+   set {_MenuCollection-Obsidian-1.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-Obsidian-1.%UUID of arg-1%} to lime stained glass pane
+
+  if {collection-Obsidian.%UUID of arg-1%} is not higher than 1:
+   set {_MenuCollection-Obsidian-2.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-Obsidian-2.%UUID of arg-1%} to lime stained glass pane
+
+  if {collection-Obsidian.%UUID of arg-1%} is not higher than 2:
+   set {_MenuCollection-Obsidian-3.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-Obsidian-3.%UUID of arg-1%} to lime stained glass pane
+
+  if {collection-Obsidian.%UUID of arg-1%} is not higher than 3:
+   set {_MenuCollection-Obsidian-4.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-Obsidian-4.%UUID of arg-1%} to lime stained glass pane
+
+  if {collection-Obsidian.%UUID of arg-1%} is not higher than 4:
+   set {_MenuCollection-Obsidian-5.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-Obsidian-5.%UUID of arg-1%} to lime stained glass pane
+
+  if {collection-Obsidian.%UUID of arg-1%} is not higher than 5:
+   set {_MenuCollection-Obsidian-6.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-Obsidian-6.%UUID of arg-1%} to lime stained glass pane
+
+  if {collection-Obsidian.%UUID of arg-1%} is not higher than 6:
+   set {_MenuCollection-Obsidian-7.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-Obsidian-7.%UUID of arg-1%} to lime stained glass pane
+
+  if {collection-Obsidian.%UUID of arg-1%} is not higher than 7:
+   set {_MenuCollection-Obsidian-8.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-Obsidian-8.%UUID of arg-1%} to lime stained glass pane
+
+  if {collection-Obsidian.%UUID of arg-1%} is not higher than 8:
+   set {_MenuCollection-Obsidian-9.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-Obsidian-9.%UUID of arg-1%} to lime stained glass pane
+
+  open virtual chest inventory with size 6 named "Collection de Obsidienne" to arg-1
+  wait 1 tick
+  format gui slot (integers between 0 and 53) of arg-1 with black stained glass pane named "&f"
+
+  format gui slot 4 of arg-1 with obsidian named "&eObsidienne %{Collection-Obsidian.%UUID of arg-1%}%" with lore "&7Consultez tous les progrès et récompenses" and "&7de votre collection de Obsidienne!" and "&7" and "&7Vous avez récolté &e%{Collection-Obsidian-Collected.%UUID of arg-1%}%&7."
+
+  format gui slot 18 of arg-1 with {_MenuCollection-Obsidian-1.%UUID of arg-1%} named "&eObsidienne I" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&8???" and "&7" and "&7Nécessite &b50 Obsidiennes"
+
+  format gui slot 19 of arg-1 with {_MenuCollection-Obsidian-2.%UUID of arg-1%} named "&eObsidienne II" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&8???" and "&7" and "&7Nécessite &b100 Obsidiennes"
+
+  format gui slot 20 of arg-1 with {_MenuCollection-Obsidian-3.%UUID of arg-1%} named "&eObsidienne III" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&8???" and "&7" and "&7Nécessite &b250 Obsidiennes"
+
+  format gui slot 21 of arg-1 with {_MenuCollection-Obsidian-4.%UUID of arg-1%} named "&eObsidienne IV" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&aObsidienne Enchanté &7Recette" and "&7" and "&7Nécessite &b1000 Obsidiennes"
+
+  format gui slot 22 of arg-1 with {_MenuCollection-Obsidian-5.%UUID of arg-1%} named "&eObsidienne V" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&8???" and "&7" and "&7Nécessite &b2500 Obsidiennes"
+
+  format gui slot 23 of arg-1 with {_MenuCollection-Obsidian-6.%UUID of arg-1%} named "&eObsidienne VI" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&5Plastron d'Obsidienne &7Recette" and "&7" and "&7Nécessite &b5000 Obsidiennes"
+
+  format gui slot 24 of arg-1 with {_MenuCollection-Obsidian-7.%UUID of arg-1%} named "&eObsidienne VII" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&8???" and "&7" and "&7Nécessite &b10 000 Obsidiennes"
+
+  format gui slot 25 of arg-1 with {_MenuCollection-Obsidian-8.%UUID of arg-1%} named "&eObsidienne VIII" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&5Capitateur d'Arbres &7Recette" and "&7" and "&7Nécessite &b25 000 Obsidiennes"
+
+  format gui slot 26 of arg-1 with {_MenuCollection-Obsidian-9.%UUID of arg-1%} named "&eObsidienne IX" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&8???" and "&7" and "&7Nécessite &b50 000 Obsidiennes"
+
+  format gui slot 48 of arg-1 with arrow named "&aRetour" with lore "&7Revenir à la page précédente." and "&7" and "&eCliquez pour retourner!" to close:
+   make console execute command "/menucollection-minier %player%"
+  format gui slot 49 of arg-1 with barrier named "&cFermer" to close

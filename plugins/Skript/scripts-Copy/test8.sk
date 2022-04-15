@@ -1,0 +1,113 @@
+command /tradehandaccept <player>:
+	trigger:
+		if {TradingWith.%UUID of player%} is not set:
+			if {TradingWith.%UUID of arg-1%} is "%player%":
+				add player to {_p::*}
+				add arg-1 to {_p::*}
+				set {TradingWith.%UUID of arg-1%} to player
+				set {TradingWith.%UUID of player%} to arg-1
+				loop 2 times:
+					add 1 to {_v}
+					MenuStyle({_p::%{_v}%}, "TradeHand", "Full", 3, "/")
+					format gui slot 2 of {_p::%{_v}%} with ("%arg-1%" parsed as player)'s skull named "&a%arg-1%&a's TradeHand"
+					format gui slot 6 of {_p::%{_v}%} with ("%player%" parsed as player)'s skull named "&a%player%&a's TradeHand"
+					format gui slot 22 of {_p::%{_v}%} with barrier named "&cCancel"
+					format gui slot 21 of {_p::%{_v}%} with {Menu-Panes}
+					format gui slot 11 of {_p::%{_v}%} with arg-1's tool
+					format gui slot 15 of {_p::%{_v}%} with player's tool
+					format gui slot 4 and 13 of {_p::*} with iron bars named "&7<->"
+					format gui slot 18 of {_p::%{_v}%} with red stained glass pane named "%arg-1%" with lore "&eClick to accept!"
+					format gui slot 26 of {_p::%{_v}%} with red stained glass pane named "%player%" with lore "&eClick to accept!"
+			else:
+				send "&cThis player isn't trading with you!" to player
+				Nope(player)
+		else:
+			send "&cYou already asking someone to tradehand!" to player
+			Nope(player)
+
+command /tradehand <player>:
+	trigger:
+		if {TradingWith.%UUID of player%} is set:
+			send "&cYou already asking someone to trade!" to player
+			Nope(player)
+			stop
+		if arg-1's current inventory's name is "TradeHand":
+			send "&cThis player is currently trading!" to player
+			Nope(player)
+			stop
+		if arg-1 has space for cake:
+			if player has space for cake:
+				if {TradingWith.%UUID of arg-1%} is not set:
+					set {TradingWith.%UUID of player%} to arg-1
+					send "&6&lTRADE! &b%player% &fask you a tradehand. Type '&a/tradehandaccept %player%&f' to trade! &fYou have &a10 seconds&f!" to arg-1
+					send "&6&lTRADE! &fYou send a tradehand request to &b%arg-1%&f! &fThey have &a15 seconds &fto accept!" to player
+					loop 15 times:
+						if player's current inventory's name is "TradeHand":
+							stop
+						wait 1 seconds
+					send "&6&lTRADE! &fYour tradehand request has expired!" to player
+					Nope(player)
+					send "&c%player%&c's tradehand request has expired!" to arg-1
+					delete {TradingWith.%UUID of player%}
+					stop
+				else:
+					send "&cThis player has already asked a tradehand!" to player
+					Nope(player)
+			else:
+				send "&cYou don't have enough space for trade!" to player
+				Nope(player)
+				stop
+		else:
+			send "&cThis player have not space in his inventory!" to player
+			Nope(player)
+			stop
+
+on inventory close:
+	if name of player's current inventory is "TradeHand":
+		wait 2 ticks
+		set {_p} to {TradingWith.%UUID of player%}
+		close {_p}'s inventory
+		delete {TradingWith.%{TradingWith.%UUID of player%}%}
+		delete {TradingWith.%UUID of player%}
+
+on inventory click:
+	if name of player's current inventory is "TradeHand":
+		set {_v} to 18
+		loop 2 times:
+			set {_o} to player's current inventory's slot {_v}
+			set {_o} to name of {_o}
+			set {_o} to {_o} parsed as player
+			add {_o} to {_p::*}
+			set {_v} to 26
+		if name of item is "&cCancel":
+			close {_p::*}'s inventory
+			send "&c%player% &ccancelled the tradehand!" to {_p::*}
+			Nope({_p::*})
+		if name of item is "%player%":
+			set {_c} to clicked slot
+			format gui slot {_c} of {_p::*} with lime stained glass pane named "%player%" with lore "&a%player% &aaccepted the exchange!"
+			Click(player)
+		wait 1 tick
+		if slot 18 and 26 of {_p::2}'s current inventory is lime stained glass pane:
+			if player has space for cake:
+				set {_i} to slot 11 of player's current inventory
+				set {_you} to slot 15 of player's current inventory
+				set {_i} to {_i} parsed as item
+				set {_you} to {_you} parsed as item
+				close {_p::*}'s inventory
+				set {_p} to player
+				set {_p2} to ("%{TradingWith.%UUID of player%}%" parsed as player)
+				set {_pt} to {_p}'s tool
+				set {_p2t} to {_p2}'s tool
+				remove {_p}'s tool from {_p}'s tool
+				remove {_p2}'s tool from {_p2}'s tool
+				give {_pt} to {_p2}
+				give {_p2t} to {_p}
+				send "%{_p}% %{_p2}% %{TradingWith.%UUID of player%}%" to players
+				Buyed({_p::*})
+				send "&6&lTRADE! &aYou made your tradehand successfully!" to {_p::*}
+				stop
+			else:
+				send "&cYou don't have enough space for tradehand!" to player
+				Nope(player)
+			

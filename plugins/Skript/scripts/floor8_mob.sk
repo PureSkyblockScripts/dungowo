@@ -1,0 +1,106 @@
+on damage of husk:
+	if name of victim contains "&6Terracotta":
+		wait 1 tick
+		add "{CustomNameVisible:1b}" to nbt of victim
+		if {health.%UUID of victim%} is higher than 24999999.9:
+			if {health.%UUID of victim%} is higher than 124999999.9:
+				set {_c} to "&a"
+			else:
+				set {_c} to "&e"
+			set name of victim to "&6Terracotta %{_c}%%{health.%UUID of victim%} / 1000000%%{_c}%M&c❤"
+		else:
+			set name of victim to "&6Terracotta &e%{health.%UUID of victim%} / 1000%&ek&c❤"
+			
+on damage of iron golem:
+	if name of victim contains "&c&lEnergized Golem":
+		wait 1 tick
+		add "{CustomNameVisible:1b}" to nbt of victim
+		if {health.%UUID of victim%} is higher than 99999999.9:
+			if {health.%UUID of victim%} is higher than 499999999.9:
+				set {_c} to "&a"
+			else:
+				set {_c} to "&e"
+			set name of victim to "&c&lEnergized Golem %{_c}%%{health.%UUID of victim%} / 1000000%%{_c}%M&c❤"
+		else:
+			set name of victim to "&c&lEnergized Golem &e%{health.%UUID of victim%} / 1000%&ek&c❤"
+			
+
+
+on damage of giant:
+	if name of victim contains "Healthy Giant":
+		wait 1 tick
+		add "{CustomNameVisible:1b}" to nbt of victim
+		if {health.%UUID of victim%} is higher than 199999999.9:
+			if {health.%UUID of victim%} is higher than 999999999.9:
+				set {_c} to "&a"
+			else:
+				set {_c} to "&e"
+			set name of victim to "&2&lHealthy Giant %{_c}%%{health.%UUID of victim%} / 1000000%%{_c}%M&c❤"
+		else:
+			set name of victim to "&2&lHealthy Giant &e%{health.%UUID of victim%} / 1000%&ek&c❤"
+	
+
+
+on damage of giant:
+	if name of victim contains "Stormy Giant":
+		wait 1 tick
+		add "{CustomNameVisible:1b}" to nbt of victim
+		if {health.%UUID of victim%} is higher than 99999999.9:
+			if {health.%UUID of victim%} is higher than 499999999.9:
+				set {_c} to "&a"
+			else:
+				set {_c} to "&e"
+			set name of victim to "&9&lStormy Giant %{_c}%%{health.%UUID of victim%} / 1000000%%{_c}%M&c❤"
+		else:
+			set name of victim to "&9&lStormy Giant &e%{health.%UUID of victim%} / 1000%&ek&c❤"
+	
+
+
+on damage of giant:
+	if name of victim contains "Flaming Giant":
+		wait 1 tick
+		add "{CustomNameVisible:1b}" to nbt of victim
+		if {health.%UUID of victim%} is higher than 99999999.9:
+			if {health.%UUID of victim%} is higher than 499999999.9:
+				set {_c} to "&a"
+			else:
+				set {_c} to "&e"
+			set name of victim to "&c&lFlaming Giant %{_c}%%{health.%UUID of victim%} / 1000000%%{_c}%M&c❤"
+		else:
+			set name of victim to "&c&lFlaming Giant &e%{health.%UUID of victim%} / 1000%&ek&c❤"
+
+
+
+on damage of giant:
+	if name of victim contains "Fortified Giant":
+		wait 1 tick
+		add "{CustomNameVisible:1b}" to nbt of victim
+		if {health.%UUID of victim%} is higher than 99999999.9:
+			if {health.%UUID of victim%} is higher than 499999999.9:
+				set {_c} to "&a"
+			else:
+				set {_c} to "&e"
+			set name of victim to "&7&lFortified Giant %{_c}%%{health.%UUID of victim%} / 1000000%%{_c}%M&c❤"
+		else:
+			set name of victim to "&7&lFortified Giant &e%{health.%UUID of victim%} / 1000%&ek&c❤"
+			
+on damage of ender dragon:
+	if name of victim contains "New Dragon":
+		wait 1 tick
+		add "{CustomNameVisible:1b}" to nbt of victim
+		if {health.%UUID of victim%} is higher than 499999999.9:
+			if {health.%UUID of victim%} is higher than 2499999999.9:
+				set {_c} to "&a"
+			else:
+				set {_c} to "&e"
+			set name of victim to "&c&lNew Dragon %{_c}%%{health.%UUID of victim%} / 1000000%%{_c}%M&c❤"
+		else:
+			set name of victim to "&c&lNew Dragon &e%{health.%UUID of victim%} / 1000%&ek&c❤"
+			
+			
+			
+			
+			
+			
+			
+			

@@ -1,0 +1,5 @@
+command /nv:
+ aliases: /nightvision, /vision
+ trigger:
+  apply night vision 1 without particles to player for 99999 seconds replacing existing effect
+  send "&aVision nocturne activé" to player

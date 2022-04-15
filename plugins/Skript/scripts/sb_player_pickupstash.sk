@@ -1,0 +1,31 @@
+command /pickupstash:
+	aliases: /pus
+	trigger:
+		if {Pickupstash.%UUID of player%::*} is set:
+			loop {Pickupstash.%UUID of player%::*}:
+				if player has space for {Pickupstash.%UUID of player%::1}:
+					give {Pickupstash.%UUID of player%::1} to player
+					Sound_Pickup(player)
+					# =
+					delete {Pickupstash.%UUID of player%::1}
+					set {_l::*} to {Pickupstash.%UUID of player%::*}
+					set {Pickupstash.%UUID of player%::*} to {_l::*}
+					# =
+					wait 1 tick
+				else:
+					set {_l::*} to {Pickupstash.%UUID of player%::*}
+					delete {Pickupstash.%UUID of player%::1}
+					set {Pickupstash.%UUID of player%::*} to {_l::*}
+					loop {Pickupstash.%UUID of player%::*}:
+						add 1 to {_i}
+					send "&6&lPICKUPSTASH! &fYou steel have &a%{_i}% &aItem(s) &fin your pickupstash!" to player
+					NoSpace(player)
+					stop
+# =
+			delete {Pickupstash.%UUID of player%::*}
+			send "&6&lPICKUPSTASH! &aYou have cleaned all your pickupstash!" to player
+			Yes(player)
+			stop
+		else:
+			send "&cYour pickupstash is empty!"
+			Nope(player)

@@ -1,0 +1,52 @@
+on break:
+	if name of player's tool is "&dForestacapitator":
+		if {cdAxe.%UUID of player%} is not true:
+			if event-block is a brown wool or dark oak bark or spruce planks:
+				loop all blocks in radius 7 of event-block:
+					set {cdAxe.%UUID of player%} to true
+					if loop-block is a brown wool or a spruce planks or a dark oak bark:
+						set {_v::%location of loop-block%} to true
+						set {_v::%location of loop-block%::*} to location of loop-block and type of loop-block
+						add loop-block to {_a::*}
+				break {_a::*}
+				loop 3 times:
+					play sound "block.wood.break" at player for player
+					play sound "block.wool.break" at player for player
+					wait 1 tick
+				play sound "entity.experience_orb.pickup" at player for player
+				set {_e} to random integer between 2 and 4
+				drop {_e} of brown wool named "&fBois d'Aria" with lore "&f&lCOMMUN" at event-block's location
+				wait 3 seconds
+				delete {cdAxe.%UUID of player%}
+				loop {_v::*}:
+					set block at {_v::%loop-index%::1} to {_v::%loop-index%::2}
+					
+on block damage:
+	if name of player's tool is "&dForestacapitator":
+		if event-block is a brown wool or spruce planks or dark oak bark:
+			if {cdAxe.%UUID of player%} is true:
+				cancel event
+				
+#length of uncolored {_input}
+#length of uncolored {_input}
+#%character at {_y}+{_x}+1 in {_input}
+#set {_character} to character at {_y} in uncolored {_input}
+command /vi:
+	trigger:
+		set {_dmg} to "987654321"
+		set {_dmg::*} to {_dmg} split by ""
+		remove "" from {_dmg::*}
+		set {_sz} to size of {_dmg::*}
+		set {_c} to "&f"
+		loop {_dmg::*}:
+			add 1 to {_x}
+			add {_c} to {_v::*}
+			add {_dmg::%{_x}%} to {_v::*}
+			if {_c} is "&6":
+				set {_c} to "&c"
+			if {_c} is "&e":
+				set {_c} to "&6"
+			if {_c} is "&f":
+				set {_c} to "&e"
+		remove all "&" from {_v::*}
+		send "%{_v::*}%"

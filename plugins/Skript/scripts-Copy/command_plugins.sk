@@ -1,0 +1,7 @@
+on command "/plugins":
+ if player is not op:
+  send "&cVous n'avez pas la permission !" to player
+
+on command "/pl":
+ if player is not op:
+  send "&cVous n'avez pas la permission !" to player

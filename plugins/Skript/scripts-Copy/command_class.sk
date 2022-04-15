@@ -1,0 +1,7 @@
+command /class <player> <text> <text> <number>:
+	permission: op
+	usage: &c/class <joueur> <Berserker/Archer/Mage/Tank/Healer> <set> <valeur>
+	trigger:
+		if arg-3 is "set":
+			set {SBDClass-%arg-2%.%UUID of arg-1%} to arg-4
+			send "&6&lSET!" to player

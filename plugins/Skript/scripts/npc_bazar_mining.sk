@@ -1,0 +1,122 @@
+command /bazar-mining <player>:
+	permission: op
+	trigger:
+		open virtual chest inventory with size 6 named "Bazar - Minier" to arg-1
+		format gui slot (integers between 0 and 53) of arg-1 with air named "&f"
+		format gui slot (integers between 1 and 10) of arg-1 with cyan stained glass pane named "&f"
+		format gui slot (integers between 17 and 19) of arg-1 with cyan stained glass pane named "&f"
+		format gui slot (integers between 26 and 28) of arg-1 with cyan stained glass pane named "&f"
+		format gui slot (integers between 35 and 37) of arg-1 with cyan stained glass pane named "&f"
+		format gui slot (integers between 44 and 53) of arg-1 with cyan stained glass pane named "&f"
+		format gui slot 49 of arg-1 with barrier named "&cFermer" to close
+		
+		format gui slot 0 of arg-1 with golden hoe with attribute flag hidden named "&6Agriculture" with lore "&7Achetez ou vendez des agricoles." and "&7" and "&eCliquez pour consulter!" to close:
+			make console execute command "/bazar-farming %player%"
+			
+		format gui slot 9 of arg-1 with diamond pickaxe with attribute flag hidden named "&6Minier" with lore "&7Achetez ou vendez des minerais." and "&7" and "&eCliquez pour consulter!" to close:
+			make console execute command "/bazar-mining %player%"
+			
+		format gui slot 18 of arg-1 with stone sword with attribute flag hidden named "&6Combat" with lore "&7Achetez ou vendez des récoltes." and "&7" and "&eCliquez pour consulter!" to close:
+			make console execute command "/bazar-combat %player%"
+			
+		format gui slot 27 of arg-1 with fishing rod with attribute flag hidden named "&6Pêche & Bûcheron" with lore "&7Achetez ou vendez des pêches ou du bois." and "&7" and "&eCliquez pour consulter!" to close:
+			make console execute command "/bazar-fishing %player%"
+			
+		format gui slot 36 of arg-1 with enchanting table with attribute flag hidden named "&6Divers" with lore "&7Achetez ou vendez des divers." and "&7" and "&eCliquez pour consulter!" to close:
+			make console execute command "/bazar-misc %player%"
+			
+		format gui slot 45 of arg-1 with wither skeleton skull with attribute flag hidden named "&6Donjon" with lore "&7Achetez ou vendez des articles de donjon." and "&7" and "&eCliquez pour consulter!" to close:
+			make console execute command "/bazar-dungeon %player%"
+			
+	
+		format gui slot 11 of arg-1 with cobblestone named "&bPierres" with lore "&81 Article" and "&7" and "&7Prix d'Achat: &6%{Bazar-Item-Price-Buy-Pierres}% &6Pièce(s)" and "&7Prix de Vente: &6%{Bazar-Item-Price-Sell-Pierres}% &6Pièce(s)" and "&7" and "&eCliquez pour consulter!" to close:
+			set {Bazar-Item-Article.%UUID of player%} to {Storage-Item-Pierres}
+			set {Bazar-Item-Price-Buy.%UUID of player%} to {Bazar-Item-Price-Buy-Pierres}
+			set {Bazar-Item-Price-Sell.%UUID of player%} to {Bazar-Item-Price-Sell-Pierres}
+			make console execute command "/bazar-bazar %player%"
+			stop
+			
+		format gui slot 12 of arg-1 with coal named "&bCharbon" with lore "&81 Article" and "&7" and "&7Prix d'Achat: &6%{Bazar-Item-Price-Buy-Charbon}% &6Pièce(s)" and "&7Prix de Vente: &6%{Bazar-Item-Price-Sell-Charbon}% &6Pièce(s)" and "&7" and "&eCliquez pour consulter!" to close:
+			set {Bazar-Item-Article.%UUID of player%} to {Storage-Item-Charbon}
+			set {Bazar-Item-Price-Buy.%UUID of player%} to {Bazar-Item-Price-Buy-Charbon}
+			set {Bazar-Item-Price-Sell.%UUID of player%} to {Bazar-Item-Price-Sell-Charbon}
+			make console execute command "/bazar-bazar %player%"
+			stop
+			
+		format gui slot 13 of arg-1 with iron ingot named "&bLingot de Fer" with lore "&81 Article" and "&7" and "&7Prix d'Achat: &6%{Bazar-Item-Price-Buy-LingotDeFer}% &6Pièce(s)" and "&7Prix de Vente: &6%{Bazar-Item-Price-Sell-LingotDeFer}% &6Pièce(s)" and "&7" and "&eCliquez pour consulter!" to close:
+			set {Bazar-Item-Article.%UUID of player%} to {Storage-Item-LingotDeFer}
+			set {Bazar-Item-Price-Buy.%UUID of player%} to {Bazar-Item-Price-Buy-LingotDeFer}
+			set {Bazar-Item-Price-Sell.%UUID of player%} to {Bazar-Item-Price-Sell-LingotDeFer}
+			make console execute command "/bazar-bazar %player%"
+			stop
+			
+		format gui slot 14 of arg-1 with golden ingot named "&bLingot d'Or" with lore "&81 Article" and "&7" and "&7Prix d'Achat: &6%{Bazar-Item-Price-Buy-LingotDOr}% &6Pièce(s)" and "&7Prix de Vente: &6%{Bazar-Item-Price-Sell-LingotDOr}% &6Pièce(s)" and "&7" and "&eCliquez pour consulter!" to close:
+			set {Bazar-Item-Article.%UUID of player%} to {Storage-Item-LingotDOr}
+			set {Bazar-Item-Price-Buy.%UUID of player%} to {Bazar-Item-Price-Buy-LingotDOr}
+			set {Bazar-Item-Price-Sell.%UUID of player%} to {Bazar-Item-Price-Sell-LingotDOr}
+			make console execute command "/bazar-bazar %player%"
+			stop
+			
+		format gui slot 15 of arg-1 with diamond named "&bDiamant" with lore "&81 Article" and "&7" and "&7Prix d'Achat: &6%{Bazar-Item-Price-Buy-Diamant}% &6Pièce(s)" and "&7Prix de Vente: &6%{Bazar-Item-Price-Sell-Diamant}% &6Pièce(s)" and "&7" and "&eCliquez pour consulter!" to close:
+			set {Bazar-Item-Article.%UUID of player%} to {Storage-Item-Diamant}
+			set {Bazar-Item-Price-Buy.%UUID of player%} to {Bazar-Item-Price-Buy-Diamant}
+			set {Bazar-Item-Price-Sell.%UUID of player%} to {Bazar-Item-Price-Sell-Diamant}
+			make console execute command "/bazar-bazar %player%"
+			stop
+			
+		format gui slot 16 of arg-1 with emerald named "&bÉmeraude" with lore "&81 Article" and "&7" and "&7Prix d'Achat: &6%{Bazar-Item-Price-Buy-Émeraude}% &6Pièce(s)" and "&7Prix de Vente: &6%{Bazar-Item-Price-Sell-Émeraude}% &6Pièce(s)" and "&7" and "&eCliquez pour consulter!" to close:
+			set {Bazar-Item-Article.%UUID of player%} to {Storage-Item-Émeraude}
+			set {Bazar-Item-Price-Buy.%UUID of player%} to {Bazar-Item-Price-Buy-Émeraude}
+			set {Bazar-Item-Price-Sell.%UUID of player%} to {Bazar-Item-Price-Sell-Émeraude}
+			make console execute command "/bazar-bazar %player%"
+			stop
+			
+		format gui slot 20 of arg-1 with redstone named "&bRedstone" with lore "&81 Article" and "&7" and "&7Prix d'Achat: &6%{Bazar-Item-Price-Buy-Redstone}% &6Pièce(s)" and "&7Prix de Vente: &6%{Bazar-Item-Price-Sell-Redstone}% &6Pièce(s)" and "&7" and "&eCliquez pour consulter!" to close:
+			set {Bazar-Item-Article.%UUID of player%} to {Storage-Item-Redstone}
+			set {Bazar-Item-Price-Buy.%UUID of player%} to {Bazar-Item-Price-Buy-Redstone}
+			set {Bazar-Item-Price-Sell.%UUID of player%} to {Bazar-Item-Price-Sell-Redstone}
+			make console execute command "/bazar-bazar %player%"
+			stop
+			
+		format gui slot 21 of arg-1 with lapis lazuli named "&bLapis-Lazuli" with lore "&81 Article" and "&7" and "&7Prix d'Achat: &6%{Bazar-Item-Price-Buy-LapisLazuli}% &6Pièce(s)" and "&7Prix de Vente: &6%{Bazar-Item-Price-Sell-LapisLazuli}% &6Pièce(s)" and "&7" and "&eCliquez pour consulter!" to close:
+			set {Bazar-Item-Article.%UUID of player%} to {Storage-Item-LapisLazuli}
+			set {Bazar-Item-Price-Buy.%UUID of player%} to {Bazar-Item-Price-Buy-LapisLazuli}
+			set {Bazar-Item-Price-Sell.%UUID of player%} to {Bazar-Item-Price-Sell-LapisLazuli}
+			make console execute command "/bazar-bazar %player%"
+			stop
+			
+		format gui slot 22 of arg-1 with prismarine crystals named "&bMithril" with lore "&81 Article" and "&7" and "&7Prix d'Achat: &6%{Bazar-Item-Price-Buy-Mithril}% &6Pièce(s)" and "&7Prix de Vente: &6%{Bazar-Item-Price-Sell-Mithril}% &6Pièce(s)" and "&7" and "&eCliquez pour consulter!" to close:
+			set {Bazar-Item-Article.%UUID of player%} to {Storage-Item-Mithril}
+			set {Bazar-Item-Price-Buy.%UUID of player%} to {Bazar-Item-Price-Buy-Mithril}
+			set {Bazar-Item-Price-Sell.%UUID of player%} to {Bazar-Item-Price-Sell-Mithril}
+			make console execute command "/bazar-bazar %player%"
+			stop
+			
+		format gui slot 23 of arg-1 with obsidian named "&bObsidienne" with lore "&81 Article" and "&7" and "&7Prix d'Achat: &6%{Bazar-Item-Price-Buy-Obsidienne}% &6Pièce(s)" and "&7Prix de Vente: &6%{Bazar-Item-Price-Sell-Obsidienne}% &6Pièce(s)" and "&7" and "&eCliquez pour consulter!" to close:
+			set {Bazar-Item-Article.%UUID of player%} to {Storage-Item-Obsidienne}
+			set {Bazar-Item-Price-Buy.%UUID of player%} to {Bazar-Item-Price-Buy-Obsidienne}
+			set {Bazar-Item-Price-Sell.%UUID of player%} to {Bazar-Item-Price-Sell-Obsidienne}
+			make console execute command "/bazar-bazar %player%"
+			stop
+			
+		format gui slot 24 of arg-1 with gravel named "&bGravier" with lore "&81 Article" and "&7" and "&7Prix d'Achat: &6%{Bazar-Item-Price-Buy-Gravier}% &6Pièce(s)" and "&7Prix de Vente: &6%{Bazar-Item-Price-Sell-Gravier}% &6Pièce(s)" and "&7" and "&eCliquez pour consulter!" to close:
+			set {Bazar-Item-Article.%UUID of player%} to {Storage-Item-Gravier}
+			set {Bazar-Item-Price-Buy.%UUID of player%} to {Bazar-Item-Price-Buy-Gravier}
+			set {Bazar-Item-Price-Sell.%UUID of player%} to {Bazar-Item-Price-Sell-Gravier}
+			make console execute command "/bazar-bazar %player%"
+			stop
+			
+		format gui slot 25 of arg-1 with sand named "&bSable" with lore "&81 Article" and "&7" and "&7Prix d'Achat: &6%{Bazar-Item-Price-Buy-Sable}% &6Pièce(s)" and "&7Prix de Vente: &6%{Bazar-Item-Price-Sell-Sable}% &6Pièce(s)" and "&7" and "&eCliquez pour consulter!" to close:
+			set {Bazar-Item-Article.%UUID of player%} to {Storage-Item-Sable}
+			set {Bazar-Item-Price-Buy.%UUID of player%} to {Bazar-Item-Price-Buy-Sable}
+			set {Bazar-Item-Price-Sell.%UUID of player%} to {Bazar-Item-Price-Sell-Sable}
+			make console execute command "/bazar-bazar %player%"
+			stop
+			
+		format gui slot 29 of arg-1 with quartz named "&bQuartz du Nether" with lore "&81 Article" and "&7" and "&7Prix d'Achat: &6%{Bazar-Item-Price-Buy-QuartzDuNether}% &6Pièce(s)" and "&7Prix de Vente: &6%{Bazar-Item-Price-Sell-QuartzDuNether}% &6Pièce(s)" and "&7" and "&eCliquez pour consulter!" to close:
+			set {Bazar-Item-Article.%UUID of player%} to {Storage-Item-QuartzDuNether}
+			set {Bazar-Item-Price-Buy.%UUID of player%} to {Bazar-Item-Price-Buy-QuartzDuNether}
+			set {Bazar-Item-Price-Sell.%UUID of player%} to {Bazar-Item-Price-Sell-QuartzDuNether}
+			make console execute command "/bazar-bazar %player%"
+			stop
+		

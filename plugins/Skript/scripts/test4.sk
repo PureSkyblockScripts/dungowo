@@ -1,0 +1,110 @@
+command /test-getitemenchant:
+	permission: op
+	trigger:
+		give unbreakable iron sword with attribute flag hidden with unbreakable flag hidden named "&6Sword of Enchanters" with lore "&7Damage: &c+333" and "&7Crit Chance: &c+100%%" and "&7" and "&7&oUsed a centuary ago by masters, also known" and "&7&oas The Enchanters. Kind of ancient story." and "&7" and "&7&oNo Enchantment Applied" and "&7" and "&6Item Ability: &6Enchantist &e&lRIGHT CLICK" and "&7Open &6Enchantist &7menu quickly!" and "&7" and "&6&lLEGENDARY SWORD" to player
+		
+on right click with iron sword:
+	if "%lore of player's tool%" contains "&6Enchantist":
+		make player execute command "/enchantist"
+
+#set {_tag} to nbt compound of {_e}
+#delete tag "NoAI" of {_tag}
+
+command /enchantist:
+	permission: op
+	trigger:
+		open virtual chest inventory with size 4 named "Enchantist" to player
+		format gui slot (integers between 0 and 35) of player with {Menu-Panes}
+		#format gui slot (integers between 9 and 17) of player with red stained glass pane named "&f"
+		format gui slot 31 of player with {Menu-Close} to close
+		format gui slot 30 of player with {Menu-GoBack} to run:
+			make player execute command "/menu"
+		
+		set {_t} to player's tool
+		format gui slot 10 of player with {_t}
+		format gui slot 12 and 14 and 16 of player with gray dye named "&cNo Enchantment"
+		set {_e1} to tag "FirstEnch" of nbt of {_t}
+		set {_e2} to tag "SecondEnch" of nbt of {_t}
+		set {_e3} to tag "ThirdEnch" of nbt of {_t}
+		if {_e1} is set:
+			
+		
+		
+		format gui slot 32 of player with book named "&aList of Enchantment" with lore "&7View all avaible enchantments!" and "&7" and "&eClick to view!"
+		format gui slot 34 of player with anvil named "&9Apply Enchanted Book" with lore "&7Get access quickly to anvil to apply" and "&7enchanted books on your item!" and "&7" and "&cUnavaible."
+		
+		format gui slot 19 of player with enchanting table named "&6Enchantist" with lore "&7Apply enchants on this item to get" and "&7specials abilities for your adventurer!" and "&7" and "&6&lNOTE!" and "&7You can only have &93 uniques enchants &7on" and "&7your item that can be &aNormal &7or &dRare" and "&7enchantments. &dRare Enchant &7costs &cx2 &7more" and "&7to levelup! Getting 3 slots of enchant can" and "&7be harder than getting 1 slot." and "&7" and "&7You can also add &5Enchantment &7from yourself" and "&7by applying &5Enchanted Book &7on this!" and "&7" and "&7Cost" and "&b250 EXP Level" and "&7" and "&eClick to get random enchantments!" to run:
+			if {CD-Enchantist.%UUID of player%} is not true:
+				set {CD-Enchantist.%UUID of player%} to true
+				format gui slot 12 and 14 and 16 of player with gray dye named "&cNo Enchantment"
+				set {_o} to red stained glass pane named "&f"
+				set {_y} to 0.1
+				set {_x} to 9
+				loop 2 times:
+					loop 5 times:
+						format gui slot {_x} of player with {_o}
+						playsound(player, "block.note_block.harp", {_y})
+						wait 0.15 second
+						add 0.1 to {_y}
+						add 2 to {_x}
+					set {_x} to 9
+					if {_o} is red stained glass pane named "&f":
+						set {_o} to black stained glass pane named "&f"
+				set {_o} to red stained glass pane named "&f"
+		# ==================
+				set {_x} to 3
+				set {_v} to 1
+				set {_l::*} to {SB-EnchantedBook::*}
+				loop 3 times:
+					format gui slot {_x} of player with {_o}
+					playsound(player, "block.note_block.harp", {_y})
+					add 0.1 to {_y}
+					wait 0.15 seconds
+				# //////
+					set {_l::*} to {_l::*}
+					set {_sz} to size of {_l::*}
+					set {_r} to random integer between 1 and {_sz}
+					if {_v} is 3:
+						chance of 25%:
+							format gui slot ({_x}+9) of player with {_l::%{_r}%}
+							remove {_l::%{_r}%} from {_l::*}
+							playsound(player, "block.enchantment_table.use", {_y})
+				# /////
+					if {_v} is 2:
+						set {_v} to 0
+						chance of 50%:
+							set {_v} to 3
+							format gui slot ({_x}+9) of player with {_l::%{_r}%}
+							remove {_l::%{_r}%} from {_l::*}
+							playsound(player, "block.enchantment_table.use", {_y})
+				# /////
+					if {_v} is 1:
+						set {_v} to 2
+						format gui slot ({_x}+9) of player with {_l::%{_r}%}
+						remove {_l::%{_r}%} from {_l::*}
+						playsound(player, "block.enchantment_table.use", {_y})
+				# /////
+					add 0.1 to {_y}
+					wait 0.15 seconds
+					format gui slot ({_x}+18) of player with {_o}
+					playsound(player, "block.note_block.harp", {_y})
+					add 0.1 to {_y}
+					if {_x} is 5:
+						set {_x} to 7
+					if {_x} is 3:
+						set {_x} to 5
+		# ==================
+				wait 0.25 second
+				playsound(player, "block.enchantment_table.use", 0.1)
+				playsound(player, "block.beacon.activate", 2)
+				wait 0.25 second
+				format gui slot 3 and 5 and 7 and 21 and 23 and 25 of player with black stained glass pane named "&f"
+				delete {CD-Enchantist.%UUID of player%}
+				
+command /set-enchlist:
+	permission: op
+	trigger:
+		delete {SB-EnchantedBook::*}
+		add enchanted book named "&9Scavenger I" with lore "&7Earn &6+0.3 Coins&7/mob level on kill." to {SB-EnchantedBook::*}
+		add enchanted book named "&9Life Steal I" with lore "&7Heal by &c+0.5%% &c♥ Health &7on hit." to {SB-EnchantedBook::*}
+		add enchanted book named "&9Sharpness I" with lore "&7Deal &9+20%% &7damage to mobs." to {SB-EnchantedBook::*}

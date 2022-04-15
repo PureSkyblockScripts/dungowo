@@ -1,0 +1,108 @@
+command /sb-debugstar:
+	trigger:
+		set slot 8 of player to {Menu}
+
+on tool change:
+	remove all {Menu} from player's inventory
+	set slot 8 of player to {Menu}
+	if {SB-TrainingArea.%UUID of player%} is set:
+		set slot 8 of player to red terracotta named "&cCancel Training" with lore "&7Cancel your training test!" and "&7" and "&eClick to cancel!"
+
+on drop of nether star:
+	if name of event-item contains "&aMenu" or "&cCancel":
+		cancel event
+		close player's inventory
+
+on inventory click:
+	if name of item contains "&aMenu":
+		cancel event
+		close player's inventory
+	if player is not "WhiotexII":
+		if name of item contains "&cCancel":
+			cancel event
+			close player's inventory
+		
+on right click:
+	if name of item contains "&aMenu" or "&cCancel":
+		cancel event
+		make player execute command "/menu"
+  
+command /menu:
+	trigger:
+		wait 1 tick
+		set {AverageSkill.%UUID of player%} to (({Combat.%UUID of player%}+{Mining.%UUID of player%}+{Farming.%UUID of player%})/ 3)
+		SB_Reload_ItemStatBoost(player)
+		open virtual chest inventory with size 6 named "Menu" to player
+		format gui slot (integers between 0 and 53) of player with {Menu-Panes}
+  
+		format gui slot 36 of player with command block of unbreaking 1 with hidden enchants flag named "&6Mods" with lore "&7Adjust mods to improve and adapt the point of" and "&7the view of your game." and "&7" and "&eClick to view!" to close:
+			make player execute command "/sb-mods"
+  
+# format gui slot 10 of player with ("CCTV" parsed as offline player)'s skull named "&aCœur De Donjon" with lore "&7Ajuster des filtres de statistiques pour les reçevoir" and "&7multiplié durant les donjons!" and "&7" and "&eCliquez pour consulter!" to close
+  
+		format gui slot 19 of player with diamond sword with attribute flag hidden named "&aYour Skills" with lore "&7View your progressions on skills." and "&7" and "&7Average Skill: &6%{AverageSkill.%UUID of player%}%" and "&7" and "&eCliquez pour consulter!" to close:
+			make player execute command "/sb-skills"
+
+		format gui slot 20 of player with {Menu-Collections} to close:
+			make player execute command "/sb-collections"
+
+		format gui slot 21 of player with {Menu-Recipes} to close:
+			make player execute command "/sb-recipebook"
+
+		format gui slot 22 of player with gray dye named "&c?"
+
+		format gui slot 23 of player with writable book named "&aQuest Log" with lore "&7View your quests and progress." and "&7" and "&eClick to view!" to close:
+			make player execute command "/sb-questlog"
+		format gui slot 24 of player with clock named "&aCalendar and Events" with lore "&7View the Skyblock Calendar," and "&7upcoming events, and event" and "&7rewards!" and "&7" and "&eClick to open!"
+		format gui slot 25 of player with chest named "&aStorage" with lore "&7Access to your storage from" and "&7anywhere and safety. You can also" and "&7stock backpacks in storage!" and "&7" and "&eClick to open!" to run:
+			make player execute command "/sb-storage"
+			playsound(player, "block.chest.open", 1)
+		format gui slot 31 of player with {Menu-CraftingTable} to close:
+			make player execute command "/sb-craft"
+		format gui slot 32 of player with {Menu-Wardrobe} to close:
+			make player execute command "/sb-wardrobe"
+		
+		set {_Menu-Pets} to bone named "&aYour Pets" with lore "&7You can see your owned pets" and "&7and activate them here!" and "&7" and "&7Levelup faster your pets by farming" and "&7exp of their favorite skill!" and "&7" and "&7Selected Pet: &6%{Pet.%UUID of player%}'s name%" and "&7" and "&eClick to open!"
+		
+		format gui slot 30 of player with {_Menu-Pets} to close:
+			execute player command "/sb-pet"
+		format gui slot 33 of player with {Menu-PersonalBank} to close:
+			make player execute command "/sb-bank"
+			Click(player)
+			stop
+
+		format gui slot 44 of player with {Menu-Quiver} to close:
+			make player execute command "/sb-quiver"
+
+		format gui slot 45 of player with {Menu-Marketplace} to close:
+			make player execute command "/sb-marketplace"
+			playsound(player, "block.chest.open", 1)
+		format gui slot 47 of player with player head to close using left mouse click:
+			make player execute command "/sb-fasttravel"
+		format gui slot 47 of player with {Menu-FastTravel} to close using right mouse click:
+			make player execute command "/spawn"
+
+		format gui slot 49 of player with {Menu-Close} to close
+		format gui slot 50 of player with comparator named "&aUser Settings" with lore "&7Adjust your settings on how you prefer" and "&7to play the game." and "&7" and "&cDisabled!"
+
+		#✔✘
+		# COOKIE EMOJI
+		format gui slot 51 of player with black stained glass pane named "&f" # COOKIE SLOT
+		
+		format gui slot 53 of player with {Menu-AccessoryBag} to close:
+			make player execute command "/sb-accessorybag"
+			
+		set {_ProfileSelect} to nametag named "&aProfile Management" with lore "&7You can have multiple profile at" and "&7the same time in this game. Create and" and "&7choose profile that you want to" and "&7play on it!" and "&7" and "&7Each profile has its own inventory," and "&7quest log, progressions, ..." and "&7" and "&7Profiles: &e1&6/&e2" and "&7Playing on: &a%{CurrentProfile.%UUID of player%}%" and "&7" and "&bPlay with friends using /coop!" and "&7" and "&eClick to view!"
+		format gui slot 48 of player with {_ProfileSelect} to close:
+			make player execute command "/sb-profile"
+			
+# ////////////////////////
+		wait 1 ticks
+		while {_ProfileSelect} is set:
+			wait 2 ticks
+			if name of player's current inventory is "Menu":
+				set {_Profile} to {Menu-ProfileStat.%UUID of player%}
+				set {_lore::*} to {_Profile}'s lore
+				add "&7" and "&eClick to view more!" to {_lore::*}
+				format gui slot 13 of player with ("%player%" parsed as player)'s skull named "&a%player%'s Profile" with lore {_lore::*} to close:
+					make player execute command "/sb-stats"

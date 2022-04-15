@@ -1,0 +1,61 @@
+on right click on anvil:
+	cancel event
+	MenuStyle(player, "Reforge", "Full", 5, "/")
+	format gui slot 39 of player with {Menu-Panes}
+	format gui slot 0 and 8 and 9 and 17 and 18 and 26 and 27 and 35 and 36 and 44 and 45 and 53 of player with lime stained glass pane named "&f"
+	format gui slot 13 of player with barrier named "&eClick item in your inventory"
+	format gui slot 22 of player with anvil named "&aReforge" with lore "&7Reforge your item with a" and "&7random reforge!" and "&7" and "&7Cost" and "&60 Coins" and "&7" and "&eClick to reforge!"
+	
+on inventory click:
+	if name of player's current inventory is "Reforge":
+		if clicked inventory is player's inventory:
+			if "%lore of item%" contains "&8This item can be reforged!":
+				format gui slot 13 of player with item
+				set item to air
+		if name of item is "&aReforge":
+			set {_i} to slot 13 of player's current inventory
+			if {_i} is barrier:
+				stop
+			set {_lore::*} to {_i}'s lore
+			loop {_lore::*}:
+				add 1 to {_v}
+				if loop-value contains "&7Strength:":
+					set {_s::*} to split "%{_lore::%{_v}%}%" by "("
+					set {_l-str} to {_s::1}
+					set {_l-str} to numbers in uncoloured {_l-str}
+					set {_l-str} to {_l-str} parsed as number
+					set {_lo-str} to {_s::2}
+					if {_s::2} contains "&9+":
+						set {_lo-str} to numbers in uncoloured {_lo-str}
+						set {_lo-str} to {_lo-str} parsed as number
+						remove {_lo-str} from {_l-str}
+					set {_lf-str} to {_v}
+	
+			set {_forge} to random integer between 1 and 3
+			if {_forge} is 1:
+				set {_forge} to "Forceful"
+				set {_f-str} to 8
+			if {_forge} is 2:
+				set {_forge} to "Greatful"
+				set {_f-str} to 20
+			if {_forge} is 3:
+				set {_forge} to "Atomed"
+				set {_f-str} to 50
+			add {_f-str} to {_l-str}
+			
+			if {_lf-str} is set:
+				set line {_lf-str} of {_i}'s lore to "&7Strength: &c+%{_l-str}% &9(&9+%{_f-str}%) &8(+%{_l-str}*7%)"
+			set {_in::*} to split "%{_i}'s name%" by "&8 &9"
+			if size of {_in::*} is equal to 1:
+				set {_i}'s name to "&9%{_forge}%&8 &9%{_i}'s name%"
+			else:
+				set {_i}'s name to "&9%{_forge}%&8 &9%{_in::2}%"
+			set slot 13 of player's current inventory to {_i}
+			playsound(player, "block.anvil.use", 1)
+				
+on inventory close:
+	if name of player's current inventory is "Reforge":
+		set {_i} to slot 13 of player's current inventory
+		if {_i} is not barrier:
+			give {_i} to player
+			

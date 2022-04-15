@@ -1,0 +1,552 @@
+# =========
+on inventory close:
+	if {Terminal.%UUID of player%} is set:
+		delete {Terminal.%UUID of player%}
+		delete {Terminal-Tick.%UUID of player%}
+		wait 1 second
+		delete {Terminal-Loc.%UUID of player%}
+
+function TerminalArea(p: player, n: number):
+	close {_p}'s inventory
+	set {_pU} to {_p}'s uuid
+	if {_n} is equal to 1:
+		loop all living entities in radius 4 of {Terminal-Loc.%{_pU}%}:
+			if loop-entity is an armor stand:
+				if name of loop-entity is "&aTERMINAL-DONE":
+					send "&cThis terminal is already done!" to {_p}
+					Nope({_p})
+					stop
+	
+	loop all living entities in radius 30 of {_p}:
+		if loop-entity is an armor stand:
+			if name of loop-entity is "&bAREA-TERMINAL-BLUE" or "&bAREA-TERMINAL-GREEN":
+				set {_tt} to "Blue"
+				set {_cc} to "&9"
+				set {_y} to 155
+			if name of loop-entity is "&bAREA-TERMINAL-YELLOW" or "&bAREA-TERMINAL-RED":
+				set {_tt} to "Purple"
+				set {_cc} to "&5"
+				set {_y} to 150
+	add 1 to {Terminal-Terminal-%{_tt}%}
+	play sound "block.lever.click" with pitch 0.8 at {DungeonParty::*} for {DungeonParty::*}
+	if {_tt} is "Purple":
+		send "&b%{_p}% &aactivated a terminal (&c%{Terminal-Terminal-%{_tt}%}%&a/&57&a)" to {DungeonParty::*}
+		send title "&7" with subtitle "&b%{_p}% &aactivated a terminal (&c%{Terminal-Terminal-%{_tt}%}%&a/&57&a)" to {DungeonParty::*}
+	if {_tt} is "Blue":
+		send "&b%{_p}% &aactivated a terminal (&c%{Terminal-Terminal-%{_tt}%}%&a/&97&a)" to {DungeonParty::*}
+		send title "&7" with subtitle "&b%{_p}% &aactivated a terminal (&c%{Terminal-Terminal-%{_tt}%}%&a/&97&a)" to {DungeonParty::*}
+	if {_n} is equal to 1:
+		spawn an armor stand at {Terminal-Loc.%{_pU}%}
+		set {_vv} to the spawned entity
+		set name of {_vv} to "&aTERMINAL-DONE"
+		add "{Invisible:1b,NoGravity:1b,DisabledSlots:63}" to nbt of {_vv}
+	
+	if {Terminal-Terminal-%{_tt}%} is higher than 6.9:
+		if {Terminal-Gears-%{_tt}%} is not true:
+			set {Terminal-Gears-%{_tt}%} to true
+			set block at the location (111, {_y}, 296) of the world "world" to redstone block
+			send "" to {DungeonParty::*}
+			if {_tt} is "Purple":
+				send "&aThe &5Great Purple &5Gears &aare now activated!" to {DungeonParty::*}
+			if {_tt} is "Blue":
+				send "&aThe &9Great Blue &9Gears &aare now activated!" to {DungeonParty::*}
+			send "" to {DungeonParty::*}
+			play sound "block.piston.contract" with pitch 0.8 at players for {DungeonParty::*}
+			stop
+
+command /terminal-letters <player>:
+	permission: op
+	trigger:
+		add apple named "&aApple" with nbt "{l:""A""}" to {_c::*}
+		add arrow named "&aArrow" with nbt "{l:""A""}" to {_c::*}
+		add acacia log named "&aAcacia Log" with nbt "{l:""A""}" to {_c::*}
+		add anvil named "&aAnvil" with nbt "{l:""A""}" to {_c::*}
+		add armor stand named "&aArmor Stand" with nbt "{l:""A""}" to {_c::*}
+		
+		add bread named "&aBread" with nbt "{l:""B""}" to {_c::*}
+		add beef named "&aBeef" with nbt "{l:""B""}" to {_c::*}
+		add beacon named "&aBeacon" with nbt "{l:""B""}" to {_c::*}
+		add birch door named "&aBirch Door" with nbt "{l:""B""}" to {_c::*}
+		add black carpet named "&aBlack Carpet" with nbt "{l:""B""}" to {_c::*}
+		add blaze rod named "&aBlaze Rod" with nbt "{l:""B""}" to {_c::*}
+		add bone named "&aBone" with nbt "{l:""B""}" to {_c::*}
+		add book named "&aBook" with nbt "{l:""B""}" to {_c::*}
+		add bow named "&aBow" with nbt "{l:""B""}" to {_c::*}
+		add boat named "&aBoat" with nbt "{l:""B""}" to {_c::*}
+		add bowl named "&aBowl" with nbt "{l:""B""}" to {_c::*}
+		add bucket named "&aBucket" with nbt "{l:""B""}" to {_c::*}
+		add chainmail chestplate with attribute flag hidden named "&aChainmail Chestplate" with nbt "{l:""C""}" to {_c::*}
+		add chainmail leggings with attribute flag hidden named "&aChainmail Leggings" with nbt "{l:""C""}" to {_c::*}
+		add chainmail boots with attribute flag hidden named "&aChainmail Boots" with nbt "{l:""C""}" to {_c::*}
+		add clay named "&aClay" with nbt "{l:""C""}" to {_c::*}
+		add coal named "&aCoal" with nbt "{l:""C""}" to {_c::*}
+		add cocoa beans named "&aCocoa Beans" with nbt "{l:""C""}" to {_c::*}
+		add chest named "&aChest" with nbt "{l:""C""}" to {_c::*}
+		add dandelion named "&aDandelion" with nbt "{l:""D""}" to {_c::*}
+		add diamond axe with attribute flag hidden named "&aDiamond Axe" with nbt "{l:""D""}" to {_c::*}
+		add diamond hoe with attribute flag hidden named "&aDiamond Hoe" with nbt "{l:""D""}" to {_c::*}
+		add diamond pickaxe with attribute flag hidden named "&aDiamond Pickaxe" with nbt "{l:""D""}" to {_c::*}
+		add diamond helmet with attribute flag hidden named "&aDiamond Helmet" with nbt "{l:""D""}" to {_c::*}
+		add diamond leggings with attribute flag hidden named "&aDiamond Leggings" with nbt "{l:""D""}" to {_c::*}
+		add diamond named "&aDiamond" with nbt "{l:""D""}" to {_c::*}
+		add emerald named "&aEmerald" with nbt "{l:""E""}" to {_c::*}
+		add ender eye named "&aEnder Eye" with nbt "{l:""E""}" to {_c::*}
+		add enchanting table named "&aEnchanting Table" with nbt "{l:""E""}" to {_c::*}
+		add egg named "&aEgg" with nbt "{l:""E""}" to {_c::*}
+		add ender chest named "&aEnder Chest" with nbt "{l:""E""}" to {_c::*}
+		add flower pot named "&aFlower Pot" with nbt "{l:""F""}" to {_c::*}
+		add flint named "&aFlint" with nbt "{l:""F""}" to {_c::*}
+		add furnace named "&aFurnace" with nbt "{l:""F""}" to {_c::*}
+		add firework named "&aFirework" with nbt "{l:""F""}" to {_c::*}
+		add fishing rod named "&aFishing Rod" with nbt "{l:""F""}" to {_c::*}
+		add feather named "&aFeather" with nbt "{l:""F""}" to {_c::*}
+		add gold ingot named "&aGold Ingot" with nbt "{l:""G""}" to {_c::*}
+		add glowstone dust named "&aGlowstone Dust" with nbt "{l:""G""}" to {_c::*}
+		add glass named "&aGlass" with nbt "{l:""G""}" to {_c::*}
+		add ghast tear named "&aGhast Tear" with nbt "{l:""G""}" to {_c::*}
+		add gray dye named "&aGray Dye" with nbt "{l:""G""}" to {_c::*}
+		add golden axe with attribute flag hidden named "&aGolden Axe" with nbt "{l:""G""}" to {_c::*}
+		add golden helmet with attribute flag hidden named "&aGolden Helmet" with nbt "{l:""G""}" to {_c::*}
+		add golden boots with attribute flag hidden named "&aGolden Boots" with nbt "{l:""G""}" to {_c::*}
+		add golden sword with attribute flag hidden named "&aGolden Sword" with nbt "{l:""G""}" to {_c::*}
+		add gunpowder named "&aGunpowder" with nbt "{l:""G""}" to {_c::*}
+		add ink sac named "&aInk Sac" with nbt "{l:""I""}" to {_c::*}
+		add iron axe with attribute flag hidden named "&aIron Axe" with nbt "{l:""I""}" to {_c::*}
+		add iron bars named "&aIron Bars" with nbt "{l:""I""}" to {_c::*}
+		add iron helmet with attribute flag hidden named "&aIron Helmet" with nbt "{l:""I""}" to {_c::*}
+		add iron sword with attribute flag hidden named "&aIron Sword" with nbt "{l:""I""}" to {_c::*}
+		add iron chestplate with attribute flag hidden named "&aIron Chestplate" with nbt "{l:""I""}" to {_c::*}
+		add iron door named "&aIron Door" with nbt "{l:""I""}" to {_c::*}
+		add item frame named "&aItem Frame" with nbt "{l:""I""}" to {_c::*}
+		add ice named "&aIce" with nbt "{l:""I""}" to {_c::*}
+		add jungle stairs named "&aJungle Stairs" with nbt "{l:""J""}" to {_c::*}
+		add jukebox named "&aJukebox" with nbt "{l:""J""}" to {_c::*}
+		add jungle planks named "&aJungle Planks" with nbt "{l:""J""}" to {_c::*}
+		add ladder named "&aLadder" with nbt "{l:""L""}" to {_c::*}
+		add leather named "&aLeather" with nbt "{l:""L""}" to {_c::*}
+		add lapis lazuli named "&aLapis-Lazuli" with nbt "{l:""L""}" to {_c::*}
+		add lever named "&aLever" with nbt "{l:""L""}" to {_c::*}
+		add lily pad named "&aLily Pad" with nbt "{l:""L""}" to {_c::*}
+		add lime dye named "&aLime Dye" with nbt "{l:""L""}" to {_c::*}
+		add lava bucket named "&aLava Bucket" with nbt "{l:""L""}" to {_c::*}
+		add large fern named "&aLarge Fern" with nbt "{l:""L""}" to {_c::*}
+		add leather chestplate with attribute flag hidden named "&aLeather Chestplate" with nbt "{l:""L""}" to {_c::*}
+		add leather boots with attribute flag hidden named "&aLeather boots" with nbt "{l:""L""}" to {_c::*}
+		add magma cream named "&aMagma Cream" with nbt "{l:""M""}" to {_c::*}
+		add map named "&aMap" with nbt "{l:""M""}" to {_c::*}
+		add melon slice named "&aMelon Slice" with nbt "{l:""M""}" to {_c::*}
+		add music disc 11 named "&aMusic Disc 11" with nbt "{l:""M""}" to {_c::*}
+		add music disc 13 named "&aMusic Disc 13" with nbt "{l:""M""}" to {_c::*}
+		add minecart named "&aMinecart" with nbt "{l:""M""}" to {_c::*}
+		add milk bucket named "&aMilk Bucket" with nbt "{l:""M""}" to {_c::*}
+		add mutton named "&aMutton" with nbt "{l:""M""}" to {_c::*}
+		add oak door named "&aOak Door" with nbt "{l:""O""}" to {_c::*}
+		add oak slab named "&aOak Slab" with nbt "{l:""O""}" to {_c::*}
+		add obsidian named "&aObsidian" with nbt "{l:""O""}" to {_c::*}
+		add orange tulip named "&aOrange Tulip" with nbt "{l:""O""}" to {_c::*}
+		add oxeye daisy named "&aOxeye Daisy" with nbt "{l:""O""}" to {_c::*}
+		add potato named "&aPotato" with nbt "{l:""P""}" to {_c::*}
+		add potion named "&aPotion" with nbt "{l:""P""}" to {_c::*}
+		add piston named "&aPiston" with nbt "{l:""P""}" to {_c::*}
+		add poppy named "&aPoppy" with nbt "{l:""P""}" to {_c::*}
+		add paper named "&aPaper" with nbt "{l:""P""}" to {_c::*}
+		add pumpkin named "&aPumpkin" with nbt "{l:""P""}" to {_c::*}
+		add pink tulip named "&aPink Tulip" with nbt "{l:""P""}" to {_c::*}
+		add pink dye named "&aPink Dye" with nbt "{l:""P""}" to {_c::*}
+		add painting named "&aPainting" with nbt "{l:""P""}" to {_c::*}
+		add redstone named "&aRedstone" with nbt "{l:""R""}" to {_c::*}
+		add repeater named "&aRepeater" with nbt "{l:""R""}" to {_c::*}
+		add rail named "&aRail" with nbt "{l:""R""}" to {_c::*}
+		add rabbit foot named "&aRabbit Foot" with nbt "{l:""R""}" to {_c::*}
+		add rotten flesh named "&aRotten Flesh" with nbt "{l:""R""}" to {_c::*}
+		add rose bush named "&aRose Bush" with nbt "{l:""R""}" to {_c::*}
+		add red sand named "&aRed Sand" with nbt "{l:""R""}" to {_c::*}
+		add tnt named "&aTNT" with nbt "{l:""T""}" to {_c::*}
+		add torch named "&aTorch" with nbt "{l:""T""}" to {_c::*}
+		add tripwire hook named "&aTripwire Hook" with nbt "{l:""T""}" to {_c::*}
+		add tall grass named "&aTall Grass" with nbt "{l:""T""}" to {_c::*}
+		add shears named "&aShears" with nbt "{l:""S""}" to {_c::*}
+		add shield named "&aShield" with nbt "{l:""S""}" to {_c::*}
+		add slime ball named "&aSlime Ball" with nbt "{l:""S""}" to {_c::*}
+		add snowball named "&aSnowball" with nbt "{l:""S""}" to {_c::*}
+		add stone sword with attribute flag hidden named "&aStone Sword" with nbt "{l:""S""}" to {_c::*}
+		add stone hoe with attribute flag hidden named "&aStone Hoe" with nbt "{l:""S""}" to {_c::*}
+		add spider eye named "&aSpider Eye" with nbt "{l:""S""}" to {_c::*}
+		add spruce stairs named "&aSpruce Stairs" with nbt "{l:""S""}" to {_c::*}
+		add stick named "&aStick" with nbt "{l:""S""}" to {_c::*}
+		add string named "&aString" with nbt "{l:""S""}" to {_c::*}
+		add sugar named "&aSugar" with nbt "{l:""S""}" to {_c::*}
+		add wheat named "&aWheat" with nbt "{l:""W""}" to {_c::*}
+		add wheat seeds named "&aWheat Seeds" with nbt "{l:""W""}" to {_c::*}
+		add white carpet named "&aWhite Carpet" with nbt "{l:""W""}" to {_c::*}
+		add white wool named "&aWool" with nbt "{l:""W""}" to {_c::*}
+		add wooden axe named "&aWooden Axe" with nbt "{l:""W""}" to {_c::*}
+		add wooden sword named "&aWooden Sword" with nbt "{l:""W""}" to {_c::*}
+		add wooden pickaxe named "&aWooden Pickaxe" with nbt "{l:""W""}" to {_c::*}
+		
+		set {Terminal-Tick.%UUID of player%} to 0
+		set {_t} to random integer between 1 and 11
+		if {_t} is equal to 1:
+			set {Terminal.%UUID of arg-1%} to "A"
+		if {_t} is equal to 2:
+			set {Terminal.%UUID of arg-1%} to "B"
+		if {_t} is equal to 3:
+			set {Terminal.%UUID of arg-1%} to "C"
+		if {_t} is equal to 4:
+			set {Terminal.%UUID of arg-1%} to "D"
+		if {_t} is equal to 5:
+			set {Terminal.%UUID of arg-1%} to "G"
+		if {_t} is equal to 6:
+			set {Terminal.%UUID of arg-1%} to "I"
+		if {_t} is equal to 7:
+			set {Terminal.%UUID of arg-1%} to "L"
+		if {_t} is equal to 8:
+			set {Terminal.%UUID of arg-1%} to "M"
+		if {_t} is equal to 9:
+			set {Terminal.%UUID of arg-1%} to "P"
+		if {_t} is equal to 10:
+			set {Terminal.%UUID of arg-1%} to "R"
+		if {_t} is equal to 11:
+			set {Terminal.%UUID of arg-1%} to "S"
+			
+		open virtual chest inventory with size 6 named "What starts with: '%{Terminal.%UUID of arg-1%}%'?" to arg-1
+		format gui slot (integers between 0 and 56) of arg-1 with black stained glass pane named "&f "
+		format gui slot 49 of arg-1 with barrier named "&cClose" to close
+		
+		set {_g} to 10
+		loop 4 times:
+			loop 7 times:
+				set {_v} to random integer between 1 and 114
+				format gui slot {_g} of arg-1 with {_c::%{_v}%}
+				add 1 to {_g}
+			add 2 to {_g}
+
+		loop all items in arg-1's current inventory:
+			if name of loop-item is not "&cClose" or "&f ":
+				set {_v} to tag "l" of loop-item's nbt
+				if {_v} is {Terminal.%UUID of arg-1%}:
+					set {_o} to true
+					stop
+		if {_o} is not true:
+			close arg-1's inventory
+			send "&cERROR! Click again." to arg-1
+			Nope(arg-1)
+		stop
+
+command /terminal-mazes <player>:
+	permission: op
+	trigger:
+		open virtual chest inventory with size 6 named "Finish the maze!" to arg-1
+		format gui slot (integers between 0 and 56) of arg-1 with black stained glass pane
+		format gui slot 49 of arg-1 with barrier named "&cClose" to close
+		set {_v} to random integer between 2 and 2 # 17 click
+		if {_v} is equal to 1:
+			format gui slot (integers between 37 and 39) and 28 and 19 and (integers between 10 and 16) and 25 and 34 and (integers between 41 and 43) of arg-1 with white stained glass pane
+			format gui slot 30 of arg-1 with lime stained glass pane
+			format gui slot 32 of arg-1 with red stained glass pane
+		if {_v} is equal to 2:
+			format gui slot (integers between 18 and 26) of arg-1 with white stained glass pane named "&fClick"
+			format gui slot 18 of arg-1 with lime stained glass pane named "&a->"
+			format gui slot 26 of arg-1 with red stained glass pane named "&c->"
+		
+
+command /terminal-colors <player>:
+	permission: op
+	trigger:
+		add red stained glass named "&cRed" to {_c::*}
+		add red terracotta named "&cRed" to {_c::*}
+		add red wool named "&cRed" to {_c::*}
+		add red dye named "&cRed" to {_c::*}
+		add yellow stained glass named "&eYellow" to {_c::*}
+		add yellow terracotta named "&eYellow" to {_c::*}
+		add yellow wool named "&eYellow" to {_c::*}
+		add yellow dye named "&eYellow" to {_c::*}
+		add lime stained glass named "&aLime" to {_c::*}
+		add lime terracotta named "&aLime" to {_c::*}
+		add lime wool named "&aLime" to {_c::*}
+		add lime dye named "&aLime" to {_c::*}
+		add blue stained glass named "&9Blue" to {_c::*}
+		add blue terracotta named "&9Blue" to {_c::*}
+		add blue wool named "&9Blue" to {_c::*}
+		add blue dye named "&9Blue" to {_c::*}
+		add black stained glass named "&8Black" to {_c::*}
+		add black terracotta named "&8Black" to {_c::*}
+		add black wool named "&8Black" to {_c::*}
+		add black dye named "&8Black" to {_c::*}
+		add pink stained glass named "&dPink" to {_c::*}
+		add pink terracotta named "&dPink" to {_c::*}
+		add pink wool named "&dPink" to {_c::*}
+		add pink dye named "&dPink" to {_c::*}
+		add light gray stained glass named "&7Gray" to {_c::*}
+		add light gray terracotta named "&7Gray" to {_c::*}
+		add light gray wool named "&7Gray" to {_c::*}
+		add light gray dye named "&7Gray" to {_c::*}
+		add light blue stained glass named "&bAqua Clair" to {_c::*}
+		add light blue terracotta named "&bAqua" to {_c::*}
+		add light blue wool named "&bAqua" to {_c::*}
+		add light blue dye named "&bAqua" to {_c::*}
+		add green stained glass named "&2Green" to {_c::*}
+		add green terracotta named "&2Green" to {_c::*}
+		add green wool named "&2Green" to {_c::*}
+		add green dye named "&2Green" to {_c::*}
+		add orange stained glass named "&6Orange" to {_c::*}
+		add orange terracotta named "&6Orange" to {_c::*}
+		add orange wool named "&6Orange" to {_c::*}
+		add orange dye named "&6Orange" to {_c::*}
+		
+		set {_color} to random integer between 1 and 10
+		if {_color} is equal to 1:
+			set {Terminal.%UUID of arg-1%} to "&cRed"
+		if {_color} is equal to 2:
+			set {Terminal.%UUID of arg-1%} to "&eYellow"
+		if {_color} is equal to 3:
+			set {Terminal.%UUID of arg-1%} to "&aLime"
+		if {_color} is equal to 4:
+			set {Terminal.%UUID of arg-1%} to "&9Blue"
+		if {_color} is equal to 5:
+			set {Terminal.%UUID of arg-1%} to "&8Black"
+		if {_color} is equal to 6:
+			set {Terminal.%UUID of arg-1%} to "&7Gray"
+		if {_color} is equal to 7:
+			set {Terminal.%UUID of arg-1%} to "&bAqua"
+		if {_color} is equal to 8:
+			set {Terminal.%UUID of arg-1%} to "&dPink"
+		if {_color} is equal to 9:
+			set {Terminal.%UUID of arg-1%} to "&2Green"
+		if {_color} is equal to 10:
+			set {Terminal.%UUID of arg-1%} to "&6Orange"
+		open virtual chest inventory with size 6 named "Select all colors in %{Terminal.%UUID of arg-1%}%" to arg-1
+		format gui slot (integers between 0 and 56) of arg-1 with black stained glass pane
+		format gui slot 49 of arg-1 with barrier named "&cClose" to close
+		
+		set {_g} to 10
+		loop 4 times:
+			loop 7 times:
+				set {_v} to random integer between 1 and 40
+				format gui slot {_g} of arg-1 with {_c::%{_v}%}
+				add 1 to {_g}
+			add 2 to {_g}
+		
+		loop all items in arg-1's current inventory:
+			if name of loop-item is not "&cClose" or "&f ":
+				set {_v} to name of loop-item
+				if {_v} is {Terminal.%UUID of arg-1%}:
+					set {_o} to true
+					stop
+		if {_o} is not true:
+			close arg-1's inventory
+			send "&cERROR! Click again." to arg-1
+			Nope(arg-1)
+		stop
+			
+
+command /terminal-panes <player>:
+	permission: op
+	trigger:
+		open virtual chest inventory with size 5 named "Correct all the panes!" to arg-1
+		format gui slot (integers between 0 and 53) of arg-1 with black stained glass pane
+		format gui slot 40 of arg-1 with barrier named "&cClose" to close
+		format gui slot (integers between 11 and 15) of arg-1 with red stained glass pane named "&cOFF"
+		format gui slot (integers between 20 and 24) of arg-1 with red stained glass pane named "&cOFF"
+		format gui slot (integers between 29 and 33) of arg-1 with red stained glass pane named "&cOFF"
+		loop all items in arg-1's current inventory:
+			if loop-item is red stained glass pane:
+				if {_t} is not equal to 5:
+					chance of 15%:
+						set loop-item to lime stained glass pane named "&aON"
+						add 1 to {_t}
+		
+on inventory click:
+	if name of player's current inventory contains "What starts with":
+		loop all items in player's current inventory:
+			if name of loop-item is not "&cClose" or "&f ":
+				set {_ee} to tag "l" of loop-item's nbt
+				if {_ee} is {Terminal.%UUID of player%}:
+					add 1 to {_o}
+	
+		set {_v} to tag "l" of item's nbt
+		if {_v} is {Terminal.%UUID of player%}:
+			if name of item is not "&aSELECTED!":
+				set {_slot} to clicked slot
+				set {_item} to item with hidden enchants flag
+				enchant {_item} with unbreaking 1
+				format gui slot {_slot} of player with {_item} named "&aSELECTED!"
+				Click(player)
+				add 1 to {Terminal-Tick.%UUID of player%}
+				send "&a%{Terminal-Tick.%UUID of player%}%&7/%{_o}%"
+				if {Terminal-Tick.%UUID of player%} is equal to {_o}:
+					TerminalArea(player, 1)
+				stop
+		else:
+			close player's inventory
+			send "&cYou failed this terminal! Try again."
+			Nope(player)
+
+	if name of player's current inventory is "Finish the maze!":
+		set {_cs} to clicked slot
+		if slot ({_cs} + 1) of player's current inventory is a red stained glass pane:
+			wait 1 tick
+			if slot ({_cs} - 1) of player's current inventory is a lime stained glass pane:
+				TerminalArea(player, 1)
+				stop
+		if slot ({_cs} - 1) of player's current inventory is a lime stained glass pane:
+			format gui slot {_cs} of player with lime stained glass pane named "&a->"
+			Click(player)
+	if name of player's current inventory contains "Select all colors in":
+		if {Terminal.%UUID of player%} is set:
+			loop all items in player's current inventory:
+				if name of loop-item is "%{Terminal.%UUID of player%}%":
+					add 1 to {_o}
+		
+			if name of item is "%{Terminal.%UUID of player%}%":
+				Click(player)
+				set {_slot} to clicked slot
+				set {_item} to item with hidden enchants flag
+				enchant {_item} with unbreaking 1
+				format gui slot {_slot} of player with {_item} named "&aSELECTED!"
+				add 1 to {_oo}
+				if {_oo} is equal to {_o}:
+					TerminalArea(player, 1)
+				stop
+			else:
+				if item is not a black stained glass pane or air or barrier:
+					if name of item is not "&aSELECTED!":
+						close player's inventory
+						send "&cYou failed at this terminal! Try again."
+						Nope(player)
+				
+	if name of player's current inventory is "Correct all the panes!":
+		if name of item is "&cOFF":
+			set item to lime stained glass pane named "&aON"
+			Click(player)
+			if slot (integers between 11 and 15) and (integers between 20 and 24) and (integers between 29 and 33) of player's current inventory is lime stained glass pane:
+				TerminalArea(player, 1)
+			stop
+		if name of item is "&aON":
+			set item to red stained glass pane named "&cOFF"
+			Click(player)
+			stop
+			
+# ========= DEVICES
+
+on right click on lever:
+	if {DungeonParty::*} contains "%player%":
+		if {SBD-Ghosted.%UUID of player%} is true:
+			SBD_NotWhileInGhost(player)
+			stop
+		if {Terminal-Phase} is equal to 1 or 2:
+			if {Device-Lamp} is not true:
+				set {_x} to 145
+				set {_y} to 83
+				set {_z} to 404
+				wait 2 tick
+				loop 2 times:
+					loop 5 times:
+						if block at the location ({_x}, {_y}, {_z}) of the world "world" = lit redstone lamp:
+							remove 1 from {_x}
+						else:
+							stop
+					add 1 to {_x}
+					remove 1 from {_y}
+					loop 5 times:
+						if block at the location ({_x}, {_y}, {_z}) of the world "world" = lit redstone lamp:
+							add 1 to {_x}
+						else:
+							stop
+					remove 1 from {_x}
+					remove 1 from {_y}
+				loop 5 times:
+					if block at the location ({_x}, {_y}, {_z}) of the world "world" = lit redstone lamp:
+						remove 1 from {_x}
+					else:
+						stop
+				set {Device-Lamp} to true
+				TerminalArea(player, 0)
+	
+on pressure plate:
+	if {DungeonParty::*} contains "%player%":
+		if {SBD-Ghosted.%UUID of player%} is true:
+			SBD_NotWhileInGhost(player)
+			stop
+		if block below player = smooth stone:
+			if block below block below player = sea lantern or stone brick stair:
+				if {Device-Arrow} is not true:
+					set {Device-Arrow} to true
+					set block at the location (66, 77, 393) of the world "world" to emerald block
+
+on projectile hit:
+	if {DungeonParty::*} contains "%shooter%":
+		if {SBD-Ghosted.%UUID of shooter%} is true:
+			SBD_NotWhileInGhost(shooter)
+			stop
+		loop all players in radius 20 of projectile:
+			if loop-player is the shooter:
+				set {_a} to true
+		if {_a} is true:
+			wait 1 tick
+			loop all blocks in radius 1.1 of projectile:
+				if loop-block is an emerald block:
+					if block at the location (66, 77, 393) of the world "world" = emerald block:
+						set loop-block to blue terracotta
+						set block at the location (66, 79, 393) of the world "world" to emerald block
+						stop
+
+					if block at the location (66, 79, 393) of the world "world" = emerald block:
+						set loop-block to blue terracotta
+						set block at the location (66, 75, 393) of the world "world" to emerald block
+						stop
+				
+					if block at the location (66, 77, 393) of the world "world" = emerald block:
+						set loop-block to blue terracotta
+						set block at the location (66, 79, 393) of the world "world" to emerald block
+						stop
+				
+					if block at the location (66, 79, 393) of the world "world" = emerald block:
+						set loop-block to blue terracotta
+						set block at the location (66, 75, 393) of the world "world" to emerald block
+						stop
+				
+					if block at the location (66, 75, 393) of the world "world" = emerald block:
+						set loop-block to blue terracotta
+						set block at the location (66, 77, 391) of the world "world" to emerald block
+						stop
+				
+					if block at the location (66, 77, 391) of the world "world" = emerald block:
+						set loop-block to blue terracotta
+						set block at the location (66, 77, 395) of the world "world" to emerald block
+						stop
+				
+					if block at the location (66, 77, 395) of the world "world" = emerald block:
+						set loop-block to blue terracotta
+						set block at the location (66, 79, 395) of the world "world" to emerald block
+						stop
+				
+					if block at the location (66, 79, 395) of the world "world" = emerald block:
+						set loop-block to blue terracotta
+						set block at the location (66, 79, 391) of the world "world" to emerald block
+						stop
+				
+					if block at the location (66, 79, 391) of the world "world" = emerald block:
+						set loop-block to blue terracotta
+						set block at the location (66, 75, 395) of the world "world" to emerald block
+						stop
+				
+					if block at the location (66, 75, 395) of the world "world" = emerald block:
+						set loop-block to blue terracotta
+						set block at the location (66, 75, 391) of the world "world" to emerald block
+						stop
+				
+					if block at the location (66, 75, 391) of the world "world" = emerald block:
+						set loop-block to blue terracotta
+						TerminalArea(shooter, 0)
+						stop
+				
+command /spawn-terminal-area <text>:
+	permission: op
+	trigger:
+		set {_v} to arg-1
+		spawn an armor stand at player's location
+		set {_t} to the spawned entity
+		add "{Invisible:1b,NoGravity:1b,Marker:1b,DisabledSlots:63}" to nbt of {_t}
+		set name of {_t} to "&bAREA-TERMINAL-%{_v}%"
+		send "&6&lSET!"

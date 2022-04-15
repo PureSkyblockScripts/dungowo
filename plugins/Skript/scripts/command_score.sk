@@ -1,0 +1,255 @@
+command /showscore:
+	aliases: /sws, /scores
+	trigger:
+		if {ready-floor3.%UUID of player%} is true:
+			set {_totalscore} to {Dungeon-Floor3-Skill} + {Dungeon-Floor3-Exploration} + {Dungeon-Floor3-Speed} + {Dungeon-Floor3-Bonus}
+			send "&bScore Étage 3: &7C:&6%{Dungeon-Floor3-Skill}% &7E:&5%{Dungeon-Floor3-Exploration}% &7R:&9%{Dungeon-Floor3-Speed}% &7- &7B:&e%{Dungeon-Floor3-Bonus}% &7- &7(&6%{_totalscore}% &6Points&7)" to player
+			send "&c&lINFO! &7Le score de compétence se met à jour quand vous traversez le portail! Par ailleurs, les morts sont bien comptés tout le temps." to player
+			
+		if {ready-floor2.%UUID of player%} is true:
+			set {_totalscore} to {Dungeon-Floor2-Skill} + {Dungeon-Floor2-Exploration} + {Dungeon-Floor2-Speed} + {Dungeon-Floor2-Bonus}
+			send "&bScore Étage 2: &7C:&6%{Dungeon-Floor2-Skill}% &7E:&5%{Dungeon-Floor2-Exploration}% &7R:&9%{Dungeon-Floor2-Speed}% &7- &7B:&e%{Dungeon-Floor2-Bonus}% &7- &7(&6%{_totalscore}% &6Points&7)" to player
+			send "&c&lINFO! &7Le score de compétence se met à jour quand vous traversez le portail! Par ailleurs, les morts sont bien comptés tout le temps." to player
+			
+		if {ready-floor1.%UUID of player%} is true:
+			set {_totalscore} to {Dungeon-Floor1-Skill} + {Dungeon-Floor1-Exploration} + {Dungeon-Floor1-Speed} + {Dungeon-Floor1-Bonus}
+			send "&bScore Étage 1: &7C:&6%{Dungeon-Floor1-Skill}% &7E:&5%{Dungeon-Floor1-Exploration}% &7R:&9%{Dungeon-Floor1-Speed}% &7- &7B:&e%{Dungeon-Floor1-Bonus}% &7- &7(&6%{_totalscore}% &6Points&7)" to player
+			send "&c&lINFO! &7Le score de compétence se met à jour quand vous traversez le portail! Par ailleurs, les morts sont bien comptés tout le temps." to player
+
+command /dungeon-score <player> <number>:
+	permission: op
+	trigger:
+		if arg-2 is 1:
+			set {_Dungeon-FloorPlayed.%UUID of arg-1%} to "Étage 1"
+			set {Dungeon-Skill.%UUID of arg-1%} to {Dungeon-Floor1-Skill}
+			set {Dungeon-Exploration.%UUID of arg-1%} to {Dungeon-Floor1-Exploration}
+			set {Dungeon-Speed.%UUID of arg-1%} to {Dungeon-Floor1-Speed}
+			set {Dungeon-Bonus.%UUID of arg-1%} to {Dungeon-Floor1-Bonus}
+			set {Dungeon-Score.%UUID of arg-1%} to {Dungeon-Floor1-Score}
+			wait 2 ticks
+			set {Dungeon-Note.%UUID of arg-1%} to {Dungeon-Floor1-Note}
+			
+			set {Dungeon-EarnXP.%UUID of arg-1%} to ({Dungeon-Floor1-Score} * 0.32) # 0.16 DEFAUT // 0.32
+			wait 2 ticks
+			
+			if {Dungeon-Floor1-Score} is higher than 369.9:
+				if {Dungeon-Floor1-Score} is higher than 374.9:
+					if {Achivement-ScoreDeTempete.%UUID of arg-1%} is not true:
+						set {Achivement-ScoreDeTempete.%UUID of arg-1%} to true
+						send "&b&lSUCCèS! &3%arg-1% &7a débloquer le succès &bScore de Tempête&7!" to players
+				make console execute command "/dungeon-reward %arg-1% 1 s+"
+				make console execute command "/dungeon-reward %arg-1% 1 normal"
+				
+			if {Dungeon-Floor1-Score} is between 345 and 369:
+				make console execute command "/dungeon-reward %arg-1% 1 s"
+				make console execute command "/dungeon-reward %arg-1% 1 normal"
+			if {Dungeon-Floor1-Score} is between 290 and 344:
+				make console execute command "/dungeon-reward %arg-1% 1 normal"
+			
+# ================================================
+# ================================================
+		if arg-2 is 2:
+			set {_Dungeon-FloorPlayed.%UUID of arg-1%} to "Étage 2"
+			set {Dungeon-Skill.%UUID of arg-1%} to {Dungeon-Floor2-Skill}
+			set {Dungeon-Exploration.%UUID of arg-1%} to {Dungeon-Floor2-Exploration}
+			set {Dungeon-Speed.%UUID of arg-1%} to {Dungeon-Floor2-Speed}
+			set {Dungeon-Bonus.%UUID of arg-1%} to {Dungeon-Floor2-Bonus}
+			set {Dungeon-Score.%UUID of arg-1%} to {Dungeon-Floor2-Score}
+			wait 2 ticks
+			set {Dungeon-Note.%UUID of arg-1%} to {Dungeon-Floor2-Note}
+			
+			set {Dungeon-EarnXP.%UUID of arg-1%} to ({Dungeon-Floor2-Score} * 0.8) # 0.4 DEFAUT // 0.8
+			
+			wait 2 ticks	
+			if {Dungeon-Floor2-Score} is higher than 369.9:
+				set {SpecialQuest-Halloween-5.%UUID of arg-1%} to 1
+				send "&6&lQUÊTE! &fVous avez réussi la &aQuête N°5&f!" to arg-1
+				play sound "entity.player.levelup" at arg-1 for arg-1
+				if {Dungeon-Floor2-Score} is higher than 374.9:
+					if {Achivement-ScoreDeTempete.%UUID of arg-1%} is not true:
+						set {Achivement-ScoreDeTempete.%UUID of arg-1%} to true
+						send "&b&lSUCCèS! &3%arg-1% &7a débloquer le succès &bScore de Tempête&7!" to players
+				make console execute command "/dungeon-reward %arg-1% 2 s+"
+				make console execute command "/dungeon-reward %arg-1% 2 normal"
+				
+			if {Dungeon-Floor2-Score} is between 345 and 369:
+				make console execute command "/dungeon-reward %arg-1% 2 s"
+				make console execute command "/dungeon-reward %arg-1% 2 normal"
+			if {Dungeon-Floor2-Score} is between 290 and 344:
+				make console execute command "/dungeon-reward %arg-1% 2 normal"
+			
+# ================================================
+# ================================================
+			
+		if arg-2 is 3:
+			set {_Dungeon-FloorPlayed.%UUID of arg-1%} to "Étage 3"
+			set {Dungeon-Skill.%UUID of arg-1%} to {Dungeon-Floor3-Skill}
+			set {Dungeon-Exploration.%UUID of arg-1%} to {Dungeon-Floor3-Exploration}
+			set {Dungeon-Speed.%UUID of arg-1%} to {Dungeon-Floor3-Speed}
+			set {Dungeon-Bonus.%UUID of arg-1%} to {Dungeon-Floor3-Bonus}
+			set {Dungeon-Score.%UUID of arg-1%} to {Dungeon-Floor3-Score}
+			wait 2 ticks
+			set {Dungeon-Note.%UUID of arg-1%} to {Dungeon-Floor3-Note}
+			
+			set {Dungeon-EarnXP.%UUID of arg-1%} to ({Dungeon-Floor3-Score} * 2.88) # 1.44 DEFAUT // 2.88
+			
+			wait 2 ticks
+			if {Dungeon-Floor3-Score} is higher than 369.9:
+				if {Dungeon-Floor3-Score} is higher than 374.9:
+					if {Achivement-ScoreDeTempete.%UUID of arg-1%} is not true:
+						set {Achivement-ScoreDeTempete.%UUID of arg-1%} to true
+						send "&b&lSUCCèS! &3%arg-1% &7a débloquer le succès &bScore de Tempête&7!" to players
+				make console execute command "/dungeon-reward %arg-1% 3 s+"
+				make console execute command "/dungeon-reward %arg-1% 3 normal"
+				
+			if {Dungeon-Floor3-Score} is between 345 and 369:
+				make console execute command "/dungeon-reward %arg-1% 3 s"
+				make console execute command "/dungeon-reward %arg-1% 3 normal"
+			if {Dungeon-Floor3-Score} is between 290 and 344:
+				make console execute command "/dungeon-reward %arg-1% 3 normal"
+		
+# =============================== EARNED EXP ======================================
+		
+		if arg-1 has {Storage-DungeonReward-Item-LesEtudesDuLibraire}:
+			set {_Dungeon-EarnXP-Boost.%UUID of arg-1%} to 2
+			add (0.02 * {Dungeon-EarnXP.%UUID of arg-1%}) to {Dungeon-EarnXP.%UUID of arg-1%}
+		else:
+			set {_Dungeon-EarnXP-Boost.%UUID of arg-1%} to 0
+		
+		add {Dungeon-EarnXP.%UUID of arg-1%} to {catacombeEXP.%UUID of arg-1%}
+		if {classBerserker.%UUID of arg-1%} is true:
+			set {_SelectedClass.%UUID of arg-1%} to "Berserker"
+			add {Dungeon-EarnXP.%UUID of arg-1%} to {ClassBEXP.%UUID of arg-1%}
+		if {classArcher.%UUID of arg-1%} is true:
+			set {_SelectedClass.%UUID of arg-1%} to "Archer"
+			add {Dungeon-EarnXP.%UUID of arg-1%} to {ClassAEXP.%UUID of arg-1%}
+		if {classMage.%UUID of arg-1%} is true:
+			set {_SelectedClass.%UUID of arg-1%} to "Mage"
+			add {Dungeon-EarnXP.%UUID of arg-1%} to {ClassMEXP.%UUID of arg-1%}
+		if {classHealer.%UUID of arg-1%} is true:
+			set {_SelectedClass.%UUID of arg-1%} to "Guérisseur"
+			add {Dungeon-EarnXP.%UUID of arg-1%} to {ClassGEXP.%UUID of arg-1%}
+		if {classTank.%UUID of arg-1%} is true:
+			set {_SelectedClass.%UUID of arg-1%} to "Tank"
+			add {Dungeon-EarnXP.%UUID of arg-1%} to {ClassTEXP.%UUID of arg-1%}
+		
+		wait 3 tick
+		send "&8&m                                          " to arg-1
+		send "   &cCatacombe &7- &e%{_Dungeon-FloorPlayed.%UUID of arg-1%}%" to arg-1
+		send "     &fScore: %{Dungeon-Note.%UUID of arg-1%}% &7(&6%{Dungeon-Score.%UUID of arg-1%}%&7)" to arg-1
+		send "&7"
+		send "&3+%{Dungeon-EarnXP.%UUID of arg-1%}% &3Catacombe &3Experiences &b(+%{_Dungeon-EarnXP-Boost.%UUID of arg-1%}%&b%%&b)" to arg-1
+		send "&3+%{Dungeon-EarnXP.%UUID of arg-1%}% &3%{_SelectedClass.%UUID of arg-1%}% &3Experiences &b(+%{_Dungeon-EarnXP-Boost.%UUID of arg-1%}%&b%%&b)" to arg-1
+		send "&8&m                                          " to arg-1
+
+
+command /score <number> [<text>] [<text>] [<number>]:
+	permission: op
+	usage: &c/score <étage> [<reset/compétence/exploration/rapidité/bonus/total>] [<add/remove/set>] [<valeur>]
+	trigger:
+		if arg-1 is 3:
+			if arg-2 is not set:
+				send "&bScore Étage 3: &7C:&6%{Dungeon-Floor3-Skill}% &7E:&5%{Dungeon-Floor3-Exploration}% &7R:&9%{Dungeon-Floor3-Speed}% &7- &7B:&e%{Dungeon-Floor3-Bonus}%" to player
+			else:
+				if arg-2 is "reset":
+					set {Dungeon-Floor3-Skill} to 150
+					set {Dungeon-Floor3-Speed} to 100
+					set {Dungeon-Floor3-Exploration} to 0
+					set {Dungeon-Floor3-Bonus} to 0
+					set {Dungeon-Floor3-Score} to 250
+					set {Dungeon-Floor3-Note} to "&c&lC"
+					set {Dungeon-Floor3-Skill-Puzzle-Complete} to 0
+				if arg-2 is "total":
+					set {Dungeon-Floor3-Score} to {Dungeon-Floor3-Skill} + {Dungeon-Floor3-Exploration} + {Dungeon-Floor3-Speed} + {Dungeon-Floor3-Bonus}
+					wait 5 tick
+					if {Dungeon-Floor3-Score} is higher than 369.9:
+						set {Dungeon-Floor3-Note} to "&e&lS+"
+						make console execute command "/dungeon-reward-spawn 3 s+"
+						make console execute command "/dungeon-reward-spawn 3 normal"
+					if {Dungeon-Floor3-Score} is between 345 and 369:
+						set {Dungeon-Floor3-Note} to "&e&lS"
+						make console execute command "/dungeon-reward-spawn 3 s"
+						make console execute command "/dungeon-reward-spawn 3 normal"
+					if {Dungeon-Floor3-Score} is between 325 and 344:
+						set {Dungeon-Floor3-Note} to "&5&lA"
+						make console execute command "/dungeon-reward-spawn 3 normal"
+					if {Dungeon-Floor3-Score} is between 290 and 324:
+						set {Dungeon-Floor3-Note} to "&a&lB"
+						make console execute command "/dungeon-reward-spawn 3 normal"
+					send "&6Points Total: %{Dungeon-Floor1-Note}% &7(%{Dungeon-Floor1-Score}%&7)" to player
+				if arg-2 is "bonus":
+					if arg-3 is "set":
+						set {Dungeon-Floor3-Bonus} to arg-4
+						send "&7Vous avez définit à &9%arg-4% &7- &6Points: %{Dungeon-Floor3-Bonus}%" to player
+					
+# ========================
+
+		if arg-1 is 1:
+			if arg-2 is not set:
+				send "&bScore Étage 1: &7C:&6%{Dungeon-Floor1-Skill}% &7E:&5%{Dungeon-Floor1-Exploration}% &7R:&9%{Dungeon-Floor1-Speed}% &7- &7B:&e%{Dungeon-Floor1-Bonus}%" to player
+			else:
+				if arg-2 is "reset":
+					set {Dungeon-Floor1-Skill} to 150
+					set {Dungeon-Floor1-Speed} to 100
+					set {Dungeon-Floor1-Exploration} to 0
+					set {Dungeon-Floor1-Bonus} to 0
+					set {Dungeon-Floor1-Score} to 250
+					set {Dungeon-Floor1-Note} to "&c&lC"
+					set {Dungeon-Floor1-Skill-Puzzle-Complete} to 0
+				if arg-2 is "total":
+					set {Dungeon-Floor1-Score} to {Dungeon-Floor1-Skill} + {Dungeon-Floor1-Exploration} + {Dungeon-Floor1-Speed} + {Dungeon-Floor1-Bonus}
+					wait 5 tick
+					if {Dungeon-Floor1-Score} is higher than 369.9:
+						set {Dungeon-Floor1-Note} to "&e&lS+"
+						make console execute command "/dungeon-reward-spawn 1 s+"
+						make console execute command "/dungeon-reward-spawn 1 normal"
+					if {Dungeon-Floor1-Score} is between 345 and 369:
+						set {Dungeon-Floor1-Note} to "&e&lS"
+						make console execute command "/dungeon-reward-spawn 1 s"
+						make console execute command "/dungeon-reward-spawn 1 normal"
+					if {Dungeon-Floor1-Score} is between 325 and 344:
+						set {Dungeon-Floor1-Note} to "&5&lA"
+						make console execute command "/dungeon-reward-spawn 1 normal"
+					if {Dungeon-Floor1-Score} is between 290 and 324:
+						set {Dungeon-Floor1-Note} to "&a&lB"
+						make console execute command "/dungeon-reward-spawn 1 normal"
+					send "&6Points Total: %{Dungeon-Floor1-Note}% &7(%{Dungeon-Floor1-Score}%&7)" to player
+				if arg-2 is "bonus":
+					if arg-3 is "set":
+						set {Dungeon-Floor1-Bonus} to arg-4
+						send "&7Vous avez définit à &9%arg-4% &7- &6Points: %{Dungeon-Floor1-Bonus}%" to player
+		if arg-1 is 2:
+			if arg-2 is not set:
+				send "&bScore Étage 2: &7C:&6%{Dungeon-Floor2-Skill}% &7E:&5%{Dungeon-Floor2-Exploration}% &7R:&9%{Dungeon-Floor2-Speed}% &7- &7B:&e%{Dungeon-Floor2-Bonus}%" to player
+			else:
+				if arg-2 is "reset":
+					set {Dungeon-Floor2-Skill} to 150
+					set {Dungeon-Floor2-Speed} to 100
+					set {Dungeon-Floor2-Exploration} to 0
+					set {Dungeon-Floor2-Bonus} to 0
+					set {Dungeon-Floor2-Score} to 250
+					set {Dungeon-Floor2-Note} to "&c&lC"
+					set {Dungeon-Floor2-Skill-Puzzle-Complete} to 0
+				if arg-2 is "total":
+					set {Dungeon-Floor2-Score} to ({Dungeon-Floor2-Skill} + {Dungeon-Floor2-Exploration} + {Dungeon-Floor2-Speed} + {Dungeon-Floor2-Bonus})
+					wait 5 tick
+					if {Dungeon-Floor2-Score} is higher than 369.9:
+						set {Dungeon-Floor2-Note} to "&e&lS+"
+						make console execute command "/dungeon-reward-spawn 2 s+"
+						make console execute command "/dungeon-reward-spawn 2 normal"
+					if {Dungeon-Floor2-Score} is between 345 and 369:
+						set {Dungeon-Floor2-Note} to "&e&lS"
+						make console execute command "/dungeon-reward-spawn 2 s"
+						make console execute command "/dungeon-reward-spawn 2 normal"
+					if {Dungeon-Floor2-Score} is between 325 and 344:
+						set {Dungeon-Floor2-Note} to "&5&lA"
+						make console execute command "/dungeon-reward-spawn 2 normal"
+					if {Dungeon-Floor2-Score} is between 290 and 324:
+						set {Dungeon-Floor2-Note} to "&a&lB"
+						make console execute command "/dungeon-reward-spawn 2 normal"
+					send "&6Points Total: %{Dungeon-Floor2-Note}% &7(%{Dungeon-Floor2-Score}%&7)" to player
+				if arg-2 is "bonus":
+					if arg-3 is "set":
+						set {Dungeon-Floor2-Bonus} to arg-4
+						send "&7Vous avez définit à &9%arg-4% &7- &6Points: %{Dungeon-Floor2-Bonus}%" to player
+    

@@ -1,0 +1,89 @@
+command /devgs:
+	permission:op
+	trigger:
+		loop all living entities:
+			if loop-entity is an armor stand:
+				if name of loop-entity is "&6SPAWN-SWORD":
+					set {_loc} to loop-entity's location
+					add 2 to y coords of {_loc}
+					SB_SpawnEntity("giant", "✧", {_loc}, "{NoAI:1b,NoGravity:1b,Silent:1b}", {_hp}, 0, 0, 0, 0, 0, 0, "0", 0, 0, 0, air, air, air, air, iron sword, player)
+					set {_e} to the spawned giant
+					apply invisibility 1 without particles to {_e} for 9999 seconds
+					apply resistance 250 without particles to {_e} for 9999 seconds
+					set {_e}'s name to "Dinnerbone"
+					set {_eU} to {_e}'s uuid
+					set {Mob-God.%{_gU}%} to true
+					add "{NoAI:1b}" to nbt of {_e}
+					
+		loop all living entities:
+			if loop-entity is an armor stand:
+				if name of loop-entity is "&6SPAWN-REDSWORD":
+					spawn an iron golem at loop-entity's location
+					set {_rs} to the spawned entity
+					set name of {_rs} to "&c&lRED SWORD"
+					set {_rsU} to {_rs}'s uuid
+					set {God.%{_rsU}%} to false
+					set {health.%{_rsU}%} to 200000000
+					set {Mob-Defense.%{_rsU}%} to 0
+					apply resistance 250 without particles to {_rs} for 9999 seconds
+					apply invisibility 1 without particles to {_rs} for 9999 seconds
+					add "{NoAI:1b}" to nbt of {_rs}
+					
+		loop all living entities:
+			if loop-entity is an armor stand:
+				if name of loop-entity is "&6SPAWN-GREENSWORD":
+					spawn an iron golem at loop-entity's location
+					set {_gs} to the spawned entity
+					set name of {_gs} to "&a&lGREEN SWORD"
+					set {_gsU} to {_gs}'s uuid
+					set {God.%{_gsU}%} to false
+					set {health.%{_gsU}%} to 200000000
+					set {Mob-Defense.%{_gsU}%} to 0
+					apply resistance 250 without particles to {_gs} for 9999 seconds
+					apply invisibility 1 without particles to {_gs} for 9999 seconds
+					add "{NoAI:1b}" to nbt of {_gs}
+					
+		loop all living entities:
+			if loop-entity is an armor stand:
+				if name of loop-entity is "&6SPAWN-BLUESWORD":
+					spawn an iron golem at loop-entity's location
+					set {_bs} to the spawned entity
+					set name of {_bs} to "&9&lBLUE SWORD"
+					set {_bsU} to {_bs}'s uuid
+					set {God.%{_bsU}%} to false
+					set {health.%{_bsU}%} to 200000000
+					set {Mob-Defense.%{_bsU}%} to 0
+					apply resistance 250 without particles to {_bs} for 9999 seconds
+					apply invisibility 1 without particles to {_bs} for 9999 seconds
+					add "{NoAI:1b}" to nbt of {_bs}
+					
+		loop all living entities:
+			if loop-entity is an armor stand:
+				if name of loop-entity is "&6SPAWN-PURPLESWORD":
+					spawn an iron golem at loop-entity's location
+					set {_ps} to the spawned entity
+					set name of {_ps} to "&5&lPURPLE SWORD"
+					set {_psU} to {_ps}'s uuid
+					set {God.%{_psU}%} to false
+					set {health.%{_psU}%} to 200000000
+					set {Mob-Defense.%{_psU}%} to 0
+					apply resistance 250 without particles to {_ps} for 9999 seconds
+					apply invisibility 1 without particles to {_ps} for 9999 seconds
+					add "{NoAI:1b}" to nbt of {_ps}
+					
+		
+
+						
+						
+						
+						
+						
+						
+
+command /delsword:
+	permission:op
+	trigger:
+		execute player command "/kill @e[type=giant]"
+		execute player command "/kill @e[type=iron_golem]"
+		execute player command "/kill @e[type=end_crystal]"
+		

@@ -1,0 +1,75 @@
+command /menucollection-bûcheron-acajou <player>:
+ permission: op
+ trigger:
+  if {collection-JungleWood.%UUID of arg-1%} is not higher than 0:
+   set {_MenuCollection-JungleWood-1.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-JungleWood-1.%UUID of arg-1%} to lime stained glass pane
+
+  if {collection-JungleWood.%UUID of arg-1%} is not higher than 1:
+   set {_MenuCollection-JungleWood-2.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-JungleWood-2.%UUID of arg-1%} to lime stained glass pane
+
+  if {collection-JungleWood.%UUID of arg-1%} is not higher than 2:
+   set {_MenuCollection-JungleWood-3.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-JungleWood-3.%UUID of arg-1%} to lime stained glass pane
+
+  if {collection-JungleWood.%UUID of arg-1%} is not higher than 3:
+   set {_MenuCollection-JungleWood-4.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-JungleWood-4.%UUID of arg-1%} to lime stained glass pane
+
+  if {collection-JungleWood.%UUID of arg-1%} is not higher than 4:
+   set {_MenuCollection-JungleWood-5.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-JungleWood-5.%UUID of arg-1%} to lime stained glass pane
+
+  if {collection-JungleWood.%UUID of arg-1%} is not higher than 5:
+   set {_MenuCollection-JungleWood-6.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-JungleWood-6.%UUID of arg-1%} to lime stained glass pane
+
+  if {collection-JungleWood.%UUID of arg-1%} is not higher than 6:
+   set {_MenuCollection-JungleWood-7.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-JungleWood-7.%UUID of arg-1%} to lime stained glass pane
+
+  if {collection-JungleWood.%UUID of arg-1%} is not higher than 7:
+   set {_MenuCollection-JungleWood-8.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-JungleWood-8.%UUID of arg-1%} to lime stained glass pane
+
+  if {collection-JungleWood.%UUID of arg-1%} is not higher than 8:
+   set {_MenuCollection-JungleWood-9.%UUID of arg-1%} to red stained glass pane
+  else:
+   set {_MenuCollection-JungleWood-9.%UUID of arg-1%} to lime stained glass pane
+
+  open virtual chest inventory with size 6 named "Collection de Bois d'Acajou" to arg-1
+  wait 1 tick
+  format gui slot (integers between 0 and 53) of arg-1 with black stained glass pane named "&f"
+
+  format gui slot 4 of arg-1 with jungle log named "&eBois d'Acajou %{Collection-JungleWood.%UUID of arg-1%}%" with lore "&7Consultez tous les progrès et récompenses" and "&7de votre collection de Bois d'Acajou!" and "&7" and "&7Vous avez récolté &e%{Collection-JungleWood-Collected.%UUID of arg-1%}%&7."
+
+  format gui slot 18 of arg-1 with {_MenuCollection-JungleWood-1.%UUID of arg-1%} named "&eBois d'Acajou I" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&8???" and "&7" and "&7Nécessite &b50 Bois d'Acajou"
+
+  format gui slot 19 of arg-1 with {_MenuCollection-JungleWood-2.%UUID of arg-1%} named "&eBois d'Acajou II" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&8???" and "&7" and "&7Nécessite &b100 Bois d'Acajou"
+
+  format gui slot 20 of arg-1 with {_MenuCollection-JungleWood-3.%UUID of arg-1%} named "&eBois d'Acajou III" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&8???" and "&7" and "&7Nécessite &b250 Bois d'Acajou"
+
+  format gui slot 21 of arg-1 with {_MenuCollection-JungleWood-4.%UUID of arg-1%} named "&eBois d'Acajou IV" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&8???" and "&7" and "&7Nécessite &b500 Bois d'Acajou"
+
+  format gui slot 22 of arg-1 with {_MenuCollection-JungleWood-5.%UUID of arg-1%} named "&eBois d'Acajou V" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&8???" and "&7" and "&7Nécessite &b1000 Bois d'Acajou"
+
+  format gui slot 23 of arg-1 with {_MenuCollection-JungleWood-6.%UUID of arg-1%} named "&eBois d'Acajou VI" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&aBois d'Acajou Enchanté &7Recette" and "&7" and "&7Nécessite &b2000 Bois d'Acajou"
+
+  format gui slot 24 of arg-1 with {_MenuCollection-JungleWood-7.%UUID of arg-1%} named "&eBois d'Acajou VII" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&aHache de Jungle &7Recette" and "&7" and "&7Nécessite &b5000 Bois d'Acajou"
+
+  format gui slot 25 of arg-1 with {_MenuCollection-JungleWood-8.%UUID of arg-1%} named "&eBois d'Acajou VIII" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&8???" and "&7" and "&7Nécessite &b10 000 Bois d'Acajou"
+
+  format gui slot 26 of arg-1 with {_MenuCollection-JungleWood-9.%UUID of arg-1%} named "&eBois d'Acajou IX" with lore "&7Consultez la progression et la récompense!" and "&7" and "&7Récompense" and "&8???" and "&7" and "&7Nécessite &b25 000 Bois d'Acajou"
+
+  format gui slot 48 of arg-1 with arrow named "&aRetour" with lore "&7Revenir à la page précédente." and "&7" and "&eCliquez pour retourner!" to close:
+   make console execute command "/menucollection-bûcheron %player%"
+  format gui slot 49 of arg-1 with barrier named "&cFermer" to close

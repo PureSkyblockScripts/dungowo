@@ -1,0 +1,93 @@
+command /terminal-pets:
+	trigger:
+		open virtual chest inventory with size 6 named "Pets" to player
+		MenuStyle(player, "Pets", "Frame", 6, "/terminal-items")
+		format gui slot 48 of player with book named "&aItem Menu" with lore "&7This stocks all the created" and "&7items in the game" and "&7" and "&eClick to open!" to close:
+			make player execute command "/terminal-items"
+		set {_blackcat-level} to 100
+		set {_pet-blackcat} to player head with nbt "{display:{Name:""{\""text\"":\""Cat (Onyx)\""}""},SkullOwner:{Id:[I;956767314,-650229016,-1597976037,-281267626],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmU5MjQxMTVkM2E4YmJhY2ZkNGZhZmI2Y2M3MGY5OWEyZjc1ODBlNDU4M2E1MGZhOWI5YzI4NWE5OGFjMGM1NiJ9fX0=""}]}}}" named "&7[Lv%{_blackcat-level}%] &6Black Cat" with lore "&8Combat Pet, Onyx Skin" and "&7" and "&7Intelligence: &a+%{_blackcat-level}%" and "&7Pet Luck: &a+%{_blackcat-level} /10%"  and "&7Magic Find: &a+%{_blackcat-level} /10%" and "&7Speed: &a+%({_blackcat-level} /4)%" and "&7" and "&6Hunter" and "&7Increase your speed" and "&7and speed cap by &a%{_blackcat-level}/5%%%" and "&7" and "&6Omen" and "&7Grants &a+%{_blackcat-level} /10% &d⚚ Pet Luck" and "&7" and "&6Supernatural" and "&7Grants &a+%{_blackcat-level} /10% &b✯ Magic Find" and "&7" and "&b&lLEVEL %{_blackcat-level}%" and "&6&lLEGENDARY PET"
+		format gui slot 10 of player with {_pet-blackcat}
+
+		set {_bluewhale-level} to 100
+		set {_pet-bluewhale} to player head with nbt "{display:{Name:""{\""text\"":\""Orca\""}""},SkullOwner:{Id:[I;1446261793,392318341,-1831260169,-406090762],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjAwOGNhOWMwMGNlY2Y0OTk2ODUwMzBlOGVmMGMyMzBhMzI5MDg2MTljZTlkYzEwNjkwYjY5MTExNTkxZmFhMSJ9fX0=""}]}}}" named "&7[Lv%{_bluewhale-level}%] &6Blue Whale" with lore "&8Fishing Pet, Orca Skin" and "&7" and "&7Health: &a+%({_bluewhale-level} *2)%" and "&7" and "&6Bulk" and "&7Gain &a%{_bluewhale-level} /100 * 3% &a❈ Defense &7per" and "&c20 Max&c ❤ Health" and "&7" and "&6Unflippable" and "&7Grants &aimmunity &7to knockback" and "&7" and "&6Archimedes" and "&7Gain &a+%{_bluewhale-level} /5%%% &cMax&c ❤ Health" and "&7" and "&b&lLEVEL %{_bluewhale-level}%" and "&6&lLEGENDARY PET"
+		format gui slot 11 of player with {_pet-bluewhale}
+
+		set {_gdrag-level} to 200
+		set {_pet-gdrag} to player head with nbt "{display:{Name:""{\""text\"":\""Golden Dragon\""}""},SkullOwner:{Id:[I;943772435,655444935,-2048267183,-1027618034],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMmU5ZjliMWZjMDE0MTY2Y2I0NmEwOTNlNTM0OWIyYmY2ZWRkMjAxYjY4MGQ2MmU0OGRiZjNhZjliMDQ1OTExNiJ9fX0=""}]}}}" named "&7[Lv%{_gdrag-level}%] &6Golden Dragon" with lore "&8Combat Pet" and "&7" and "&7Bonus Attack Speed: &a+%{_gdrag-level} * 0.25%%%" and "&7" and "&6Gemstone's Power" and "&7Adds &c+%{_gdrag-level} /5% &c❁ &cStrength &7to" and "&7all weapons." and "&7" and "&6Shining Scales" and "&7For each digit in your last hit" and "&7gain &9+%{_gdrag-level} /200%%% &9☣ &9Critical Chance" and "&7and &b+%{_gdrag-level} /4% &b✎ Intelligence&7." and "&7" and "&6Dragon's Greed" and "&7Gain &a%{_gdrag-level} /20%%% &7of your &9☠ Critical" and "&9Damage &7as &c❁ Strength&7." and "&7" and "&6Legendary Treasure" and "&7Gain &c%{_gdrag-level} /2000%%% &7Damage &7for every" and "&7million coins in your bank." and "&7" and "&b&lLEVEL %{_gdrag-level}%" and "&6&lLEGENDARY PET"
+		format gui slot 12 of player with {_pet-gdrag}
+
+		set {_sheep-level} to 100
+		set {_pet-sheep} to player head with nbt "{display:{Name:""{\""text\"":\""Neon Blue Sheep\""}""},SkullOwner:{Id:[I;1113343888,-984987084,-1570975779,1378277365],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTM1NzhlYjdjNjFlMGJiMmQwMWYwMWNhMGUxN2M4NTk5YjdlMzQ4NTM5OWY3NDg3ODE2ZTg5NGFlYTU5Zjc0NSJ9fX0=""}]}}}" named "&7[Lv%{_sheep-level}%] &6Sheep" with lore "&8Alchemy Pet, Neon Blue Skin" and "&7" and "&7Intelligence: &a+%{_sheep-level}%" and "&7Ability Damage: &a+%{_sheep-level} /4%" and "&7" and "&6Mana Regen" and "&7Regen mana &a%{_sheep-level}/2%%% &7faster" and "&7" and "&6Overheal" and "&7Grants &a%{_sheep-level}/10%%% &cMax&c ❤ Health" and "&7" and "&6Wizard" and "&7Gain &a+%{_sheep-level} /5%%% &b✎ Intelligence &7and &c๑ Ability Damage" and "&7" and "&b&lLEVEL %{_bluewhale-level}%" and "&6&lLEGENDARY PET"
+		format gui slot 13 of player with {_pet-sheep}
+
+		set {_bbyeti-level} to 100
+		set {_pet-bbyeti} to player head with nbt "{display:{Name:""{\""text\"":\""Yeti\""}""},SkullOwner:{Id:[I;312203452,637682426,-2117346712,151475473],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjVmMjlhOTc1NTI5Mjc2ZDkxNmZjNjc5OTg4MzNjMTFlZTE3OGZmMjFlNTk0MWFmZGZiMGZhNzAxMGY4Mzc0ZSJ9fX0=""}]}}}" named "&7[Lv%{_bbyeti-level}%] &6Baby Yeti" with lore "&8Fishing Pet, Grown-up Skin" and "&7" and "&7Intelligence: &a+%{_bbyeti-level}/4 *3%" and "&7Strenght: &a+%{_bbyeti-level}/4 * 3%" and "&7" and "&6Yeti Fury" and "&7Gain &c%{_bbyeti-level} /1000%%% &7damage &7every" and "&7&a100 &a❈ Defense" and "&7" and "&6Ice Shield" and "&7Gain &a%{_bbyeti-level}%%% &7of your &c❁ Strength" and "&7as &a❈ Defense" and "&7" and "&6Cold Breeze" and "&7Gain &a+%{_bbyeti-level} /10%%% &a❈ Defense" and "&7" and "&b&lLEVEL %{_bbyeti-level}%" and "&6&lLEGENDARY PET"
+		format gui slot 14 of player with {_pet-bbyeti}
+
+		set {_tiger-level} to 100
+		set {_pet-tiger} to player head with nbt "{display:{Name:""{\""text\"":\""Night Twilight Tiger\""}""},SkullOwner:{Id:[I;-771449387,572736979,-1393128079,1413305435],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjVhZmMzN2RjMTkwOWVlMGEzZWI4ZDA0MDQyNzFmYzQ3NjYwY2ZmMTE1MzQ5NTQxMmQ2ZTk4OTY2MzJlYWE4ZSJ9fX0=""}]}}}" named "&7[Lv%{_tiger-level}%] &6Tiger" with lore "&8Combat Pet, Twilight Skin" and "&7" and "&7Crit Damage: &a+%{_tiger-level}/2%%%" and "&7Ferocity: &a+%{_tiger-level}/4%" and "&7Crit Chance: &a+%{_tiger-level}/20%%%" and "&7Strength: &a+%{_tiger-level}/100 *15%" and "&7" and "&6Merciless Swipe" and "&7Gain &c+%{_tiger-level}%%% &cFerocity" and "&7" and "&6Hemorrhage" and "&7Melee attacks deals &a20%%" and "&7more damage" and "&7" and "&6Apex Predator" and "&7Gain &c+%{_tiger-level}/10%%% &cFerocity &7per" and "&7players around you in a &a15" and "&7block radius." and "&7" and "&b&lLEVEL %{_tiger-level}%" and "&6&lLEGENDARY PET"
+		format gui slot 15 of player with {_pet-tiger}
+		
+		set {_edrag-level} to 100
+		set {_pet-edrag} to player head with nbt "{display:{Name:""{\""text\"":\""Neon Red Ender Dragon\""}""},SkullOwner:{Id:[I;-475889056,2130005609,-2114710023,-1316926416],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTA1YzliNGY0MjE4Njc3YzViNGJjYzljN2Q5ZTI5ZTE4ZDE2ODRhNTM2NzgxZmVkZTEyODBmYzVlNjk2MTUzOCJ9fX0=""}]}}}" named "&7[Lv%{_edrag-level}%] &6Ender Dragon" with lore "&8Combat Pet, Neon Red Skin" and "&7" and "&7Strength: &a+%{_edrag-level}/2%" and "&7Crit Chance: &a+%{_edrag-level}/10%" and "&7Crit Damage: &a+%{_edrag-level}/2%" and "&7" and "&6End Strike" and "&7Deal &a%{_edrag-level}/4%%% &7more" and "&7damage to end mobs" and "&7" and "&6One With The Dragon" and "&7Increase Terminator base" and "&7damage by &a+%{_edrag-level} /5%%%" and "&7" and "&6Superior" and "&7Increase most stats by &a%{_edrag-level}/10%%%" and "&7" and "&b&lLEVEL %{_edrag-level}%" and "&6&lLEGENDARY PET"
+		format gui slot 16 of player with {_pet-edrag}
+
+command /terminal-adminpets:
+	permission: op
+	trigger:
+		open virtual chest inventory with size 6 named "Pets" to player
+		format gui slot (integers between 0 and 53) of player with {Menu-Panes}
+		format gui slot 49 of player with {Menu-Close} to close
+		format gui slot 48 of player with book named "&aItem Menu" with lore "&7This stocks all the created" and "&7items in the game" and "&7" and "&eClick to open!" to close:
+			make player execute command "/terminal-items"
+		format gui slot (integers between 10 and 16) and (integers between 19 and 25) and (integers between 28 and 34) and (integers between 37 and 43) of player with air
+		set {_gdrag-level} to 200
+		set {_pet-gdrag} to player head with nbt "{display:{Name:""{\""text\"":\""Golden Dragon\""}""},SkullOwner:{Id:[I;943772435,655444935,-2048267183,-1027618034],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMmU5ZjliMWZjMDE0MTY2Y2I0NmEwOTNlNTM0OWIyYmY2ZWRkMjAxYjY4MGQ2MmU0OGRiZjNhZjliMDQ1OTExNiJ9fX0=""}]}}}" named "&7[Lv%{_gdrag-level}%] &6Golden Dragon" with lore "&8Combat Pet" and "&7" and "&7Bonus Attack Speed: &a+%{_gdrag-level} * 0.25%%%" and "&7" and "&6Gemstone's Power" and "&7Adds &c+%{_gdrag-level} /5% &c❁ &cStrength &7to" and "&7all weapons." and "&7" and "&6Shining Scales" and "&7For each digit in your last hit" and "&7gain &9+%{_gdrag-level} /200%%% &9☣ &9Critical Chance" and "&7and &b+%{_gdrag-level} /4% &b✎ Intelligence&7." and "&7" and "&6Dragon's Greed" and "&7Gain &a%{_gdrag-level} /20%%% &7of your &9☠ Critical" and "&9Damage &7as &c❁ Strength&7." and "&7" and "&6Legendary Treasure" and "&7Gain &c%{_gdrag-level} /2000%%% &7Damage &7for every" and "&7million coins in your bank." and "&7" and "&b&lLEVEL %{_gdrag-level}%" and "&6&lLEGENDARY PET"
+		format gui slot 10 of player with {_pet-gdrag}
+
+
+		
+		set {_blackcat-level} to 100
+		set {_pet-blackcat} to player head with nbt "{display:{Name:""{\""text\"":\""Cat (Onyx)\""}""},SkullOwner:{Id:[I;956767314,-650229016,-1597976037,-281267626],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmU5MjQxMTVkM2E4YmJhY2ZkNGZhZmI2Y2M3MGY5OWEyZjc1ODBlNDU4M2E1MGZhOWI5YzI4NWE5OGFjMGM1NiJ9fX0=""}]}}}" named "&7[Lv%{_blackcat-level}%] &6Black Cat" with lore "&8Combat Pet, Onyx Skin" and "&7" and "&7Intelligence: &a+%{_blackcat-level}%" and "&7Truth: &a+%{_blackcat-level} /10%"  and "&7Magic Find: &a+%{_blackcat-level} /10%" and "&7Speed: +&a%({_blackcat-level} /4)%" and "&7" and "&6Hunter" and "&7Increase your speed" and "&7and speed cap by &a%{_blackcat-level}/5%%%" and "&7" and "&6Omen" and "&7Grants &a+%{_blackcat-level} /10% &d⚚ Truth" and "&7" and "&6Supernatural" and "&7Grants &a+%{_blackcat-level} /10% &b✯ Magic Find" and "&7" and "&b&lLEVEL %{_blackcat-level}%" and "&6&lLEGENDARY PET"
+		format gui slot 11 of player with {_pet-blackcat}
+		
+		set {_bluewhale-level} to 100
+		set {_pet-bluewhale} to player head with nbt "{display:{Name:""{\""text\"":\""Orca\""}""},SkullOwner:{Id:[I;1446261793,392318341,-1831260169,-406090762],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjAwOGNhOWMwMGNlY2Y0OTk2ODUwMzBlOGVmMGMyMzBhMzI5MDg2MTljZTlkYzEwNjkwYjY5MTExNTkxZmFhMSJ9fX0=""}]}}}" named "&7[Lv%{_bluewhale-level}%] &6Blue Whale" with lore "&8Fishing Pet, Orca Skin" and "&7" and "&7Health: &a+%({_bluewhale-level} *2)%" and "&7" and "&6Bulk" and "&7Gain &a%{_bluewhale-level} /100 * 3% &a❈ Defense &7per" and "&c20 Max&c ❤ Health" and "&7" and "&6Unflippable" and "&7Grants &aimmunity &7to knockback" and "&7" and "&6Archimedes" and "&7Gain &a+%{_bluewhale-level} /5%%% &cMax&c ❤ Health" and "&7" and "&b&lLEVEL %{_bluewhale-level}%" and "&6&lLEGENDARY PET"
+		format gui slot 12 of player with {_pet-bluewhale}
+		
+		set {_edrag-level} to 100
+		set {_pet-edrag} to player head with nbt "{display:{Name:""{\""text\"":\""Neon Red Ender Dragon\""}""},SkullOwner:{Id:[I;-475889056,2130005609,-2114710023,-1316926416],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTA1YzliNGY0MjE4Njc3YzViNGJjYzljN2Q5ZTI5ZTE4ZDE2ODRhNTM2NzgxZmVkZTEyODBmYzVlNjk2MTUzOCJ9fX0=""}]}}}" named "&7[Lv%{_edrag-level}%] &6Ender Dragon" with lore "&8Combat Pet, Neon Red Skin" and "&7" and "&7Strength: &a+%{_edrag-level}/2%" and "&7Crit Chance: &a+%{_edrag-level}/10%" and "&7Crit Damage: &a+%{_edrag-level}/2%" and "&7" and "&6End Strike" and "&7Deal &a%{_edrag-level}/4%%% &7more" and "&7damage to end mobs" and "&7" and "&6One With The Dragon" and "&7Increase Terminator base" and "&7damage by &a+%{_edrag-level} /5%%%" and "&7" and "&6Superior" and "&7Increase most stats by &a%{_edrag-level}/10%%%" and "&7" and "&b&lLEVEL %{_edrag-level}%" and "&6&lLEGENDARY PET"
+		format gui slot 13 of player with {_pet-edrag}
+		
+		set {_sheep-level} to 100
+		set {_pet-sheep} to player head with nbt "{display:{Name:""{\""text\"":\""Neon Blue Sheep\""}""},SkullOwner:{Id:[I;1113343888,-984987084,-1570975779,1378277365],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTM1NzhlYjdjNjFlMGJiMmQwMWYwMWNhMGUxN2M4NTk5YjdlMzQ4NTM5OWY3NDg3ODE2ZTg5NGFlYTU5Zjc0NSJ9fX0=""}]}}}" named "&7[Lv%{_sheep-level}%] &6Sheep" with lore "&8Alchemy Pet, Neon Blue Skin" and "&7" and "&7Intelligence: &a+%{_sheep-level}%" and "&7Ability Damage: &a+%{_sheep-level} /4%" and "&7" and "&6Mana Regen" and "&7Regen mana &a%{_sheep-level}/2%%% &7faster" and "&7" and "&6Overheal" and "&7Grants &a%{_sheep-level}/10%%% &cMax&c ❤ Health" and "&7" and "&6Wizard" and "&7Gain &a+%{_sheep-level} /5%%% &b✎ Intelligence &7and &c๑ Ability Damage" and "&7" and "&b&lLEVEL %{_bluewhale-level}%" and "&6&lLEGENDARY PET"
+		format gui slot 14 of player with {_pet-sheep}
+		
+		set {_bbyeti-level} to 100
+		set {_pet-bbyeti} to player head with nbt "{display:{Name:""{\""text\"":\""Yeti\""}""},SkullOwner:{Id:[I;312203452,637682426,-2117346712,151475473],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjVmMjlhOTc1NTI5Mjc2ZDkxNmZjNjc5OTg4MzNjMTFlZTE3OGZmMjFlNTk0MWFmZGZiMGZhNzAxMGY4Mzc0ZSJ9fX0=""}]}}}" named "&7[Lv%{_bbyeti-level}%] &6Baby Yeti" with lore "&8Fishing Pet, Grown-up Skin" and "&7" and "&7Intelligence: &a+%{_bbyeti-level}/4 *3%" and "&7Strenght: &a+%{_bbyeti-level}/4 * 3%" and "&7" and "&6Yeti Fury" and "&7Gain &c%{_bbyeti-level} /1000%%% &7damage &7every" and "&7&a100 &a❈ Defense" and "&7" and "&6Ice Shield" and "&7Gain &a%{_bbyeti-level}%%% &7of your &c❁ Strength" and "&7as &a❈ Defense" and "&7" and "&6Cold Breeze" and "&7Gain &a+%{_bbyeti-level} /10%%% &a❈ Defense" and "&7" and "&b&lLEVEL %{_bbyeti-level}%" and "&6&lLEGENDARY PET"
+		format gui slot 15 of player with {_pet-bbyeti}
+		
+		set {_griffin-level} to 100
+		set {_pet-griffin} to player head with nbt "{display:{Name:""{\""text\"":\""Eagle\""}""},SkullOwner:{Id:[I;-1852313442,1555777103,-1685094601,1297290500],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGMyN2UzY2I1MmE2NDk2OGU2MGM4NjFlZjFhYjg0ZTBhMGNiNWYwN2JlMTAzYWM3OGRhNjc3NjE3MzFmMDBjOCJ9fX0=""}]}}}" named "&7[Lv%{_griffin-level}%] &6Griffin" with lore "&8Combat Pet" and "&7" and "&7Crit Chance: &a+%{_griffin-level}/10%%%" and "&7Crit Damage: &a+%{_griffin-level}/2%%%" and "&7Strength: &a+%{_griffin-level}/4%" and "&7Intelligence: &a+%{_griffin-level}/10%" and "&7Magic Find: &a+%{_griffin-level}/10%" and "&7" and "&6Legendary Constitution" and "&7Grant a &c+%{_griffin-level}/2%%%" and "&7regeneration boost" and "&7" and "&6King of the Kings" and "&7Gain &c+%{_griffin-level}/4%%% &c❁ Strength" and "&7" and "&6Perpetual Empathy" and "&7Gain &a+%{_griffin-level}/20%%% &b✎ Intelligence &7for" and "&7each player in a &a20&7 blocks radius" and "&7" and "&b&lLEVEL %{_griffin-level}%" and "&6&lLEGENDARY PET"
+		format gui slot 16 of player with {_pet-griffin}
+		
+		set {_tiger-level} to 100
+		set {_pet-tiger} to player head with nbt "{display:{Name:""{\""text\"":\""Night Twilight Tiger\""}""},SkullOwner:{Id:[I;-771449387,572736979,-1393128079,1413305435],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjVhZmMzN2RjMTkwOWVlMGEzZWI4ZDA0MDQyNzFmYzQ3NjYwY2ZmMTE1MzQ5NTQxMmQ2ZTk4OTY2MzJlYWE4ZSJ9fX0=""}]}}}" named "&7[Lv%{_griffin-level}%] &6Tiger" with lore "&8Combat Pet, Twilight Skin" and "&7" and "&7Crit Damage: &a+%{_tiger-level}/2%%%" and "&7Ferocity: &a+%{_tiger-level}/4%" and "&7Crit Chance: &a+%{_tiger-level}/20%%%" and "&7Strength: &a+%{_tiger-level}/100 *15%" and "&7" and "&6Merciless Swipe" and "&7Gain &c+%{_tiger-level}%%% &cFerocity" and "&7" and "&6Hemorrhage" and "&7Melee attacks deals &a20%%" and "&7more damage" and "&7" and "&6Apex Predator" and "&7Gain &c+%{_tiger-level}/10%%% &cFerocity &7per" and "&7players around you in a &a15" and "&7block radius." and "&7" and "&b&lLEVEL %{_tiger-level}%" and "&6&lLEGENDARY PET"
+		format gui slot 19 of player with {_pet-tiger}
+		
+		
+		
+		
+		
+		
+on inventory click:
+	if name of player's current inventory is "Pets":
+		if name of item is not "&f " or "&cClose" or "&aItem Menu":
+			give 1 of item to player
+		
+		
+		
+		
+		
+		
+		

@@ -1,0 +1,15 @@
+function MenuStyle(p: player, name: text, style: text, n: number, cmd: text):
+	# MF(player, "Wardrobe", "Frame", 6, "/menu")
+	# FRAME, FULL
+	open virtual chest inventory with size {_n} named "%{_name}%" to {_p}
+	if {_style} is "full" or "frame":
+		set {_sz} to ({_n}*9)-1
+		format gui slot (integers between 0 and {_sz}) of {_p} with {Menu-Panes}
+		format gui slot {_sz}-4 of {_p} with {Menu-Close} to close
+		format gui slot {_sz}-5 of {_p} with {Menu-GoBack} to run:
+			make player execute command "%{_cmd}%"
+	if {_style} is "frame":
+		format gui slot (integers between {_sz}-10 and {_sz}-16) of {_p} with air
+		format gui slot (integers between {_sz}-19 and {_sz}-25) of {_p} with air
+		format gui slot (integers between {_sz}-28 and {_sz}-34) of {_p} with air
+		format gui slot (integers between {_sz}-37 and {_sz}-43) of {_p} with air

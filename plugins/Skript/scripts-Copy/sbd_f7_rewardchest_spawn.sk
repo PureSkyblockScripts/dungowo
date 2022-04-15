@@ -1,0 +1,252 @@
+command /dungeon-reward-spawn <number> <text>:
+	permission: op
+	usage: &c/dungeon-reward-spawn <floor> <normal/score>
+	trigger:
+		set {_DRA-ChestSkin-Oak} to "{display:{Name:""{\""text\"":\""Wooden Plank Chest\""}""},SkullOwner:{Id:[I;441899687,1891713813,-1145002998,2066825560],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWE3MzZlYjFhN2NlNWE1ZjVkNWIxNjg5MzFmYTMxMzk2Mzg2YzE2MDU2OGI0MTk2NGJhODZjZGI5ZWQ2YmUifX19""}]}}}"
+		set {_DRA-ChestSkin-EmeraldLeft} to "{display:{Name:""{\""text\"":\""Emerald Loot Chest (Left Part)\""}""},SkullOwner:{Id:[I;1277462846,-2136060669,-1950908771,854643776],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTgyNGQ0NTRlMDUwOGM1N2UzZmU4MzM3MDMwYTBiYzUyZTIwNjVlMTlmMDJlMzBiNDU3ZDM1MmQ0YTMxMjUzNyJ9fX0=""}]}}}"
+		set {_DRA-ChestSkin-EmeraldRight} to "{display:{Name:""{\""text\"":\""Emerald Loot Chest (Right Part)\""}""},SkullOwner:{Id:[I;748595406,-1402320731,-1301953175,-1618607894],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTBlZDk0YmY1ZmNjZGQ5ZDNiN2NhN2ZhMzhlMmNlYjUwMTMzMmU2YjMzNTM0MDQyNzY1NjZiNTIxNmMxMzA0ZiJ9fX0=""}]}}}"
+		set {_DRA-ChestSkin-BedBottomLeft} to "{display:{Name:""{\""text\"":\""Bedrock Loot Chest (Bottom Left Part)\""}""},SkullOwner:{Id:[I;1215771470,1320503873,-2010669052,1805809963],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYWFlMjM1ZjI5NWRjOWRkYTQzMmNlMjBmNjY5M2Y3OWIxYWQ3MjAxNDU0NWMyZTIwOWJkMzI0NzQwMjE0MzBkOSJ9fX0=""}]}}}"
+		set {_DRA-ChestSkin-BedBottomRight} to "{display:{Name:""{\""text\"":\""Bedrock Loot Chest (Bottom Right Part)\""}""},SkullOwner:{Id:[I;-457595033,-1272099648,-1643110020,-705992580],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjY2OGFhNTE3ZmY5YWQ5NTFmZWU0YTk5YTBhZjFjZDYxMTc5NjNhZTkwOTg5NzcxMThkYTIxY2YyMWY1MTI3NyJ9fX0=""}]}}}"
+		set {_DRA-ChestSkin-BedTopRight} to "{display:{Name:""{\""text\"":\""Bedrock Loot Chest (Top Right Part)\""}""},SkullOwner:{Id:[I;542205647,618873997,-1849857243,1990016376],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzRhYzY0NjMzMjQ5ZjEzZjFiMGM5NTI1YzZlZmE0NGNkZTk2YWJjZDY0N2UwOTVhMTcxZmUyNDRjMWEyNDRlNSJ9fX0=""}]}}}"
+		set {_DRA-ChestSkin-BedTopLeft} to "{display:{Name:""{\""text\"":\""Bedrock Loot Chest (Top Left Part)\""}""},SkullOwner:{Id:[I;-1595268732,812729615,-1162156631,-1315688566],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzhkYjRlMDQwNDU5MWM2ODg2MzgxNWQyZTU4ZmY4Nzg1MjMyODM4ZWJlMTQyZTJkZWRjYWE1MGRhMmM1ODg1ZSJ9fX0=""}]}}}"
+		set {_DRA-ChestSkin-ObsiBottomRight} to "{display:{Name:""{\""text\"":\""Obsidian Loot Chest (Bottom Right Part)\""}""},SkullOwner:{Id:[I;-1884989504,196493844,-1660137840,-2011538403],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODkzM2VlZmFiOGZjYjNmYTBmNDdiYjAzOTlhNTA4ZWY2YzkxMWRhZTRiMTE0NTU3ZjkwNjg5N2FlY2VkZjg1YSJ9fX0=""}]}}}"
+		set {_DRA-ChestSkin-ObsiBottomLeft} to "{display:{Name:""{\""text\"":\""Obsidian Loot Chest (Bottom Left Part)\""}""},SkullOwner:{Id:[I;1943012291,1633177032,-1962347147,-1147949308],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZmI4MjE1NmZhZTAyM2IwMjFlMWMyMjc1ZDRjYjRjOTk0MGU5ODkyNjBkMzg2MjU3OGVlMjdiZGJjMmI5OTVhYSJ9fX0=""}]}}}"
+		set {_DRA-ChestSkin-ObsiTopRight} to "{display:{Name:""{\""text\"":\""Obsidian Loot Chest (Top Right Part)\""}""},SkullOwner:{Id:[I;580127803,990134926,-2140009961,-1049230232],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYWQ5MTkyNmU0ZTU5NWE3ZTgwMDI2N2FjNzA1YTRmMWU1ODk5N2Q1N2Y0NTllNzkyMWI5N2I2NjQwNmViYWQ2ZCJ9fX0=""}]}}}"
+		set {_DRA-ChestSkin-ObsiTopLeft} to "{display:{Name:""{\""text\"":\""Obsidian Loot Chest (Top Left Part)\""}""},SkullOwner:{Id:[I;-140029823,-599175568,-1180169314,1464275427],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGRjOTYyY2E0ZmRiNzgxN2M5YzI4NjA0ZmNhMzlkNGMwNWNhYjFhY2RkMDM2ODY2MDk2ZWE2NDk4ZmNiYTk1YyJ9fX0=""}]}}}"
+		set {_DRA-ChestSkin-DiaLeft} to "{display:{Name:""{\""text\"":\""Diamond Loot Chest (Left Part)\""}""},SkullOwner:{Id:[I;2032436328,-463386618,-1247392375,455282308],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMmJiN2IzODVlMGFhNzQ4YTdjNmVmZGYzYmNmMjA5OTI4ZTgyNDcxY2MzNmU5NTQzMzc3NjdjNWUzZDJlMTUwZSJ9fX0=""}]}}}"
+		set {_DRA-ChestSkin-DiaRight} to "{display:{Name:""{\""text\"":\""Diamond Loot Chest (Right Part)\""}""},SkullOwner:{Id:[I;644026218,-1035582190,-1095469699,390796816],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzI2ZWMzZDg0NDM4MGEyN2Q1ODU2OWJkYTU4YjRmYTIxYTQ2ZDU2MDI4MjUyNzM0MWNmMWUwYTIyODI2MWFhMyJ9fX0=""}]}}}"
+		set {_DRA-ChestSkin-Gold} to "{display:{Name:""{\""text\"":\""Gold Chest\""}""},SkullOwner:{Id:[I;-2047472913,1229277072,-1972468419,-693946857],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjM3Y2FlNWM1MWViMTU1OGVhODI4ZjU4ZTBkZmY4ZTZiN2IwYjFhMTgzZDczN2VlY2Y3MTQ2NjE3NjEifX19""}]}}}"
+		if arg-1 is 7:
+			if arg-2 is "s+":
+				set {_z} to 382
+				set {_z2} to 383
+				set {_skin} to "Bed"
+				set {_b} to quartz slab
+				set {_b2} to birch fence
+				set {_vn} to "FinalReward"
+			if arg-2 is "s":
+				set {_z} to 389
+				set {_z2} to 390
+				set {_skin} to "Obsi"
+				set {_b} to nether brick slab
+				set {_b2} to nether brick fence
+				set {_vn} to "Reward"
+			if {_z} is set:
+				spawn an armor stand at location (111.225, 105.2, {_z}+0.2) of the world "world"
+				set {_DRA-Chest} to the spawned entity # DRA = Dungeon Reward Animation
+				set name of {_DRA-Chest} to "Dungeon-%{_vn}%"
+				add "{NoGravity:1b,Invisible:1b,DisabledSlots:63}" to nbt of {_DRA-Chest}
+				add "{Pose:{Head:[0f,180f,0f]}}" to nbt of {_DRA-Chest}
+				set helmet of {_DRA-Chest} to player head with nbt "%{_DRA-ChestSkin-%{_skin}%BottomRight}%"
+				wait 1 tick
+				spawn an armor stand at location (111.775, 105.2, {_z}+0.2) of the world "world"
+				set {_DRA-Chest} to the spawned entity # DRA = Dungeon Reward Animation
+				set name of {_DRA-Chest} to "Dungeon-%{_vn}%"
+				add "{NoGravity:1b,Invisible:1b,DisabledSlots:63}" to nbt of {_DRA-Chest}
+				add "{Pose:{Head:[0f,180f,0f]}}" to nbt of {_DRA-Chest}
+				set helmet of {_DRA-Chest} to player head with nbt "%{_DRA-ChestSkin-%{_skin}%BottomLeft}%"
+				wait 1 tick
+				spawn an armor stand at location (111.225, 105.8, {_z}+0.2) of the world "world"
+				set {_DRA-Chest} to the spawned entity # DRA = Dungeon Reward Animation
+				set name of {_DRA-Chest} to "Dungeon-%{_vn}%"
+				add "{NoGravity:1b,Invisible:1b,DisabledSlots:63}" to nbt of {_DRA-Chest}
+				add "{Pose:{Head:[0f,180f,0f]}}" to nbt of {_DRA-Chest}
+				set helmet of {_DRA-Chest} to player head with nbt "%{_DRA-ChestSkin-%{_skin}%TopRight}%"
+				wait 1 tick
+				spawn an armor stand at location (111.775, 105.8, {_z}+0.2) of the world "world"
+				set {_DRA-Chest} to the spawned entity # DRA = Dungeon Reward Animation
+				set name of {_DRA-Chest} to "Dungeon-%{_vn}%"
+				add "{NoGravity:1b,Invisible:1b,DisabledSlots:63}" to nbt of {_DRA-Chest}
+				add "{Pose:{Head:[0f,180f,0f]}}" to nbt of {_DRA-Chest}
+				set helmet of {_DRA-Chest} to player head with nbt "%{_DRA-ChestSkin-%{_skin}%TopLeft}%"
+# ====
+				spawn an armor stand at location (111.225, 105.2, {_z}+0.8) of the world "world"
+				set {_DRA-Chest} to the spawned entity # DRA = Dungeon Reward Animation
+				set name of {_DRA-Chest} to "Dungeon-%{_vn}%"
+				add "{NoGravity:1b,Invisible:1b,DisabledSlots:63}" to nbt of {_DRA-Chest}
+				set helmet of {_DRA-Chest} to player head with nbt "%{_DRA-ChestSkin-%{_skin}%BottomRight}%"
+				wait 1 tick
+				spawn an armor stand at location (111.775, 105.2, {_z}+0.8) of the world "world"
+				set {_DRA-Chest} to the spawned entity # DRA = Dungeon Reward Animation
+				set name of {_DRA-Chest} to "Dungeon-%{_vn}%"
+				add "{NoGravity:1b,Invisible:1b,DisabledSlots:63}" to nbt of {_DRA-Chest}
+				set helmet of {_DRA-Chest} to player head with nbt "%{_DRA-ChestSkin-%{_skin}%BottomLeft}%"
+				wait 1 tick
+				spawn an armor stand at location (111.225, 105.8, {_z}+0.8) of the world "world"
+				set {_DRA-Chest} to the spawned entity # DRA = Dungeon Reward Animation
+				set name of {_DRA-Chest} to "Dungeon-%{_vn}%"
+				add "{NoGravity:1b,Invisible:1b,DisabledSlots:63}" to nbt of {_DRA-Chest}
+				set helmet of {_DRA-Chest} to player head with nbt "%{_DRA-ChestSkin-%{_skin}%TopRight}%"
+				wait 1 tick
+				spawn an armor stand at location (111.775, 105.8, {_z}+0.8) of the world "world"
+				set {_DRA-Chest} to the spawned entity # DRA = Dungeon Reward Animation
+				set name of {_DRA-Chest} to "Dungeon-%{_vn}%"
+				add "{NoGravity:1b,Invisible:1b,DisabledSlots:63}" to nbt of {_DRA-Chest}
+				set helmet of {_DRA-Chest} to player head with nbt "%{_DRA-ChestSkin-%{_skin}%TopLeft}%"
+				wait 1 tick
+				spawn an armor stand at location (112, 105.1, {_z}+0.5) of the world "world"
+				set {_DRA-Chest} to the spawned entity # DRA = Dungeon Reward Animation
+				set name of {_DRA-Chest} to "Dungeon-%{_vn}%"
+				add "{NoGravity:1b,Invisible:1b,DisabledSlots:63}" to nbt of {_DRA-Chest}
+				set helmet of {_DRA-Chest} to {_b}
+				add "{Pose:{Head:[0f,0f,-15f]}}" to nbt of {_DRA-Chest}
+				wait 1 tick
+				spawn an armor stand at location (111, 105.1, {_z}+0.5) of the world "world"
+				set {_DRA-Chest} to the spawned entity # DRA = Dungeon Reward Animation
+				set name of {_DRA-Chest} to "Dungeon-%{_vn}%"
+				add "{NoGravity:1b,Invisible:1b,DisabledSlots:63}" to nbt of {_DRA-Chest}
+				set helmet of {_DRA-Chest} to {_b}
+				add "{Pose:{Head:[0f,0f,15f]}}" to nbt of {_DRA-Chest}
+				wait 1 tick
+				spawn an armor stand at location (111.5, 105, {_z}+0.5) of the world "world"
+				set {_DRA-Chest} to the spawned entity # DRA = Dungeon Reward Animation
+				set name of {_DRA-Chest} to "Dungeon-%{_vn}%"
+				add "{NoGravity:1b,Invisible:1b,DisabledSlots:63}" to nbt of {_DRA-Chest}
+				set helmet of {_DRA-Chest} to {_b}
+				wait 1 tick
+				spawn an armor stand at location (111.5, 105.325, {_z}+0.5) of the world "world"
+				set {_DRA-Chest} to the spawned entity # DRA = Dungeon Reward Animation
+				set name of {_DRA-Chest} to "Dungeon-%{_vn}%"
+				add "{NoGravity:1b,Invisible:1b,DisabledSlots:63}" to nbt of {_DRA-Chest}
+				add "{Small:1b}" to nbt of {_DRA-Chest}
+				set helmet of {_DRA-Chest} to sea lantern
+				wait 1 tick
+				spawn an armor stand at location (111, 104.615, {_z}+0.5) of the world "world"
+				set {_DRA-Chest} to the spawned entity # DRA = Dungeon Reward Animation
+				set name of {_DRA-Chest} to "Dungeon-%{_vn}%"
+				add "{NoGravity:1b,Invisible:1b,DisabledSlots:63}" to nbt of {_DRA-Chest}
+				set helmet of {_DRA-Chest} to {_b2}
+				wait 1 tick
+				spawn an armor stand at location (112, 104.615, {_z}+0.5) of the world "world"
+				set {_DRA-Chest} to the spawned entity # DRA = Dungeon Reward Animation
+				set name of {_DRA-Chest} to "Dungeon-%{_vn}%"
+				add "{NoGravity:1b,Invisible:1b,DisabledSlots:63}" to nbt of {_DRA-Chest}
+				set helmet of {_DRA-Chest} to {_b2}
+# ===============
+			if arg-2 is "a":
+				spawn an armor stand at location (107.5, 105.55, 385+0.205) of the world "world"
+				set {_DRA-Chest} to the spawned entity # DRA = Dungeon Reward Animation
+				set name of {_DRA-Chest} to "Dungeon-FreeReward"
+				add "{NoGravity:1b,Invisible:1b,DisabledSlots:63}" to nbt of {_DRA-Chest}
+				add "{Pose:{Head:[0f,270f,0f]}}" to nbt of {_DRA-Chest}
+				set helmet of {_DRA-Chest} to player head with nbt "%{_DRA-ChestSkin-EmeraldRight}%"
+				wait 1 tick
+				spawn an armor stand at location (107.5, 105.55, 385.795) of the world "world"
+				set {_DRA-Chest} to the spawned entity # DRA = Dungeon Reward Animation
+				set name of {_DRA-Chest} to "Dungeon-FreeReward"
+				add "{NoGravity:1b,Invisible:1b,DisabledSlots:63}" to nbt of {_DRA-Chest}
+				add "{Pose:{Head:[0f,270f,0f]}}" to nbt of {_DRA-Chest}
+				set helmet of {_DRA-Chest} to player head with nbt "%{_DRA-ChestSkin-EmeraldLeft}%"
+				wait 1 tick
+				spawn an armor stand at location (107.5, 105.15, 385.5) of the world "world"
+				set {_DRA-Chest} to the spawned entity # DRA = Dungeon Reward Animation
+				set name of {_DRA-Chest} to "Dungeon-FreeReward"
+				add "{NoGravity:1b,Invisible:1b,DisabledSlots:63}" to nbt of {_DRA-Chest}
+				set helmet of {_DRA-Chest} to smooth stone slab
+				add "{Pose:{Head:[0f,270f,0f]}}" to nbt of {_DRA-Chest}
+				wait 1 tick
+				spawn an armor stand at location (107.5, 104.55, 385.5) of the world "world"
+				set {_DRA-Chest} to the spawned entity # DRA = Dungeon Reward Animation
+				set name of {_DRA-Chest} to "Dungeon-FreeReward"
+				add "{NoGravity:1b,Invisible:1b,DisabledSlots:63}" to nbt of {_DRA-Chest}
+				set helmet of {_DRA-Chest} to smooth stone slab
+				add "{Pose:{Head:[0f,270f,0f]}}" to nbt of {_DRA-Chest}
+				wait 1 tick
+				spawn an armor stand at location (107.5, 105.45, 385.5) of the world "world"
+				set {_DRA-Chest} to the spawned entity # DRA = Dungeon Reward Animation
+				set name of {_DRA-Chest} to "Dungeon-FreeReward"
+				add "{NoGravity:1b,Invisible:1b,DisabledSlots:63}" to nbt of {_DRA-Chest}
+				add "{Small:1b}" to nbt of {_DRA-Chest}
+				set helmet of {_DRA-Chest} to emerald block
+				add "{Pose:{Head:[0f,270f,0f]}}" to nbt of {_DRA-Chest}
+# ============================
+			if arg-2 is "b":
+				spawn an armor stand at location (107.5, 105.55, 376.205) of the world "world"
+				set {_DRA-Chest} to the spawned entity # DRA = Dungeon Reward Animation
+				set name of {_DRA-Chest} to "Dungeon-FreeReward"
+				add "{NoGravity:1b,Invisible:1b,DisabledSlots:63}" to nbt of {_DRA-Chest}
+				add "{Pose:{Head:[0f,270f,0f]}}" to nbt of {_DRA-Chest}
+				set helmet of {_DRA-Chest} to player head with nbt "%{_DRA-ChestSkin-DiaRight}%"
+				wait 1 tick
+				spawn an armor stand at location (107.5, 105.55, 376.795) of the world "world"
+				set {_DRA-Chest} to the spawned entity # DRA = Dungeon Reward Animation
+				set name of {_DRA-Chest} to "Dungeon-FreeReward"
+				add "{NoGravity:1b,Invisible:1b,DisabledSlots:63}" to nbt of {_DRA-Chest}
+				add "{Pose:{Head:[0f,270f,0f]}}" to nbt of {_DRA-Chest}
+				set helmet of {_DRA-Chest} to player head with nbt "%{_DRA-ChestSkin-DiaLeft}%"
+				wait 1 tick
+				spawn an armor stand at location (107.5, 105.15, 376.5) of the world "world"
+				set {_DRA-Chest} to the spawned entity # DRA = Dungeon Reward Animation
+				set name of {_DRA-Chest} to "Dungeon-FreeReward"
+				add "{NoGravity:1b,Invisible:1b,DisabledSlots:63}" to nbt of {_DRA-Chest}
+				set helmet of {_DRA-Chest} to smooth stone slab
+				add "{Pose:{Head:[0f,270f,0f]}}" to nbt of {_DRA-Chest}
+				wait 1 tick
+				spawn an armor stand at location (107.5, 104.55, 376.5) of the world "world"
+				set {_DRA-Chest} to the spawned entity # DRA = Dungeon Reward Animation
+				set name of {_DRA-Chest} to "Dungeon-FreeReward"
+				add "{NoGravity:1b,Invisible:1b,DisabledSlots:63}" to nbt of {_DRA-Chest}
+				set helmet of {_DRA-Chest} to smooth stone slab
+				add "{Pose:{Head:[0f,270f,0f]}}" to nbt of {_DRA-Chest}
+				wait 1 tick
+				spawn an armor stand at location (107.5, 105.45, 376.5) of the world "world"
+				set {_DRA-Chest} to the spawned entity # DRA = Dungeon Reward Animation
+				set name of {_DRA-Chest} to "Dungeon-FreeReward"
+				add "{NoGravity:1b,Invisible:1b,DisabledSlots:63}" to nbt of {_DRA-Chest}
+				add "{Small:1b}" to nbt of {_DRA-Chest}
+				set helmet of {_DRA-Chest} to diamond block
+				add "{Pose:{Head:[0f,270f,0f]}}" to nbt of {_DRA-Chest}
+# ============================
+			if arg-2 is "c":
+				spawn an armor stand at location (115.5, 105.7, 385.5) of the world "world"
+				set {_DRA-Chest} to the spawned entity # DRA = Dungeon Reward Animation
+				set name of {_DRA-Chest} to "Dungeon-FreeReward"
+				add "{NoGravity:1b,Invisible:1b,DisabledSlots:63}" to nbt of {_DRA-Chest}
+				add "{Pose:{Head:[0f,90f,0f]}}" to nbt of {_DRA-Chest}
+				set helmet of {_DRA-Chest} to player head with nbt "%{_DRA-ChestSkin-Gold}%"
+				wait 1 tick
+				spawn an armor stand at location (115.5, 105.15, 385.5) of the world "world"
+				set {_DRA-Chest} to the spawned entity # DRA = Dungeon Reward Animation
+				set name of {_DRA-Chest} to "Dungeon-FreeReward"
+				add "{NoGravity:1b,Invisible:1b,DisabledSlots:63}" to nbt of {_DRA-Chest}
+				set helmet of {_DRA-Chest} to smooth stone slab
+				wait 1 tick
+				spawn an armor stand at location (115.5, 104.55, 385.5) of the world "world"
+				set {_DRA-Chest} to the spawned entity # DRA = Dungeon Reward Animation
+				set name of {_DRA-Chest} to "Dungeon-FreeReward"
+				add "{NoGravity:1b,Invisible:1b,DisabledSlots:63}" to nbt of {_DRA-Chest}
+				set helmet of {_DRA-Chest} to smooth stone slab
+				wait 1 tick
+				spawn an armor stand at location (115.5, 104.75, 385.5) of the world "world"
+				set {_DRA-Chest} to the spawned entity # DRA = Dungeon Reward Animation
+				set name of {_DRA-Chest} to "Dungeon-FreeReward"
+				add "{NoGravity:1b,Invisible:1b,DisabledSlots:63}" to nbt of {_DRA-Chest}
+				set helmet of {_DRA-Chest} to birch fence
+				add "{Pose:{Head:[0f,90f,0f]}}" to nbt of {_DRA-Chest}
+# ============================
+			if arg-2 is "d":
+				spawn an armor stand at location (115.5, 105.7, 376.5) of the world "world"
+				set {_DRA-Chest} to the spawned entity # DRA = Dungeon Reward Animation
+				set name of {_DRA-Chest} to "Dungeon-FreeReward"
+				add "{NoGravity:1b,Invisible:1b,DisabledSlots:63}" to nbt of {_DRA-Chest}
+				add "{Pose:{Head:[0f,90f,0f]}}" to nbt of {_DRA-Chest}
+				set helmet of {_DRA-Chest} to player head with nbt "%{_DRA-ChestSkin-Oak}%"
+				wait 1 tick
+				spawn an armor stand at location (115.5, 105.15, 376.5) of the world "world"
+				set {_DRA-Chest} to the spawned entity # DRA = Dungeon Reward Animation
+				set name of {_DRA-Chest} to "Dungeon-FreeReward"
+				add "{NoGravity:1b,Invisible:1b,DisabledSlots:63}" to nbt of {_DRA-Chest}
+				set helmet of {_DRA-Chest} to spruce slab
+				wait 1 tick
+				spawn an armor stand at location (115.5, 104.55, 376.5) of the world "world"
+				set {_DRA-Chest} to the spawned entity # DRA = Dungeon Reward Animation
+				set name of {_DRA-Chest} to "Dungeon-FreeReward"
+				add "{NoGravity:1b,Invisible:1b,DisabledSlots:63}" to nbt of {_DRA-Chest}
+				set helmet of {_DRA-Chest} to spruce slab
+				wait 1 tick
+				spawn an armor stand at location (115.5, 104.75, 376.5) of the world "world"
+				set {_DRA-Chest} to the spawned entity # DRA = Dungeon Reward Animation
+				set name of {_DRA-Chest} to "Dungeon-FreeReward"
+				add "{NoGravity:1b,Invisible:1b,DisabledSlots:63}" to nbt of {_DRA-Chest}
+				set helmet of {_DRA-Chest} to spruce fence
+				add "{Pose:{Head:[0f,90f,0f]}}" to nbt of {_DRA-Chest}

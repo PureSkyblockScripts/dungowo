@@ -1,0 +1,318 @@
+options:
+	MSGF_PartyInvitedBy: <command:/party-quickjoin>&b%{_pp}% <command:/party-quickjoin>&ehas invited you to join their party!
+	MSGF_PartyInvitedBy2: <command:/party-quickjoin>&eType '&6/party join %{_pp}%&e' <command:/party-quickjoin>or &6Click here &eto join! <command:/party-quickjoin>After 15s it expires!
+
+	MSG_PartyInvitedBy: <command:/party-quickjoin>&b%player% <command:/party-quickjoin>&ehas invited you to join their party!
+	MSG_PartyInvitedBy2: <command:/party-quickjoin>&eType '&6/party join %player%&e' <command:/party-quickjoin>or &6Click here &eto join! <command:/party-quickjoin>After 15s it expires!
+	
+	
+	MSG_PartyOwnerInvitedPlayer: &b%player% &einvited &b%{_p}% &eto the party! They
+	MSGF_PartyOwnerInvitedPlayer: &b%{_pp}% &einvited &b%{_p}% &eto the party! They
+
+	MSG_PartyOwnerInvitedPlayer2: &ehave &c15 &eseconds to accept.
+
+	MSG_PartyExpiredFrom: &eThe party invite from &b%player% &ehas expired.
+	MSG_PartyExpiredFor: &eThe party invite from &b%player% &ehas expired for &b%{_p}%&e.
+	
+	MSGF_PartyExpiredFrom: &eThe party invite from &b%{_pp}% &ehas expired.
+	MSGF_PartyExpiredFor: &eThe party invite from &b%{_pp}% &ehas expired for &b%{_p}%&e.
+	
+	MSG_PartyJoined: &b%{_p}% &ajoined the party!
+	MSG_PartyFormat: &6-------------------------------------------
+		
+command /party-quickjoin:
+	trigger:
+		loop {PartyInvitation.%UUID of player%::*}:
+			if loop-value is set:
+				set {_o} to loop-value
+				if {_o} is set:
+					make player execute command "/party accept %{_o}%"
+					stop
+		stop
+
+command /pc <text>:
+	usage: &c/party chat <message>
+	trigger:
+		if {SB-TrainingArea.%UUID of player%} is set:
+			send "&cYou can't type party command while in training test!" to player
+			stop
+		if {PartyInvited.%UUID of player%} is not set:
+			send "&cYou're not in a party!" to player
+			stop
+		if arg-1 is set:
+			set {_pi} to {PartyInvited.%UUID of player%}
+			set {_pi} to {_pi} parsed as player
+			set {_piU} to {_pi}'s uuid
+			send "&9Party &8> &6%{trueplayer.%UUID of player%}%&7: &f%arg-1%" to {Party.%{_piU}%::*}
+
+command /debugparty <offline player>:
+	permission: op
+	trigger:
+		delete {Party.%UUId of arg-1%::*}
+		delete {PartyInvited.%UUID of arg-1%}
+		delete {PartyInvitation.%UUID of arg-1%::*}
+			
+command /seewhatparty <offline player>:
+	permission: op
+	trigger:
+		set {_f} to {PartyInvited.%UUID of arg-1%}
+		set {_f} to {_f} parsed as offline player
+		set {_fU} to {_f}'s uuid
+		send "&eMember(s): &7%{Party.%{_fU}%::*}%"
+		send "&9Leader Party: &7%{_f}%"
+		send "&aInvitations: %{PartyInvitation.%UUID of arg-1%::*}%"
+		send "&8-"
+		send "&eOwnMember(s): %{Party.%UUID of arg-1%::*}%"
+		send "&9OwnLeader: &9%{PartyInvited.%UUID of arg-1%}%"
+
+command /party <text> [<text>]:
+	aliases: /p
+	usage: &c/party <invite/disband/kick/chat/join or accept/list/leave/transfer> [<...>]
+	trigger:
+		set {_v::*} to {Party.%UUID of player%::*}
+		set {_p} to arg-2 parsed as offline player
+		set {_pU} to {_p}'s uuid
+		set {_pi} to {PartyInvited.%UUId of player%}
+		set {_pi} to {_pi} parsed as offline player
+		set {_piU} to {_pi}'s uuid
+		
+		if arg-1 is "disband" or "kick" or "chat" or "list" or "leave" or "transfer":
+			if {PartyInvited.%UUID of player%} is not set:
+				send "&cYou're not in a party!" to player
+				Nope(player)
+				stop
+		if arg-1 is "chat":
+			if arg-2 is set:
+				send "&9Party &8> &6%player%&7: &f%arg-2%" to {Party.%{_piU}%::*}
+			stop
+		if arg-1 is "transfer":
+			if {Party.%UUID of player%::*} is set:
+				if {Party.%UUID of player%::*} contains "%{_p}%":
+					if {_p} is not online:
+						send "&cThis player is not online." to player
+						Nope(player)
+						stop
+					if {_p} is not the player:
+						send "{@MSG_PartyFormat}" to {_v::*}
+						send "&b%player% &ehas transfered party leader to &6%{_p}%&e." to {_v::*}
+						send "{@MSG_PartyFormat}" to {_v::*}
+						loop {Party.%UUID of player%::*}:
+							set {_pl} to loop-value
+							set {_pl} to {_pl} parsed as player
+							set {_plU} to {_pl}'s uuid
+							set {PartyInvited.%{_plU}%} to "%{_p}%"
+							add {_pl} to {_vl::*}
+						delete {Party.%UUID of player%::*}
+						add {_vl::*} to {Party.%{_pU}%::*}
+						stop
+					else:
+						send "&cYou cannot transfer to yourself!" to player
+						Nope(player)
+				else:
+					send "&cThis player is not in your party!" to player
+					Nope(player)
+					stop
+			else:
+				send "&cYou're not the owner of this party!" to player
+				Nope(player)
+				stop
+		if arg-1 is "kick":
+			if {Party.%UUID of player%::*} contains player:
+				send "{@MSG_PartyFormat}" to {_v::*}
+				send "&b%player% &ehas kicked &b%{_p}% &efrom the party!" to {_v::*}
+				send "{@MSG_PartyFormat}" to {_v::*}
+				remove {_p} from {Party.%UUID of player%::*}
+				delete {PartyInvited.%{_pU}%}
+			set {_sz} to size of {Party.%{_piU}%::*}
+			if {_sz} is equal to 1:
+				loop {Party.%{_piU}%::*}:
+					set {_pl} to loop-value
+					set {_plU} to {_pl}'s uuid
+					delete {PartyInvited.%{_plU}%}
+					delete {Party.%{_plU}%::*}
+				delete {Party.%UUID of player%::*}
+				
+				
+				
+				
+		if arg-1 is "disband":
+			if {Party.%UUId of player%::*} is set:
+				loop {Party.%UUID of player%::*}:
+					set {_pl} to loop-value
+					set {_plU} to {_pl}'s uuid
+					delete {PartyInvited.%{_plU}%}
+					send "{@MSG_PartyFormat}" to loop-value
+					send "&b%player% &ehas disbanded the party!" to loop-value
+					send "{@MSG_PartyFormat}" to loop-value
+				delete {Party.%UUID of player%::*}
+
+		if arg-1 is "list":
+			loop {Party.%{_piU}%::*}:
+				set {_plU} to loop-value's uuid
+				if loop-value is not online:
+					set {_ps.%{_plU}%} to "&c•"
+				else:
+					set {_ps.%{_plU}%} to "&a•"
+		
+			send "{@MSG_PartyFormat}" to player
+			send "&eLeader: &b%{_pi}% %{_ps.%{_piU}%}%" to player
+			set {_p::*} to {Party.%{_piU}%::*}
+			remove "%{_pi}%" from {_p::*}
+			set {_p::*} to {_p::*}
+			loop {_p::*}:
+				set {_pv} to loop-value
+				set {_pv} to {_pv} parsed as offline player
+				set {_pvU} to {_pv}'s uuid
+				set {_pp::%loop-index%} to "%{_pv}% %{_ps.%{_pvU}%}%&f "
+			set {_pt} to join {_pp::*}
+			send "&eMember(s): &f%{_pt}%" to player
+			send "{@MSG_PartyFormat}" to player
+			stop
+
+		if arg-1 is "leave":
+			set {_v::*} to {Party.%{_piU}%::*}
+			if {PartyInvited.%UUID of player%} is set:
+				send "{@MSG_PartyFormat}" to {_v::*}
+				if {PartyInvited.%UUID of player%} contains "%player%":
+					send "&b%player%&e, the leader has left the party." to {_v::*}
+					send "&eThe party has been disbanded." to {_v::*}
+					send "{@MSG_PartyFormat}" to {_v::*}
+					loop {Party.%UUID of player%::*}:
+						set {_pl} to loop-value
+						set {_plU} to {_pl}'s uuid
+						delete {PartyInvited.%{_plU}%}
+						send "{@MSG_PartyFormat}" to loop-value
+						send "&eThe party has been disbaneded because" to loop-value
+						send "&eno one is in your party." to loop-value
+						send "{@MSG_PartyFormat}" to loop-value
+					delete {Party.%UUID of player%::*}
+					stop
+				else:
+					send "&b%player% &ehas left the party." to {_v::*}
+					send "{@MSG_PartyFormat}" to {_v::*}
+					remove player from {Party.%{_piU}%::*}
+					set {_sz} to size of {Party.%{_piU}%::*}
+					if {_sz} is equal to 1:
+						loop {Party.%{_piU}%::*}:
+							set {_pl} to loop-value
+							set {_pl} to {_pl} parsed as offline player
+							set {_plU} to {_pl}'s uuid
+							delete {PartyInvited.%{_plU}%}
+							delete {Party.%{_plU}%::*}
+							send "{@MSG_PartyFormat}" to loop-value
+							send "&eThe party has been disbaneded because" to loop-value
+							send "&eno one is in your party." to loop-value
+							send "{@MSG_PartyFormat}" to loop-value
+						delete {Party.%UUID of player%::*}
+					delete {PartyInvited.%UUID of player%}
+					stop
+	# /////////////////////////////
+		if arg-1 is "join" or "accept":
+			if {PartyInvitation.%UUID of player%::*} contains "%{_p}%":
+				delete {PartyInvitation.%UUID of player%::*}
+				set {PartyInvited.%UUID of player%} to "%{_p}%"
+				stop
+			else:
+				send "&cYou don't have an invitation to a party." to player
+				Nope(player)
+				stop
+# ///////////////////////
+		if arg-1 is "invite":
+			if {_p} is the player:
+				send "&cYou cannot invite yourself." to player
+				Nope(player)
+				stop
+			if {_p} is not online:
+				send "&cThis player is not online." to player
+				Nope(player)
+				stop
+			if {PartyInvitation.%{_pU}%::*} contains "%player%":
+				send "&cYou have already invited this person." to player
+				Nope(player)
+				stop
+			if {PartyInvited.%{_pU}%} is set:
+				send "&cThis player is already in a party." to player
+				Nope(player)
+			else:
+				set {_szz} to size of {Party.%UUID of player%::*}
+				if {_szz} is equal to 10:
+					send "&cYou reached max player that a party can have!" to player
+					Nope(player)
+					stop
+				if {Party.%UUID of player%::*} is not set: # PARTY NO -> CREATION
+					if {PartyInvited.%UUID of player%} is not set: # VOIX: NO PARTY
+						PartyInvitation(player, {_p})
+						stop
+					else:
+						if {PartyInvited.%UUID of player%} contains "%player%": # VOIX: Yes Perm
+							PartyInvitation(player, {_p})
+						else: # VOIX: No Perm
+							send "&cYou're not the owner of this party!" to player
+							Nope(player)
+							stop
+				else: # PARTY YES + MORE PLAYER
+					send "{@MSG_PartyFormat}" to {_v::*}
+					send "{@MSG_PartyFormat}" to {_p}
+					send "{@MSG_PartyInvitedBy}" to {_p}
+					send "{@MSG_PartyInvitedBy2}" to {_p}
+					send "{@MSG_PartyFormat}" to {_p}
+					send "{@MSG_PartyOwnerInvitedPlayer}" to {_v::*}
+					send "{@MSG_PartyOwnerInvitedPlayer2}" to {_v::*}
+					send "{@MSG_PartyFormat}" to {_v::*}
+					add "%player%" to {PartyInvitation.%{_pU}%::*}
+					loop 15 times:
+						if {PartyInvited.%{_pU}%} contains "%player%":
+						
+							set {PartyInvited.%{_pU}%} to "%player%"
+							delete {PartyInvitation.%{_pU}%::*}
+							add {_p} to {Party.%UUID of player%::*}
+							set {_v::*} to {Party.%UUID of player%::*}
+							send "{@MSG_PartyFormat}" to {_v::*}
+							send "{@MSG_PartyJoined}" to {_v::*}
+							send "{@MSG_PartyFormat}" to {_v::*}
+							stop
+						wait 1 second
+					send "{@MSG_PartyFormat}" to {_p}
+					send "{@MSG_PartyFormat}" to {_v::*}
+					send "{@MSG_PartyExpiredFrom}" to {_p}
+					send "{@MSG_PartyExpiredFor}" to {_v::*}
+					send "{@MSG_PartyFormat}" to {_p}
+					send "{@MSG_PartyFormat}" to {_v::*}
+					remove "%player%" from {PartyInvitation.%{_pU}%::*}
+					stop
+						
+function PartyInvitation(pp: player, p: player):
+	set {_p} to {_p} parsed as player
+	set {_pp} to {_pp} parsed as player
+	set {_ppU} to {_pp}'s uuid
+	set {_pU} to {_p}'s uuid
+	add "%{_pp}%" to {PartyInvitation.%{_pU}%::*}
+	send "{@MSG_PartyFormat}" to {_p}
+	send "{@MSG_PartyFormat}" to {_pp}
+	send "{@MSGF_PartyInvitedBy}" to {_p}
+	send "{@MSGF_PartyInvitedBy2}" to {_p}
+	send "{@MSGF_PartyOwnerInvitedPlayer}" to {_pp}
+	send "{@MSG_PartyOwnerInvitedPlayer2}" to {_pp}
+	send "{@MSG_PartyFormat}" to {_p}
+	send "{@MSG_PartyFormat}" to {_pp}
+	loop 15 times:
+		if {PartyInvited.%{_pU}%} contains "%{_pp}%":
+			set {PartyInvited.%{_ppU}%} to "%{_pp}%"
+			set {PartyInvited.%{_pU}%} to "%{_pp}%"
+			delete {PartyInvitation.%{_pU}%::*}
+			delete {PartyInvitation.%{_ppU}%::*}
+			add {_p} to {Party.%{_ppU}%::*}
+			add {_pp} to {Party.%{_ppU}%::*}
+			send "{@MSG_PartyFormat}" to {_pp} and {_p}
+			send "{@MSG_PartyJoined}" to {_pp} and {_p}
+			send "{@MSG_PartyFormat}" to {_pp} and {_p}
+			stop
+		wait 1 second
+	send "{@MSG_PartyFormat}" to {_p}
+	send "{@MSG_PartyFormat}" to {_pp}
+	send "{@MSGF_PartyExpiredFrom}" to {_p}
+	send "{@MSGF_PartyExpiredFor}" to {_pp}
+	send "{@MSG_PartyFormat}" to {_p}
+	send "{@MSG_PartyFormat}" to {_pp}
+	remove "%{_pp}%" from {PartyInvitation.%{_pU}%::*}
+	stop

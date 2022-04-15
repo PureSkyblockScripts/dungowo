@@ -1,0 +1,19 @@
+command /resultat <text> [<number>] [<number>]:
+ permission: op
+ usage: &c/resultat <competence/exploration/rapidite/bonus> [<nombre de joueur>] [<mort>]
+ trigger:
+  if arg-1 is "competence":
+   set {result1-competence-player} to arg-2
+   set {result1-competence-player-death} to arg-3
+   set {result1-competence-death} to {result1-competence-player-death} * 2
+   set {result1-competence-puzzle} to ( ( ( {puzzle1-success} / 2) * {result1-competence-player} ) * 10 ) * 1.5
+   set {result1-competence-all} to 150 - ( {result1-competence-puzzle} + {result1-competence-death} )
+   send "&6Score de Compétence &7- &d%{result1-competence-all}%&7/150" to player
+
+  if arg-1 is "exploration":
+   set {result1-exploration} to ( arg 2 / 39 ) * 100
+   send "&6Score d'Exploration &7- &d%{result1-exploration}%&7/100" to player
+
+  if arg-1 is "rapidité":
+   set {result1-rapidite} to 100 - (arg 2 * arg 3) 
+   send "&6Score de Rapidité &7- &d%{result1-rapidite}%&7/100" to player

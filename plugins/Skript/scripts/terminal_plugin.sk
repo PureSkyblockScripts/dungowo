@@ -1,0 +1,24 @@
+on inventory open:
+	wait 1 tick
+	if {SB-Mods.%UUID of player%::*} contains "Terminal Solver":
+		set {_i1} to {SB-Mods-TerminalSolver.%UUID of player%::1}
+		set {_i2} to {SB-Mods-TerminalSolver.%UUID of player%::2}
+			
+
+		if name of player's current inventory contains "What starts with:":
+			loop all items in player's current inventory:
+				if name of loop-item contains "&a":
+					set {_v} to tag "l" of nbt of loop-item
+					if {_v} is {Terminal.%UUID of player%}:
+						set loop-item to {_i1} named "&a%loop-item's name%" with nbt "{l:""%{_v}%""}"
+					else:
+						if {_i2} is set:
+							set loop-item to black stained glass pane named "&cNO" with nbt "{l:""1""}"
+						
+		if name of player's current inventory contains "Select all colors in":
+			loop all items in player's current inventory:
+				if name of loop-item contains "&cClose" or "&f " or "&f":
+					continue
+				else:
+					if name of loop-item is {Terminal.%UUID of player%}:
+						set loop-item to {_i1} named "%name of loop-item%"

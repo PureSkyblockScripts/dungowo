@@ -1,0 +1,234 @@
+on right click on entity:
+ if entity's name is "&7Joshua":
+  make console execute command "/joshua %player%"
+
+command /joshua <player>:
+	permission: op
+	trigger:
+		if {abc} is not true:
+			if {abc} is not true:
+				open virtual chest inventory with size 4 named "Joshua" to arg-1
+				format gui slot (integers between 0 and 35) of arg-1 with black stained glass pane named "&0"
+
+				format gui slot (integers between 1 and 5) of arg-1 with gray stained glass pane named "&0"
+				format gui slot 1 of arg-1 with lime stained glass pane named "&0"
+
+				format gui slot 31 of arg-1 with barrier named "&cFermer &0" to close
+				
+				set {SellItem-Mode-Normal.%UUID of arg-1%} to true
+				set {SellItem-Mode-Vision.%UUID of arg-1%} to false
+				set {SellItem-Mode-All.%UUID of arg-1%} to false
+				set {SellItem-Mode-Size.%UUID of arg-1%} to 1
+				set {SellItem-Price.%UUID of arg-1%} to 0
+				set {SellItem-Item.%UUID of arg-1%} to air named "&cRien"
+				
+				format gui slot 10 of arg-1 with gold nugget named "&aVendre par x1 &0" with lore "&7Vendez vos articles à une quantité" and "&7de &cx1 &7lorsque vous cliquez dessus." and "&7" and "&eCliquez pour sélectionner!" to run:
+					format gui slot (integers between 1 and 5) of player with gray stained glass pane named "&0"
+					format gui slot 1 of player with lime stained glass pane named "&0"
+					set {SellItem-Mode-All.%UUID of player%} to false
+					set {SellItem-Mode-Size.%UUID of player%} to 1
+					play sound "ui.button.click" at player for player
+					stop
+
+				format gui slot 11 of arg-1 with gold ingot named "&aVendre par x16 &0" with lore "&7Vendez vos articles à une quantité" and "&7de &cx16 &7lorsque vous cliquez dessus." and "&7" and "&eCliquez pour sélectionner!" to run:
+					format gui slot (integers between 1 and 5) of player with gray stained glass pane named "&0"
+					format gui slot 2 of player with lime stained glass pane named "&0"
+					set {SellItem-Mode-All.%UUID of player%} to false
+					set {SellItem-Mode-Size.%UUID of player%} to 16
+					play sound "ui.button.click" at player for player
+					stop
+				
+				format gui slot 12 of arg-1 with gold block named "&aVendre par x32 &0" with lore "&7Vendez vos articles à une quantité" and "&7de &cx32 &7lorsque vous cliquez dessus." and "&7" and "&eCliquez pour sélectionner!" to run:
+					format gui slot (integers between 1 and 5) of player with gray stained glass pane named "&0"
+					format gui slot 3 of player with lime stained glass pane named "&0"
+					set {SellItem-Mode-All.%UUID of player%} to false
+					set {SellItem-Mode-Size.%UUID of player%} to 32
+					play sound "ui.button.click" at player for player
+					stop
+
+				format gui slot 13 of arg-1 with gold block of unbreaking 1 with hidden enchants flag named "&aVendre par x64 &0" with lore "&7Vendez vos articles à une quantité" and "&7de &cx64 &7lorsque vous cliquez dessus." and "&7" and "&eCliquez pour sélectionner!" to run:
+					format gui slot (integers between 1 and 5) of player with gray stained glass pane named "&0"
+					format gui slot 4 of player with lime stained glass pane named "&0"
+					set {SellItem-Mode-All.%UUID of player%} to false
+					set {SellItem-Mode-Size.%UUID of player%} to 64
+					play sound "ui.button.click" at player for player
+					stop
+				
+				format gui slot 14 of arg-1 with yellow stained glass of unbreaking 1 with hidden enchants flag named "&aVendre tout &0" with lore "&7Vendez tout l'article en question" and "&7présents dans votre inventaire." and "&7" and "&eCliquez pour sélectionner!" to run:
+					format gui slot (integers between 1 and 5) of player with gray stained glass pane named "&0"
+					format gui slot 5 of player with lime stained glass pane named "&0"
+					set {SellItem-Mode-All.%UUID of player%} to true
+					set {SellItem-Mode-Size.%UUID of player%} to 1
+					play sound "ui.button.click" at player for player
+					stop
+				
+				format gui slot 16 of arg-1 with birch sign named "&aFonctionnement des ventes &0" with lore "&c&lINFO!" and "&7Cliquez l'article que vous souhaitez vendre" and "&7dans votre inventaire pour récupérer des" and "&7pièces en échange." and "&7" and "&6&lOPTION!" and "&7Choissisez votre mode de quantité à vendre" and "&7lorsque vous cliquerez sur un article." and "&7" and "&9&lPRIX!" and "&7Informez vous sur le prix en activant le mode" and "&7vision ci-dessous. Ensuite, cliquez sur l'article" and "&7que vous souhaitez voir le prix."
+
+				format gui slot 33 of arg-1 with ender eye named "&9Mode Vision &0" with lore "&7Cliquez sur l'article en question pour" and "&7voir le prix du vente." and "&7" and "&eCliquez pour changer mode!" to run:
+					set {SellItem-Mode-Normal.%UUID of player%} to false
+					set {SellItem-Mode-Vision.%UUID of player%} to true
+					play sound "block.chest.open" at player for player
+					stop
+				
+				format gui slot 34 of arg-1 with chest named "&6Mode Normal &0" with lore "&7Cliquez pour revenir en mode normal." and "&7" and "&eCliquez pour changer mode!" to run:
+					set {SellItem-Mode-Normal.%UUID of player%} to true
+					set {SellItem-Mode-Vision.%UUID of player%} to false
+					play sound "block.chest.open" at player for player
+					stop
+					
+				format gui slot 29 of arg-1 with map named "&9Vision du prix &0" with lore "&7Cliquez sur l'article en question en mode" and "&7vision pour voir le prix du vente." and "&7" and "&7Prix de l'Article: &6%{SellItem-Price.%UUID of arg-1%} * {SellItem-Mode-Size.%UUID of arg-1%}% &6Pièce(s)&7/%{SellItem-Mode-Size.%UUID of arg-1%}%"
+
+on inventory click:
+	if name of player's current inventory is "Joshua":
+		cancel event
+		if name of clicked item contains "&0":
+			stop
+		else:
+		
+# ====
+
+			if name of clicked item is "&fÉchelle" or "&fPlanches de Chêne" or "&fGraines de Blé":
+				set {SellItem-Price.%UUID of player%} to 0.5
+				set {SellItem-Item.%UUID of player%} to name of clicked item
+
+			else if name of clicked item is "&fPomme de Terre" or "Pomme de Terre Cuite" or "&fCarotte" or "&fPierres" or "&fTerre" or "&fBloc d'Herbe" or "&fBarreaux de Fer" or "&fLapis-Lazuli" or "&fMelon" or "&fRoche du Nether" or "&fPatate" or "&fRedstone" or "&fRoche" or "&fBlé" or "&fMithril" or "&fFlèche de Silex":
+				set {SellItem-Price.%UUID of player%} to 1
+				set {SellItem-Item.%UUID of player%} to name of clicked item
+				
+			else if name of clicked item is "&fBois d'Acacia" or "&fBois de Bouleau" or "&fOs" or "&fCoffre" or "&fArgile Durcie" or "&fBois de Chêne" or "&fBois d'Acajou" or "&fBois de Chêne Noir" or "&fBois de Sapin" or "&fArbuste Mort" or "&fFeuilles de Chêne" or "&fFeuilles de Sapin" or "&fFeuilles de Bouleau" or "&fFeuilles d'Acajou" or "&fFeuilles de Chêne Noir" or "&fFeuilles d'Acacia" or "&fCanne à Pêche" or "&fVerre" or "&fGranite" or "&fAndesite" or "&fPoche d'Encre" or "&fPapier" or "&fChair Putréfiée" or "&fSable" or "&fSable Rouge" or "&fCanne à Sucre" or "&fCactus" or "&fCharbon":
+				set {SellItem-Price.%UUID of player%} to 2
+				set {SellItem-Item.%UUID of player%} to name of clicked item
+				
+			else if name of clicked item is "&fClay" or "&fFèves de Cacao" or "&fOeuf" or "&fPlume" or "&fMinerai d'Or" or "&fGravier" or "&fLingot de Fer" or "&fMinerai de Fer" or "&fCuir" or "&fVerrues du Nether" or "&fOeil d'Araignée" or "&fFicelle" or "&fLaine Blanche" or "&fLaine Orange" or "&fLaine Jaune" or "&fLaine Vert Clair" or "&fLaine Bleu Clair" or "&fLaine Cyan" or "&fLaine Bleue" or "&fLaine Violette" or "&fLaine Rose" or "&fLaine Magenta" or "&fLaine Marron" or "&fLaine Noire" or "&fLaine Grise" or "&fLaine Grise Clair" or "&fLaine Verte":
+				set {SellItem-Price.%UUID of player%} to 3
+				set {SellItem-Item.%UUID of player%} to name of clicked item
+				
+			else if name of clicked item is "&fChampignon Marron" or "&fChampignon Rouge" or "&fSteak" or "&fPoulet Rôti" or "&fPastèque Scintillante" or "&fLingot d'Or" or "&fPoudre à Canon" or "&fPioche en Fer" or "&fQuartz du Nether" or "&fCitrouille" or "&fBoeuf Cru" or "&fPoulet Cru" or "&fLapin Cru" or "&fSeau d'Eeu":
+				set {SellItem-Price.%UUID of player%} to 4
+				set {SellItem-Item.%UUID of player%} to name of clicked item
+
+			else if name of clicked item is "&fPomme" or "&fBoule de Slime" or "&fSaumon Cru" or "&fCôtelette de Porc Crue" or "&fPeau de Lapin" or "&fÉclat de Prismarine" or "&fCristaux de Prismarine" or "&fPodzol" or "&fMouton Cru" or "&fCôtelette de Porc Cuite" or "&fPoudre de Blaze":
+				set {SellItem-Price.%UUID of player%} to 5
+				set {SellItem-Item.%UUID of player%} to name of clicked item
+				
+			else if name of clicked item is "&fÉmeraude" or "&fPioche en Or" or "&fPoisson Cru":
+				set {SellItem-Price.%UUID of player%} to 6
+				set {SellItem-Item.%UUID of player%} to name of clicked item
+				
+			else if name of clicked item is "&fDiamant" or "&aÉpée en Diamant" or "&fSeau de Lave" or "&fCrème de Magma":
+				set {SellItem-Price.%UUID of player%} to 8
+				set {SellItem-Item.%UUID of player%} to name of clicked item
+				
+			else if name of clicked item is "&fArc" or "&fBloc de Paille" or "&fBloc de Lapis-Lazuli" or "&fPastèque":
+				set {SellItem-Price.%UUID of player%} to 9
+				set {SellItem-Item.%UUID of player%} to name of clicked item
+				
+			else if name of clicked item is "&fBâton de Blaze" or "&fPearl de l'Ender" or "&fNénuphar" or "&fPomme de Terre Empoisonée":
+				set {SellItem-Price.%UUID of player%} to 10
+				set {SellItem-Item.%UUID of player%} to name of clicked item
+				
+			else if name of clicked item is "&fObsidienne":
+				set {SellItem-Price.%UUID of player%} to 12
+				set {SellItem-Item.%UUID of player%} to name of clicked item
+				
+			else if name of clicked item is "&aLapis-Lazuli Enchanté" or "&aPierres Enchanté" or "&aMelon Enchanté" or "&aRedstone Enchanté" or "&9Mithril Enchanté" or "&aCarotte Enchanté":
+				set {SellItem-Price.%UUID of player%} to 160
+				set {SellItem-Item.%UUID of player%} to name of clicked item
+				
+			else if name of clicked item is "&aCharbon Enchanté" or "&aBois de Chêne Enchanté" or "&aBois de Sapin Enchanté" or "&aBois d'Acajou Enchanté" or "&aSucre Enchanté" or "&fChair Putréfiée Enchanté" or "&fOs Enchanté":
+				set {SellItem-Price.%UUID of player%} to 320
+				set {SellItem-Item.%UUID of player%} to name of clicked item
+				
+			else if name of clicked item is "&aLingot de Fer Enchanté" or "&aFèves de Cacao Enchanté" or "&aFicelle Enchanté":
+				set {SellItem-Price.%UUID of player%} to 480
+				set {SellItem-Item.%UUID of player%} to name of clicked item
+				
+			else if name of clicked item is "&aFicelle Enchanté":
+				set {SellItem-Price.%UUID of player%} to 576
+				set {SellItem-Item.%UUID of player%} to name of clicked item
+				
+			else if name of clicked item is "&aLingot d'Or Enchanté" or "&aCitrouille Enchanté" or "&aChampignon Rouge Enchanté" or "&aChampignon Marron Enchanté":
+				set {SellItem-Price.%UUID of player%} to 640
+				set {SellItem-Item.%UUID of player%} to name of clicked item
+				
+			else if name of clicked item is "&aÉmeraude Enchanté":
+				set {SellItem-Price.%UUID of player%} to 960
+				set {SellItem-Item.%UUID of player%} to name of clicked item
+				
+			else if name of clicked item is "&aDiamant Enchanté":
+				set {SellItem-Price.%UUID of player%} to 1280
+				set {SellItem-Item.%UUID of player%} to name of clicked item
+				
+			else if name of clicked item is "&aBloc de Paille Enchanté":
+				set {SellItem-Price.%UUID of player%} to 1300
+				set {SellItem-Item.%UUID of player%} to name of clicked item
+				
+			else if name of clicked item is "&aObsidienne Enchanté":
+				set {SellItem-Price.%UUID of player%} to 1920
+				set {SellItem-Item.%UUID of player%} to name of clicked item
+				
+			else if name of clicked item is "&9Canne à Sucre Enchanté":
+				set {SellItem-Price.%UUID of player%} to 51000
+				set {SellItem-Item.%UUID of player%} to name of clicked item
+				
+			else if name of clicked item is "&9Bloc de Redstone Enchanté" or "&9Bloc de Lapis Enchanté" or "&9Pastèque Enchanté":
+				set {SellItem-Price.%UUID of player%} to 25600
+				set {SellItem-Item.%UUID of player%} to name of clicked item
+				
+			else if name of clicked item is "&9Bloc de Fer Enchanté":
+				set {SellItem-Price.%UUID of player%} to 76800
+				set {SellItem-Item.%UUID of player%} to name of clicked item
+				
+			else if name of clicked item is "&9Bloc de Champignon Rouge Enchanté" or "&9Bloc de Champignon Marron Enchanté" or "&9Bloc d'Or Enchanté":
+				set {SellItem-Price.%UUID of player%} to 153600
+				set {SellItem-Item.%UUID of player%} to name of clicked item
+			
+			else if name of clicked item is "&9Bloc d'Émeraude Enchanté":
+				set {SellItem-Price.%UUID of player%} to 153600
+				set {SellItem-Item.%UUID of player%} to name of clicked item
+			
+			else if name of clicked item is "&9Bloc de Diamant Enchanté":
+				set {SellItem-Price.%UUID of player%} to 204800
+				set {SellItem-Item.%UUID of player%} to name of clicked item
+
+			else:
+				send "&cVous ne pouvez pas vendre cet article." to player
+				play sound "entity.villager.no" at player for player
+				stop
+# ====
+			if {SellItem-Mode-Normal.%UUID of player%} is true:
+				if {SellItem-Mode-All.%UUID of player%} is not true:
+					if player has {SellItem-Mode-Size.%UUID of player%} of clicked item:
+						remove {SellItem-Mode-Size.%UUID of player%} of clicked item from player's inventory
+						add ({SellItem-Mode-Size.%UUID of player%} * {SellItem-Price.%UUID of player%}) to {purse.%UUID of player%}
+						send "&6&lVENTE! &fVous avez vendu &8x&8%{SellItem-Mode-Size.%UUID of player%}% &f%{SellItem-Item.%UUID of player%}% &fpour &6%{SellItem-Mode-Size.%UUID of player%} * {SellItem-Price.%UUID of player%}% &6Pièces&f." to player
+						play sound "entity.player.levelup" at player for player
+						stop
+				
+					else:
+						send "&cVous n'avez pas assez pour vendre autant. Essayez de réduire le mode de quantité." to player
+						play sound "entity.villager.no" at player for player
+						stop
+				else:
+					set {_SellItem-Stack.%UUID of player%} to number of clicked item in player's inventory
+					remove {_SellItem-Stack.%UUID of player%} of clicked item from player's inventory
+					add ({_SellItem-Stack.%UUID of player%} * {SellItem-Price.%UUID of player%}) to {purse.%UUID of player%}
+					send "&6&lVENTE! &fVous avez vendu &8x&8%{_SellItem-Stack.%UUID of player%}% &f%{SellItem-Item.%UUID of player%}% &fpour &6%{_SellItem-Stack.%UUID of player%} * {SellItem-Price.%UUID of player%}% &6Pièce(s)&f." to player
+					play sound "entity.player.levelup" at player for player
+					stop
+		
+			else:
+				if {SellItem-Mode-Vision.%UUID of player%} is true:
+					if {SellItem-Mode-All.%UUID of player%} is not true:
+						
+						format gui slot 29 of player with map named "&9Vision du prix &0" with lore "&7Cliquez sur l'article en question en mode" and "&7vision pour voir le prix du vente." and "&7" and "&7Prix de l'Article: &6%{SellItem-Price.%UUID of player%} * {SellItem-Mode-Size.%UUID of player%}% &6Pièce(s)&7/%{SellItem-Mode-Size.%UUID of player%}%"
+					else:
+						set {_SellItem-Stack.%UUID of player%} to number of clicked item in player's inventory
+						format gui slot 29 of player with map named "&9Vision du prix &0" with lore "&7Cliquez sur l'article en question en mode" and "&7vision pour voir le prix du vente." and "&7" and "&7Prix de l'Article: &6%{SellItem-Price.%UUID of player%} * {_SellItem-Stack.%UUID of player%}% &6Pièce(s)&7/%{_SellItem-Stack.%UUID of player%}%"
+
+					send "&9&lVISION DE L'ARTICLE! &fLe prix de &c%name of clicked item% &fest de &6%{SellItem-Price.%UUID of player%}% &6Pièce(s)&f/unité." to player
+					play sound "entity.experience_orb.pickup" at player for player
+				else:
+					send "&cErreur produite." to player
+					close player's inventory
+		

@@ -1,0 +1,34 @@
+command /chat <player> <text>:
+	usage: &c/chat <player> <message>
+	aliases: /ch
+	trigger:
+		set {_attentePrivateMessage.%UUID of player%} to difference between {cooldownPrivateMessage.%UUID of player%} and now
+		if {_attentePrivateMessage.%UUID of player%} is less than 1.5 second:
+			send "&cWait." to player
+			stop
+		else:
+			set {cooldownPrivateMessage.%UUID of player%} to now
+			set {PrivateMessage.%UUID of player%} to arg-1
+			set {PrivateMessage.%UUID of arg-1%} to player
+
+			send "<ttp:&7Send back.><sgt:/re >&8[&6&lMESSAGE! &c%{trueplayer.%UUID of player%}% &8>> &7%arg-2%&8]" to arg-1
+			send "<ttp:&7Send another message quickly.><sgt:/re >&8[&6&lMESSAGE! &8To &c%{trueplayer.%UUID of arg-1%}% &8>> &7%arg-2%&8]" to player
+
+			play sound "entity.experience_orb.pickup" at arg-1 for arg-1
+			stop
+
+command /re <text>:	
+	usage: &c/re <message>
+	aliases: /rep, /rr
+	trigger:
+		set {_PrivateMessage-Replay} to {PrivateMessage.%UUID of player%}'s uuid
+		if {Setting-PrivateMessage.%{_PrivateMessage-Replay}%} is true:
+			set {cooldownPrivateMessage.%UUID of player%} to now
+
+			send "<ttp:&7Send back.><sgt:/re >&6&lMESSAGE! &c%{trueplayer.%UUID of player%}% &8>> &7%arg-1%" to {PrivateMessage.%UUID of player%}
+			set {_o} to {PrivateMessage.%UUID of player%}
+			set {_oU} to {_o}'s uuid
+			send "<ttp:&7Send another message quickly.><sgt:/re >&6&lMESSAGE! &8To &c%{trueplayer.%{_oU}%}% &8>> &7%arg-1%" to player
+
+			play sound "entity.experience_orb.pickup" at {PrivateMessage.%UUID of player%} for {PrivateMessage.%UUID of player%}
+			stop

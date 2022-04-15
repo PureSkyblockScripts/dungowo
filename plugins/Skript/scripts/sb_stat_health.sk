@@ -1,0 +1,160 @@
+command /heal [<number>]:
+	permission: op
+	usage: &c/heal [<valeur>]
+	trigger:
+		if arg-1 is not set:
+			set {Health.%UUID of player%} to {MaxHealth.%UUID of player%}
+		else:
+			add arg-1 to {Health.%UUID of player%}
+		send "&aYou have been healed!"
+			
+command /absorption <player> <number> <number>:
+	permission: op
+	usage: &c/absorption <player> <value> <second>
+	trigger:
+		set {Absorption.%UUID of arg-1%} to arg-2
+		set {Absorption-Time.%UUID of arg-1%} to arg-3
+		
+command /resistance <player> <number> <number>:
+	permission: op
+	usage: &c/resistance <player> <value> <second>
+	trigger:
+		set {Resistance.%UUID of arg-1%} to arg-2
+		set {Resistance-Time.%UUID of arg-1%} to arg-3
+# //////////////////////////////////////////
+every second in "world":
+	loop all players:
+		if loop-player is a player:
+			remove wither from loop-player's potion effects
+			if {defense.%UUID of loop-player%} is set:
+# ==== SET SPEED
+				set loop-player's walk speed to ({Speed.%UUID of loop-player%}/100)*0.2
+				if loop-player's walk speed is higher than 0.8:
+					if name of {Pet.%UUID of loop-player%} doesn't contain "&6Black Cat":
+						set loop-player's walk speed to 0.8
+				if loop-player's walk speed is higher than 0.4:
+					if {SB-TrainingArea.%UUID of loop-player%} is set:
+						set loop-player's walk speed to 0.4
+
+# ==== SET DEFENSE REDUCTION
+				set {defenseReduction.%UUID of loop-player%} to (100*({defense.%UUID of loop-player%}/({defense.%UUID of loop-player%}+100)))
+				set {effectiveHealth.%UUID of loop-player%} to ({MaxHealth.%UUID of loop-player%}*(({defense.%UUID of loop-player%}+100)/100))
+# ==== SHOW PLAYER'S HEALTH + ABSO
+				apply resistance 250 without particles to loop-player for 2 seconds replacing existing effect # EFFECT
+				if {Absorption.%UUID of loop-player%} is higher than 0:
+					set {_v} to ({Absorption.%UUID of loop-player%}/100)
+					if {_v} is higher than 5:
+						set {_v} to 5
+					apply absorption {_v} without particles to loop-player for 1 seconds replacing existing effect
+				else:
+					if {Health.%UUID of loop-player%} is higher than 0:
+						set loop-player's health to (({health.%UUID of loop-player%} / {MaxHealth.%UUID of loop-player%}) * 20)
+# ================
+#remove poison from victim's active potion effects
+
+every second in "world":
+	loop all players:
+		if {defense.%UUID of loop-player%} is set:	
+# //
+			set hunger meter of loop-player to 20
+			if {Absorption.%UUID of loop-player%} is set:
+				if {Absorption-Time.%UUID of loop-player%} is higher than 0:
+					remove 1 from {Absorption-Time.%UUID of loop-player%}
+				else:
+					delete {Absorption.%UUID of loop-player%}
+					delete {Absorption-Time.%UUID of loop-player%}
+					remove absorption from loop-player's potion effects
+# ==================
+			if {Resistance.%UUID of loop-player%} is set:
+				if {Resistance-Time.%UUID of loop-player%} is higher than 0:
+					remove 1 from {Resistance-Time.%UUID of loop-player%}
+				else:
+					delete {Resistance.%UUID of loop-player%}
+					delete {Resistance-Time.%UUID of loop-player%}
+# ////////////////////////////
+			if {Health.%UUID of loop-player%} is higher than ({MaxHealth.%UUID of loop-player%}-0.1):
+				set {Health.%UUID of loop-player%} to {MaxHealth.%UUID of loop-player%}
+			if {Health.%UUID of loop-player%} is not higher than 0:
+				KillPlayer(loop-player)
+
+every 2 seconds in "world":
+	loop all players:
+		if {Health.%UUID of loop-player%} is higher than ({MaxHealth.%UUID of loop-player%} - 0.1):
+			set {Health.%UUID of loop-player%} to {MaxHealth.%UUID of loop-player%}
+		else:
+			#apply regeneration 2 without particles to loop-player for 3 seconds replacing existing effect
+			add {Regeneration.%UUID of loop-player%} to {Health.%UUID of loop-player%}
+		set {_rm} to {RegenerationMultiplicator.%UUID of loop-player%}
+		if {_rm} is not set:
+			set {_rm} to 1
+			set {RegenerationMultiplicator.%UUID of loop-player%} to 1
+		set {Regeneration.%UUID of loop-player%}  to round(0.75+(0.02*{MaxHealth.%UUID of loop-player%})*(1+({NaturalRegeneration.%UUID of loop-player%}/100)))*{_rm}
+
+		set {_pU} to loop-player
+		set {Menu-ProfileStat.%{_pU}%} to ("%loop-player%" parsed as offline player)'s skull named "%loop-player%'s Profile" with lore " &c❤ Health &f%round({MaxHealth.%{_pU}%})% &fHP" and " &a❈ Defense &f%round({defense.%{_pU}%})%" and " &c❁ Strength &f%round({strength.%{_pU}%})%" and " &f✦ Speed &f%round({Speed.%{_pU}%})%" and " &9☣ Crit Chance &f%round({critchance.%{_pU}%})%&f%%" and " &9☠ Crit Damage &f%round({critdamage.%{_pU}%})%" and " &b✎ Intelligence &f%round({Intelligence.%{_pU}%})%" and " &6⸕ Mining Speed &f%round({MiningSpeed.%{_pU}%})%&f%%" and " &e⚔ &eAttack Speed &f%round({attackspeed.%{_pU}%})%%%" and " &3α Sea Creature Chance &f%round(0)%%%" and " &b✯ Magic Find &f%round({magicfind.%{_pU}%})%" and " &d♣ Pet Luck &f%round({PetLuck.%{_pU}%})%" and " &f❂ True Defense %round(0)%" and " &c⫽ Ferocity &f%round({Ferocity.%{_pU}%})%" and " &c๑ Ability Damage &f%round({AbilityDamage.%{_pU}%})%%%" and " &6☘ Farming Fortune &f%round({farmingfortune.%{_pU}%})%&f%%" and " &6☘ Foraging Fortune &f%round({Foragingfortune.%{_pU}%})%&f%%" and " &6☘ Mining Fortune &f%round({Miningfortune.%{_pU}%})%&f%%" and " &5✧ Pristine %round(0)%" and "&7" and " &f➢ &d%{essence.%{_pU}%}% &dEssence(s)" and " &f➢ &6%{purse.%{_pU}%}% &6Coin(s)" and " &f➢ &e%{coins.%{_pU}%}% &eCoin(s) in Bank"	
+		set {Menu-ProfileInfo.%{_pU}%} to filled map named "&aGeneral Information" with lore "&7Check your general informations." and "&7" and " &7Death: &c%{SB-DeathCount.%{_pU}%}%" and "&7" and " &7Dungeon Played: &a%{SB-DungeonPlayed.%{_pU}%}%" and " &7Dungeon Completed: &a%{SB-DungeonCompleted.%{_pU}%}%" and " &7Secret Found: &b%{SB-DungeonSecretFound.%{_pU}%}%" and "&7" and " &7Best Damage: &d%{SB-BestDamage.%{_pU}%}%" and " &7Playtime: &a%time played of loop-player%" and "&7" and "&7Coming Soon..."
+# ///////////////////////////////////////////
+function MakeRealDamage(p: player, n: number):
+	set {_pU} to {_p}'s uuid
+	set {_dmg} to ({MaxHealth.%{_pU}%}*({_n}/100))
+	set {Damage-Taken.%{_pU}%} to {_dmg}
+	damage {_p} by 1
+	GetDamageHealth({_p})
+
+function MakeTrueDamage(p: player, n: number, r: number):
+	set {_pU} to {_p}'s uuid
+	set {_n} to ({_n}*({_r}/100))
+	set {Damage-Taken.%{_pU}%} to {_n}
+	damage {_p} by 1
+	GetDamageHealth({_p})
+
+on damage:
+	if victim is a player:
+		if attacker is not a player:
+			if attacker is a living entity:
+				if {SBD-Ghosted.%UUID of victim%} is not true:
+					set {Damage-Taken.%UUID of victim%} to {Mob-Damage.%UUID of attacker%}
+					if "%lore of victim's boots%" contains "&8Very Stylish.":
+						if "%lore of victim's leggings%" contains "&8Very Stylish.":
+							if "%lore of victim's chestplate%" contains "&8Very Stylish.":
+								set {Damage-Taken.%UUID of victim%} to ({Damage-Taken.%UUID of victim%}*2.5)
+					
+# ==== REDUCTION + DMG
+					GetDamageReduction(victim)
+# ==== TANK CLASS
+					if {SBD-Class.%UUID of victim%} is not "Tank":
+						SB_Dungeon_Class_Tank_Passive(attacker, victim, {Damage-Taken.%UUID of victim%})
+# ====
+					GetDamageHealth(victim)
+					delete {Damage-Taken.%UUID of victim%}
+				else:
+					cancel event
+# /////////////////////////////////////
+
+function MakeSpecificDamagePlayer(p: player, n: number):
+	set {_pU} to {_p}'s uuid
+	set {Damage-Taken.%{_pU}%} to {_n}
+	GetDamageReduction({_p})
+	GetDamageHealth({_p})
+					
+function GetDamageReduction(p: player):
+	set {_pU} to {_p}'s uuid
+	set {_dmg} to {Damage-Taken.%{_pU}%}
+# =====================
+	set {_dmg} to ({_dmg}*(1-({defenseReduction.%{_pU}%}/100)))
+# ==== RESISTANCE REDUCTION
+	if {Resistance.%{_pU}%} is set:
+		set {_r} to ({Resistance.%{_pU}%}/100)
+		remove ({_dmg}*{_r}) from {_dmg}
+# ===
+	set {Damage-Taken.%{_pU}%} to {_dmg}
+
+function GetDamageHealth(p: player):
+	set {_pU} to {_p}'s uuid
+	set {_dmg} to {Damage-Taken.%{_pU}%}
+	if {Absorption.%{_pU}%} is set:
+		remove {_dmg} from {Absorption.%{_pU}%}
+	else:
+		remove {_dmg} from {health.%{_pU}%}
+	if {Health.%{_pU}%} is not higher than 0:
+		KillPlayer({_p})

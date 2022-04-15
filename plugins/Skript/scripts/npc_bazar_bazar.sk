@@ -1,0 +1,108 @@
+command /bazar-bazar <player>:
+	permission: op
+	trigger:
+		if {abc} is not true:
+			if {abc} is not true:
+				open virtual chest inventory with size 3 named "Bazar" to arg-1
+				format gui slot (integers between 0 and 26) of arg-1 with black stained glass pane named "&f"
+				format gui slot 22 of arg-1 with barrier named "&cFermer" to close
+				format gui slot 21 of arg-1 with arrow named "&aRetour" with lore "&7Revenir à la page précédente." and "&7" and "&eCliquez pour retourner!" to close:
+					make console execute command "/bazar-farming %player%"
+				
+				
+				format gui slot 10 of arg-1 with golden horse armor named "&aAchetez Instantanément" with lore "&8Article" and "&7" and "&7Prix par unité: &6%{Bazar-Item-Price-Buy.%UUID of arg-1%}% &6Pièce(s)" and "&7Prix par stack: &6%{Bazar-Item-Price-Buy.%UUID of arg-1%} * 64% &6Pièce(s)" and "&7" and "&eCliquez pour choisir la quantité!" to close:
+				
+					open virtual chest inventory with size 3 named "Bazar" to player
+					format gui slot (integers between 0 and 26) of player with black stained glass pane named "&f"
+				
+					format gui slot 22 of player with barrier named "&cFermer" to close
+					format gui slot 21 of player with arrow named "&aRetour" with lore "&7Revenir à la page précédente." and "&7" and "&eCliquez pour retourner!" to close:
+						make console execute command "/bazar-bazar %player%"
+					add 3000 of stick named "&0FILL" to player's inventory
+					loop all items in player's inventory:
+						if loop-item is a stick:
+							if name of loop-item is "&0FILL":
+								set {_Bazar-Stack.%UUID of player%} to number of loop-item in player's inventory
+					loop all items in player's inventory:
+						if loop-item is a stick:
+							if name of loop-item is "&0FILL":
+								remove loop-item from player's inventory
+
+					format gui slot 10 of player with chest named "&aAcheter x1" with lore "&8Article" and "&7" and "&7Prix de l'unité: &6%{Bazar-Item-Price-Buy.%UUID of player%}% &6Pièce(s)" and "&7" and "&eCliquez pour acheter!" to close:
+						if {purse.%UUID of player%} is higher than ({Bazar-Item-Price-Buy.%UUID of player%} - 0.1):
+							if inventory of player has enough space for 1 of {Bazar-Item-Article.%UUID of player%}:
+								remove {Bazar-Item-Price-Buy.%UUID of player%} from {purse.%UUID of player%}
+								give 1 of {Bazar-Item-Article.%UUID of player%} to player
+								play sound "entity.player.levelup" at player for player
+								stop
+							else:
+								send "&cVous n'avez pas de place dans votre inventaire." to player
+								play sound "entity.villager.no" at player for player
+								stop
+						else:
+							send "&cVous n'avez pas assez de pièce." to player
+							play sound "entity.villager.no" at player for player
+							stop
+							
+					format gui slot 12 of player with 16 of chest named "&aAcheter x16" with lore "&8Article" and "&7" and "&7Prix de la quantité: &6%{Bazar-Item-Price-Buy.%UUID of player%} * 16% &6Pièce(s)" and "&7" and "&eCliquez pour acheter!" to close:
+						if {purse.%UUID of player%} is higher than ({Bazar-Item-Price-Buy.%UUID of player%} * 16 - 0.1):
+							if inventory of player has enough space for 16 of {Bazar-Item-Article.%UUID of player%}:
+								remove ({Bazar-Item-Price-Buy.%UUID of player%} * 16) from {purse.%UUID of player%}
+								give 16 of {Bazar-Item-Article.%UUID of player%} to player
+								play sound "entity.player.levelup" at player for player
+								stop
+							else:
+								send "&cVous n'avez pas de place dans votre inventaire." to player
+								play sound "entity.villager.no" at player for player
+								stop
+						else:
+							send "&cVous n'avez pas assez de pièce." to player
+							play sound "entity.villager.no" at player for player
+							stop
+							
+					format gui slot 14 of player with 64 of chest named "&aAcheter x64" with lore "&8Article" and "&7" and "&7Prix de la quantité: &6%{Bazar-Item-Price-Buy.%UUID of player%} * 64% &6Pièce(s)" and "&7" and "&eCliquez pour acheter!" to close:
+						if {purse.%UUID of player%} is higher than ({Bazar-Item-Price-Buy.%UUID of player%} * 64 - 0.1):
+							if inventory of player has enough space for 64 of {Bazar-Item-Article.%UUID of player%}:
+								remove ({Bazar-Item-Price-Buy.%UUID of player%} * 64) from {purse.%UUID of player%}
+								give 64 of {Bazar-Item-Article.%UUID of player%} to player
+								play sound "entity.player.levelup" at player for player
+								stop
+							else:
+								send "&cVous n'avez pas de place dans votre inventaire." to player
+								play sound "entity.villager.no" at player for player
+								stop
+						else:
+							send "&cVous n'avez pas assez de pièce." to player
+							play sound "entity.villager.no" at player for player
+							stop
+							
+					format gui slot 16 of player with cauldron named "&aAcheter pour un inventaire complet" with lore "&8Article" and "&7" and "&7Prix de la quantité: &6%{Bazar-Item-Price-Buy.%UUID of player%} * {_Bazar-Stack.%UUID of player%}% &6Pièce(s)" and "&7" and "&eCliquez pour acheter!" to close:
+						if {purse.%UUID of player%} is higher than ({Bazar-Item-Price-Buy.%UUID of player%} * {_Bazar-Stack.%UUID of player%} - 0.1):
+							remove ({Bazar-Item-Price-Buy.%UUID of player%} * {_Bazar-Stack.%UUID of player%}) from {purse.%UUID of player%}
+							give {_Bazar-Stack.%UUID of player%} of {Bazar-Item-Article.%UUID of player%} to player
+							play sound "entity.player.levelup" at player for player
+							stop
+						else:
+							send "&cVous n'avez pas assez de pièce." to player
+							play sound "entity.villager.no" at player for player
+							stop
+							
+				
+				format gui slot 11 of arg-1 with hopper named "&aVendez Instantanément" with lore "&8Article" and "&7" and "&7Prix par unité: &6%{Bazar-Item-Price-Sell.%UUID of arg-1%}% &6Pièce(s)" and "&7" and "&eCliquez pour vendre!" to close:
+					loop all items in player's inventory:
+						if loop-item is {Bazar-Item-Article.%UUID of player%}:
+							set {_Bazar-Item-Sell.%UUID of player%} to number of loop-item in player's inventory
+
+					loop all items in player's inventory:
+						if loop-item is {Bazar-Item-Article.%UUID of player%}:
+							remove loop-item from player's inventory
+							
+					add ({_Bazar-Item-Sell.%UUID of player%} * {Bazar-Item-Price-Sell.%UUID of player%}) to {purse.%UUID of player%}
+					send "&6&lBAZAR! &fVous avez vendu l'article(s) pour &6%({_Bazar-Item-Sell.%UUID of player%} * {Bazar-Item-Price-Sell.%UUID of player%})% &6Pièce(s)&f." to player
+					play sound "entity.player.levelup" at player for player
+					stop
+				
+				format gui slot 13 of arg-1 with {Bazar-Item-Article.%UUID of arg-1%}
+				
+				format gui slot 15 of arg-1 with filled map named "&cBientôt"
+				format gui slot 16 of arg-1 with empty map named "&cBientôt"

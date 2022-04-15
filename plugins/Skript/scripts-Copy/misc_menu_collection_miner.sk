@@ -1,0 +1,65 @@
+command /menucollection-minier <player>:
+ permission: op
+ trigger:
+  if {Collection-Cobblestone.%UUID of arg-1%} is not set:
+   set {Collection-Cobblestone.%UUID of arg-1%} to 0
+  if {Collection-Coal.%UUID of arg-1%} is not set:
+   set {Collection-Coal.%UUID of arg-1%} to 0
+  if {Collection-Iron.%UUID of arg-1%} is not set:
+   set {Collection-Iron.%UUID of arg-1%} to 0
+  if {Collection-Gold.%UUID of arg-1%} is not set:
+   set {Collection-Gold.%UUID of arg-1%} to 0
+  if {Collection-Diamond.%UUID of arg-1%} is not set:
+   set {Collection-Diamond.%UUID of arg-1%} to 0
+  if {Collection-Emerald.%UUID of arg-1%} is not set:
+   set {Collection-Emerald.%UUID of arg-1%} to 0
+  if {Collection-LapisLazuli.%UUID of arg-1%} is not set:
+   set {Collection-LapisLazuli.%UUID of arg-1%} to 0
+  if {Collection-Redstone.%UUID of arg-1%} is not set:
+   set {Collection-Redstone.%UUID of arg-1%} to 0
+  if {Collection-Mithril.%UUID of arg-1%} is not set:
+   set {Collection-Mithril.%UUID of arg-1%} to 0
+  if {Collection-Obsidian.%UUID of arg-1%} is not set:
+   set {Collection-Obsidian.%UUID of arg-1%} to 0
+
+
+  open virtual chest inventory with size 6 named "Collection de Minier" to arg-1
+  wait 1 ticks
+  format gui slot (integers between 0 and 53) of arg-1 with black stained glass pane named "&f"
+
+  format gui slot 10 of arg-1 with cobblestone named "&ePierres %{Collection-Cobblestone.%UUID of arg-1%}%" with lore "&7Consultez tous les progrès et récompenses" and "&7de votre collection de Pierres!" and "&7" and "&7Vous avez récolté &e%{Collection-Cobblestone-Collected.%UUID of arg-1%}%&7." and "&7" and "&eCliquez pour consulter!" to close:
+   make console execute command "/menucollection-minier-pierres %player%"
+
+  format gui slot 11 of arg-1 with coal named "&eCharbon %{Collection-Coal.%UUID of arg-1%}%" with lore "&7Consultez tous les progrès et récompenses" and "&7de votre collection de Charbon!" and "&7" and "&7Vous avez récolté &e%{Collection-Coal-Collected.%UUID of arg-1%}%&7." and "&7" and "&eCliquez pour consulter!" to close:
+   make console execute command "/menucollection-minier-charbon %player%"
+
+  format gui slot 12 of arg-1 with iron ingot named "&eLingot de Fer %{Collection-Iron.%UUID of arg-1%}%" with lore "&7Consultez tous les progrès et récompenses" and "&7de votre collection de Lingot de Fer!" and "&7" and "&7Vous avez récolté &e%{Collection-Iron-Collected.%UUID of arg-1%}%&7." and "&7" and "&eCliquez pour consulter!" to close:
+   make console execute command "/menucollection-minier-lingotdefer %player%"
+
+  format gui slot 13 of arg-1 with gold ingot named "&eLingot d'Or %{Collection-Gold.%UUID of arg-1%}%" with lore "&7Consultez tous les progrès et récompenses" and "&7de votre collection de Lingot d'Or!" and "&7" and "&7Vous avez récolté &e%{Collection-Gold-Collected.%UUID of arg-1%}%&7." and "&7" and "&eCliquez pour consulter!" to close:
+   make console execute command "/menucollection-minier-lingotdor %player%"
+
+  format gui slot 14 of arg-1 with diamond named "&eDiamant %{Collection-Diamond.%UUID of arg-1%}%" with lore "&7Consultez tous les progrès et récompenses" and "&7de votre collection de Diamant!" and "&7" and "&7Vous avez récolté &e%{Collection-Diamond-Collected.%UUID of arg-1%}%&7." and "&7" and "&eCliquez pour consulter!" to close:
+   make console execute command "/menucollection-minier-diamant %player%"
+
+  format gui slot 15 of arg-1 with emerald named "&eÉmeraude %{Collection-Emerald.%UUID of arg-1%}%" with lore "&7Consultez tous les progrès et récompenses" and "&7de votre collection d'Émeraude!" and "&7" and "&7Vous avez récolté &e%{Collection-Emerald-Collected.%UUID of arg-1%}%&7." and "&7" and "&eCliquez pour consulter!" to close:
+   make console execute command "/menucollection-minier-émeraude %player%"
+
+  format gui slot 16 of arg-1 with redstone named "&eRedstone %{Collection-Redstone.%UUID of arg-1%}%" with lore "&7Consultez tous les progrès et récompenses" and "&7de votre collection de Redstone!" and "&7" and "&7Vous avez récolté &e%{Collection-Redstone-Collected.%UUID of arg-1%}%&7." and "&7" and "&eCliquez pour consulter!" to close:
+   make console execute command "/menucollection-minier-redstone %player%"
+
+  format gui slot 19 of arg-1 with lapis lazuli named "&eLapis-Lazuli %{Collection-LapisLazuli.%UUID of arg-1%}%" with lore "&7Consultez tous les progrès et récompenses" and "&7de votre collection de Lapis-Lazuli!" and "&7" and "&7Vous avez récolté &e%{Collection-LapisLazuli-Collected.%UUID of arg-1%}%&7." and "&7" and "&eCliquez pour consulter!" to close:
+   make console execute command "/menucollection-minier-lapislazuli %player%"
+
+  format gui slot 20 of arg-1 with obsidian named "&eObsidienne %{Collection-Obsidian.%UUID of arg-1%}%" with lore "&7Consultez tous les progrès et récompenses" and "&7de votre collection d'Obsidienne !" and "&7" and "&7Vous avez récolté &e%{Collection-Obsidian-Collected.%UUID of arg-1%}%&7." and "&7" and "&eCliquez pour consulter!" to close:
+   make console execute command "/menucollection-minier-obsidienne %player%"
+
+  format gui slot 21 of arg-1 with prismarine crystals named "&eMithril %{Collection-Mithril.%UUID of arg-1%}%" with lore "&7Consultez tous les progrès et récompenses" and "&7de votre collection de Mithril!" and "&7" and "&7Vous avez récolté &e%{Collection-Mithril-Collected.%UUID of arg-1%}%&7." and "&7" and "&eCliquez pour consulter!" to close:
+   make console execute command "/menucollection-minier-mithril %player%"
+
+  format gui slot (integers between 22 and 25) of arg-1 with black stained glass pane named "&f"
+
+  format gui slot (integers between 28 and 43) of arg-1 with black stained glass pane named "&f"
+  format gui slot 48 of arg-1 with arrow named "&aRetour" with lore "&7Revenir à la page précédente." and "&7" and "&eCliquez pour retourner!" to close:
+   make console execute command "/menucollection %player%"
+  format gui slot 49 of arg-1 with barrier named "&cFermer" to close

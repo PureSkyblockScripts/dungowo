@@ -1,0 +1,33 @@
+function SB_MenuFormat_SkillsMenus(p: player, s: text, i: item):
+	set {_pU} to {_p}'s uuid
+	open virtual chest inventory with size 6 named "%{_s}% Skill" to {_p}
+	format gui slot (integers between 0 and 53) of {_p} with {Menu-Panes}
+	format gui slot 49 of {_p} with {Menu-Close}
+	format gui slot 48 of {_p} with {Menu-GoBack} to run:
+		make player execute command "/menu-skills"
+	format gui slot 0 of {_p} with {_i}
+	loop 25 times:
+		add 1 to {_sv}
+		add 1 to {_cv}
+		set {_c%{_cv}%} to "&c"
+		set {_s%{_sv}%} to red stained glass pane
+	loop 25 times:
+		add 1 to {_n}
+		if {Skill-%{_s}%.%{_pU}%} is higher than ({_n}-0.1):
+			set {_s%{_n}%} to lime stained glass pane
+			set {_c%{_n}%} to "&a"
+	format gui slot 9 of {_p} with {_s1} named "%{_c1}%%{_s}% I"
+	format gui slot 18 of {_p} with {_s2} named "%{_c2}%%{_s}% II"
+	format gui slot 27 of {_p} with {_s3} named "%{_c3}%%{_s}% III"
+	format gui slot 28 of {_p} with {_s4} named "%{_c4}%%{_s}% IV"
+	format gui slot 29 of {_p} with {_s5} named "%{_c5}%%{_s}% V"
+	format gui slot 20 of {_p} with {_s6} named "%{_c6}%%{_s}% VI"
+	
+command /menu-skills-farming <number>:
+	permission: op
+	trigger:
+		set {Skill-Farming.%UUID of player%} to arg-1
+		set {_s} to "Farming"
+		set {_i} to wheat named "&b%{_s}%"
+		SB_MenuFormat_SkillsMenus(player, {_s}, {_i})
+		delete {Skill-Farming.%UUID of player%}

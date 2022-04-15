@@ -1,0 +1,77 @@
+command /warn <player> <text> [<text>]:
+	permission: op
+	usage: &c/warn <player> <view/remove/add> [<reason>]
+	trigger:
+		if arg-2 is "view":
+			send "&6WARN! &b%player% &7has &a%{Warns.%UUID of arg-1%::*}%" to player
+		if arg-2 is "remove":
+			remove arg-3 from {Warns.%UUID of arg-1%::*}
+			send "&6&lWARN! &a%arg-3% &7has been removed from &b%player%&7!" to player
+		if arg-2 is "delete":
+			delete {Warns.%UUID of arg-1%::*}
+			send "&6&lDELETED!"
+		if arg-2 is "add":
+			add arg-3 to {Warns.%UUID of arg-1%::*}
+			send "&6&lWARN! &b%player% &7has been warned for &a%arg-3%&7." to player
+			send "&6&lWARN! &fYou get &bwarned &ffor the following reason: &a%arg-3%&7!" to arg-1
+			
+command /warns:
+	trigger:
+		send "&7Your warns:" to player
+		send "&b%{Warns.%UUID of player%::*}%"
+
+on join:
+	delete {Chating.%UUID of player%}
+
+command /maketalk <player> <text>:
+	permission: op
+	trigger:
+		send "&8[&60✮&8]%{trueplayer.%UUID of arg-1%}% &8>> &f%arg-2%" to players		
+
+on chat:
+	if {Chating.%UUID of player%} is not true:
+		set {Chating.%UUID of player%} to true
+	else:
+		cancel event
+		send "&cCalm down before sending message!" to player
+		Nope(player)
+		stop
+	set {_v} to message
+	loop all players:
+		if message = loop-player's name:
+			set {_v} to "&e@%loop-player's name%"
+			playsound(loop-player, "entity.experience_orb.pickup", 1)
+	if message = "ping":
+		set {_v} to "&8• &6%player's ping% &6Ping &8•"
+	if message = ":item:":
+		set {_v} to "&8∞ &8%tool's name% &8∞"
+	if message = ":magic:":
+		set {_v} to "&8(&7'-'&8)&6⊃&6━&5☆ﾟ&d.&e*&5･&e｡ﾟ"
+	if message = ":idk:":
+		set {_v} to "&6¯\_&8(&7ツ&8)&6_/¯"
+	if message = ":tableflip:":
+		set {_v} to "&8(&7&6╯&7°□°&8）&6╯&e︵ &e┻━┻"
+	if message = ":hug:":
+		set {_v} to "&8(&dつ &7◕◕ &8)&dつ"
+	if message = ":...:":
+		set {_v} to "&b✎&7..."
+	if message = "123":
+		set {_v} to "&c1&e2&a3"
+	if message = ":hi:":
+		set {_v} to "&8(&7 ﾟ◡ﾟ&8)&6/"
+	if message = ":shy:":
+		set {_v} to "&8(&d⚬&7._.&8)&a☘"
+	if message = "":
+		
+	if message = "ez":
+		add "I love everything in this server!" and "Let's be friend instead of fighting ok?" and "When I'm bored, I like to watch cat videos on youtube." and "I've always wanted to try pineapple pizza." and "Sometimes I try not to say bad thing, but this happens." and "Smack my ass like a drum'" and "An assisstant can explain how to play this game?" and "You are all beautiful!" and "1+1=3 It's the truth." and "If minecraft world is infinite, how can the sun turn around the earth?" and "When nothing is going right, go Left3500." and "Imagine you imagine." and "ILY<3" and "I'm a millionaire AND a billionaire." and "Luckily the server stops me from saying bad things <3" and "I smile at life :D" and "Make love not war!" and "Let's have a revenge?" and "Croissant and Coffee." and "Oh my godness!" and "I agree that the world is better without me." to {_ez::*}
+		set {_sz} to size of {_ez::*}
+		set {_sz} to random integer between 1 and {_sz}
+		set {_v} to {_ez::%{_sz}%}
+
+# ===================
+	if {rankPower.%UUID of player%} is between 1 and 49:
+		set {_v} to colored {_v}
+	set chat format to "&8[&60✮&8]%{trueplayer.%UUID of player%}% &8>> &f%{_v}%"
+	wait 0.25 seconds
+	delete {Chating.%UUID of player%}

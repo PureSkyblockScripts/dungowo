@@ -1,0 +1,50 @@
+command /menucollection-combat <player>:
+ permission: op
+ trigger:
+  if {Collection-RottenFlesh.%UUID of arg-1%} is not set:
+   set {Collection-RottenFlesh.%UUID of arg-1%} to 0
+  if {Collection-Bone.%UUID of arg-1%} is not set:
+   set {Collection-Bone.%UUID of arg-1%} to 0
+  if {Collection-String.%UUID of arg-1%} is not set:
+   set {Collection-String.%UUID of arg-1%} to 0
+  if {Collection-SlimeBall.%UUID of arg-1%} is not set:
+   set {Collection-SlimeBall.%UUID of arg-1%} to 0
+  if {Collection-BlazeRod.%UUID of arg-1%} is not set:
+   set {Collection-BlazeRod.%UUID of arg-1%} to 0
+  if {Collection-GunPowder.%UUID of arg-1%} is not set:
+   set {Collection-GunPowder.%UUID of arg-1%} to 0
+  if {Collection-GhastTear.%UUID of arg-1%} is not set:
+   set {Collection-GhastTear.%UUID of arg-1%} to 0
+  if {Collection-EnderPearl.%UUID of arg-1%} is not set:
+   set {Collection-EnderPearl.%UUID of arg-1%} to 0
+
+
+  open virtual chest inventory with size 6 named "Collection de Combat" to arg-1
+  wait 1 ticks
+  format gui slot (integers between 0 and 53) of arg-1 with black stained glass pane named "&f"
+
+  format gui slot 10 of arg-1 with rotten flesh named "&eChair Putréfiée %{Collection-RottenFlesh.%UUID of arg-1%}%" with lore "&7Consultez tous les progrès et récompenses" and "&7de votre collection de Chair Putréfiée!" and "&7" and "&7Vous avez récolté &e%{Collection-RottenFlesh-Collected.%UUID of arg-1%}%&7." and "&7" and "&eCliquez pour consulter!" to close:
+   make console execute command "/menucollection-combat-chairputréfiée %player%"
+
+  format gui slot 11 of arg-1 with bone named "&eOs %{Collection-Bone.%UUID of arg-1%}%&7." with lore "&7Consultez tous les progrès et récompenses" and "&7de votre collection d'Os!" and "&7" and "&7Vous avez récolté &e%{Collection-Bone-Collected.%UUID of arg-1%}%" and "&7" and "&eCliquez pour consulter!" to close:
+   make console execute command "/menucollection-combat-os %player%"
+
+  format gui slot 12 of arg-1 with string named "&eFicelle %{Collection-String.%UUID of arg-1%}%" with lore "&7Consultez tous les progrès et récompenses" and "&7de votre collection de Ficelle!" and "&7" and "&7Vous avez récolté &e%{Collection-String-Collected.%UUID of arg-1%}%&7." and "&7" and "&eCliquez pour consulter!" to close:
+   make console execute command "/menucollection-combat-ficelle %player%"
+
+  format gui slot 13 of arg-1 with gunpowder named "&ePoudre à Canon %{Collection-GunPowder.%UUID of arg-1%}%" with lore "&7Consultez tous les progrès et récompenses" and "&7de votre collection de Poudre à Canon!" and "&7" and "&cIndisponible."
+
+  format gui slot 14 of arg-1 with slime ball named "&eBoule de Slime %{Collection-SlimeBall.%UUID of arg-1%}%" with lore "&7Consultez tous les progrès et récompenses" and "&7de votre collection de Boule de Slime!" and "&7" and "&cIndisponible."
+
+  format gui slot 15 of arg-1 with blaze rod named "&eBâton de Blaze %{Collection-BlazeRod.%UUID of arg-1%}%" with lore "&7Consultez tous les progrès et récompenses" and "&7de votre collection de Bâton de Blaze!" and "&7" and "&cIndisponible."
+
+  format gui slot 16 of arg-1 with ender pearl named "&ePearl de l'Ender %{Collection-EnderPearl.%UUID of arg-1%}%" with lore "&7Consultez tous les progrès et récompenses" and "&7de votre collection de Pearl de l'Ender!" and "&7" and "&cIndisponible."
+
+  format gui slot 19 of arg-1 with ghast tear named "&eLarme de Ghast %{Collection-GhastTear.%UUID of arg-1%}%" with lore "&7Consultez tous les progrès et récompenses" and "&7de votre collection de Larme de Ghast!" and "&7" and "&cIndisponible."
+
+  format gui slot (integers between 20 and 25) of arg-1 with black stained glass pane named "&f"
+
+  format gui slot (integers between 28 and 43) of arg-1 with black stained glass pane named "&f"
+  format gui slot 48 of arg-1 with arrow named "&aRetour" with lore "&7Revenir à la page précédente." and "&7" and "&eCliquez pour retourner!" to close:
+   make console execute command "/menucollection %player%"
+  format gui slot 49 of arg-1 with barrier named "&cFermer" to close

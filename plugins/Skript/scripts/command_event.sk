@@ -1,0 +1,45 @@
+command /event <text> [<number>] [<text>] [<text>] [<number>]:
+	permission: op
+	usage: &c/event <cadeau/math/stopmath> [<prix>] [<résultat>] [<texte>]
+	trigger:
+		if player is "WhiotexII" or "Shizukii_":
+			if arg-1 is "contrecadeau":
+				loop all players:
+					set {Event-Cadeau-Gain.%UUID of loop-player%} to ((2 / 100) * {purse.%UUID of loop-player%})
+					send "&c&lCONTRE-CADEAU! &r&fVous perdez &6%{Event-Cadeau-Gain.%UUID of loop-player%}% &6Pièces&f!" to loop-player
+					play sound "entity.player.levelup" with volume 10 with pitch 1.5 at loop-player for loop-player
+					remove {Event-Cadeau-Gain.%UUID of loop-player%} from {purse.%UUID of loop-player%}
+			if arg-1 is "cadeau":
+				loop all players:
+					set {Event-Cadeau-Gain.%UUID of loop-player%} to ((2 / 100) * {purse.%UUID of loop-player%})
+					send "&6&lCADEAU! &r&fVous récupérez &6%{Event-Cadeau-Gain.%UUID of loop-player%}% &6Pièces&f!" to loop-player
+					play sound "entity.player.levelup" with volume 10 with pitch 1.5 at loop-player for loop-player
+					add {Event-Cadeau-Gain.%UUID of loop-player%} to {purse.%UUID of loop-player%}
+					
+			if arg-1 is "stopmath":
+				send "&c&lTEMPS ÉCOULÉ! &fLe calcule est annulé. Vous avez pris trop de temps! Réponse: &a%{Event-Math-Number}%&f." to players
+				delete {Event-Math-Number}
+				delete {Event-Price}
+				play sound "entity.villager.yes" with pitch 0.8 at players for players
+			
+			if arg-1 is "math":
+				if arg-2 is not higher than 3000:
+					set {Event-Math-Number} to arg-3
+					set {Event-Price} to arg-2
+					send "&6&lMATH! &fTrouvez &b%arg-4% &fpour gagner &6%arg-2% &6Pièces&f." to players
+					loop 2 times:
+						play sound "entity.player.levelup" at players for players
+						play sound "entity.player.attack.sweep" at players for players
+						wait 2 ticks
+					
+on chat:
+	if {Event-Math-Number} is set:
+		if message = "%{Event-Math-Number}%":
+			send "&6&lMATH! &b%player% &fa résolu le calcule! Réponse: &a%{Event-Math-Number}%&f." to players
+			delete {Event-Math-Number}
+			add {Event-Price} to {purse.%UUID of player%}
+			delete {Event-Price}
+			loop 2 times:
+				play sound "entity.player.levelup" with pitch 0.8 at players for players
+				play sound "entity.player.attack.sweep" with pitch 0.8 at players for players
+				wait 2 ticks

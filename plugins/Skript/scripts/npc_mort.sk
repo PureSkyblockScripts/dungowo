@@ -1,0 +1,76 @@
+command /floor7:
+	trigger:
+		if player is not "Gregor_28" or "WhiotexII":
+			stop
+		if {Dungeon-Started} is true:
+			send "&cA party is already playing in this floor! Please wait." to player
+			Nope(player)
+			stop
+		teleport player at the location (147.5, 110.5, 373.5) of the world "world"
+		send "&6&lDUNGEON! &fYou started a solo &eFloor VII&7!" to player
+		Yes(player)
+
+on right click on entity:
+	if clicked entity's name is "&7Mort":
+		open virtual chest inventory with size 6 named "Catacombs Door" to player
+		format gui slot (integers between 0 and 53) of player with {Menu-Panes}
+		format gui slot (integers between 8 and 9) and (integers between 17 and 18) and (integers between 26 and 27) and (integers between 35 and 36) and (integers between 44 and 45) and 0 and 53 of player with gray stained glass pane named "&f"
+		format gui slot 49 of player with {Menu-Close} to close
+		format gui slot 50 of player with nether star named "&bClasses" with lore "&7Click here to see all the" and "&7classes and their capacities." and "&7" and "&eClick to view!" to close:
+			make player execute command "/menuclass"
+			
+		format gui slot 21 of player with player head with nbt "{display:{Name:""{\""text\"":\""Polished Diorite\""}""},SkullOwner:{Id:[I;1125496835,-720483101,-1665050488,-187774323],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOGM4NjM3YmMwNjI4ZjU3MTBmODViOGQwNjc5Y2MyYzE5YWZlMGUxMDg5YjI0OGI2ZmRiNjdmNjg3YWU4MWRjMiJ9fX0=""}]}}}" named "&aCatacomb &8- &eFloor 8" with lore "&7Dungeon Size: &bLarge" and "&7Party Size: &92-5 Players" and "&7" and "&7Boss: &cYoung Dragon" and "&7Surviving trought millions of years." and "&7No one has ever woke him up, and everyone believe" and "&7it would cause dangerous natural troubles everywhere." and "&7" and "&cSoon!"
+		
+		format gui slot 22 and 23 and 24 and 30 and 31 and 32 of player with player head with nbt "{display:{Name:""{\""text\"":\""Polished Diorite\""}""},SkullOwner:{Id:[I;1125496835,-720483101,-1665050488,-187774323],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOGM4NjM3YmMwNjI4ZjU3MTBmODViOGQwNjc5Y2MyYzE5YWZlMGUxMDg5YjI0OGI2ZmRiNjdmNjg3YWU4MWRjMiJ9fX0=""}]}}}" named "&aCatacomb &8- &eFloor ??" with lore "&7Dungeon Size: &bLarge" and "&7Party Size: &92-5 Players" and "&7" and "&cNot available yet!"
+		
+		format gui slot 20 of player with piston named "&aCatacomb &8- &eFloor 7" with lore "&7Dungeon Size: &bLarge" and "&7Party Size: &92-10 Players" and "&7" and "&7Boss: &cMaxor" and "&7Only 500 years old, barely starting to wither." and "&7Wants to prove himself. Enjoys explosion to" and "&7a fault." and "&7" and "&eClick to join!" to close:
+			if {Dungeon-Started} is true:
+				send "&cA party is already playing in this floor! Please wait." to player
+				Nope(player)
+				stop
+			if {PartyInvited.%UUID of player%} is set:
+				if {PartyInvited.%UUID of player%} is the player:
+					#set {_sz} to size of {Party.%UUID of player%::*}
+					set {_pi} to player
+					set {_piU} to {_pi}'s uuid
+					loop {Party.%{_piU}%::*}:
+						if loop-value is online:
+							add 1 to {_oo}
+					if {_oo} is higher than 1.9:
+						send "&e&lDUNGEON! &6A party has started a Floor VII. Please wait for the next one!" to players
+						set {Dungeon-Started} to true
+						send "&9-------------------------------------------" to {Party.%UUID of player%::*}
+						send "&6%{trueplayer.%UUID of player%}% &eentered &cCatacombs&e. &eFloor VII&e!" to {Party.%UUID of player%::*}
+						send "&9-------------------------------------------" to {Party.%UUID of player%::*}
+						wait 2 seconds
+						send "&9-------------------------------------------" to {Party.%UUID of player%::*}
+						send "&6%{trueplayer.%UUID of player%}% &ewarped the party to a Skyblock dungeon!" to {Party.%UUID of player%::*}
+						send "&eLooting &cThe Catacombs &ewith &9%{_oo}%&9/5 players &eon &6Floor &6VII&e!" to {Party.%UUID of player%::*}
+						send "&9-------------------------------------------" to {Party.%UUID of player%::*}
+						wait 1 second
+						teleport {Party.%UUID of player%::*} at the location (147.5, 110.5, 373.5) of the world "world"
+						set {_plp::*} to {Party.%UUID of player%::*}
+						send "&6&lDUNGEON! &eYou have &a1 minute &eto start or you'll be teleported back to spawn!" to {_plp::*}
+						loop 50 times:
+							if {Dungeon-StartedStarted} is true:
+								stop
+							wait 1 second
+						send "&6&lDUNGEON! &eYou have &a10 seconds &eto start or you'll be teleported back to spawn!" to {_plp::*}
+						loop 10 times:
+							if {Dungeon-StartedStarted} is true:
+								stop
+							wait 1 second
+						teleport {_plp::*} to {spawn}
+						SBD_Floor7_Reset()
+						send "&6&lDUNGEON! &cYou took too long to launch the dungeon!" to {_plp::*}
+						stop
+					else:
+						send "&cYou must be at least two players online to join." to player
+						Nope(player)
+						stop
+				else:
+					send "&cOnly the party owner can start a dungeon." to player
+					Nope(player)
+			else:
+				send "&cYou're not in a party! Type '/party' to start." to player
+				Nope(player)

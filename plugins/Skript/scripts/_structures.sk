@@ -1,0 +1,21 @@
+command /loc <number> [<text>]:
+	permission: op
+	usage: &c/loc <number> [<targetblock>]
+	trigger:
+		set {_t} to location of block at player's location
+		if arg-2 is "targetblock":
+			set {_t} to player's targeted block's location
+		set {loc%arg-1%} to {_t}
+		send "&6&lLOCATION! &7You set &aLocation ##%arg-1% &7here! &b%{loc%arg-1%}%&7." to player
+		
+command /sb-structure <text> <text>:
+	permission: op
+	usage: &c/sbd-structure <save/load> <name>
+	trigger:
+		if arg-1 is "save":
+			save structure between {loc1} and {loc2} as arg-2
+			send "&6&lSTRUCTURE! &7You saved the structure as &a%arg-2%&7!"
+		if arg-1 is "load":
+			load arg-2 at player's location
+			send "&6&lSTRUCTURE! &7You loaded the structure '&a%arg-2%&7'!"
+		

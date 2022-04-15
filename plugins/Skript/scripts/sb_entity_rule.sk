@@ -1,0 +1,10 @@
+on entity target:
+	if entity's target is not a player:
+		cancel event
+
+on damage:
+	if attacker is not a player:
+		if victim is not a player:
+			if victim is a living entity:
+				if attacker is a living entity:
+					cancel event

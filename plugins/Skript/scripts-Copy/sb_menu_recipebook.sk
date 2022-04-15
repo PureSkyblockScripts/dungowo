@@ -1,0 +1,53 @@
+command /sb-recipebook:
+	trigger:
+		open virtual chest inventory with size 6 named "Recipe Book" to player
+		format gui slot (integers between 0 and 53) of player with {Menu-Panes}
+
+		format gui slot 20 of player with golden hoe with attribute flag hidden named "&aFarming" with lore "&7All the farming-related recipes" and "&7" and "&eClick to view!" to close
+
+		format gui slot 21 of player with stone sword with attribute flag hidden named "&aCombat" with lore "&7All the combat-related recipes" and "&7" and "&eClick to view!" to close
+
+		format gui slot 22 of player with diamond pickaxe with attribute flag hidden named "&aMining" with lore "&7All the mining related recipes" and "&7" and "&eClick to view!" to close
+
+		format gui slot 23 of player with acacia sapling named "&aForaging" with lore "&7All the foraging-related recipes" and "&7" and "&eClick to view!" to close
+
+		format gui slot 24 of player with fishing rod with attribute flag hidden named "&aFishing" with lore "&7All the fishing-related recipes" and "&7" and "&cNot available yet!" to close
+
+		format gui slot 28 of player with enchanting table named "&aEnchanting" with lore "&7All the enchanting-related recipes" and "&7" and "&cNot available yet!" to close
+
+		format gui slot 29 of player with brewing stand named "&aAlchemy" with lore "&7All the alchemy-related recipes" and "&7" and "&cNot available yet!" to close
+
+		format gui slot 30 of player with crafting table named "&aCarpentry" with lore "&7All the carpentry-related recipes" and "&7" and "&cNot available yet!" to close
+
+		format gui slot 32 of player with bow with attribute flag hidden named "&aSlayer" with lore "&7All the slayer-related recipes" and "&7" and "&eClick to view!" to close
+
+		format gui slot 33 of player with bone named "&cNot available yet!"
+
+		format gui slot 34 of player with wither skeleton skull named "&aDungeons" with lore "&7All the dungeon-related recipes" and "&7" and "&cNot available yet!" to close
+
+		format gui slot 19 of player with piston named "&a????" with lore "&7????" and "&7" and "&cNot available yet!" to close
+
+		format gui slot 25 of player with ("spoonfork" parsed as offline player)'s skull named "&aAccessories" with lore "&7All the accessories-related recipes" and "&7" and "&eClick to view!" to close
+
+		format gui slot 31 of player with nether star named "&aSpecial" with lore "&7All the special recipes" and "&7" and "&eClick to view!" to close
+
+		format gui slot 48 of player with {Menu-GoBack} to run:
+			make player execute command "/menu"
+		format gui slot 49 of player with {Menu-Close} to close
+		
+		MenuStyle(player, "Recipe Book", "Full", 5, "/menu")
+		format gui slot 4 of player with item frame named "&aRecipe List" with lore "&7Check all the known recipe" and "&7here and craft items!" and "&7" and "&8Unlock collection to see more" and "&8recipes."
+		format gui slot 22 of player with wither skeleton skull named "&aDungeon Recipe" with lore "&7All the dungeon-related recipes." and "&7" and "&eClick to view!"
+		
+on inventory click:
+	if name of player's current inventory is "Recipe Book":
+		if name of item is "&aDungeon Recipe":
+			Click(player)
+			MenuStyle(player, "Dungeon Recipe", "Frame", 6, "/sb-recipebook")
+			loop {Recipes::Dungeon::*}:
+				if {Terminal-Items::*} contains "%loop-value%":
+					add {Terminal-Items::%loop-value%::1} to player's current inventory
+	if name of player's current inventory is "Dungeon Recipe":
+		set {_t} to tag "ITEM_ID" of item's nbt
+		if {_t} is set:
+			make player execute command "/sb-viewrecipe %{_t}%"

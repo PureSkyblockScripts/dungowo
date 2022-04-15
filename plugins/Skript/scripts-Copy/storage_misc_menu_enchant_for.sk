@@ -1,0 +1,8 @@
+command /storage-misc-menu-enchant-foraging:
+	permission: op
+	trigger:
+		set {Storage-Misc-Menu-Enchanted-Foraging-BoisDeChêneEnchanté} to oak log of unbreaking 1 with hidden enchants flag named "&aBois de Chêne Enchanté" with lore "&a&lUNCOMMUN" and "&7" and "&7Coûte" and "&8x160 &fBois de Chêne" and "&7" and "&7Nécessite &bBois de Chêne VI" and "&eCliquez pour enchanter!"
+		
+		set {Storage-Misc-Menu-Enchanted-Foraging-BoisDeSapinEnchanté} to spruce log of unbreaking 1 with hidden enchants flag named "&aBois de Sapin Enchanté" with lore "&a&lUNCOMMUN" and "&7" and "&7Coûte" and "&8x160 &fBois de Sapin" and "&7" and "&7Nécessite &bBois de Sapin VI" and "&eCliquez pour enchanter!"
+		
+		set {Storage-Misc-Menu-Enchanted-Foraging-BoisDAcajouEnchanté} to jungle log of unbreaking 1 with hidden enchants flag named "&aBois d'Acajou Enchanté" with lore "&a&lUNCOMMUN" and "&7" and "&7Coûte" and "&8x160 &fBois d'Acajou" and "&7" and "&7Nécessite &bBois d'Acajou VI" and "&eCliquez pour enchanter!"

@@ -1,0 +1,63 @@
+command /slayermenu <player>:
+	permission: op
+	trigger:
+		set {_player} to arg-1
+		open virtual chest inventory with size 4 named "Slayer" to arg-1
+		format gui slot (integers between 0 and 35) of arg-1 with {Menu-Panes}
+		format gui slot 31 of arg-1 with {Menu-Close} to close
+		format gui slot 30 of arg-1 with clock named "&aRandom Slayer Quest" with lore "&8Extra Rewards" and "&7" and "&7Start a slayer quest for a" and "&7random boss." and "&7" and "&7Quest started this way reward" and "&7more items and &dXP&7." and "&7" and "&eClick to check it out!" to close:
+			set {_random} to random integer between 1 and 4
+			if {_random} is equal to 1:
+				make console execute command "/slayerstart %{_player}% 1 5"
+			else:
+				make console execute command "/slayerstart %{_player}% %{_random}% 4"
+			
+		
+		if {abz} is true:
+			format gui slot 33 of arg-1 with activator rail named "&aSlayer Veteran Bonus" with lore "&8Free real estate" and "&7" and "&7Earn &a+3 &7of any boss's" and "&7main token drop when" and "&7slaying its mini-bosses." and "&8" and "&8Example" and "&bRevenant Champion" and "&7Bonus: &a+3 Revenant Flesh" and "&7" and "&8Bonus unlocked from reaching" and "&8LVL 6 on any boss" and "&8" and "&cYou dont have the bonus."
+		else:
+			format gui slot 33 of arg-1 with activator rail named "&aSlayer Veteran Bonus" with lore "&8Free real estate" and "&7" and "&7Earn &a+3 &7of any boss's" and "&7main token drop when" and "&7slaying its mini-bosses." and "&8" and "&8Example" and "&bRevenant Champion" and "&7Bonus: &a+3 Revenant Flesh" and "&7" and "&8Bonus unlocked from reaching" and "&8LVL 6 on any boss" and "&8" and "&aYou have the bonus."
+		
+		format gui slot 29 of arg-1 with experience bottle named "&bSlayer Leaderboards" with lore "&8Ultimate bragging rights" and "&7" and "&7Revenant Horror: &a(variable)" and "&7Tarantula Broodfather: &a(variable)" and "&7Sven Packmaster: &a(variable)" and "&7Voigloom Seraph: &a(variable)" and "&7Inferno Demonlord: &a(variable)"
+		if {abz} is true:
+			format gui slot 28 of arg-1 with lime dye named "&bAuto-Slayer" with lore "&7Upon defeating a boss," and "&aautomatically &7completes" and "&7the quest and starts" and "&7another one of the same type" and "&7if you have enough &6coins" and "&7in your purse or bank." and "&7" and "&7Currently: &cNot Available" and "&7" and "&eClick to enable!"
+		else:
+			format gui slot 28 of arg-1 with gray dye named "&bAuto-Slayer" with lore "&7Upon defeating a boss," and "&aautomatically &7completes" and "&7the quest and starts" and "&7another one of the same type" and "&7if you have enough &6coins" and "&7in your purse or bank." and "&7" and "&7Currently: &cNot Available" and "&7" and "&eClick to enable!"
+		
+		format gui slot 32 of arg-1 with wheat named "&aGlobal Combat XP Buff" with lore "&8Slayer Bonus" and "&7" and "&7Total buff: &b+X%% Combat XP" and "&7" and "&7earn extra combat xp based on" and "&7your unique slayer boss kills." and "&8" and "&8Highest slain tiers" and "&7Revenant Horror: &4Tier (variable)" and "&7Tarantula Broodfather: &4Tier (variable)" and "&7Sven Packmaster: &4Tier (variable)" and "&7Voigloom Seraph: &4Tier (variable)" and "&7Inferno Demonlord: &4Tier (variable)" and "&8" and "&7Tier I,II,III grant &b+1%% Combat XP&7." and "&7Tier IV and V grant &b+2%% Combat XP&7."
+		
+		format gui slot 10 of arg-1 with rotten flesh named "&eRevenant Horror" with lore "&7Abhorrent zombie stuck" and "&7between life and death for" and "&7an eternity." and "&8" and "&7Zombie Slayer: &eLVL (Variable)" and "&e" and "&eClick to view boss!" to close:
+			set {_type} to 1
+			make console execute command "/slayerselect %{_player}% %{_type}%"
+	
+		format gui slot 11 of arg-1 with web named "&eTarantula Broodfather" with lore "&7Monstrous spiders who poisons" and "&7and devours its victims." and "&8" and "&7Spider Slayer: &eLVL (Variable)" and "&e" and "&eClick to view boss!" to close:
+			set {_type} to 2
+			make console execute command "/slayerselect %{_player}% %{_type}%"
+	
+		format gui slot 12 of arg-1 with raw mutton named "&eSven Packmaster" with lore "&7Rabid wolf genetically" and "&7modified by a famous mad" and "&7scientist. Eats bones and" and "&7flesh." and "&8" and "&7Wolf Slayer: &eLVL (Variable)" and "&e" and "&eClick to view boss!" to close:
+			set {_type} to 3
+			make console execute command "/slayerselect %{_player}% %{_type}%"
+			
+		format gui slot 13 of arg-1 with ender pearl named "&eVoidgloom Seraph" with lore "&7If Necron is the right-hand" and "&7of the Wither King, this" and "&7dark demigod is the" and "&7left-hand." and "&8" and "&7Enderman Slayer: &eLVL (Variable)" and "&e" and "&eClick to view boss!" to close:
+			set {_type} to 4
+			make console execute command "/slayerselect %{_player}% %{_type}%"
+		
+		format gui slot 14 of arg-1 with blaze powder named "&eInferno Demondlord" with lore "&7Even demons fear this" and "&7incarnation or pure evil," and "&7constantly feeding on its" and "&7burning desire for" and "&7destruction." and "&8" and "&7Blaze Slayer: &eLVL (Variable)" and "&e" and "&eClick to view boss!" to close:
+			send "&cNot Available yet!" to player
+		
+		format gui slot 15 and 16 of arg-1 with coal block named "&cNot released yet!" with lore "&7This boss is still in" and "&7developpement"
+		
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+			

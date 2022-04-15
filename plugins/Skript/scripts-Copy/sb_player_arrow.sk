@@ -1,0 +1,147 @@
+on projectile hit:
+	if projectile is arrow:
+		set {_nbt} to nbt compound of projectile
+		if "%lore of shooter's tool%" contains "&9Piercing I":
+			wait 2 seconds
+		kill projectile
+
+on shoot:
+	if "%lore of shooter's tool%" contains "&9Piercing I":
+		add "{PierceLevel:10b}" to nbt of projectile
+		add "{pickup:0b}" to nbt of projectile
+		
+on right click with bow:
+	if "%lore of player's tool%" contains "&6Shortbow" or "&6Arccourt":
+		cancel event
+		
+command /debugarrow:
+	trigger:
+		delete {CD-Shortbow.%UUID of player%}
+		delete {CD-Shoot.%UUID of player%}
+		
+on damage:
+	if attacker is a player:
+		if victim is not a player:
+			play sound "entity.arrow.hit_player" at attacker for attacker
+			play sound "random.orb" at attacker for attacker
+		
+function ShortbowTick(p: player):
+	set {_u} to {_p}'s uuid
+	if {attackspeed.%{_u}%} is between -200 and 11:
+		set {ShortBow-Tick.%{_u}%} to 0.7
+	if {attackspeed.%{_u}%} is between 12 and 40:
+		set {ShortBow-Tick.%{_u}%} to 0.6
+	if {attackspeed.%{_u}%} is between 41 and 66:
+		set {ShortBow-Tick.%{_u}%} to 0.5
+	if {attackspeed.%{_u}%} is higher than 66.9:
+		set {ShortBow-Tick.%{_u}%} to 0.4
+	if {a} is not true:
+		if {SBD-Class.%{_u}%} is "Archer":
+			set {ShortBow-Tick.%{_u}%} to ({ShortBow-Tick.%{_u}%}/2)
+		
+function ShortbowShootArcher(p: player):
+	set {_u} to {_p}'s uuid
+	if {a} is not true:
+		if {DungeonClass.%{_u}%} is "Archer":
+			chance of 50%:
+				wait 3 tick
+				make {_p} shoot arrow at speed 2.5
+		
+function ShortbowShoot(p: player):
+	set {_u} to {_p}'s uuid
+	ShortbowShootArcher({_p})
+	if name of {_p}'s tool contains "&9Arc Artisanal":
+		make {_p} shoot arrow at speed 2.5
+	if name of {_p}'s tool contains "Terminator":
+		make {_p} shoot an arrow at speed 3
+		make {_p} shoot an arrow at speed 3
+		push the last shot projectile left at speed 0.18
+		make {_p} shoot an arrow at speed 3
+		push the last shot projectile right at speed 0.18
+	Sound_Shoot({_p})
+	if name of {_p}'s tool contains "Juju":
+		make {_p} shoot an arrow at speed 3
+	Sound_Shoot({_p})	
+
+function NoArrow(p: player):
+	send "&cYour quiver is empty." to {_p}
+	Nope({_p})
+	
+function Sound_Shoot(p: player):
+	play sound "entity.arrow.shoot" at {_p} for {_p}
+
+on click with bow:
+	if "%lore of player's tool%" contains "&6Shortbow" or "&6Arccourt" or "&5Shortbow":
+		cancel event
+		if {CD-Shortbow.%UUID of player%} is not true:
+			if player has arrow:
+				set {CD-Shortbow.%UUID of player%} to true
+				ShortbowTick(player)
+				ShortbowShoot(player)
+				wait "%{ShortBow-Tick.%UUID of player%}% seconds" parsed as timespan
+				delete {ShortBow-Tick.%UUID of player%}
+				delete {CD-Shortbow.%UUID of player%}
+				stop
+			else:
+				if {Quiver-Arrow.%UUID of player%} is higher than 0:
+					set {CD-Shortbow.%UUID of player%} to true
+					#remove 1 from {Quiver-Arrow.%UUID of player%}
+					ShortbowTick(player)
+					ShortbowShoot(player)
+					wait "%{ShortBow-Tick.%UUID of player%}% seconds" parsed as timespan
+					delete {ShortBow-Tick.%UUID of player%}
+					delete {CD-Shortbow.%UUID of player%}
+					stop
+				else:
+					NoArrow(player)
+	
+on inventory click:
+	if name of item is "&9Quiver Arrow":
+		cancel event
+		close player's inventory
+		
+on drop of arrow:
+	if name of event-entity is "&9Quiver Arrow":
+		cancel event
+		
+on inventory open:
+	loop all items in player's inventory:
+		wait 1 tick
+		if name of loop-item is "&9Quiver Arrow":
+			delete loop-item
+			set player's slot 8 to {Item-Menu}
+	
+on shoot:
+	if shooter's tool is a bow:
+		if {CD-Shoot.%UUID of shooter%} is not true:
+			set {CD-Shoot.%UUID of shooter%} to true
+			if {_o} is not true:
+				#send "lol" to shooter
+				if "%lore of shooter's tool%" contains "&6Shortbow" or "&6Arccourt" or "&5Shortbow":
+					#remove 1 from {Quiver-Arrow.%UUID of shooter%}
+					stop
+				else:
+					if {Quiver-Arrow.%UUID of shooter%} is higher than 0:
+						set shooter's slot 8 to 64 of arrow of unbreaking 1 with hidden enchants flag named "&9Quiver Arrow"
+						remove 1 from {Quiver-Arrow.%UUID of shooter%}
+					else:
+						set shooter's slot 8 to {Item-Menu}
+						NoArrow(shooter)
+			wait 1 tick
+			delete {CD-Shoot.%UUID of shooter%}
+	
+on tool change:
+	if player's tool is a bow:
+		if player has arrow:
+			stop
+		else:
+			if "%lore of player's tool%" contains "&6Shortbow" or "&6Arccourt" or "&5Shortbow":
+				stop
+			else:
+				if {Quiver-Arrow.%UUID of player%} is higher than 0:
+					set player's slot 8 to 64 of arrow of unbreaking 1 with hidden enchants flag named "&9Quiver Arrow"
+				else:
+					loop all items in player's inventory:
+						if name of loop-item is "&9Quiver Arrow":
+							delete loop-item
+							set player's slot 8 to {Item-Menu}

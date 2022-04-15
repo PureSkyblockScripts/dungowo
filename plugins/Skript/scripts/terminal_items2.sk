@@ -1,0 +1,4 @@
+on command "/terminal-items":
+	wait 1 tick
+	add unbreakable golden sword with attribute flag hidden with unbreakable flag hidden named "&6Florid Zombie Sword &c✪✪✪✪✪" with lore "&7Gear Score: &dNone" and "&7Damage: &c+180 &e(+30) &8(+1260)" and "&7Strength: &c+150 &e(+30) &8(+1050)" and "&7Intelligence: &a+100 &8(+700)" and "&7" and "&d&lUltimate Wise V, &9Telekinesis I" and "&7" and "&6Ability: Instant Heal &e&lRIGHT CLICK" and "&7Heal for &c+168 &7+ &c5%%&c❤ &7and" and "&7heal players within &a8 &7blocks" and "&7for &c56❤&7." and "&8Mana Cost: &335" and "&8Charges: &e5 &8/ &a15s" and "&7" and "&7Gain &a+2 &7extra max charges" and "&7when you play as a &aHealer &7in" and "&7Dungeons." and "&7" and "&6&lLEGENDARY DUNGEON SWORD" with nbt "{ITEM_ID:""FLORID_ZOMBIE_SWORD""}" to {_l::*}
+	add {_l::*} to player's current inventory

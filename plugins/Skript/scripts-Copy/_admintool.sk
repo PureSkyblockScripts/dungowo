@@ -1,0 +1,53 @@
+command /player-version <offline player>:
+	permission: op
+	trigger:
+		send "&b%minecraft version of arg-1%" to player
+
+on drop:
+	wait 10 seconds
+	kill event-entity
+
+command /makeexecute <player> <text>:
+	permission: op
+	usage: &c/makeexecute <player> <command>
+	trigger:
+		make arg-1 execute command "%arg-2%"
+
+command /block-center:
+	permission: op
+	trigger:
+		set {_l} to block at player's location
+		teleport player at {_l}
+
+on left click with a diamond hoe:
+	if player is op:
+		if {BuildMode.%UUID of player%} is true:
+			make player execute command "//undo"
+
+command /wfl <text>:
+	permission: op
+	usage: &c/wfl <mur/laid/hard/mel/simple/dirt/dirt2>
+	trigger:
+		if arg-1 is "mur":
+			make player execute command "//set stone_bricks,cracked_stone_bricks"
+		if arg-1 is "laid":
+			make player execute command "//set stone,andesite"
+		if arg-1 is "hard":
+			make player execute command "//set andesite,gravel"
+		if arg-1 is "mel":
+			make player execute command "//set andesite,stone,cobblestone"
+		if arg-1 is "simple":
+			make player execute command "//set andesite,cobblestone"
+		if arg-1 is "dirt":
+			make player execute command "//set dirt,coarse_dirt"
+		if arg-1 is "dirt2":
+			make player execute command "//set dirt,coarse_dirt,granite"
+			
+
+command /players:
+	trigger:
+		send "&8====== &6&lJOUEURS&r &8======" to player
+		loop all offline players:
+			send "&7%loop-offline player%" to player
+			add 1 to {_LoopOfflinePlayer}
+		send "&8====== &6&l%{_LoopOfflinePlayer}%&r &8======" to player

@@ -1,0 +1,47 @@
+options:
+	nopermission: &cInsufficient permission.
+	line: &8&m---&r
+	
+command /setwarp [<text>]:
+	permission: op
+	trigger:
+		if arg 1 is not set:
+			message "{@line} &6SetWarp {@line}"
+			message "&6/setwarp &7<warp>"
+		if arg 1 is set:
+			if {SB-Warp::warps::*} contains "%arg 1%":
+				message "&6Warps &8» &7That warp already exists"
+				stop
+			add "%arg 1%" to {SB-Warp::warps::*}
+			set {SB-Warp::warplocations::%arg 1%} to location of player
+			message "&6Warps &8» &7You added warp &6%arg 1% &7with location &7&o%location of player%"
+	
+command /delwarp [<text>]:
+	permission: op
+	trigger:
+		if arg 1 is not set:
+			message "{@line} &6DelWarp {@line}"
+			message "&6/delwarp &7<warp>"
+		if arg 1 is set:
+			if {SB-Warp::warps::*} does not contain "%arg 1%":
+				message "&6Warps &8» &7That warp does not exist"
+				stop
+			remove "%arg 1%" from {SB-Warp::warps::*}
+			delete {SB-Warp::warplocations::%arg 1%}
+			message "&6Warps &8» &7You deleted warp &6%arg 1%"
+	
+command /warp [<text>]:
+	trigger:
+		if arg 1 is not set:
+			message "{@line} &6Warps {@line}"
+			if {SB-Warp::warps::*} is not set:
+				message "&6Warps &8» &7There are not warps yet"
+				stop
+			loop {SB-Warp::warps::*}:
+				message "&7&l• &e%loop-value%"
+		if arg 1 is set:
+			if {SB-Warp::warps::*} does not contain "%arg 1%":
+				message "&6Warps &8» &7That warp does not exist"
+				stop
+			teleport player to {SB-Warp::warplocations::%arg 1%}
+			message "&6Warps &8» &7Warping to &6%arg 1%"

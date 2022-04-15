@@ -1,0 +1,75 @@
+function SBD_Class_StatGive(p: player):
+	set {_pU} to {_p}'s uuid
+	delete {CD-LeftClickMage.%{_pU}%}
+	if {SBD-Class.%{_pU}%} is "Mage":
+		set {_1} to (50+{DungeonClass-Mage.%{_pU}%})
+		set {_2} to (200+{DungeonClass-Mage.%{_pU}%}*50)
+		add {_1} to {Speed.%{_pU}%}
+		add {_2} to {Intelligence.%{_pU}%}
+		send "&eClass Bonus: &a+%{_1}% &f✦ Speed &7+ &a+%{_2}% &b✎ Intelligence&7." to {_p}
+		set {DungeonClass-Stat1.%{_pU}%} to {_1}
+		set {DungeonClass-Stat2.%{_pU}%} to {_2}
+# ===
+	if {SBD-Class.%{_pU}%} is "Berserker":
+		set {_1} to (75+{DungeonClass-Berserker.%{_pU}%}*0.5)
+		add {_1} to {Damage-Deal-Boost-Sword.%{_pU}%}
+		send "&eClass Bonus: &a+%{_1}%&a%% &aMelee Damage&7." to {_p}
+		set {DungeonClass-Stat1.%{_pU}%} to {_1}
+	if {SBD-Class.%{_pU}%} is "Archer":
+		set {_1} to (75+{DungeonClass-Archer.%{_pU}%}*0.5)
+		add {_1} to {Damage-Deal-Boost-Bow.%{_pU}%}
+		send "&eClass Bonus: &a+%{_1}%&a%% &aBow Damage&7." to {_p}
+		set {DungeonClass-Stat1.%{_pU}%} to {_1}
+	if {SBD-Class.%{_pU}%} is "Tank":
+		set {_1} to (({DungeonClass-Tank.%{_pU}%}*0.4)/100) # 0.2
+		set {DungeonClass-Stat1.%{_pU}%} to {_1}*{Defense.%{_pU}%}
+		set {DungeonClass-Stat2.%{_pU}%} to {_1}*{MaxHealth.%{_pU}%}
+		add {_1}*{Defense.%{_pU}%} to {Defense.%{_pU}%}
+		add {_1}*{MaxHealth.%{_pU}%} to {MaxHealth.%{_pU}%}
+		send "&eClass Bonus &a+%{_1}*100%&a%% &a❈ Defense &7(+%{_1}*{Defense.%{_pU}%}%&7) &7+ &a+%{_1}*100%&a%% &c❤ Max Health &7(+%{_1}*{MaxHealth.%{_pU}%}%&7)&7." to {_p}
+	if {SBD-Class.%{_pU}%} is "Healer":
+		set {_1} to ((50+{DungeonClass-Healer.%{_pU}%})/100)
+		set {DungeonClass-Stat1.%{_pU}%} to {_1}*{NaturalRegeneration.%{_pU}%}
+		add ({_1}*100)*{NaturalRegeneration.%{_pU}%} to {NaturalRegeneration.%{_pU}%}
+		send "&eClass Bonus &a+%{_1}*100%&a%% &aBase Regen Boost&7." to {_p}
+
+function SBD_Class_StatRemove(p: player):
+	set {_pU} to {_p}'s uuid
+	set {_1} to {DungeonClass-Stat1.%{_pU}%}
+	set {_2} to {DungeonClass-Stat2.%{_pU}%}
+	if {SBD-Class.%{_pU}%} is "Mage":
+		remove {_1} from {Speed.%{_pU}%}
+		remove {_2} from {Intelligence.%{_pU}%}
+# ===
+	if {SBD-Class.%{_pU}%} is "Berserker":
+		remove {_1} from {Damage-Deal-Boost-Sword.%{_pU}%}
+	if {SBD-Class.%{_pU}%} is "Archer":
+		remove {_1} from {Damage-Deal-Boost-Bow.%{_pU}%}
+	if {SBD-Class.%{_pU}%} is "Tank":
+		remove {_1} from {Defense.%{_pU}%}
+		remove {_2} from {MaxHealth.%{_pU}%}
+	if {SBD-Class.%{_pU}%} is "Healer":
+		remove {_1} from {NaturalRegeneration.%{_pU}%}
+	send "&7Your Class Bonus has been removed." to {_p}
+	delete {DungeonClass-Stat1.%{_pU}%}
+	delete {DungeonClass-Stat2.%{_pU}%}
+	delete {SBD-Class.%{_pU}%}
+	stop
+	
+command /damage-boost <text> <number>:
+	permission: op
+	usage: &c/damage-boost <Sword/Bow> <valeur>
+	trigger:
+		send "&7Before: &6%{Damage-Deal-Boost-%arg-1%.%UUID of player%}%" to player
+		set {Damage-Deal-Boost-%arg-1%.%UUID of player%} to arg-2
+		send "&6&lSET!" to player
+	
+command /dungeonclass-boostgive:
+	permission: op
+	trigger:
+		SBD_Class_StatGive(player)
+
+command /dungeonclass-boostremove:
+	permission: op
+	trigger:
+		SBD_Class_StatRemove(player)

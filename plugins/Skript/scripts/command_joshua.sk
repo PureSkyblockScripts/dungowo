@@ -1,0 +1,16 @@
+command /sellcactus:
+ trigger:
+  set {_attentelol} to difference between {lol.%UUID of player%} and now
+  if {_attentelol} is less than 0.5 seconds:
+   send "&cPatiente encore 0.1s. :p" to player
+   stop
+  else:
+   set {lol.%UUID of player%} to now
+   loop all items in the player's inventory:
+    if loop-item is a cactus:
+     if name of loop-item is not "&9Cactus Enchanté":
+      set {_cactus} to number of loop-item in the player's inventory
+      add ({_cactus} * 2) to {purse.%UUID of player%}
+      remove all loop-item from player's inventory
+      send "&a%{_cactus}% &acactus &7vendu pour &6%({_cactus} * 2)% &6Pièces&7." to player
+      stop
